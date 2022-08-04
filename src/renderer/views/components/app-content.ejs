@@ -15,14 +15,14 @@
             <transition
             <% if(env.appRoutes[i].onEnter) {
             %>
-                v-on:enter="<%- env.appRoutes[i].onEnter %>"
+                v-on:enter="<%- env.appRoutes[i].onEnter; %>"
                     <%
                     }
                     %>
                 :name="$root.chrome.desiredPageTransition">
                 <template
-                        v-if="<%- env.appRoutes[i].condition %>">
-                    <%- env.appRoutes[i].component %>
+                        v-if="<%- env.appRoutes[i].condition; %>">
+                    <%- env.appRoutes[i].component; %>
                 </template>
             </transition>
         <% } %>
@@ -38,14 +38,13 @@
 </script>
 
 <script>
-    Vue.component('app-content-area', {
-        template: '#app-content-area',
-        data: function () {
-            return {
-                scrollPos: 0
-            }
-        },
-        methods: {
-        }
-    });
+  Vue.component('app-content-area', {
+    template: '#app-content-area',
+    data: function() {
+      return {
+        scrollPos: 0
+      }
+    },
+    methods: {}
+  });
 </script>

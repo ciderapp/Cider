@@ -31,9 +31,9 @@ async function spawnMica() {
   }
   if (micaCache.path == imgSrc.path) {
     imgSrc = micaCache;
-  }else{
+  } else {
     imgSrc = await ipcRenderer.sendSync("get-wallpaper", {
-      blurAmount: 256
+      blurAmount: 256,
     });
     CiderCache.putCache("mica-cache", imgSrc);
   }
@@ -51,10 +51,7 @@ async function spawnMica() {
         cb();
       }
       // window size change
-      if (
-        lastScreenWidth !== window.innerWidth ||
-        lastScreenHeight !== window.innerHeight
-      ) {
+      if (lastScreenWidth !== window.innerWidth || lastScreenHeight !== window.innerHeight) {
         lastScreenWidth = window.innerWidth;
         lastScreenHeight = window.innerHeight;
         cb();

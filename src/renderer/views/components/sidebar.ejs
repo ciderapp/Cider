@@ -138,14 +138,14 @@
                 >
                 </sidebar-library-item>
             </template>
-            <template v-if="$root.cfg.libraryPrefs.localPaths.length != 0 && $root.cfg.advanced.experiments.includes('localLibrary')">
+            <template v-if="$root.cfg.libraryPrefs.localPaths.length != 0">
                 <div class="app-sidebar-header-text"
-                  @click="$root.cfg.general.sidebarCollapsed.localLibrary = !$root.cfg.general.sidebarCollapsed.localLibrary"
-                  :class="{collapsed: $root.cfg.general.sidebarCollapsed.localLibrary}">
-                  Local Library
+                     @click="$root.cfg.general.sidebarCollapsed.localLibrary = !$root.cfg.general.sidebarCollapsed.localLibrary"
+                     :class="{collapsed: $root.cfg.general.sidebarCollapsed.localLibrary}">
+                    Local Library
                 </div>
                 <template v-if="!$root.cfg.general.sidebarCollapsed.localLibrary">
-                  <sidebar-playlist :item="{attributes: { name:'Songs'} , id:'ciderlocal'}"></sidebar-playlist>
+                    <sidebar-playlist :item="{attributes: { name:'Songs'} , id:'ciderlocal'}"></sidebar-playlist>
                 </template>
             </template>
             <template v-if="$root.getPlaylistFolderChildren('p.applemusic').length != 0">
@@ -310,7 +310,7 @@
 </script>
 
 <script>
-    Vue.component("cider-app-sidebar", {
-        template: "#cider-app-sidebar"
-    })
+  Vue.component("cider-app-sidebar", {
+    template: "#cider-app-sidebar"
+  })
 </script>

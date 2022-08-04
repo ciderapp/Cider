@@ -242,7 +242,6 @@
     }
 
     .list-group-item {
-
       &:hover {
         cursor: grab;
       }
@@ -294,7 +293,6 @@
 
 // Search Page
 &.search-page {
-
   .searchToggle {
     float: right;
 
@@ -302,7 +300,7 @@
       min-width: 120px;
     }
   }
-  .categories{
+  .categories {
     display: grid;
     grid-template-columns: repeat(3, minmax(200px, 1fr));
     gap: 1rem;
@@ -316,7 +314,7 @@
       width: 100% !important;
       z-index: 1;
     }
-    .info-rect{
+    .info-rect {
       height: max-content;
     }
     .title {
@@ -452,7 +450,7 @@
       right: 0;
 
       &:hover {
-        background-color: rgb(196, 43, 28)
+        background-color: rgb(196, 43, 28);
       }
     }
 
@@ -488,10 +486,7 @@
       display: block;
       line-break: anywhere;
     }
-
-
   }
-
 }
 
 // Podcast Page
@@ -622,7 +617,7 @@
         right: 0;
 
         &:hover {
-          background-color: rgb(196, 43, 28)
+          background-color: rgb(196, 43, 28);
         }
       }
 
@@ -657,10 +652,7 @@
         display: block;
         line-break: anywhere;
       }
-
-
     }
-
   }
 
   @media only screen and (max-width: 1230px) {
@@ -828,7 +820,7 @@
       margin-bottom: -10px;
       padding: 0;
       -webkit-mask-image: radial-gradient(at top left, black, transparent 70%), radial-gradient(at top right, black, transparent 70%), linear-gradient(180deg, rgb(200 200 200), transparent 98%);
-      opacity: .7;
+      opacity: 0.7;
       animation: playlistArtworkFadeIn 1s var(--appleEase);
 
       .artworkMaterial img {
@@ -898,7 +890,7 @@
         }
 
         .search-input::placeholder {
-          color: var(--heroplaceholdercolor)
+          color: var(--heroplaceholdercolor);
         }
 
         .nameEdit {
@@ -939,7 +931,7 @@
         }
 
         .playlist-desc {
-          transition: height .2s ease-in-out, opacity .2s ease-in-out;
+          transition: height 0.2s ease-in-out, opacity 0.2s ease-in-out;
           box-sizing: border-box;
           font-size: 14px;
           flex-shrink: unset;
@@ -1043,8 +1035,6 @@
         }
       }
     }
-
-
   }
 
   .friends-info {
@@ -1061,7 +1051,7 @@
         border-radius: 100%;
         overflow: hidden;
         box-shadow: var(--mediaItemShadow-ShadowSubtle);
-        transition: transform .2s var(--appleEase);
+        transition: transform 0.2s var(--appleEase);
         margin: 6px;
 
         &:hover {
@@ -1081,7 +1071,7 @@
     font-size: 0.9em;
     margin: 6px;
     opacity: 0.7;
-    transition: height .2s ease-in-out, opacity .2s ease-in-out;
+    transition: height 0.2s ease-in-out, opacity 0.2s ease-in-out;
     height: 0.9em;
   }
 
@@ -1151,13 +1141,13 @@
       }
 
       .playlist-time {
-        transition: height .2s ease-in-out, opacity .2s ease-in-out;
+        transition: height 0.2s ease-in-out, opacity 0.2s ease-in-out;
         height: 0px;
         opacity: 0;
       }
 
       .playlist-desc {
-        transition: height .2s ease-in-out, opacity .2s ease-in-out;
+        transition: height 0.2s ease-in-out, opacity 0.2s ease-in-out;
         height: 0px !important;
         opacity: 0;
       }
@@ -1272,7 +1262,6 @@
       }
     }
 
-
     .artworkContainer {
       position: absolute;
       top: 0;
@@ -1282,7 +1271,7 @@
       margin: 0;
       padding: 0;
       -webkit-mask-image: radial-gradient(at top left, black, transparent 70%), radial-gradient(at top right, black, transparent 70%), linear-gradient(180deg, rgb(200 200 200), transparent 98%);
-      opacity: .7;
+      opacity: 0.7;
       animation: playlistArtworkFadeIn 1s var(--appleEase);
 
       .artworkMaterial img {
@@ -1412,7 +1401,6 @@
   }
 
   .artist-title {
-
     .artist-play {
       transform: translateY(3px);
       margin: 14px;
@@ -1490,7 +1478,6 @@
     width: 90%;
     margin: 16px auto 0px;
   }
-
 }
 
 // AudioLabs page
@@ -1502,7 +1489,7 @@
     border-bottom: unset;
     border-top: unset;
     font-weight: 600;
-    font-size: 1.0em;
+    font-size: 1em;
     background: rgb(255 255 255 / 3%);
   }
 
@@ -1548,7 +1535,7 @@
         }
 
         &:before {
-          content: '';
+          content: "";
           position: absolute;
           top: 0;
           left: 0;
@@ -1568,7 +1555,6 @@
         &:before {
           -webkit-mask-image: url("./views/svg/chevron-left.svg");
         }
-
       }
 
       .nextprev {
@@ -1577,7 +1563,6 @@
         &:before {
           -webkit-mask-image: url("./views/svg/chevron-right.svg");
         }
-
       }
 
       .spslide {
@@ -1588,7 +1573,7 @@
         background: black;
 
         > img {
-          WIDTH: 100%;
+          width: 100%;
           height: 100%;
           object-fit: cover;
         }
@@ -1646,7 +1631,6 @@
 
 //Home
 .home-page {
-
   .md-btn-replay {
     background-image: linear-gradient(-45deg, #2e2173, #925042);
     animation: gradient-animation 5s ease-in-out infinite;
@@ -1738,8 +1722,8 @@
     border-radius: var(--mediaItemRadius);
     overflow: hidden;
     cursor: pointer;
-    transition: transform .2s var(--appleEase);
-    transition-delay: .1s;
+    transition: transform 0.2s var(--appleEase);
+    transition-delay: 0.1s;
     align-self: center;
 
     &:hover {
@@ -1780,7 +1764,6 @@
   }
 
   .top-genres-container {
-
     .genre-name {
       font-size: 0.9em;
       margin: 6px 0px;
@@ -1810,11 +1793,11 @@
 
   .cd-mediaitem-square {
     .mediaitem-artwork {
-      animation: replayFadeIn .5s var(--appleEase);
+      animation: replayFadeIn 0.5s var(--appleEase);
     }
 
-    transition: transform .2s var(--appleEase);
-    transition-delay: .1s;
+    transition: transform 0.2s var(--appleEase);
+    transition-delay: 0.1s;
 
     &:hover {
       transform: scale(1.1);
@@ -1883,7 +1866,6 @@
     height: 100%;
     width: 100%;
 
-
     .oobe-header {
       font-size: 3em;
       text-shadow: var(--replayTextShadow);
@@ -1927,7 +1909,7 @@
 
           .visualPreview {
             pointer-events: none;
-            transition: .25s all;
+            transition: 0.25s all;
             width: 100%;
           }
 
@@ -1954,9 +1936,8 @@
             outline: 4px solid var(--keyColor);
           }
 
-
           &:hover {
-            transform: scale(1.10) translateZ(-1px) translateY(10px);
+            transform: scale(1.1) translateZ(-1px) translateY(10px);
             z-index: 1;
             box-shadow: 0px 12px 16px rgb(0 0 0 / 25%);
           }
@@ -1981,9 +1962,7 @@
         text-align: center;
       }
     }
-
   }
-
 
   .oobe-titlebar {
     position: absolute;
@@ -2125,7 +2104,6 @@
 
     .nav-pills {
       gap: 6px;
-
     }
 
     .nav-pills .nav-link {
@@ -2138,7 +2116,6 @@
         white-space: nowrap;
       }
     }
-
 
     .md-option-header {
       padding: 0px 26px;
@@ -2192,7 +2169,7 @@
       }
 
       &:hover {
-        background-color: rgb(196, 43, 28)
+        background-color: rgb(196, 43, 28);
       }
 
       &.back-btn {
@@ -2241,35 +2218,36 @@
       overflow-y: overlay;
       height: 100%;
       background-color: var(--panelColor2);
-      padding:0px;
+      padding: 0px;
       padding-top: 48px;
       border-left: 1px solid var(--borderColor);
     }
 
-    .github-themes-page, .installed-themes-page {
+    .github-themes-page,
+    .installed-themes-page {
       .header-text {
         font-size: 1.25em;
       }
     }
 
     .tab-pane {
-      height:100%;
+      height: 100%;
     }
 
     .settings-tab-content {
-      height:100%;
+      height: 100%;
     }
 
     &.no-sidebar {
       .gh-header {
-        >.row {
+        > .row {
           &:last-child {
             padding-right: 90px;
           }
         }
       }
       .tab-content {
-        padding-top:0px;
+        padding-top: 0px;
       }
 
       .tabs {
@@ -2277,10 +2255,10 @@
           width: 50px;
           :nth-child(2) {
             // font-size: 0px;
-            opacity:0;
+            opacity: 0;
           }
         }
-        >.col-auto {
+        > .col-auto {
           width: 80px;
         }
       }

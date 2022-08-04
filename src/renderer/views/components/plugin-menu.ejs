@@ -1,5 +1,6 @@
 <script type="text/x-template" id="plugin-menu">
-    <div class="modal-fullscreen addtoplaylist-panel" @click.self="app.resetState()" @contextmenu.self="app.resetState()">
+    <div class="modal-fullscreen addtoplaylist-panel" @click.self="app.resetState()"
+         @contextmenu.self="app.resetState()">
         <div class="modal-window">
             <div class="modal-header">
                 <div class="modal-title">{{$root.getLz('term.pluginMenu')}}</div>
@@ -10,30 +11,32 @@
                 <span class="icon"><%- include("../svg/x.svg") %></span>
                 <span class="name" style="top: 0.5px;">{{$root.getLz('term.pluginMenu.none')}}</span>
             </span>
-            <button class="playlist-item" @click="entry.onClick(); closeMenu();" v-for="entry in app.pluginMenuEntries">
-                <span class="icon"><%- include("../svg/grid.svg") %></span>
-                <span class="name" style="top: 0.5px;">{{ entry.name }}</span>
-            </button>
+                <button class="playlist-item" @click="entry.onClick(); closeMenu();"
+                        v-for="entry in app.pluginMenuEntries">
+                    <span class="icon"><%- include("../svg/grid.svg") %></span>
+                    <span class="name" style="top: 0.5px;">{{ entry.name }}</span>
+                </button>
             </div>
         </div>
     </div>
 </script>
 
 <script>
-    Vue.component('plugin-menu', {
-        template: '#plugin-menu',
-        data: function () {
-            return {
-                app: this.$root,
-            }
-        },
-        props: {},
-        mounted() {},
-        methods: {
-            closeMenu() {
-                app.modals.pluginMenu = false
-            },
-            },
+  Vue.component('plugin-menu', {
+      template: '#plugin-menu',
+      data: function() {
+        return {
+          app: this.$root,
         }
-    );
+      },
+      props: {},
+      mounted() {
+      },
+      methods: {
+        closeMenu() {
+          app.modals.pluginMenu = false
+        },
+      },
+    }
+  );
 </script>

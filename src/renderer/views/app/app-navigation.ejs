@@ -1,136 +1,136 @@
 <div class="app-navigation" v-cloak>
     <transition name="wpfade">
-      <div class="usermenu-container" v-if="chrome.menuOpened">
-        <div class="usermenu-body">
-          <button
-            class="app-sidebar-button"
-            style="width: 100%"
-            @click="appRoute('apple-account-settings')"
-          >
-            <img
-              class="sidebar-user-icon"
-              loading="lazy"
-              :src="getMediaItemArtwork(chrome.hideUserInfo ? './assets/logocut.png' : (chrome.userinfo.attributes['artwork'] ? chrome.userinfo.attributes['artwork']['url'] : ''), 26)"
-            />
+        <div class="usermenu-container" v-if="chrome.menuOpened">
+            <div class="usermenu-body">
+                <button
+                        class="app-sidebar-button"
+                        style="width: 100%"
+                        @click="appRoute('apple-account-settings')"
+                >
+                    <img
+                            class="sidebar-user-icon"
+                            loading="lazy"
+                            :src="getMediaItemArtwork(chrome.hideUserInfo ? './assets/logocut.png' : (chrome.userinfo.attributes['artwork'] ? chrome.userinfo.attributes['artwork']['url'] : ''), 26)"
+                    />
 
-            <div class="sidebar-user-text" v-if="!chrome.hideUserInfo">
-              <template v-if="chrome.userinfo.id || mk.isAuthorized">
-                <div class="fullname text-overflow-elipsis">
-                  {{
-                    chrome.userinfo != null &&
-                    chrome.userinfo.attributes != null
-                      ? chrome.userinfo.attributes.name ?? ""
-                      : ""
-                  }}
-                </div>
-                <div class="handle-text text-overflow-elipsis">
-                  {{
-                    chrome.userinfo != null &&
-                    chrome.userinfo.attributes != null
-                      ? chrome.userinfo.attributes.handle ?? ""
-                      : ""
-                  }}
-                </div>
-              </template>
-              <template v-else>
-                <div @click="mk.authorize()">
-                  {{ $root.getLz("term.login") }}
-                </div>
-              </template>
-            </div>
-            <div class="sidebar-user-text" v-else>
-              {{ $root.getLz("app.name") }}
-            </div>
-          </button>
-          <!-- Use 20px SVG for usermenu icon -->
-          <button
-            class="usermenu-item"
-            v-if="cfg.general.privateEnabled"
-            @click="cfg.general.privateEnabled = false"
-          >
+                    <div class="sidebar-user-text" v-if="!chrome.hideUserInfo">
+                        <template v-if="chrome.userinfo.id || mk.isAuthorized">
+                            <div class="fullname text-overflow-elipsis">
+                                {{
+                                chrome.userinfo != null &&
+                                chrome.userinfo.attributes != null
+                                ? chrome.userinfo.attributes.name ?? ""
+                                : ""
+                                }}
+                            </div>
+                            <div class="handle-text text-overflow-elipsis">
+                                {{
+                                chrome.userinfo != null &&
+                                chrome.userinfo.attributes != null
+                                ? chrome.userinfo.attributes.handle ?? ""
+                                : ""
+                                }}
+                            </div>
+                        </template>
+                        <template v-else>
+                            <div @click="mk.authorize()">
+                                {{ $root.getLz("term.login") }}
+                            </div>
+                        </template>
+                    </div>
+                    <div class="sidebar-user-text" v-else>
+                        {{ $root.getLz("app.name") }}
+                    </div>
+                </button>
+                <!-- Use 20px SVG for usermenu icon -->
+                <button
+                        class="usermenu-item"
+                        v-if="cfg.general.privateEnabled"
+                        @click="cfg.general.privateEnabled = false"
+                >
             <span class="usermenu-item-icon">
               <%- include("../svg/x.svg") %>
             </span>
-            <span class="usermenu-item-name">{{
+                    <span class="usermenu-item-name">{{
               $root.getLz("term.disablePrivateSession")
             }}</span>
-          </button>
-          <button class="usermenu-item" @click="appRoute('remote-pair')">
+                </button>
+                <button class="usermenu-item" @click="appRoute('remote-pair')">
             <span class="usermenu-item-icon">
               <%- include("../svg/smartphone.svg") %>
             </span>
-            <span class="usermenu-item-name">{{
+                    <span class="usermenu-item-name">{{
               $root.getLz("action.showWebRemoteQR")
             }}</span>
-          </button>
-          <button
-            class="usermenu-item"
-            @click="modals.castMenu = true"
-          >
+                </button>
+                <button
+                        class="usermenu-item"
+                        @click="modals.castMenu = true"
+                >
             <span class="usermenu-item-icon">
               <%- include("../svg/cast.svg") %>
             </span>
-            <span class="usermenu-item-name">{{
+                    <span class="usermenu-item-name">{{
               $root.getLz("term.cast")
             }}</span>
-          </button>
-          <button
-            class="usermenu-item"
-            @click="modals.audioSettings = true"
-          >
+                </button>
+                <button
+                        class="usermenu-item"
+                        @click="modals.audioSettings = true"
+                >
             <span class="usermenu-item-icon">
               <%- include("../svg/headphones.svg") %>
             </span>
-            <span class="usermenu-item-name">{{
+                    <span class="usermenu-item-name">{{
               $root.getLz("term.audioSettings")
             }}</span>
-          </button>
-          <button
-            class="usermenu-item"
-            v-if="pluginInstalled"
-            @click="modals.pluginMenu = true"
-          >
+                </button>
+                <button
+                        class="usermenu-item"
+                        v-if="pluginInstalled"
+                        @click="modals.pluginMenu = true"
+                >
             <span class="usermenu-item-icon">
               <%- include("../svg/grid.svg") %>
             </span>
-            <span class="usermenu-item-name">{{
+                    <span class="usermenu-item-name">{{
               $root.getLz("term.plugin")
             }}</span>
-          </button>
-          <button class="usermenu-item" @click="appRoute('about')">
+                </button>
+                <button class="usermenu-item" @click="appRoute('about')">
             <span class="usermenu-item-icon">
               <%- include("../svg/info.svg") %>
             </span>
-            <span class="usermenu-item-name">{{
+                    <span class="usermenu-item-name">{{
               $root.getLz("term.about")
             }}</span>
-          </button>
-          <button class="usermenu-item" @click="modals.settings = true">
+                </button>
+                <button class="usermenu-item" @click="modals.settings = true">
             <span class="usermenu-item-icon">
               <%- include("../svg/settings.svg") %>
             </span>
-            <span class="usermenu-item-name">{{
+                    <span class="usermenu-item-name">{{
               $root.getLz("term.settings")
             }}</span>
-          </button>
-          <button class="usermenu-item" @click="unauthorize()">
+                </button>
+                <button class="usermenu-item" @click="unauthorize()">
             <span class="usermenu-item-icon" style="right: 2.5px">
               <%- include("../svg/log-out.svg") %>
             </span>
-            <span class="usermenu-item-name">{{
+                    <span class="usermenu-item-name">{{
               $root.getLz("term.logout")
             }}</span>
-          </button>
-          <button class="usermenu-item" @click="quit()">
+                </button>
+                <button class="usermenu-item" @click="quit()">
             <span class="usermenu-item-icon" style="right: 2.5px">
               <%- include("../svg/x.svg") %>
             </span>
-            <span class="usermenu-item-name">{{
+                    <span class="usermenu-item-name">{{
               $root.getLz("term.quit")
             }}</span>
-          </button>
+                </button>
+            </div>
         </div>
-      </div>
     </transition>
     <transition name="sidebartransition">
         <cider-app-sidebar v-if="!chrome.sidebarCollapsed"></cider-app-sidebar>
@@ -141,9 +141,12 @@
              v-if="drawer.open && drawer.panel == 'lyrics' && lyrics && lyrics != [] && lyrics.length > 0">
             <div class="bgArtworkMaterial">
                 <div class="bg-artwork-container">
-                    <img v-if="(cfg.visual.bg_artwork_rotation && animateBackground)" class="bg-artwork a" :src="$store.state.artwork.playerLCD">
-                    <img v-if="(cfg.visual.bg_artwork_rotation && animateBackground)" class="bg-artwork b" :src="$store.state.artwork.playerLCD">
-                    <img v-if="!(cfg.visual.bg_artwork_rotation && animateBackground)" class="bg-artwork no-animation" :src="$store.state.artwork.playerLCD">
+                    <img v-if="(cfg.visual.bg_artwork_rotation && animateBackground)" class="bg-artwork a"
+                         :src="$store.state.artwork.playerLCD">
+                    <img v-if="(cfg.visual.bg_artwork_rotation && animateBackground)" class="bg-artwork b"
+                         :src="$store.state.artwork.playerLCD">
+                    <img v-if="!(cfg.visual.bg_artwork_rotation && animateBackground)" class="bg-artwork no-animation"
+                         :src="$store.state.artwork.playerLCD">
                 </div>
             </div>
             <lyrics-view v-if="drawer.panel == 'lyrics'" :time="mk.currentPlaybackTime - lyricOffset" :lyrics="lyrics"

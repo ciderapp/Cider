@@ -6,27 +6,27 @@
 </script>
 
 <script>
-    Vue.component('mediaitem-scroller-horizontal', {
-        template: '#mediaitem-scroller-horizontal',
-        props: {
-            'items': {
-                type: Array,
-                required: false
-            },
-            'kind': {
-                type: String,
-                required: false,
-                defualt: ""
-            }
-        },
-        data: function() {
-            return {
-                app: this.$root,
-            }
-        },
-        mounted() {
-            // this.$refs.horizontal.refresh()
-        },
-        methods: {}
-    });
+  Vue.component('mediaitem-scroller-horizontal', {
+    template: '#mediaitem-scroller-horizontal',
+    props: {
+      'items': {
+        type: Array,
+        required: false
+      },
+      'kind': {
+        type: String,
+        required: false,
+        defualt: ""
+      }
+    },
+    data: function() {
+      return {
+        app: this.$root,
+      }
+    },
+    mounted() {
+      // this.$refs.horizontal.refresh()
+    },
+    methods: {}
+  });
 </script>

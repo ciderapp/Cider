@@ -1,10 +1,10 @@
-var util                      = require('util');
-var castv2Cli                 = require('castv2-client');
+var util = require("util");
+var castv2Cli = require("castv2-client");
 var RequestResponseController = castv2Cli.RequestResponseController;
 
 function CiderCastController(client, sourceId, destinationId) {
-  RequestResponseController.call(this, client, sourceId, destinationId, 'urn:x-cast:com.ciderapp.customdata');
-  this.once('close', onclose);
+  RequestResponseController.call(this, client, sourceId, destinationId, "urn:x-cast:com.ciderapp.customdata");
+  this.once("close", onclose);
   var self = this;
   function onclose() {
     self.stop();
@@ -13,19 +13,19 @@ function CiderCastController(client, sourceId, destinationId) {
 
 util.inherits(CiderCastController, RequestResponseController);
 
-CiderCastController.prototype.sendIp = function(ip) {
+CiderCastController.prototype.sendIp = function (ip) {
   // TODO: Implement Callback
   let data = {
-      ip : ip
-  }
+    ip: ip,
+  };
   this.request(data);
 };
 
-CiderCastController.prototype.kill = function() {
+CiderCastController.prototype.kill = function () {
   // TODO: Implement Callback
   let data = {
-      action : "stop"
-  }
+    action: "stop",
+  };
   this.request(data);
 };
 

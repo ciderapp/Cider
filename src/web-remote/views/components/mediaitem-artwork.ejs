@@ -11,95 +11,95 @@
 </script>
 
 <script>
-    Vue.component('mediaitem-artwork', {
-        template: '#mediaitem-artwork',
-        props: {
-            size: {
-                type: [String, Number],
-                default: '120'
-            },
-            width: {
-                type: [String, Number],
-                required: false
-            },
-            url: {
-                type: String,
-                default: ''
-            },
-            type: {
-                type: String,
-                default: ''
-            },
-            video: {
-                type: String,
-                required: false
-            },
-            videoPriority: {
-                type: Boolean,
-                required: false
-            },
-            shadow: {
-                type: String,
-                default: ''
-            }
+  Vue.component('mediaitem-artwork', {
+    template: '#mediaitem-artwork',
+    props: {
+      size: {
+        type: [String, Number],
+        default: '120'
+      },
+      width: {
+        type: [String, Number],
+        required: false
+      },
+      url: {
+        type: String,
+        default: ''
+      },
+      type: {
+        type: String,
+        default: ''
+      },
+      video: {
+        type: String,
+        required: false
+      },
+      videoPriority: {
+        type: Boolean,
+        required: false
+      },
+      shadow: {
+        type: String,
+        default: ''
+      }
+    },
+    data: function() {
+      return {
+        app: this.$root,
+        isVisible: false,
+        style: {
+          "box-shadow": ""
         },
-        data: function () {
-            return {
-                app:this.$root,
-                isVisible: false,
-                style: {
-                    "box-shadow": ""
-                },
-                classes: []
-            }
-        },
-        mounted() {
-            this.getClasses()
-        },
-        methods: {
-            getVideoPriority() {
-                return false
-            },
-            getClasses() {
-                switch (this.shadow) {
-                    case "none":
-                        this.classes.push("no-shadow")
-                        break;
-                    case "large":
-                        this.classes.push("shadow")
-                        break;
-                    case "subtle":
-                        this.classes.push("subtle-shadow")
-                        break;
-                    default:
-                        break;
-                }
-                return this.classes;
-            },
-            getArtworkStyle() {
-                return {
-                    width: this.size + 'px',
-                    height: this.size + 'px'
-                };
-            },
-            visibilityChanged: function (isVisible, entry) {
-                this.isVisible = isVisible
-            },
-            getMediaItemArtwork(url, height = 64, width) {
-            if (typeof url == "undefined" || url == "") {
-                return "./assets/MissingArtwork.svg"
-            }
-            height = parseInt(height * window.devicePixelRatio)
-            if (width) {
-                width = parseInt(width * window.devicePixelRatio)
-            }
-            let newurl = `${url.replace('{w}', width ?? height).replace('{h}', height).replace('{f}', "webp").replace('{c}', ((width === 900) ? "sr" : "cc"))}`;
-
-            if (newurl.includes("900x516")) {
-                newurl = newurl.replace("900x516cc", "900x516sr").replace("900x516bb", "900x516sr");
-            }
-            return newurl
-            },
+        classes: []
+      }
+    },
+    mounted() {
+      this.getClasses()
+    },
+    methods: {
+      getVideoPriority() {
+        return false
+      },
+      getClasses() {
+        switch (this.shadow) {
+          case "none":
+            this.classes.push("no-shadow")
+            break;
+          case "large":
+            this.classes.push("shadow")
+            break;
+          case "subtle":
+            this.classes.push("subtle-shadow")
+            break;
+          default:
+            break;
         }
-    });
+        return this.classes;
+      },
+      getArtworkStyle() {
+        return {
+          width: this.size + 'px',
+          height: this.size + 'px'
+        };
+      },
+      visibilityChanged: function(isVisible, entry) {
+        this.isVisible = isVisible
+      },
+      getMediaItemArtwork(url, height = 64, width) {
+        if (typeof url == "undefined" || url == "") {
+          return "./assets/MissingArtwork.svg"
+        }
+        height = parseInt(height * window.devicePixelRatio)
+        if (width) {
+          width = parseInt(width * window.devicePixelRatio)
+        }
+        let newurl = `${url.replace('{w}', width ?? height).replace('{h}', height).replace('{f}', "webp").replace('{c}', ((width === 900) ? "sr" : "cc"))}`;
+
+        if (newurl.includes("900x516")) {
+          newurl = newurl.replace("900x516cc", "900x516sr").replace("900x516bb", "900x516sr");
+        }
+        return newurl
+      },
+    }
+  });
 </script>

@@ -5,66 +5,68 @@
             <mediaitem-square v-for="item in items" :item="item"></mediaitem-square>
         </div>
         <div class="well itemContainer collection-list-square" v-else="itemSize == 'compact'">
-            <mediaitem-list-item :show-meta-data="true" :show-library-status="false" v-for="item in items" :item="item"></mediaitem-list-item>
+            <mediaitem-list-item :show-meta-data="true" :show-library-status="false" v-for="item in items"
+                                 :item="item"></mediaitem-list-item>
         </div>
         <div class="well itemContainer collection-list-square" v-show="loading">
             <div class="spinner"></div>
         </div>
-        <button v-if="nextUrl && !loading" style="opacity:0;height: 32px;" v-observe-visibility="{callback: visibilityChanged}">{{$root.getLz('term.showMore')}}
+        <button v-if="nextUrl && !loading" style="opacity:0;height: 32px;"
+                v-observe-visibility="{callback: visibilityChanged}">{{$root.getLz('term.showMore')}}
         </button>
     </div>
 </script>
 
 <script>
-    Vue.component("cider-recentlyadded", {
-        template: "#cider-recentlyadded",
-        computed: {
-            items() {
-                return this.$store.state.pageState['recentlyAdded'].items;
-            },
-            nextUrl() {
-                return this.$store.state.pageState['recentlyAdded'].nextUrl;
-            },
-            itemSize() {
-                return this.$store.state.pageState['recentlyAdded'].size
-            }
-        },
-        data: function () {
-            return {
-                loading: false,
-                firstRoute: `/v1/me/library/recently-added?l=${app.mklang}&platform=web&include[library-albums]=artists&include[library-artists]=catalog&fields[artists]=url&fields%5Balbums%5D=artistName%2CartistUrl%2Cartwork%2CcontentRating%2CeditorialArtwork%2Cname%2CplayParams%2CreleaseDate%2Curl&includeOnly=catalog%2Cartists&limit=25`
-            }
-        },
-        async mounted() {
-            if(this.$store.state.pageState['recentlyAdded'].items.length !== 0) return
+  Vue.component("cider-recentlyadded", {
+    template: "#cider-recentlyadded",
+    computed: {
+      items() {
+        return this.$store.state.pageState['recentlyAdded'].items;
+      },
+      nextUrl() {
+        return this.$store.state.pageState['recentlyAdded'].nextUrl;
+      },
+      itemSize() {
+        return this.$store.state.pageState['recentlyAdded'].size
+      }
+    },
+    data: function() {
+      return {
+        loading: false,
+        firstRoute: `/v1/me/library/recently-added?l=${app.mklang}&platform=web&include[library-albums]=artists&include[library-artists]=catalog&fields[artists]=url&fields%5Balbums%5D=artistName%2CartistUrl%2Cartwork%2CcontentRating%2CeditorialArtwork%2Cname%2CplayParams%2CreleaseDate%2Curl&includeOnly=catalog%2Cartists&limit=25`
+      }
+    },
+    async mounted() {
+      if (this.$store.state.pageState['recentlyAdded'].items.length !== 0) return
 
-            const firstResult = await app.mk.api.v3.music(this.firstRoute)
-            this.$store.state.pageState["recentlyAdded"].items = firstResult.data.data
-            this.$store.state.pageState["recentlyAdded"].nextUrl = firstResult.data.next
-        },
-        beforeDestroy() {
-            // this.$store.state.pageState["recently-added"].scrollPosY = $("#app-content").scrollTop()
-        },
-        methods: {
-            visibilityChanged: function(isVisible, entry) {
-                if (isVisible && !this.loading) {
-                    this.getNextData();
-                }
-            },
-            async getNextData() {
-                if (this.$store.state.pageState["recentlyAdded"].nextUrl) {
-                    this.loading = true;
-                    const nextResult = await app.mk.api.v3.music(this.$store.state.pageState["recentlyAdded"].nextUrl)
-                    this.$store.state.pageState["recentlyAdded"].items = this.$store.state.pageState["recentlyAdded"].items.concat(nextResult.data.data)
-                    if (nextResult.data.next) {
-                        this.$store.state.pageState["recentlyAdded"].nextUrl = nextResult.data.next
-                    } else {
-                        this.$store.state.pageState["recentlyAdded"].nextUrl = null
-                    }
-                    this.loading = false;
-                }
-                return
-            }
+      const firstResult = await app.mk.api.v3.music(this.firstRoute)
+      this.$store.state.pageState["recentlyAdded"].items = firstResult.data.data
+      this.$store.state.pageState["recentlyAdded"].nextUrl = firstResult.data.next
+    },
+    beforeDestroy() {
+      // this.$store.state.pageState["recently-added"].scrollPosY = $("#app-content").scrollTop()
+    },
+    methods: {
+      visibilityChanged: function(isVisible, entry) {
+        if (isVisible && !this.loading) {
+          this.getNextData();
         }
-    });
+      },
+      async getNextData() {
+        if (this.$store.state.pageState["recentlyAdded"].nextUrl) {
+          this.loading = true;
+          const nextResult = await app.mk.api.v3.music(this.$store.state.pageState["recentlyAdded"].nextUrl)
+          this.$store.state.pageState["recentlyAdded"].items = this.$store.state.pageState["recentlyAdded"].items.concat(nextResult.data.data)
+          if (nextResult.data.next) {
+            this.$store.state.pageState["recentlyAdded"].nextUrl = nextResult.data.next
+          } else {
+            this.$store.state.pageState["recentlyAdded"].nextUrl = null
+          }
+          this.loading = false;
+        }
+        return
+      }
+    }
+  });
 </script>

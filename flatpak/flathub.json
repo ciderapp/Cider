@@ -1,4 +1,4 @@
 {
-    "only-arches": ["x86_64"],
-    "publish-delay-hours": 2
-}  
+  "only-arches": ["x86_64"],
+  "publish-delay-hours": 2
+}

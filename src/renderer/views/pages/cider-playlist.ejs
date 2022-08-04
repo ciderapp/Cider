@@ -1,5 +1,6 @@
 <script type="text/x-template" id="cider-playlist">
-    <div class="content-inner playlist-page" :class="classes" :is-album="isAlbum()" v-if="data != [] && data.attributes != null"
+    <div class="content-inner playlist-page" :class="classes" :is-album="isAlbum()"
+         v-if="data != [] && data.attributes != null"
 
          :style="{'--bgColor': (data.attributes.artwork != null && data.attributes.artwork['bgColor'] != null) ? ('#' + data.attributes.artwork.bgColor) : ''}">
         <template v-if="app.playlists.loadingState == 0">
@@ -13,7 +14,8 @@
                 <div class="playlistInfo">
                     <div class="playlist-hero" v-if="hasHero()">
                         <mediaitem-artwork shadow="none" :url="hasHero()" size="2160" />
-                        <div class="hero-tint" :style="{'background-color': '#' + hasHeroObject()?.bgColor ?? ''}"></div>
+                        <div class="hero-tint"
+                             :style="{'background-color': '#' + hasHeroObject()?.bgColor ?? ''}"></div>
                     </div>
                     <div class="row">
                         <div class="col-auto cider-flex-center" @mouseover="minClass(false)">
@@ -30,46 +32,54 @@
                         <div class="col playlist-info">
                             <template v-if="!editorialNotesExpanded">
                                 <div>
-                                    <div class="playlist-name" @mouseover="minClass(false)" @click="editPlaylistName()" v-show="!nameEditing" :style="{ 'color': '#' +hasHeroObject()?.textColor1 ?? '', 'filter' : 'drop-shadow(1px 3px 8px #' + hasHeroObject()?.textColor4 ?? '' +')' }">
+                                    <div class="playlist-name" @mouseover="minClass(false)" @click="editPlaylistName()"
+                                         v-show="!nameEditing"
+                                         :style="{ 'color': '#' +hasHeroObject()?.textColor1 ?? '', 'filter' : 'drop-shadow(1px 3px 8px #' + hasHeroObject()?.textColor4 ?? '' +')' }">
                                         {{data.attributes ? (data.attributes.name ??
                                         (data.attributes.title ?? '') ?? '') : ''}}
                                     </div>
-                                    <div class="playlist-name" @mouseover="minClass(false)" v-show="nameEditing"><input type="text"
-                                                                                           spellcheck="false"
-                                                                                           class="nameEdit"
-                                                                                           v-model="data.attributes.name"
-                                                                                           @blur="editPlaylist"
-                                                                                           @change="editPlaylist"
-                                                                                           @keydown.enter="editPlaylist"/>
+                                    <div class="playlist-name" @mouseover="minClass(false)" v-show="nameEditing"><input
+                                                type="text"
+                                                spellcheck="false"
+                                                class="nameEdit"
+                                                v-model="data.attributes.name"
+                                                @blur="editPlaylist"
+                                                @change="editPlaylist"
+                                                @keydown.enter="editPlaylist" />
                                     </div>
-                                    <div class="playlist-time genre" style="margin: 0px;" :style="{ 'color': '#' + hasHeroObject()?.textColor2 ?? '' }">{{getAlbumGenre()}}</div>
+                                    <div class="playlist-time genre" style="margin: 0px;"
+                                         :style="{ 'color': '#' + hasHeroObject()?.textColor2 ?? '' }">
+                                        {{getAlbumGenre()}}
+                                    </div>
                                     <div class="playlist-artist item-navigate"
                                          v-if="getArtistName(data) != '' && !useArtistChip"
                                          @click="data.attributes && data.attributes.artistName ? app.searchAndNavigate(data,'artist') : ''">
                                         {{getArtistName(data)}}
                                     </div>
                                     <template v-if="useArtistChip">
-                                        <artist-chip v-for="artist in data.relationships.artists?.data"  :style="{ 'color': '#' +hasHeroObject()?.textColor3 ?? '' }"
+                                        <artist-chip v-for="artist in data.relationships.artists?.data"
+                                                     :style="{ 'color': '#' +hasHeroObject()?.textColor3 ?? '' }"
                                                      :item="artist"></artist-chip>
                                     </template>
                                     <div class="playlist-desc"
-                                        :style="{ 'color': '#' +hasHeroObject()?.textColor3 ?? '' }"
+                                         :style="{ 'color': '#' +hasHeroObject()?.textColor3 ?? '' }"
                                          v-if="(data.attributes.description && (data.attributes.description.standard || data.attributes.description.short)) || (data.attributes.editorialNotes && (data.attributes.editorialNotes.standard || data.attributes.editorialNotes.short))">
                                         <div v-if="(data.attributes.description?.short ?? data.attributes.editorialNotes?.short) != null"
                                              class="content"
                                              v-html="data.attributes.description?.short ?? data.attributes.editorialNotes?.short"
                                              @click="openInfoModal()"></div>
                                         <div v-else-if="((data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard) != null) && (descriptionEditing == false)"
-                                             @mouseover="minClass(false)" @click="editPlaylistDescription()" v-html="(data.attributes.description?.standard ?? (data.attributes.editorialNotes?.standard ?? '')).substring(0, 255) +'...'"
-                                          ></div>
+                                             @mouseover="minClass(false)" @click="editPlaylistDescription()"
+                                             v-html="(data.attributes.description?.standard ?? (data.attributes.editorialNotes?.standard ?? '')).substring(0, 255) +'...'"
+                                        ></div>
                                         <div v-else-if="((data.attributes.description?.standard ?? data.attributes.editorialNotes?.standard) != null) && (descriptionEditing)"
                                              @mouseover="minClass(false)"><input type="text"
-                                             spellcheck="false"
-                                             class="descriptionEdit"
-                                             v-model="data.attributes.description.standard"
-                                             @blur="editPlaylist"
-                                             @change="editPlaylist"
-                                             @keydown.enter="editPlaylist"/></div>
+                                                                                 spellcheck="false"
+                                                                                 class="descriptionEdit"
+                                                                                 v-model="data.attributes.description.standard"
+                                                                                 @blur="editPlaylist"
+                                                                                 @change="editPlaylist"
+                                                                                 @keydown.enter="editPlaylist" /></div>
                                         <!-- <button v-if="(data.attributes.description?.short ?? data.attributes.editorialNotes?.short ) != null" class="more-btn"
                                                 @click="editorialNotesExpanded = !editorialNotesExpanded">
                                             {{app.getLz('term.showMore')}}
@@ -86,12 +96,15 @@
                                     </button>
                                 </div>
                             </template>
-                            <div class="playlist-controls" v-observe-visibility="{callback: isHeaderVisible}" style="z-index: 20;">
-                                <button class="md-btn md-btn-primary md-btn-icon" style="min-width: 100px;" :style="{'background': '#' +hasHeroObject()?.textColor4 ?? '','border-top': '#' +hasHeroObject()?.textColor3 ?? '','border': '#' +hasHeroObject()?.textColor2 ?? ''}"
+                            <div class="playlist-controls" v-observe-visibility="{callback: isHeaderVisible}"
+                                 style="z-index: 20;">
+                                <button class="md-btn md-btn-primary md-btn-icon" style="min-width: 100px;"
+                                        :style="{'background': '#' +hasHeroObject()?.textColor4 ?? '','border-top': '#' +hasHeroObject()?.textColor3 ?? '','border': '#' +hasHeroObject()?.textColor2 ?? ''}"
                                         @click="app.mk.shuffleMode = 0; play()"><img class="md-ico-play">
                                     {{app.getLz('term.play')}}
                                 </button>
-                                <button class="md-btn md-btn-primary md-btn-icon" style="min-width: 100px;" :style="{'background': '#' +hasHeroObject()?.textColor4 ?? '','border-top': '#' +hasHeroObject()?.textColor3 ?? '','border': '#' +hasHeroObject()?.textColor2 ?? ''}"
+                                <button class="md-btn md-btn-primary md-btn-icon" style="min-width: 100px;"
+                                        :style="{'background': '#' +hasHeroObject()?.textColor4 ?? '','border-top': '#' +hasHeroObject()?.textColor3 ?? '','border': '#' +hasHeroObject()?.textColor2 ?? ''}"
                                         @click="app.mk.shuffleMode = 1;play()"><img class="md-ico-shuffle">
                                     {{app.getLz('term.shuffle')}}
                                 </button>
@@ -110,16 +123,24 @@
                                 <select v-if="shouldPaginate" class="md-select" v-model="prefs.scroll">
                                     <optgroup :label="app.getLz('term.scroll')">
                                         <option value="infinite">{{app.getLz('term.scroll.infinite')}}</option>
-                                        <option value="paged">{{app.getLz('term.scroll.paged').replace("${songsPerPage}", pageSize)}}</option>
+                                        <option value="paged">
+                                            {{app.getLz('term.scroll.paged').replace("${songsPerPage}", pageSize)}}
+                                        </option>
                                     </optgroup>
                                 </select>
                                 <div style="display: flex; float: right;">
-                                    <button :style="{ 'background': '#' + hasHeroObject()?.textColor4 ?? '' }" :class="['search-btn', showSearch ? 'active' : '']" @click="toggleSearch()" :aria-label="showSearch ? app.getLz('term.hideSearch') : app.getLz('term.showSearch')">
-                                        <svg-icon :style="{ 'width': '15px', 'background-color': '#' + hasHeroObject()?.bgColor ?? '' }" :url="showSearch ? './assets/search-alt.svg' : './assets/search.svg'">
+                                    <button :style="{ 'background': '#' + hasHeroObject()?.textColor4 ?? '' }"
+                                            :class="['search-btn', showSearch ? 'active' : '']" @click="toggleSearch()"
+                                            :aria-label="showSearch ? app.getLz('term.hideSearch') : app.getLz('term.showSearch')">
+                                        <svg-icon
+                                                :style="{ 'width': '15px', 'background-color': '#' + hasHeroObject()?.bgColor ?? '' }"
+                                                :url="showSearch ? './assets/search-alt.svg' : './assets/search.svg'">
                                         </svg-icon>
                                     </button>
-                                    <button :style="{ 'background': '#' + hasHeroObject()?.textColor4 ?? '' }" class="more-btn-round" @click="menu" :aria-label="app.getLz('term.more')">
-                                        <div :style="{ 'background-color': '#' + hasHeroObject()?.bgColor ?? '' }" class="svg-icon"></div>
+                                    <button :style="{ 'background': '#' + hasHeroObject()?.textColor4 ?? '' }"
+                                            class="more-btn-round" @click="menu" :aria-label="app.getLz('term.more')">
+                                        <div :style="{ 'background-color': '#' + hasHeroObject()?.bgColor ?? '' }"
+                                             class="svg-icon"></div>
                                     </button>
                                 </div>
                             </div>
@@ -129,7 +150,9 @@
                 <div class="artworkContainer" v-if="data.attributes.artwork != null && !hasHero()">
                     <artwork-material :url="data.attributes.artwork.url" size="500" images="1"></artwork-material>
                 </div>
-                <button class="md-btn md-btn-small editTracksBtn" v-if="(data.attributes.canEdit && data.type == 'library-playlists')" @click="editing = !editing">
+                <button class="md-btn md-btn-small editTracksBtn"
+                        v-if="(data.attributes.canEdit && data.type == 'library-playlists')"
+                        @click="editing = !editing">
                     <span v-if="!editing">
                         <div class='codicon codicon-edit'></div> {{$root.getLz("action.editTracklist")}}
                     </span>
@@ -170,107 +193,112 @@
                             <select v-if="shouldPaginate" class="md-select" v-model="prefs.scroll">
                                 <optgroup :label="app.getLz('term.scroll')">
                                     <option value="infinite">{{app.getLz('term.scroll.infinite')}}</option>
-                                    <option value="paged">{{app.getLz('term.scroll.paged').replace("${songsPerPage}", pageSize)}}</option>
+                                    <option value="paged">{{app.getLz('term.scroll.paged').replace("${songsPerPage}",
+                                        pageSize)}}
+                                    </option>
                                 </optgroup>
                             </select>
                         </div>
                     </div>
                     <div class="col-auto cider-flex-center">
-                        <button class="more-btn-round" style="float:right;" @click="menu" :aria-label="app.getLz('term.more')">
+                        <button class="more-btn-round" style="float:right;" @click="menu"
+                                :aria-label="app.getLz('term.more')">
                             <div class="svg-icon"></div>
                         </button>
                     </div>
                 </div>
             </div>
             <div class="playlist-body scrollbody">
-                <b-tabs pills class="track-pills pilldim fancy-pills" align="center" content-class="mt-3" :nav-wrapper-class="navClass(data)">
+                <b-tabs pills class="track-pills pilldim fancy-pills" align="center" content-class="mt-3"
+                        :nav-wrapper-class="navClass(data)">
                     <b-tab :title="$root.getLz('term.tracks')" id="songList" active>
                         <div @wheel="minClass(true)" @scroll="minClass(true)">
-                        <div class="">
-                            <div style="width:100%" @click="minClass(true)">
-                                <div v-if="showSearch" class="search-input-container">
-                                    <div class="search-input--icon"></div>
-                                    <input type="search"
-                                        spellcheck="false"
-                                        :placeholder="$root.getLz('term.search') + '...'"
-                                        @input="search()"
-                                        v-model="searchQuery"
-                                        class="search-input"
-                                        ref="search-bar">
-                                </div>
-                                <pagination
-                                    v-if="shouldPaginate"
-                                    style="margin-top: 10px"
-                                    :length="hasNestedPlaylist ? nestedDisplayLength: displayListing.length"
-                                    :pageSize="pageSize"
-                                    :scroll="prefs.scroll"
-                                    scrollSelector="#songList"
-                                    @onRangeChange="onRangeChange"
-                                />
-                                <draggable :options="{disabled: !editing}"
-                                           v-model="data.relationships.tracks.data" @start="drag=true"
-                                           @end="drag=false;put()">
-                                    <template v-if="!hasNestedPlaylist">
-                                        <mediaitem-list-item :item="item" :parent="getItemParent(data)" :index="index + start"
-                                                             :showIndex="true"
-                                                             :showIndexPlaylist="(data.attributes.playParams?.kind ?? data.type ?? '').includes('playlist')"
-                                                             :context-ext="buildContextMenu()"
-                                                             v-for="(item,index) in currentSlice"></mediaitem-list-item>
-                                    </template>
-                                    <template v-else>
-                                        <div v-for="disc in nestedSlices">
-                                            <div class="playlist-time">{{($root.getLz("term.discNumber") ??
-                                                "").replace("${discNumber}",disc.disc)}}
-                                            </div>
+                            <div class="">
+                                <div style="width:100%" @click="minClass(true)">
+                                    <div v-if="showSearch" class="search-input-container">
+                                        <div class="search-input--icon"></div>
+                                        <input type="search"
+                                               spellcheck="false"
+                                               :placeholder="$root.getLz('term.search') + '...'"
+                                               @input="search()"
+                                               v-model="searchQuery"
+                                               class="search-input"
+                                               ref="search-bar">
+                                    </div>
+                                    <pagination
+                                            v-if="shouldPaginate"
+                                            style="margin-top: 10px"
+                                            :length="hasNestedPlaylist ? nestedDisplayLength: displayListing.length"
+                                            :pageSize="pageSize"
+                                            :scroll="prefs.scroll"
+                                            scrollSelector="#songList"
+                                            @onRangeChange="onRangeChange"
+                                    />
+                                    <draggable :options="{disabled: !editing}"
+                                               v-model="data.relationships.tracks.data" @start="drag=true"
+                                               @end="drag=false;put()">
+                                        <template v-if="!hasNestedPlaylist">
                                             <mediaitem-list-item :item="item" :parent="getItemParent(data)"
-                                                                 :index="index"
+                                                                 :index="index + start"
                                                                  :showIndex="true"
                                                                  :showIndexPlaylist="(data.attributes.playParams?.kind ?? data.type ?? '').includes('playlist')"
                                                                  :context-ext="buildContextMenu()"
-                                                                 v-for="(item,index) in disc.tracks"></mediaitem-list-item>
-                                        </div>
+                                                                 v-for="(item,index) in currentSlice"></mediaitem-list-item>
+                                        </template>
+                                        <template v-else>
+                                            <div v-for="disc in nestedSlices">
+                                                <div class="playlist-time">{{($root.getLz("term.discNumber") ??
+                                                    "").replace("${discNumber}",disc.disc)}}
+                                                </div>
+                                                <mediaitem-list-item :item="item" :parent="getItemParent(data)"
+                                                                     :index="index"
+                                                                     :showIndex="true"
+                                                                     :showIndexPlaylist="(data.attributes.playParams?.kind ?? data.type ?? '').includes('playlist')"
+                                                                     :context-ext="buildContextMenu()"
+                                                                     v-for="(item,index) in disc.tracks"></mediaitem-list-item>
+                                            </div>
 
-                                    </template>
-                                </draggable>
+                                        </template>
+                                    </draggable>
+
+                                </div>
 
                             </div>
-
-                        </div>
-                        <div class="friends-info" v-if="itemBadges.length != 0">
-                            <div class="well">
-                                <div class="badge-container">
-                                    <div class="socialBadge"
-                                         :title="`${badge.attributes.name} - @${badge.attributes.handle}`"
-                                         v-for="badge in itemBadges">
-                                        <mediaitem-artwork
-                                                :url="badge.attributes.artwork.url"
-                                                :size="60"></mediaitem-artwork>
+                            <div class="friends-info" v-if="itemBadges.length != 0">
+                                <div class="well">
+                                    <div class="badge-container">
+                                        <div class="socialBadge"
+                                             :title="`${badge.attributes.name} - @${badge.attributes.handle}`"
+                                             v-for="badge in itemBadges">
+                                            <mediaitem-artwork
+                                                    :url="badge.attributes.artwork.url"
+                                                    :size="60"></mediaitem-artwork>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="playlist-time">
-                            {{getFormattedDate()}}
-                        </div>
-                        <div class="playlist-time total">{{app.getTotalTime()}}</div>
-                        <div class="playlist-time item-navigate" @click="app.searchAndNavigate(data,'recordLabel') "
-                             style="width: 50%;">
-                            {{data.attributes.copyright}}
-                        </div>
-                        <template
-                                v-if="(data.attributes?.playParams?.kind ?? data.type ?? '').includes('album') &&  data.relationships.catalog != null && data.relationships.catalog != null && data.relationships.catalog.data.length > 0">
-                            <div class="playlist-time showExtended item-navigate"
-                                 style="color:#fa586a; font-weight: bold"
-                                 @click="app.routeView(data.relationships.catalog.data[0])">
-                                {{$root.getLz("action.showAlbum")}}
+                            <div class="playlist-time">
+                                {{getFormattedDate()}}
                             </div>
-                        </template>
+                            <div class="playlist-time total">{{app.getTotalTime()}}</div>
+                            <div class="playlist-time item-navigate" @click="app.searchAndNavigate(data,'recordLabel') "
+                                 style="width: 50%;">
+                                {{data.attributes.copyright}}
+                            </div>
+                            <template
+                                    v-if="(data.attributes?.playParams?.kind ?? data.type ?? '').includes('album') &&  data.relationships.catalog != null && data.relationships.catalog != null && data.relationships.catalog.data.length > 0">
+                                <div class="playlist-time showExtended item-navigate"
+                                     style="color:#fa586a; font-weight: bold"
+                                     @click="app.routeView(data.relationships.catalog.data[0])">
+                                    {{$root.getLz("action.showAlbum")}}
+                                </div>
+                            </template>
                         </div>
                     </b-tab>
                     <template v-if="typeof data.views != 'undefined'">
                         <b-tab lazy :title="data.views[view].attributes.title" v-for="view in data.meta.views.order"
                                v-if="data.views[view].data.length != 0">
-                            <div >
+                            <div>
                                 <div class="row">
                                     <div class="col">
                                         <h3>{{ data.views[view].attributes.title }}</h3>
@@ -294,700 +322,706 @@
 </script>
 
 <script>
-    Vue.component('cider-playlist', {
-        template: "#cider-playlist",
-        props: ["data"],
+  Vue.component('cider-playlist', {
+    template: "#cider-playlist",
+    props: ["data"],
 
-        data: function () {
-            const pageSize = this.$root.cfg.libraryPrefs.pageSize;
-            return {
-                editorialNotesExpanded: false,
-                drag: false,
-                nameEditing: false,
-                descriptionEditing: false,
-                inLibrary: null,
-                confirm: false,
-                app: this.$root,
-                itemBadges: [],
-                badgesRequested: false,
-                headerVisible: true,
-                useArtistChip: false,
-                nestedPlaylist: [],
-                nestedDisplayLength: 0,
-                classes: [],
-                editing: false,
-                inPlaylist: false,
-                searchQuery: "",
-                displayListing: [],
-                hasNestedPlaylist: false,
-                showSearch: false,
-                pageSize: pageSize,
-                start: 0,
-                end: pageSize,
-                prefs: this.$root.cfg.libraryPrefs.playlists
-            }
-        },
-        mounted: function () {
-            this.$nextTick(function () {
-                if (this.data.id != "ciderlocal") {
-                    this.isInLibrary()
-                } else {
-                        if (this.data.relationships != null && this.data.id == "ciderlocal") {
-                            this.displayListing = this.data.relationships.tracks.data                          
-                        }
+    data: function() {
+      const pageSize = this.$root.cfg.libraryPrefs.pageSize;
+      return {
+        editorialNotesExpanded: false,
+        drag: false,
+        nameEditing: false,
+        descriptionEditing: false,
+        inLibrary: null,
+        confirm: false,
+        app: this.$root,
+        itemBadges: [],
+        badgesRequested: false,
+        headerVisible: true,
+        useArtistChip: false,
+        nestedPlaylist: [],
+        nestedDisplayLength: 0,
+        classes: [],
+        editing: false,
+        inPlaylist: false,
+        searchQuery: "",
+        displayListing: [],
+        hasNestedPlaylist: false,
+        showSearch: false,
+        pageSize: pageSize,
+        start: 0,
+        end: pageSize,
+        prefs: this.$root.cfg.libraryPrefs.playlists
+      }
+    },
+    mounted: function() {
+      this.$nextTick(function() {
+        if (this.data.id != "ciderlocal") {
+          this.isInLibrary()
+        } else {
+          if (this.data.relationships != null && this.data.id == "ciderlocal") {
+            this.displayListing = this.data.relationships.tracks.data
+          }
 
-                        this.inPlaylist = this.data.type == "library-playlists";
-                }})
-        },
-        beforeMount() {
-            if (window.location.hash.includes("playlist")) {
-                window.addEventListener('keydown', this.getCopiedPlayListSongs);
-                window.addEventListener('keydown', this.pasteSongs);
-            }
-        },
-        beforeDestroy() {
-            if (window.location.hash.includes("playlist")) {
-                window.removeEventListener('keydown', this.getCopiedPlayListSongs);
-                window.removeEventListener('keydown', this.pasteSongs);
-            }
-        },
-        watch: {
-            data: {
-                handler: function () {
-                    this.isInLibrary()
-                    this.getBadges()
-
-                    if (this.data.relationships != null) {
-                        if (this.data.id == "ciderlocal") {
-                            this.displayListing = this.data.relationships.tracks.data
-                        } else {
-                            this.generateNestedPlaylist(this.data.relationships.tracks.data)
-                            if (!this.hasNestedPlaylist) {
-                                this.displayListing = this.data.relationships.tracks.data
-                            }
-                        }
-                    }
-
-                    this.inPlaylist = this.data.type == "library-playlists";
-                },
-                deep: true
-            }
-        },
-        computed: {
-            currentSlice() {
-                return this.displayListing.slice(this.start, this.end);
-            },
-            nestedSlices() {
-                if (this.shouldPaginate) {
-                    let songsSeen = 0;
-                    const discs = [];
-
-                    for (const disc of this.nestedPlaylist) {
-                        songsSeen += disc.tracks.length;
-
-                        if (songsSeen >= this.end) {
-                            discs.push({
-                                disc: disc.disc,
-                                tracks: disc.tracks.slice(0, this.end + disc.tracks.length - songsSeen)
-                            })
-                            break;
-                        } else if (songsSeen > this.start) {
-                            discs.push({
-                                disc: disc.disc,
-                                tracks: disc.tracks.slice(this.start - songsSeen)
-                            })
-                        }
-                    }
-
-                    return discs;
-                } else {
-                    return this.nestedPlaylist
-                }
-            },
-            shouldPaginate() {
-                const result = this.data.relationships.tracks.data.length > this.pageSize
-                console.log(result)
-                return result
-            }
-        },
-        methods: {
-            onRangeChange(newRange) {
-                this.start = newRange[0];
-                this.end = newRange[1];
-            },
-            isAlbum() {
-                return (this.data.attributes?.playParams?.kind ?? this.data.type ?? '').includes('album')
-            },
-            minClass(val) {
-                if(app.appMode == 'fullscreen') {
-                    return
-                }
-                if (val) {
-                    this.classes = ["plmin"]
-                } else {
-                    this.classes = []
-                }
-            },
-            openInfoModal() {
-                app.moreinfodata = [];
-                app.moreinfodata = {
-                    title: this.data?.attributes ? (this.data?.attributes?.name ??
-                        (this.data?.attributes?.title ?? '') ?? '') : '',
-                    subtitle: this.data?.attributes?.artistName ?? '',
-                    content: ((this.data?.attributes?.editorialNotes != null) ? (this.data?.attributes?.editorialNotes?.standard ?? (this.data?.attributes?.editorialNotes?.short ?? '')) : (data.attributes?.description ? (this.data.attributes?.description?.standard ?? (this.data?.attributes?.description?.short ?? '')) : ''))
-                }
-                app.modals.moreInfo = true;
-            },
-            generateNestedPlaylist(songlists) {
-                this.nestedPlaylist = [];
-                this.nestedDisplayLength = songlists.length;
-
-                if (this.data?.type?.includes("album")) {
-                    let discs = songlists.map(x => {
-                        return x.attributes.discNumber
-                    }).filter((item, i, ar) => ar.indexOf(item) === i);
-
-                    if ((discs && discs.length > 1) || (discs && this.hasNestedPlaylist)) {
-                        for (disc of discs) {
-                            let songs = songlists.filter(x => x.attributes.discNumber == disc);
-                            this.nestedPlaylist.push({ disc: disc, tracks: songs })
-                        }
-                    }
-                    console.log(this.nestedPlaylist)
-                }
-
-                if (!this.hasNestedPlaylist)
-                    this.hasNestedPlaylist = this.nestedPlaylist != [] && this.nestedPlaylist.length > 1;
-            },
-            isHeaderVisible(visible) {
-                this.headerVisible = visible
-            },
-            hasHero() {
-                if (this.data.attributes?.editorialArtwork?.bannerUber) {
-                    return this.data.attributes?.editorialArtwork?.bannerUber.url
-                } else if (this.data.attributes?.editorialArtwork?.subscriptionHero) {
-                    return this.data.attributes?.editorialArtwork?.subscriptionHero.url
-                } else if (this.data.attributes?.editorialArtwork?.storeFlowcase) {
-                    return this.data.attributes?.editorialArtwork?.storeFlowcase.url
-                }
-                return false;
-            },
-            hasHeroObject() {
-                if (this.data.attributes?.editorialArtwork?.bannerUber) {
-                    return this.data.attributes?.editorialArtwork?.bannerUber
-                } else if (this.data.attributes?.editorialArtwork?.subscriptionHero) {
-                    return this.data.attributes?.editorialArtwork?.subscriptionHero
-                } else if (this.data.attributes?.editorialArtwork?.storeFlowcase) {
-                    return this.data.attributes?.editorialArtwork?.storeFlowcase
-                }
-                return [];
-            },
-            getBadges() {
-                return
-                if (this.badgesRequested) {
-                    return
-                }
-                this.badgesRequested = true
-                this.itemBadges = []
-                let self = this
-                var id = 0
-                try {
-                    id = this.data.attributes.playParams.id
-                } catch (e) {
-                    id = this.data.id
-                }
-                this.$root.getSocialBadges((badges) => {
-                    let friends = badges[id]
-                    if (friends) {
-                        friends.forEach(function (friend) {
-                            self.app.mk.api.v3.music(`/v1/social/${app.mk.storefrontId}/social-profiles/${friend}`).then(data => {
-                                self.itemBadges.push(data.data.data[0])
-                            })
-                        })
-                    }
-                })
-            },
-            confirmButton() {
-                // Return button to normal state after 3 seconds
-
-                this.confirm = true
-                setTimeout(() => this.confirm = false, 3000);
-            },
-            getArtistName(data) {
-                if (data.attributes.artistName) {
-                    this.useArtistChip = true
-                    return data.attributes.artistName
-                } else if (data.attributes.artist) {
-                    this.useArtistChip = true
-                    return data.attributes.artist.attributes.name
-                } else if (data.attributes.curatorName) {
-                    return data.attributes.curatorName
-                } else {
-                    return ""
-                }
-            },
-            getAlbumGenre: function () {
-                if (this.data.type.includes('albums')) {
-                    let date = this.data.attributes.releaseDate;
-                    if (date == null || date === "") return "";
-                    return `${this.data.attributes.genreNames[0]} · ${new Date(date).getFullYear()}`
-                }
-            },
-            async isInLibrary() {
-                if (this.data.type && !this.data.type.includes("library")) {
-                    // please keep using vars here
-                    const params = {
-                        "fields[playlists]": "inLibrary",
-                        "fields[albums]": "inLibrary",
-                        "relate": "library"
-                    };
-                    const res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false, this.data.attributes.playParams.id ?? this.data.id, params);
-                    this.inLibrary = (res.data.data[0] && res.data.data[0].attributes && res.data.data[0].attributes.inLibrary) ? res.data.data[0].attributes.inLibrary : false
-                    console.log(res)
-                } else {
-                    this.inLibrary = true
-                }
-            },
-            editPlaylist() {
-                this.app.editPlaylist(this.data.id, this.data.attributes.name);
-                this.app.editPlaylistDescription(this.data.id, this.data.attributes.description.standard);
-                this.app.playlists.listing.forEach(playlist => {
-                    if (playlist.id === this.data.id) {
-                        playlist.attributes.name = this.data.attributes.name
-                        playlist.attributes.description = this.data.attributes.description.standard
-                    }
-                })
-                this.nameEditing = false
-                this.descriptionEditing = false
-            },
-            editPlaylistDescription() {
-                this.app.editPlaylistDescription(this.data.id, this.data.attributes.description.standard);
-                this.app.playlists.listing.forEach(playlist => {
-                    if (playlist.id === this.data.id) {
-                        playlist.attributes.description = this.data.attributes.description.standard
-                    }
-                })
-                this.descriptionEditing = false
-            },
-            addToLibrary(id) {
-                app.mk.addToLibrary(id)
-                this.inLibrary = true
-                this.confirm = false
-            },
-            async removeFromLibrary(id) {
-                const params = { "fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library" };
-                var id = this.data.id ?? this.data.attributes.playParams.id
-                const res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false, this.data.attributes.playParams.id ?? this.data.id, params);
-                if (res.data.data[0] && res.data.data[0].relationships && res.data.data[0].relationships.library && res.data.data[0].relationships.library.data && res.data.data[0].relationships.library.data.length > 0) {
-                    id = res.data.data[0].relationships.library.data[0].id
-                }
-                let kind = this.data.attributes.playParams.kind ?? this.data.type ?? '';
-                const truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
-                app.mk.api.v3.music(`v1/me/library/${truekind}/${id.toString()}`, {},
-                    {
-                        fetchOptions: {
-                            method: "DELETE"
-                        }
-                    })
-                this.inLibrary = false
-                this.confirm = false
-            },
-            editPlaylistName() {
-                if (this.data.attributes.canEdit && this.data.type === "library-playlists") {
-                    this.nameEditing = true
-                    setTimeout(() => {
-                        document.querySelector(".nameEdit").focus()
-                    }, 100)
-                }
-            },
-            editPlaylistDescription() {
-                if (this.data.attributes.canEdit && this.data.type === "library-playlists") {
-                    this.descriptionEditing = true
-                    setTimeout(() => {
-                        document.querySelector(".descriptionEdit").focus()
-                    }, 100)
-                }
-            },
-            buildContextMenu(index) {
-                let self = this
-                if (!this.data.attributes.canEdit) {
-                    return
-                }
-                return {
-                    normal: [
-                        {
-                            name: app.getLz('action.removeFromPlaylist'),
-                            action: () => {
-                                self.remove()
-                            }
-                        },
-                    ],
-                    multiple: [
-                        {
-                            name: app.getLz('action.removeFromPlaylist'),
-                            action: () => {
-                                self.remove()
-                            }
-                        },
-                    ]
-                }
-            },
-            async put() {
-                if (!this.data.attributes.canEdit) {
-                    return
-                }
-                console.log('sds', this.convert())
-                await app.mk.api.v3.music(
-                    `/v1/me/library/playlists/${this.data.attributes.playParams.id}/tracks`,
-                    {},
-                    {
-                        fetchOptions: {
-                            method: "PUT",
-                            body: JSON.stringify({
-                                data: this.convert()
-                            })
-                        }
-                    }
-                )
-            },
-            async remove() {
-                if (!this.data.attributes.canEdit) {
-                    return
-                }
-                // for each app.selectedMediaItems splice the items from the playlist
-                for (let i = 0; i < app.selectedMediaItems.length; i++) {
-                    let item = app.selectedMediaItems[i]
-                    let index = this.data.relationships.tracks.data.findIndex(x => x.id == item.id)
-                    if (index > -1) {
-                        this.data.relationships.tracks.data.splice(index, 1)
-                    }
-                }
-                await this.put()
-            },
-            convert() {
-                let pl_tracks = []
-                for (let i = 0; i < this.data.relationships.tracks.data.length; i++) {
-                    pl_tracks.push({
-                        id: this.data.relationships.tracks.data[i].id,
-                        type: this.data.relationships.tracks.data[i].type
-                    })
-                }
-                return pl_tracks
-            },
-            getRecursive(url) {
-                app.apiCall(app.musicBaseUrl + "/v1/me/library/playlists/p.V7VYlrDso6kkYY/tracks?offset=100", res => {
-                    this.data.relationships.tracks.data = this.data.relationships.tracks.data.concat(res.data.data)
-                    if (res.data.next) {
-                        this.getRecursive(res.data.next)
-                    }
-                })
-            },
-            async menu(event) {
-                let self = this
-                let artistId = null
-
-                if (typeof this.data.relationships.artists != "undefined") {
-                    artistId = this.data.relationships.artists.data[0].id
-                    if (this.data.relationships.artists.data[0].type == "library-artists") {
-                        artistId = this.data.relationships.artists.data[0].relationships.catalog.data[0].id
-                    }
-                }
-
-                let menuItems = {
-                    headerItems: [
-                        {
-                            "icon": "./assets/feather/heart.svg",
-                            "id": "love",
-                            "name": app.getLz('action.love'),
-                            "hidden": false,
-                            "disabled": true,
-                            "action": function () {
-                                app.love(self.data)
-                            }
-                        },
-                        {
-                            "icon": "./assets/feather/heart.svg",
-                            "id": "unlove",
-                            "active": true,
-                            "name": app.getLz('action.unlove'),
-                            "hidden": true,
-                            "action": function () {
-                                app.unlove(self.data)
-                            }
-                        },
-                        {
-                            "icon": "./assets/feather/thumbs-down.svg",
-                            "id": "dislike",
-                            "name": app.getLz('action.dislike'),
-                            "hidden": false,
-                            "disabled": true,
-                            "action": function () {
-                                app.dislike(self.data)
-                            }
-                        },
-                        {
-                            "icon": "./assets/feather/thumbs-down.svg",
-                            "id": "undo_dislike",
-                            "name": app.getLz('action.undoDislike'),
-                            "active": true,
-                            "hidden": true,
-                            "action": function () {
-                                app.unlove(self.data)
-                            }
-                        },
-                    ],
-                    items: {
-                        "addToPlaylist": {
-                            name: app.getLz('action.addToPlaylist'),
-                            "icon": "./assets/feather/list.svg",
-                            action: () => {
-                                app.selectedMediaItems = []
-                                app.select_selectMediaItem(this.data.attributes.playParams.id ?? this.data.id, this.data.attributes.playParams.kind ?? this.data.type, 0, 0, this.data.attributes.playParams.isLibrary ?? false)
-                                app.promptAddToPlaylist()
-                            }
-                        },
-                        "share": {
-                            name: app.getLz('term.share'),
-                            icon: "./assets/feather/share.svg",
-                            action: () => {
-                                let route = ""
-                                switch (this.data.type) {
-                                    case 'albums':
-                                        route = `/v1/catalog/${app.mk.storefrontId}/albums/${this.data.id}`
-                                        break;
-                                    case 'playlists':
-                                        route = `/v1/catalog/${app.mk.storefrontId}/playlists/${this.data.id}`
-                                        break;
-                                    case "library-playlists":
-                                        route = `/v1/me/library/playlists/${this.data.id}/catalog`
-                                        break
-                                    case "library-albums":
-                                        route = `/v1/me/library/albums/${this.data.id}/catalog`
-                                        break
-                                }
-                                if (route === '') {
-                                    return
-                                }
-                                app.mk.api.v3.music(route).then(res => {
-                                    console.log(res.data.data[0].attributes.url)
-                                    app.copyToClipboard(res.data.data[0].attributes.url)
-                                })
-                            }
-                        }
-                    }
-                }
-                app.showMenuPanel(menuItems, event)
-
-                try {
-                    let rating = await app.getRating(self.data)
-                    if (rating == 0) {
-                        menuItems.headerItems.find(x => x.id == 'love').disabled = false
-                        menuItems.headerItems.find(x => x.id == 'dislike').disabled = false
-                    } else if (rating == 1) {
-                        menuItems.headerItems.find(x => x.id == 'unlove').hidden = false
-                        menuItems.headerItems.find(x => x.id == 'love').hidden = true
-                    } else if (rating == -1) {
-                        menuItems.headerItems.find(x => x.id == 'undo_dislike').hidden = false
-                        menuItems.headerItems.find(x => x.id == 'dislike').hidden = true
-                    }
-                } catch (err) {
-                }
-
-
-            },
-            getItemParent: function (data) {
-                kind = data.attributes.playParams.kind;
-                id = data.attributes.playParams.id;
-                return `${kind}:${id}`
-            },
-            getFormattedDate: function () {
-                let date = (this.data.attributes.releaseDate ?? (this.data.attributes.lastModifiedDate ?? (this.data.attributes.dateAdded ?? '')))
-                let prefix = '';
-                if (date == null || date === "") return "";
-                switch (date) {
-                    case this.data.attributes.releaseDate:
-                        prefix = this.app.getLz('term.time.released') + ' '
-                        break;
-                    case this.data.attributes.lastModifiedDate:
-                        prefix = this.app.getLz('term.time.updated') + ' '
-                        break;
-                    case this.data.attributes.dateAdded:
-                        prefix = this.app.getLz('term.time.added') + ' '
-                        break;
-                }
-                let month, year;
-                try {
-                    const releaseDate = new Date(date);
-                    // month = new Intl.DateTimeFormat(this.app.cfg.general.language.replace('_','-'), {month: 'long'}).format(releaseDate);
-                    // date = releaseDate.getDate();
-                    // year = releaseDate.getFullYear();
-                    let formatted = ''
-                    try {
-                        formatted = new Intl.DateTimeFormat(this.app.cfg.general.language?.replace('_', '-') ?? 'en-US', {
-                            day: 'numeric',
-                            month: 'long',
-                            year: 'numeric'
-                        }).format(releaseDate);
-                    } catch (e) {
-                        // use the format in json instead
-                        if (this.app.getLz('date.format') != null) {
-                            formatted = new this.app.getLz('date.format').replace("${d}", releaseDate.getDate()).replace("${m}", releaseDate.getMonth()).replace("${y}", releaseDate.getFullYear());
-                        } else {
-                            formatted = new Intl.DateTimeFormat('en-US', {
-                                day: 'numeric',
-                                month: 'long',
-                                year: 'numeric'
-                            }).format(releaseDate);
-                        }
-                    }
-                    return prefix + formatted
-                } catch (e) {
-                    return ""
-                }
-            },
-            play() {
-                function shuffleArray(array) {
-                    for (var i = array.length - 1; i > 0; i--) {
-                        var j = Math.floor(Math.random() * (i + 1));
-                        var temp = array[i];
-                        array[i] = array[j];
-                        array[j] = temp;
-                    }
-                }
-
-                const id = this.data.attributes.playParams?.id ?? this.data.id;
-                //console.log("1")
-                const kind = this.data.attributes.playParams?.kind ?? this.data.type ?? '';
-                //console.log("1")
-                if (kind == "podcast-episodes") {kind = "episode"}
-                const truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
-
-                let query = (this.data ?? app.showingPlaylist).relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
-
-                app.mk.stop().then(() => {
-                    if (id != 'ciderlocal'){
-                    app.mk.setQueue({ [truekind]: [id], parameters: { l: app.mklang } }).then(function () {
-                        app.mk.play().then(function () {
-                            if (query.length > 100) {
-                                let u = query.slice(100);
-                                if (app.mk.shuffleMode == 1) {
-                                    shuffleArray(u)
-                                }
-                                app.mk.queue.append(u)
-                            }
-                        })
-                    })} else {
-                        let u = app.library.localsongs.map(i => {return i.id})
-                        app.mk.setQueue({"episodes" : u}).then(()=>{
-                            app.mk.play()
-                        })
-                    }
-                })
-
-
-            },
-            navClass(data) {
-                if (data && typeof data.views != "undefined") return "";
-                return "d-none";
-            },
-            async getCopiedPlayListSongs(event) {
-                if (event.ctrlKey && event.keyCode === 67) {
-                    let urls = [];
-                    app.selectedMediaItems.forEach(item => {
-                        this.app.mk.api.v3.music(`/v1/me/library/songs/${item.id}`).then((response) => {
-                            this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/songs/${response.data.data[0].attributes.playParams.catalogId}`).then((response1) => {
-                                urls.push(response1.data.data[0].attributes.url)
-                                navigator.clipboard.writeText(urls)
-                            })
-                        })
-                    })
-                    notyf.success(app.getLz('term.share.success'))
-                }
-            },
-            async pasteSongs(event) {
-                if (event.ctrlKey && event.keyCode === 86 && this.data.attributes.canEdit) {
-                    let clipboard = await navigator.clipboard.readText()
-                    let songs = []
-
-                    clipboard = clipboard.split(",")
-                    clipboard.forEach(item => {
-                        songs.push({
-                            id: item.substring(item.indexOf("i=") + 2, item.length),
-                            type: "songs",
-                        })
-                    })
-
-                    this.app.mk.api.v3.music(`/v1/me/library/playlists/${this.data.id}/tracks`, {}, {
-                        fetchOptions: {
-                            method: "POST",
-                            body: JSON.stringify({
-                                data: songs
-                            })
-                        }
-                    }).then((response) => {
-                        songs.forEach(item => {
-                            this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/songs/${item.id}`).then((response1) => {
-                                this.displayListing.push(response1.data.data[0])
-                            })
-                        })
-                    })
-                }
-            },
-            toggleSearch() {
-                this.showSearch = !this.showSearch;
-
-                if (!this.showSearch && this.searchQuery != "") {
-                    // Clear search query if the search bar becomes hidden
-                    this.searchQuery = "";
-                    this.search();
-                } else if (this.showSearch) {
-                    // Focus search bar
-                    this.$nextTick(() => {
-                        this.$refs["search-bar"].focus();
-                    });
-                }
-            },
-            search() {
-                let filtered = [];
-
-                if (this.searchQuery == "") {
-                    filtered = this.data.relationships.tracks.data;
-                } else {
-                    filtered = this.data.relationships.tracks.data.filter((item) => {
-                        let itemName = item.attributes.name.toLowerCase();
-                        let searchTerm = this.searchQuery.toLowerCase();
-                        let artistName = "";
-                        let albumName = "";
-                        if (item.attributes.artistName != null) {
-                            artistName = item.attributes.artistName.toLowerCase();
-                        }
-                        if (item.attributes.albumName != null) {
-                            albumName = item.attributes.albumName.toLowerCase();
-                        }
-
-                        // remove any non-alphanumeric characters and spaces from search term and item name
-                        searchTerm = searchTerm.replace(/[^\p{L}\p{N} ]/gu, "");
-                        itemName = itemName.replace(/[^\p{L}\p{N} ]/gu, "");
-                        artistName = artistName.replace(/[^\p{L}\p{N} ]/gu, "");
-                        albumName = albumName.replace(/[^\p{L}\p{N} ]/gu, "");
-
-                        let match = itemName.includes(searchTerm) || artistName.includes(searchTerm);
-                        // only include album name in playlists
-                        // this allows to search for the title track (itemName == albumName)
-                        if (this.inPlaylist) match = match || albumName.includes(searchTerm)
-
-                        if (match) return item;
-                    });
-                }
-
-                if (!this.hasNestedPlaylist) {
-                    // Regular album/playlist
-                    this.displayListing = filtered;
-                } else {
-                    // Album with multiple discs
-                    this.generateNestedPlaylist(filtered);
-                }
-            }
+          this.inPlaylist = this.data.type == "library-playlists";
         }
-    })
+      })
+    },
+    beforeMount() {
+      if (window.location.hash.includes("playlist")) {
+        window.addEventListener('keydown', this.getCopiedPlayListSongs);
+        window.addEventListener('keydown', this.pasteSongs);
+      }
+    },
+    beforeDestroy() {
+      if (window.location.hash.includes("playlist")) {
+        window.removeEventListener('keydown', this.getCopiedPlayListSongs);
+        window.removeEventListener('keydown', this.pasteSongs);
+      }
+    },
+    watch: {
+      data: {
+        handler: function() {
+          this.isInLibrary()
+          this.getBadges()
+
+          if (this.data.relationships != null) {
+            if (this.data.id == "ciderlocal") {
+              this.displayListing = this.data.relationships.tracks.data
+            } else {
+              this.generateNestedPlaylist(this.data.relationships.tracks.data)
+              if (!this.hasNestedPlaylist) {
+                this.displayListing = this.data.relationships.tracks.data
+              }
+            }
+          }
+
+          this.inPlaylist = this.data.type == "library-playlists";
+        },
+        deep: true
+      }
+    },
+    computed: {
+      currentSlice() {
+        return this.displayListing.slice(this.start, this.end);
+      },
+      nestedSlices() {
+        if (this.shouldPaginate) {
+          let songsSeen = 0;
+          const discs = [];
+
+          for (const disc of this.nestedPlaylist) {
+            songsSeen += disc.tracks.length;
+
+            if (songsSeen >= this.end) {
+              discs.push({
+                disc: disc.disc,
+                tracks: disc.tracks.slice(0, this.end + disc.tracks.length - songsSeen)
+              })
+              break;
+            } else if (songsSeen > this.start) {
+              discs.push({
+                disc: disc.disc,
+                tracks: disc.tracks.slice(this.start - songsSeen)
+              })
+            }
+          }
+
+          return discs;
+        } else {
+          return this.nestedPlaylist
+        }
+      },
+      shouldPaginate() {
+        const result = this.data.relationships.tracks.data.length > this.pageSize
+        console.log(result)
+        return result
+      }
+    },
+    methods: {
+      onRangeChange(newRange) {
+        this.start = newRange[0];
+        this.end = newRange[1];
+      },
+      isAlbum() {
+        return (this.data.attributes?.playParams?.kind ?? this.data.type ?? '').includes('album')
+      },
+      minClass(val) {
+        if (app.appMode == 'fullscreen') {
+          return
+        }
+        if (val) {
+          this.classes = ["plmin"]
+        } else {
+          this.classes = []
+        }
+      },
+      openInfoModal() {
+        app.moreinfodata = [];
+        app.moreinfodata = {
+          title: this.data?.attributes ? (this.data?.attributes?.name ??
+            (this.data?.attributes?.title ?? '') ?? '') : '',
+          subtitle: this.data?.attributes?.artistName ?? '',
+          content: ((this.data?.attributes?.editorialNotes != null) ? (this.data?.attributes?.editorialNotes?.standard ?? (this.data?.attributes?.editorialNotes?.short ?? '')) : (data.attributes?.description ? (this.data.attributes?.description?.standard ?? (this.data?.attributes?.description?.short ?? '')) : ''))
+        }
+        app.modals.moreInfo = true;
+      },
+      generateNestedPlaylist(songlists) {
+        this.nestedPlaylist = [];
+        this.nestedDisplayLength = songlists.length;
+
+        if (this.data?.type?.includes("album")) {
+          let discs = songlists.map(x => {
+            return x.attributes.discNumber
+          }).filter((item, i, ar) => ar.indexOf(item) === i);
+
+          if ((discs && discs.length > 1) || (discs && this.hasNestedPlaylist)) {
+            for (disc of discs) {
+              let songs = songlists.filter(x => x.attributes.discNumber == disc);
+              this.nestedPlaylist.push({ disc: disc, tracks: songs })
+            }
+          }
+          console.log(this.nestedPlaylist)
+        }
+
+        if (!this.hasNestedPlaylist)
+          this.hasNestedPlaylist = this.nestedPlaylist != [] && this.nestedPlaylist.length > 1;
+      },
+      isHeaderVisible(visible) {
+        this.headerVisible = visible
+      },
+      hasHero() {
+        if (this.data.attributes?.editorialArtwork?.bannerUber) {
+          return this.data.attributes?.editorialArtwork?.bannerUber.url
+        } else if (this.data.attributes?.editorialArtwork?.subscriptionHero) {
+          return this.data.attributes?.editorialArtwork?.subscriptionHero.url
+        } else if (this.data.attributes?.editorialArtwork?.storeFlowcase) {
+          return this.data.attributes?.editorialArtwork?.storeFlowcase.url
+        }
+        return false;
+      },
+      hasHeroObject() {
+        if (this.data.attributes?.editorialArtwork?.bannerUber) {
+          return this.data.attributes?.editorialArtwork?.bannerUber
+        } else if (this.data.attributes?.editorialArtwork?.subscriptionHero) {
+          return this.data.attributes?.editorialArtwork?.subscriptionHero
+        } else if (this.data.attributes?.editorialArtwork?.storeFlowcase) {
+          return this.data.attributes?.editorialArtwork?.storeFlowcase
+        }
+        return [];
+      },
+      getBadges() {
+        return
+        if (this.badgesRequested) {
+          return
+        }
+        this.badgesRequested = true
+        this.itemBadges = []
+        let self = this
+        var id = 0
+        try {
+          id = this.data.attributes.playParams.id
+        } catch (e) {
+          id = this.data.id
+        }
+        this.$root.getSocialBadges((badges) => {
+          let friends = badges[id]
+          if (friends) {
+            friends.forEach(function(friend) {
+              self.app.mk.api.v3.music(`/v1/social/${app.mk.storefrontId}/social-profiles/${friend}`).then(data => {
+                self.itemBadges.push(data.data.data[0])
+              })
+            })
+          }
+        })
+      },
+      confirmButton() {
+        // Return button to normal state after 3 seconds
+
+        this.confirm = true
+        setTimeout(() => this.confirm = false, 3000);
+      },
+      getArtistName(data) {
+        if (data.attributes.artistName) {
+          this.useArtistChip = true
+          return data.attributes.artistName
+        } else if (data.attributes.artist) {
+          this.useArtistChip = true
+          return data.attributes.artist.attributes.name
+        } else if (data.attributes.curatorName) {
+          return data.attributes.curatorName
+        } else {
+          return ""
+        }
+      },
+      getAlbumGenre: function() {
+        if (this.data.type.includes('albums')) {
+          let date = this.data.attributes.releaseDate;
+          if (date == null || date === "") return "";
+          return `${this.data.attributes.genreNames[0]} · ${new Date(date).getFullYear()}`
+        }
+      },
+      async isInLibrary() {
+        if (this.data.type && !this.data.type.includes("library")) {
+          // please keep using vars here
+          const params = {
+            "fields[playlists]": "inLibrary",
+            "fields[albums]": "inLibrary",
+            "relate": "library"
+          };
+          const res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false, this.data.attributes.playParams.id ?? this.data.id, params);
+          this.inLibrary = (res.data.data[0] && res.data.data[0].attributes && res.data.data[0].attributes.inLibrary) ? res.data.data[0].attributes.inLibrary : false
+          console.log(res)
+        } else {
+          this.inLibrary = true
+        }
+      },
+      editPlaylist() {
+        this.app.editPlaylist(this.data.id, this.data.attributes.name);
+        this.app.editPlaylistDescription(this.data.id, this.data.attributes.description.standard);
+        this.app.playlists.listing.forEach(playlist => {
+          if (playlist.id === this.data.id) {
+            playlist.attributes.name = this.data.attributes.name
+            playlist.attributes.description = this.data.attributes.description.standard
+          }
+        })
+        this.nameEditing = false
+        this.descriptionEditing = false
+      },
+      editPlaylistDescription() {
+        this.app.editPlaylistDescription(this.data.id, this.data.attributes.description.standard);
+        this.app.playlists.listing.forEach(playlist => {
+          if (playlist.id === this.data.id) {
+            playlist.attributes.description = this.data.attributes.description.standard
+          }
+        })
+        this.descriptionEditing = false
+      },
+      addToLibrary(id) {
+        app.mk.addToLibrary(id)
+        this.inLibrary = true
+        this.confirm = false
+      },
+      async removeFromLibrary(id) {
+        const params = { "fields[songs]": "inLibrary", "fields[albums]": "inLibrary", "relate": "library" };
+        var id = this.data.id ?? this.data.attributes.playParams.id
+        const res = await app.mkapi(this.data.attributes.playParams.kind ?? this.data.type, this.data.attributes.playParams.isLibrary ?? false, this.data.attributes.playParams.id ?? this.data.id, params);
+        if (res.data.data[0] && res.data.data[0].relationships && res.data.data[0].relationships.library && res.data.data[0].relationships.library.data && res.data.data[0].relationships.library.data.length > 0) {
+          id = res.data.data[0].relationships.library.data[0].id
+        }
+        let kind = this.data.attributes.playParams.kind ?? this.data.type ?? '';
+        const truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+        app.mk.api.v3.music(`v1/me/library/${truekind}/${id.toString()}`, {},
+          {
+            fetchOptions: {
+              method: "DELETE"
+            }
+          })
+        this.inLibrary = false
+        this.confirm = false
+      },
+      editPlaylistName() {
+        if (this.data.attributes.canEdit && this.data.type === "library-playlists") {
+          this.nameEditing = true
+          setTimeout(() => {
+            document.querySelector(".nameEdit").focus()
+          }, 100)
+        }
+      },
+      editPlaylistDescription() {
+        if (this.data.attributes.canEdit && this.data.type === "library-playlists") {
+          this.descriptionEditing = true
+          setTimeout(() => {
+            document.querySelector(".descriptionEdit").focus()
+          }, 100)
+        }
+      },
+      buildContextMenu(index) {
+        let self = this
+        if (!this.data.attributes.canEdit) {
+          return
+        }
+        return {
+          normal: [
+            {
+              name: app.getLz('action.removeFromPlaylist'),
+              action: () => {
+                self.remove()
+              }
+            },
+          ],
+          multiple: [
+            {
+              name: app.getLz('action.removeFromPlaylist'),
+              action: () => {
+                self.remove()
+              }
+            },
+          ]
+        }
+      },
+      async put() {
+        if (!this.data.attributes.canEdit) {
+          return
+        }
+        console.log('sds', this.convert())
+        await app.mk.api.v3.music(
+          `/v1/me/library/playlists/${this.data.attributes.playParams.id}/tracks`,
+          {},
+          {
+            fetchOptions: {
+              method: "PUT",
+              body: JSON.stringify({
+                data: this.convert()
+              })
+            }
+          }
+        )
+      },
+      async remove() {
+        if (!this.data.attributes.canEdit) {
+          return
+        }
+        // for each app.selectedMediaItems splice the items from the playlist
+        for (let i = 0; i < app.selectedMediaItems.length; i++) {
+          let item = app.selectedMediaItems[i]
+          let index = this.data.relationships.tracks.data.findIndex(x => x.id == item.id)
+          if (index > -1) {
+            this.data.relationships.tracks.data.splice(index, 1)
+          }
+        }
+        await this.put()
+      },
+      convert() {
+        let pl_tracks = []
+        for (let i = 0; i < this.data.relationships.tracks.data.length; i++) {
+          pl_tracks.push({
+            id: this.data.relationships.tracks.data[i].id,
+            type: this.data.relationships.tracks.data[i].type
+          })
+        }
+        return pl_tracks
+      },
+      getRecursive(url) {
+        app.apiCall(app.musicBaseUrl + "/v1/me/library/playlists/p.V7VYlrDso6kkYY/tracks?offset=100", res => {
+          this.data.relationships.tracks.data = this.data.relationships.tracks.data.concat(res.data.data)
+          if (res.data.next) {
+            this.getRecursive(res.data.next)
+          }
+        })
+      },
+      async menu(event) {
+        let self = this
+        let artistId = null
+
+        if (typeof this.data.relationships.artists != "undefined") {
+          artistId = this.data.relationships.artists.data[0].id
+          if (this.data.relationships.artists.data[0].type == "library-artists") {
+            artistId = this.data.relationships.artists.data[0].relationships.catalog.data[0].id
+          }
+        }
+
+        let menuItems = {
+          headerItems: [
+            {
+              "icon": "./assets/feather/heart.svg",
+              "id": "love",
+              "name": app.getLz('action.love'),
+              "hidden": false,
+              "disabled": true,
+              "action": function() {
+                app.love(self.data)
+              }
+            },
+            {
+              "icon": "./assets/feather/heart.svg",
+              "id": "unlove",
+              "active": true,
+              "name": app.getLz('action.unlove'),
+              "hidden": true,
+              "action": function() {
+                app.unlove(self.data)
+              }
+            },
+            {
+              "icon": "./assets/feather/thumbs-down.svg",
+              "id": "dislike",
+              "name": app.getLz('action.dislike'),
+              "hidden": false,
+              "disabled": true,
+              "action": function() {
+                app.dislike(self.data)
+              }
+            },
+            {
+              "icon": "./assets/feather/thumbs-down.svg",
+              "id": "undo_dislike",
+              "name": app.getLz('action.undoDislike'),
+              "active": true,
+              "hidden": true,
+              "action": function() {
+                app.unlove(self.data)
+              }
+            },
+          ],
+          items: {
+            "addToPlaylist": {
+              name: app.getLz('action.addToPlaylist'),
+              "icon": "./assets/feather/list.svg",
+              action: () => {
+                app.selectedMediaItems = []
+                app.select_selectMediaItem(this.data.attributes.playParams.id ?? this.data.id, this.data.attributes.playParams.kind ?? this.data.type, 0, 0, this.data.attributes.playParams.isLibrary ?? false)
+                app.promptAddToPlaylist()
+              }
+            },
+            "share": {
+              name: app.getLz('term.share'),
+              icon: "./assets/feather/share.svg",
+              action: () => {
+                let route = ""
+                switch (this.data.type) {
+                  case 'albums':
+                    route = `/v1/catalog/${app.mk.storefrontId}/albums/${this.data.id}`
+                    break;
+                  case 'playlists':
+                    route = `/v1/catalog/${app.mk.storefrontId}/playlists/${this.data.id}`
+                    break;
+                  case "library-playlists":
+                    route = `/v1/me/library/playlists/${this.data.id}/catalog`
+                    break
+                  case "library-albums":
+                    route = `/v1/me/library/albums/${this.data.id}/catalog`
+                    break
+                }
+                if (route === '') {
+                  return
+                }
+                app.mk.api.v3.music(route).then(res => {
+                  console.log(res.data.data[0].attributes.url)
+                  app.copyToClipboard(res.data.data[0].attributes.url)
+                })
+              }
+            }
+          }
+        }
+        app.showMenuPanel(menuItems, event)
+
+        try {
+          let rating = await app.getRating(self.data)
+          if (rating == 0) {
+            menuItems.headerItems.find(x => x.id == 'love').disabled = false
+            menuItems.headerItems.find(x => x.id == 'dislike').disabled = false
+          } else if (rating == 1) {
+            menuItems.headerItems.find(x => x.id == 'unlove').hidden = false
+            menuItems.headerItems.find(x => x.id == 'love').hidden = true
+          } else if (rating == -1) {
+            menuItems.headerItems.find(x => x.id == 'undo_dislike').hidden = false
+            menuItems.headerItems.find(x => x.id == 'dislike').hidden = true
+          }
+        } catch (err) {
+        }
+
+
+      },
+      getItemParent: function(data) {
+        kind = data.attributes.playParams.kind;
+        id = data.attributes.playParams.id;
+        return `${kind}:${id}`
+      },
+      getFormattedDate: function() {
+        let date = (this.data.attributes.releaseDate ?? (this.data.attributes.lastModifiedDate ?? (this.data.attributes.dateAdded ?? '')))
+        let prefix = '';
+        if (date == null || date === "") return "";
+        switch (date) {
+          case this.data.attributes.releaseDate:
+            prefix = this.app.getLz('term.time.released') + ' '
+            break;
+          case this.data.attributes.lastModifiedDate:
+            prefix = this.app.getLz('term.time.updated') + ' '
+            break;
+          case this.data.attributes.dateAdded:
+            prefix = this.app.getLz('term.time.added') + ' '
+            break;
+        }
+        let month, year;
+        try {
+          const releaseDate = new Date(date);
+          // month = new Intl.DateTimeFormat(this.app.cfg.general.language.replace('_','-'), {month: 'long'}).format(releaseDate);
+          // date = releaseDate.getDate();
+          // year = releaseDate.getFullYear();
+          let formatted = ''
+          try {
+            formatted = new Intl.DateTimeFormat(this.app.cfg.general.language?.replace('_', '-') ?? 'en-US', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric'
+            }).format(releaseDate);
+          } catch (e) {
+            // use the format in json instead
+            if (this.app.getLz('date.format') != null) {
+              formatted = new this.app.getLz('date.format').replace("${d}", releaseDate.getDate()).replace("${m}", releaseDate.getMonth()).replace("${y}", releaseDate.getFullYear());
+            } else {
+              formatted = new Intl.DateTimeFormat('en-US', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+              }).format(releaseDate);
+            }
+          }
+          return prefix + formatted
+        } catch (e) {
+          return ""
+        }
+      },
+      play() {
+        function shuffleArray(array) {
+          for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+          }
+        }
+
+        const id = this.data.attributes.playParams?.id ?? this.data.id;
+        //console.log("1")
+        const kind = this.data.attributes.playParams?.kind ?? this.data.type ?? '';
+        //console.log("1")
+        if (kind == "podcast-episodes") {
+          kind = "episode"
+        }
+        const truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+
+        let query = (this.data ?? app.showingPlaylist).relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
+
+        app.mk.stop().then(() => {
+          if (id != 'ciderlocal') {
+            app.mk.setQueue({ [truekind]: [id], parameters: { l: app.mklang } }).then(function() {
+              app.mk.play().then(function() {
+                if (query.length > 100) {
+                  let u = query.slice(100);
+                  if (app.mk.shuffleMode == 1) {
+                    shuffleArray(u)
+                  }
+                  app.mk.queue.append(u)
+                }
+              })
+            })
+          } else {
+            let u = app.library.localsongs.map(i => {
+              return i.id
+            })
+            app.mk.setQueue({ "episodes": u }).then(() => {
+              app.mk.play()
+            })
+          }
+        })
+
+
+      },
+      navClass(data) {
+        if (data && typeof data.views != "undefined") return "";
+        return "d-none";
+      },
+      async getCopiedPlayListSongs(event) {
+        if (event.ctrlKey && event.keyCode === 67) {
+          let urls = [];
+          app.selectedMediaItems.forEach(item => {
+            this.app.mk.api.v3.music(`/v1/me/library/songs/${item.id}`).then((response) => {
+              this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/songs/${response.data.data[0].attributes.playParams.catalogId}`).then((response1) => {
+                urls.push(response1.data.data[0].attributes.url)
+                navigator.clipboard.writeText(urls)
+              })
+            })
+          })
+          notyf.success(app.getLz('term.share.success'))
+        }
+      },
+      async pasteSongs(event) {
+        if (event.ctrlKey && event.keyCode === 86 && this.data.attributes.canEdit) {
+          let clipboard = await navigator.clipboard.readText()
+          let songs = []
+
+          clipboard = clipboard.split(",")
+          clipboard.forEach(item => {
+            songs.push({
+              id: item.substring(item.indexOf("i=") + 2, item.length),
+              type: "songs",
+            })
+          })
+
+          this.app.mk.api.v3.music(`/v1/me/library/playlists/${this.data.id}/tracks`, {}, {
+            fetchOptions: {
+              method: "POST",
+              body: JSON.stringify({
+                data: songs
+              })
+            }
+          }).then((response) => {
+            songs.forEach(item => {
+              this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/songs/${item.id}`).then((response1) => {
+                this.displayListing.push(response1.data.data[0])
+              })
+            })
+          })
+        }
+      },
+      toggleSearch() {
+        this.showSearch = !this.showSearch;
+
+        if (!this.showSearch && this.searchQuery != "") {
+          // Clear search query if the search bar becomes hidden
+          this.searchQuery = "";
+          this.search();
+        } else if (this.showSearch) {
+          // Focus search bar
+          this.$nextTick(() => {
+            this.$refs["search-bar"].focus();
+          });
+        }
+      },
+      search() {
+        let filtered = [];
+
+        if (this.searchQuery == "") {
+          filtered = this.data.relationships.tracks.data;
+        } else {
+          filtered = this.data.relationships.tracks.data.filter((item) => {
+            let itemName = item.attributes.name.toLowerCase();
+            let searchTerm = this.searchQuery.toLowerCase();
+            let artistName = "";
+            let albumName = "";
+            if (item.attributes.artistName != null) {
+              artistName = item.attributes.artistName.toLowerCase();
+            }
+            if (item.attributes.albumName != null) {
+              albumName = item.attributes.albumName.toLowerCase();
+            }
+
+            // remove any non-alphanumeric characters and spaces from search term and item name
+            searchTerm = searchTerm.replace(/[^\p{L}\p{N} ]/gu, "");
+            itemName = itemName.replace(/[^\p{L}\p{N} ]/gu, "");
+            artistName = artistName.replace(/[^\p{L}\p{N} ]/gu, "");
+            albumName = albumName.replace(/[^\p{L}\p{N} ]/gu, "");
+
+            let match = itemName.includes(searchTerm) || artistName.includes(searchTerm);
+            // only include album name in playlists
+            // this allows to search for the title track (itemName == albumName)
+            if (this.inPlaylist) match = match || albumName.includes(searchTerm)
+
+            if (match) return item;
+          });
+        }
+
+        if (!this.hasNestedPlaylist) {
+          // Regular album/playlist
+          this.displayListing = filtered;
+        } else {
+          // Album with multiple discs
+          this.generateNestedPlaylist(filtered);
+        }
+      }
+    }
+  })
 </script>

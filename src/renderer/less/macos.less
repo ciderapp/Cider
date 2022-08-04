@@ -1,79 +1,79 @@
 body[platform="darwin"] {
-    html {
-        background: transparent !important;
+  html {
+    background: transparent !important;
+  }
+
+  &.notransparency::before {
+    display: none;
+  }
+
+  #app {
+    &.simplebg {
+      background: transparent;
     }
 
-    &.notransparency::before {
-        display: none;
+    &::before {
+      display: none;
     }
 
-    #app {
-        &.simplebg {
-            background: transparent;
-        }
-
-        &::before {
-            display: none;
-        }
-
-        .app-chrome {
-            background-color: var(--macOSChromeColor);
-        }
-
-        &.twopanel {
-            --chromeHeight1: 55px;
-            --chromeHeight: calc(var(--chromeHeight1) + var(--chromeHeight2));
-
-            .app-chrome .app-chrome-item.search {
-                margin-right: 12px;
-            }
-
-            .app-chrome .app-mainmenu {
-                width: 46px;
-            }
-
-            .app-chrome.chrome-bottom {
-                background-color: var(--macOSChromeColor);
-            }
-        }
-
-        &[window-state="normal"] {
-            &::after {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                box-shadow: inset 0px 0px .5px 1px rgb(200 200 200 / 40%);
-                border-radius: 10px;
-                content: " ";
-                z-index: 999999;
-                pointer-events: none;
-            }
-        }
+    .app-chrome {
+      background-color: var(--macOSChromeColor);
     }
 
-    #app-main {
-        background-color: transparent;
+    &.twopanel {
+      --chromeHeight1: 55px;
+      --chromeHeight: calc(var(--chromeHeight1) + var(--chromeHeight2));
 
-        .app-navigation {
-            background: transparent;
-        }
+      .app-chrome .app-chrome-item.search {
+        margin-right: 12px;
+      }
 
-        #app-content {
-            background-color: #1e1e1e6b;
-        }
+      .app-chrome .app-mainmenu {
+        width: 46px;
+      }
+
+      .app-chrome.chrome-bottom {
+        background-color: var(--macOSChromeColor);
+      }
     }
 
-    .settings-window.maxed {
-        .tabs>.col-auto {
-            transition: padding-top .3s linear;
-            padding-top: var(--chromeHeight1);
-        }
+    &[window-state="normal"] {
+      &::after {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        box-shadow: inset 0px 0px 0.5px 1px rgb(200 200 200 / 40%);
+        border-radius: 10px;
+        content: " ";
+        z-index: 999999;
+        pointer-events: none;
+      }
+    }
+  }
+
+  #app-main {
+    background-color: transparent;
+
+    .app-navigation {
+      background: transparent;
     }
 
-    #apple-music-video-player-controls #player-exit {
-        margin-top: 18px;
-        left: 70px;
+    #app-content {
+      background-color: #1e1e1e6b;
     }
+  }
+
+  .settings-window.maxed {
+    .tabs > .col-auto {
+      transition: padding-top 0.3s linear;
+      padding-top: var(--chromeHeight1);
+    }
+  }
+
+  #apple-music-video-player-controls #player-exit {
+    margin-top: 18px;
+    left: 70px;
+  }
 }

@@ -15,120 +15,120 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Cider</title>
-    <link rel="<%- (env.dev ? " stylesheet" : "stylesheet/less" ) %>" type="text/css" href="style.<%- (env.dev ? "css"
-        : "less" ) %>"/>
-        <!--    <link rel="stylesheet/less" type="text/css" id="userTheme" href="themes/default.less"/>-->
-        <script src="./lib/less.js"></script>
-        <script src="<%- (env.dev ? " ./lib/vue.js" : "./lib/vue.dev.js" ) %>"></script>
-        <script src="./lib/smoothscroll.js"></script>
-        <link rel="manifest" href="./manifest.json?v=2">
-        <script src="https://js-cdn.music.apple.com/hls.js/2.141.0/hls.js/hls.js"></script>
-        <script src="hlscider.js"></script>
-        <script src="./lib/jquery-3.2.1.slim.min.js"></script>
-        <script src="./lib/popper.min.js"></script>
-        <script src="./lib/bootstrap.min.js"></script>
-        <script src="./lib/bootbox.min.js"></script>
-        <script src="./lib/notyf.min.js"></script>
-        <script src="./lib/marked.js"></script>
-        <script src="./lib/velocity.min.js"></script>
-        <script src="./lib/fast-plural-rules.js"></script>
-        <script src="./lib/resonance-audio.min.js"></script>
-        <script src="./lib/stackblur.min.js"></script>
+    <link rel="<%- (env.dev ? " stylesheet" : "stylesheet/less") %>" type="text/css" href="style.<%- (env.dev ? "css"
+            : "less") %>" />
+    <!--    <link rel="stylesheet/less" type="text/css" id="userTheme" href="themes/default.less"/>-->
+    <script src="./lib/less.js"></script>
+    <script src="<%- (env.dev ? " ./lib/vue.js" : "./lib/vue.dev.js"); %>"></script>
+    <script src="./lib/smoothscroll.js"></script>
+    <link rel="manifest" href="./manifest.json?v=2">
+    <script src="https://js-cdn.music.apple.com/hls.js/2.141.0/hls.js/hls.js"></script>
+    <script src="hlscider.js"></script>
+    <script src="./lib/jquery-3.2.1.slim.min.js"></script>
+    <script src="./lib/popper.min.js"></script>
+    <script src="./lib/bootstrap.min.js"></script>
+    <script src="./lib/bootbox.min.js"></script>
+    <script src="./lib/notyf.min.js"></script>
+    <script src="./lib/marked.js"></script>
+    <script src="./lib/velocity.min.js"></script>
+    <script src="./lib/fast-plural-rules.js"></script>
+    <script src="./lib/resonance-audio.min.js"></script>
+    <script src="./lib/stackblur.min.js"></script>
 
-        <style>
-            #LOADER {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: #1E1E1E;
-                z-index: 99999;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
+    <style>
+      #LOADER {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #1E1E1E;
+        z-index: 99999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-            #LOADER>svg {
-                width: 128px;
-            }
+      #LOADER > svg {
+        width: 128px;
+      }
 
-            @media (prefers-color-scheme: light) {
-                #LOADER {
-                    background-color: #eee;
-                }
-            }
-        </style>
+      @media (prefers-color-scheme: light) {
+        #LOADER {
+          background-color: #eee;
+        }
+      }
+    </style>
 </head>
 
-<body class="notransparency" oncontextmenu="return false;" loading="1" os-release="<%= parseInt(env.osRelease) %>"
-    platform="<%= env.platform %>">
-    <script src="<%- (env.dev ? " ./lib/vue.js" : "./lib/vue.dev.js" ) %>"></script>
-    <script src="./lib/vue-horizontal.js"></script>
-    <script src="./lib/bootstrap-vue.min.js"></script>
-    <script src="./lib/vuex.min.js"></script>
-    <script src="./lib/sortable.min.js"></script>
-    <script src="./lib/vue-observe-visibility.min.js"></script>
-    <script src="./lib/vuedraggable.umd.min.js"></script>
-    <script>
-        window.quasarConfig = {
-            brand: {
-                primary: '#fc3c44'
-            },
-            config: {
-                dark: true
-            },
-            loadingBar: { skipHijack: true }
-        }
-    </script>
-    <!-- <script src="./lib/quasar/quasar.umd.min.js"></script> -->
-    <script type="module" src="./main/app.js"></script>
+<body class="notransparency" oncontextmenu="return false;" loading="1" os-release="<%= parseInt(env.osRelease) ;%>"
+      platform="<%= env.platform ;%>">
+<script src="<%- (env.dev ? " ./lib/vue.js" : "./lib/vue.dev.js"); %>"></script>
+<script src="./lib/vue-horizontal.js"></script>
+<script src="./lib/bootstrap-vue.min.js"></script>
+<script src="./lib/vuex.min.js"></script>
+<script src="./lib/sortable.min.js"></script>
+<script src="./lib/vue-observe-visibility.min.js"></script>
+<script src="./lib/vuedraggable.umd.min.js"></script>
+<script>
+  window.quasarConfig = {
+    brand: {
+      primary: '#fc3c44'
+    },
+    config: {
+      dark: true
+    },
+    loadingBar: { skipHijack: true }
+  }
+</script>
+<!-- <script src="./lib/quasar/quasar.umd.min.js"></script> -->
+<script type="module" src="./main/app.js"></script>
 
-    <div id="LOADER">
-        <%- include("../assets/cider-round.svg") %>
-    </div>
-    <div id="app" :class="getAppClasses()" v-if="appVisible" :window-state="chrome.windowState" :style="getAppStyle()"
-        :library-visible="(chrome.sidebarCollapsed ? 0 : 1)" :window-style="cfg.visual.directives.windowLayout">
-        <transition name="fsModeSwitch">
-            <div id="app-main" v-show="appMode == 'player'">
-                <%- include('app/chrome-top'); %>
-                    <%- include('app/app-navigation'); %>
-                        <%- include('app/chrome-bottom'); %>
-            </div>
-        </transition>
-        <transition name="fsModeSwitch">
-            <div class="fullscreen-view-container" v-if="appMode == 'fullscreen'">
-                <fullscreen-view :image="currentArtUrlRaw" :time="mk.currentPlaybackTime - lyricOffset" :lyrics="lyrics"
-                    :richlyrics="richlyrics"></fullscreen-view>
-            </div>
-        </transition>
-        <transition name="fsModeSwitch">
-            <div class="fullscreen-view-container" v-if="appMode == 'mini'">
-                <mini-view :image="currentArtUrlRaw" :time="mk.currentPlaybackTime - lyricOffset" :lyrics="lyrics"
-                    :richlyrics="richlyrics">
-                </mini-view>
-            </div>
-        </transition>
-        <transition name="fsModeSwitch">
-            <div class="fullscreen-view-container oobe" v-if="appMode == 'oobe'">
-                <cider-oobe></cider-oobe>
-            </div>
-        </transition>
-        <%- include('app/panels'); %>
-            <div class="cursor" v-if="chrome.showCursor"></div>
-    </div>
+<div id="LOADER">
+    <%- include("../assets/cider-round.svg") %>
+</div>
+<div id="app" :class="getAppClasses()" v-if="appVisible" :window-state="chrome.windowState" :style="getAppStyle()"
+     :library-visible="(chrome.sidebarCollapsed ? 0 : 1)" :window-style="cfg.visual.directives.windowLayout">
+    <transition name="fsModeSwitch">
+        <div id="app-main" v-show="appMode == 'player'">
+            <%- include('app/chrome-top'); %>
+            <%- include('app/app-navigation'); %>
+            <%- include('app/chrome-bottom'); %>
+        </div>
+    </transition>
+    <transition name="fsModeSwitch">
+        <div class="fullscreen-view-container" v-if="appMode == 'fullscreen'">
+            <fullscreen-view :image="currentArtUrlRaw" :time="mk.currentPlaybackTime - lyricOffset" :lyrics="lyrics"
+                             :richlyrics="richlyrics"></fullscreen-view>
+        </div>
+    </transition>
+    <transition name="fsModeSwitch">
+        <div class="fullscreen-view-container" v-if="appMode == 'mini'">
+            <mini-view :image="currentArtUrlRaw" :time="mk.currentPlaybackTime - lyricOffset" :lyrics="lyrics"
+                       :richlyrics="richlyrics">
+            </mini-view>
+        </div>
+    </transition>
+    <transition name="fsModeSwitch">
+        <div class="fullscreen-view-container oobe" v-if="appMode == 'oobe'">
+            <cider-oobe></cider-oobe>
+        </div>
+    </transition>
+    <%- include('app/panels'); %>
+    <div class="cursor" v-if="chrome.showCursor"></div>
+</div>
 
-    <% for(var i=0; i < Object.keys(env.components).length ; i++) { %>
-        <%- include(env.components[i]); %>
-            <% } %>
+<% for(var i = 0; i < Object.keys(env.components).length ; i++) { %>
+    <%- include(env.components[i]); %>
+<% } %>
 
-                <script async
-                    src="<%- (env.useV3 ? 'https://js-cdn.music.apple.com/musickit/v3/amp/musickit.js' : 'https://api.cider.sh/musickit.js') %>"
-                    data-web-components>
-                    </script>
-                <script src="index.js?v=1"></script>
+<script async
+        src="<%- (env.useV3 ? "https://js-cdn.music.apple.com/musickit/v3/amp/musickit.js" : "https://api.cider.sh/musickit.js"); %>"
+        data-web-components>
+</script>
+<script src="index.js?v=1"></script>
 
-                <script type="text/x-template" id="am-musiccovershelf">
+<script type="text/x-template" id="am-musiccovershelf">
     <h1>{{ component.attributes.title.stringForDisplay }}</h1>
 </script>
 

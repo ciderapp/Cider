@@ -156,8 +156,7 @@
       }
 
       .close-btn {
-        .menu-panel.menu-header-text.close-btn
-
+        .menu-panel.menu-header-text.close-btn;
       }
     }
   }
@@ -180,7 +179,7 @@
       }
 
       .close-btn {
-        .menu-panel.menu-header-text.close-btn
+        .menu-panel.menu-header-text.close-btn;
       }
     }
 
@@ -294,7 +293,6 @@
     overflow: hidden;
     font-size: 13px;
 
-
     .menu-option {
       text-align: left;
       display: flex;
@@ -323,7 +321,7 @@
         opacity: 0;
         transform: scale(0.98);
         z-index: -1;
-        transition: transform .25s ease-out, opacity .25s ease-out;
+        transition: transform 0.25s ease-out, opacity 0.25s ease-out;
       }
 
       &:hover {
@@ -336,7 +334,7 @@
 
       &:active {
         &::before {
-          transition: transform .1s ease-in-out, opacity .1s ease-in-out;
+          transition: transform 0.1s ease-in-out, opacity 0.1s ease-in-out;
           opacity: 1;
           transform: scale(0.98);
           background: var(--selected-click);
@@ -372,7 +370,7 @@
       }
 
       &:hover {
-        background-color: rgb(196, 43, 28)
+        background-color: rgb(196, 43, 28);
       }
     }
   }
@@ -429,7 +427,6 @@
     margin: auto;
   }
 }
-
 
 .moreinfo-modal {
   .modal-window {
@@ -496,7 +493,8 @@
       font-weight: 600;
     }
 
-    .song-artist, .song-album {
+    .song-artist,
+    .song-album {
       opacity: 0.75;
       cursor: pointer;
 

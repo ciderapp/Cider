@@ -1,0 +1,4 @@
+src/renderer/apple-hls*
+build/*
+src/renderer/lib/*
+*.min.*
