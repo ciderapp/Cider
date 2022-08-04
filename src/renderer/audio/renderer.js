@@ -710,7 +710,7 @@ const CiderAudioRenderer = {
           .then(async (response) => await response.arrayBuffer())
           .then((arrayBuffer) => CiderAudioRenderer.context.decodeAudioData(arrayBuffer))
           .then((decodedBuffer) => {
-            const source = new AudioBufferSourceNode(renderer, {
+            const source = new AudioBufferSourceNode(CiderAudioRenderer.context, {
               buffer: decodedBuffer,
             });
 
@@ -773,7 +773,7 @@ const CiderAudioRenderer = {
 
                 source.start();
 
-                const res = renderer.startRendering().then(function(res) {
+                return CiderAudioRenderer.context.startRendering().then(function(res) {
                 return res;
               })
           })
