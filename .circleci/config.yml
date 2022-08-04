@@ -155,7 +155,7 @@ jobs:
           name: Publish Release
           command: |
             echo "Attempting to create release for Cider v${APP_VERSION} on the ${CIRCLE_BRANCH} branch."
-            gh release create "v${APP_VERSION}" --title "Cider Version ${APP_VERSION} (${CIRCLE_BRANCH})" --notes "**Beta Release**
+            gh release create "v${APP_VERSION}" --title "Cider Version ${APP_VERSION} (${CIRCLE_BRANCH})" --target "ciderapp/cider@${CIRCLE_SHA1}" --notes "**Beta Release**
             A full changelog is unavailable, but you can view the branch comparison [here](https://github.com/ciderapp/cider/compare/stable...main).
             These builds are considered bleeding edge, expect bugs and please do not use this as a representation of the full app.
             Our full support disclaimer can be found [here](https://docs.cider.sh/support/disclaimer#support-nightly-beta-releases)." -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
