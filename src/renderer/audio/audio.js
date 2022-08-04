@@ -1015,7 +1015,7 @@ const CiderAudio = {
         let lastNode = 'n0'; let index = 0; let firstNode = 'n0'
         for (let [tier, value] of configMap.entries()) {
             if (value === true) {
-                if (index === 0) {firstNode = tier}; i++;
+                if (index === 0) {firstNode = tier}; index++;
                 switch (tier) {
                     case 'spatial':
                         CiderAudio.spatial_ninf();
