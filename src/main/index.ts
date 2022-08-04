@@ -27,8 +27,6 @@ Sentry({
 new Store();
 const Cider = new AppEvents();
 const CiderPlug = new Plugins();
-//to trigger the prettier test
-console.log("hello world");
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * App Event Handlers
