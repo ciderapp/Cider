@@ -27,7 +27,7 @@ export class utils {
     },
     seek: (seconds: number) => {
       bw.win.webContents.executeJavaScript(`MusicKit.getInstance().seekToTime(${seconds})`);
-    }
+    },
   };
   /**
    * Paths for the application to use
@@ -42,7 +42,7 @@ export class utils {
     ciderCache: path.resolve(app.getPath("userData"), "CiderCache"),
     themes: path.resolve(app.getPath("userData"), "Themes"),
     plugins: path.resolve(app.getPath("userData"), "Plugins"),
-    externals: path.resolve(app.getPath("userData"), "externals")
+    externals: path.resolve(app.getPath("userData"), "externals"),
   };
 
   /**
