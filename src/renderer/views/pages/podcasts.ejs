@@ -208,7 +208,7 @@
         if (this.search.term == "") {
           return
         }
-        app.mk.api.v3.podcasts("/v1/catalog/us/search", {
+        app.mk.api.v3.podcasts(`/v1/catalog/${app.mk.storefrontId}/search`, {
           term: this.search.term,
           types: ["podcasts"],
           limit: 25
