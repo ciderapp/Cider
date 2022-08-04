@@ -37,7 +37,9 @@ jobs:
       - name: Change Version
         env:
           REQUEST_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-        run: sudo chmod +x resources/version.sh && ./resources/version.sh || true
+        run: |
+          curl -H "Authorization: token ${{ secrets.RELEASE_TOKEN }}" https://api.github.com/repos/ciderapp/Cider/branches/stable | grep '"sha"' | head -1 | cut -d '"' -f 4
+          sudo chmod +x resources/version.sh && ./resources/version.sh || true
 
       - name: Sign in to EVS
         run: |
