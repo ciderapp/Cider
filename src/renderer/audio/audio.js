@@ -43,6 +43,7 @@ const CiderAudio = {
           atmosphereRealizer2: null,
           atmosphereRealizer1: null,
           opportunisticCorrection: null,
+          optimizedNode: null,
         };
       } catch (e) {}
       CiderAudio.source.connect(CiderAudio.context.destination);
@@ -1090,46 +1091,7 @@ const CiderAudio = {
                 console.debug("[Cider][Audio] gainNode -> destination");
                 break;
         }
-      }
-    }
 
-    switch (lastNode) {
-      case "spatial":
-        CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.spatialNode);
-        console.debug("[Cider][Audio] gainNode -> Spatial");
-        break;
-      case "n6":
-        CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.atmosphereRealizer2);
-        console.debug("[Cider][Audio] gainNode -> atmosphereRealizer2");
-        break;
-      case "n5":
-        CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.atmosphereRealizer1);
-        console.debug("[Cider][Audio] gainNode -> atmosphereRealizer1");
-        break;
-      case "n4":
-        CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.vibrantbassNode[0]);
-        console.debug("[Cider][Audio] gainNode -> vibrantbass");
-        break;
-      case "n3":
-        CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.audioBands[0]);
-        console.debug("[Cider][Audio] gainNode -> audioBands");
-
-        break;
-      case "n2":
-        try {
-          CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.opportunisticCorrection);
-          console.debug("[Cider][Audio] gainNode -> opportunisticCorrection");
-        } catch (e) {}
-        break;
-      case "n1":
-        CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.llpw[0]);
-        console.debug("[Cider][Audio] gainNode -> llpw");
-        break;
-      case "n0":
-        CiderAudio.audioNodes.gainNode.connect(CiderAudio.context.destination);
-        console.debug("[Cider][Audio] gainNode -> destination");
-        break;
-    }
 
     console.debug("[Cider][Audio]\n" + [...configMap.entries()] + "\n lastNode: " + lastNode);
 
