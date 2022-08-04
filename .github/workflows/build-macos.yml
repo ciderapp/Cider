@@ -24,6 +24,7 @@ jobs:
       fail-fast: false
       matrix:
         language: [ 'javascript' ]
+        Plan: [ pkg,dmg ]
 
     steps:
       - uses: maxim-lobanov/setup-xcode@v1
@@ -56,7 +57,9 @@ jobs:
           rm -r node_modules/pouchdb-node/node_modules/leveldown
           rm -r node_modules/pouchdb-adapter-leveldb/node_modules/leveldown
 
+      #################################################
       - name: Build the DMG
+        if: ${{ matrix.Plan }} == dmg
         env:
           CSC_LINK: ${{ secrets.CSC_LINK }}
           CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
@@ -69,9 +72,20 @@ jobs:
         run: yarn dist:universalNotWorking -p never
 
       - name: Add license to DMG
+        if: ${{ matrix.Plan }} == dmg
         run: npx dmg-license resources/license.json dist/*.dmg
 
+      - name: Upload Files (DMG)
+        if: ${{ matrix.Plan }} == dmg
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_name: ciderapp/cider-releases
+          repo_token: ${{ secrets.RELEASE_TOKEN }}
+          file: dist/Cider-${{ env.APP_VERSION }}-universal.dmg
+          tag: v${{ env.APP_VERSION }}
+
       - name: Upload macOS Latest
+        if: ${{ matrix.Plan }} == dmg
         uses: svenstaro/upload-release-action@v2
         with:
           repo_name: ciderapp/cider-releases
@@ -79,13 +93,25 @@ jobs:
           file: dist/latest-mac.yml
           tag: v${{ env.APP_VERSION }}
 
+      - name: Upload a Build Artifact
+        if: ${{ matrix.Plan }} == dmg
+        uses: actions/upload-artifact@v2.2.3
+        with:
+          name: Cider-macOS-${{ env.APP_VERSION }}-dmg
+          path: |
+            dist/*.dmg
+            dist/latest-mac.yml
+      #################################################
+
       - name: Import
+        if: ${{ matrix.Plan }} == pkg
         uses: apple-actions/import-codesign-certs@v1
         with:
           p12-file-base64: ${{ secrets.CSC_LINK }}
           p12-password: ${{ secrets.CSC_KEY_PASSWORD }}
 
       - name: Build the PKG
+        if: ${{ matrix.Plan }} == pkg
         env:
           CSC_LINK: ${{ secrets.CSC_LINK }}
           CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
@@ -98,23 +124,14 @@ jobs:
           xcrun stapler staple dist/Cider*.pkg || true
 
       - name: Upload a Build Artifact
+        if: ${{ matrix.Plan }} == pkg
         uses: actions/upload-artifact@v2.2.3
         with:
-          name: Cider-macOS-${{ env.APP_VERSION }}
-          path: |
-            dist/*.dmg
-            dist/*.pkg
-            dist/latest-mac.yml
-
-      - name: Upload Files (DMG)
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_name: ciderapp/cider-releases
-          repo_token: ${{ secrets.RELEASE_TOKEN }}
-          file: dist/Cider-${{ env.APP_VERSION }}-universal.dmg
-          tag: v${{ env.APP_VERSION }}
+          name: Cider-macOS-${{ env.APP_VERSION }}-pkg
+          path: dist/*.pkg
 
       - name: Upload Files (PKG)
+        if: ${{ matrix.Plan }} == pkg
         uses: svenstaro/upload-release-action@v2
         with:
           repo_name: ciderapp/cider-releases
