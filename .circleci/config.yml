@@ -84,6 +84,12 @@ jobs:
       - attach_workspace:
           at: ~/Cider
       - run:
+          name: Install Windows System Build Dependencies
+          command: |
+            dpkg --add-architecture i386
+            sudo apt-get update -y
+            sudo apt-get install -y fakeroot wine64 wine32
+      - run:
           name: Generate Builds (Windows)
           command: yarn electron-builder -w --x64 -p never
           post-steps:
@@ -103,8 +109,9 @@ jobs:
       - run:
           name: Install Windows System Build Dependencies
           command: |
+            dpkg --add-architecture i386
             sudo apt-get update -y
-            sudo apt-get install -y fakeroot wine64
+            sudo apt-get install -y fakeroot wine64 wine32
       - run:
           name: Generate Builds (Winget)
           command: yarn electron-builder --win -c winget.json -p never
