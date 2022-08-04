@@ -17,7 +17,7 @@ jobs:
       - checkout
       - run:
           name: Install buildtools
-          command: | 
+          command: |
                 sudo apt-get update
                 sudo apt-get install -y autoconf automake g++ libtool || true
       - run:
@@ -84,14 +84,6 @@ jobs:
       - attach_workspace:
           at: ~/Cider
       - run:
-          name: Install Windows System Build Dependencies
-          command: |
-            sudo apt-get update -y
-            sudo apt-get install -y dpkg fakeroot wine64
-            sudo dpkg --add-architecture i386
-            sudo apt-get update -y
-            sudo apt-get install -y wine32
-      - run:
           name: Generate Builds (Windows)
           command: yarn electron-builder -w --x64 -p never
           post-steps:
@@ -112,10 +104,7 @@ jobs:
           name: Install Windows System Build Dependencies
           command: |
             sudo apt-get update -y
-            sudo apt-get install -y dpkg fakeroot wine64
-            sudo dpkg --add-architecture i386
-            sudo apt-get update -y
-            sudo apt-get install -y wine32
+            sudo apt-get install -y fakeroot wine64
       - run:
           name: Generate Builds (Winget)
           command: yarn electron-builder --win -c winget.json -p never
@@ -158,8 +147,11 @@ jobs:
       - run:
           name: Publish Release
           command: |
-            echo "Creating release for Cider v${APP_VERSION} on the ${CIRCLE_BRANCH} branch."
-            gh release create "v${APP_VERSION}" --title "Cider Version ${APP_VERSION} (${CIRCLE_BRANCH})" --notes "##Beta Release\nFull changelog unavailable. View branch comparison [here](https://github.com/ciderapp/cider/compare/stable...main).\nThese builds are considered bleeding edge, expect bugs and please do not use this as a respresentation of the full app. Our full support disclaimer can be found [here](https://docs.cider.sh/support/disclaimer#support-nightly-beta-releases)." -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
+            echo "Attempting to create release for Cider v${APP_VERSION} on the ${CIRCLE_BRANCH} branch."
+            gh release create "v${APP_VERSION}" --title "Cider Version ${APP_VERSION} (${CIRCLE_BRANCH})" --notes "**Beta Release**
+            A full changelog is unavailable, but you can view the branch comparison [here](https://github.com/ciderapp/cider/compare/stable...main).
+            These builds are considered bleeding edge, expect bugs and please do not use this as a representation of the full app.
+            Our full support disclaimer can be found [here](https://docs.cider.sh/support/disclaimer#support-nightly-beta-releases)." -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
 
 # Orchestrate our job run sequence
 workflows:
@@ -168,7 +160,7 @@ workflows:
       - prepare-build:
           filters:
             branches:
-              only: 
+              only:
               - main
               - stable
       - build-windows:
@@ -176,7 +168,7 @@ workflows:
             - prepare-build
           filters:
             branches:
-              only: 
+              only:
               - main
               - stable
       - build-linux:
@@ -184,7 +176,7 @@ workflows:
             - prepare-build
           filters:
             branches:
-              only: 
+              only:
               - main
               - stable
       - build-winget:
@@ -192,7 +184,7 @@ workflows:
             - prepare-build
           filters:
             branches:
-              only: 
+              only:
               - main
               - stable
       - release:
@@ -202,6 +194,6 @@ workflows:
             - build-winget
           filters:
             branches:
-              only: 
+              only:
               - main
               - stable
