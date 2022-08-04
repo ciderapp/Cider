@@ -1,7 +1,12 @@
 #!/bin/bash
 
 # Setup the variables needed
-STABLE_SHA=$(curl -H "Authorization: token ${REQUEST_TOKEN}" https://api.github.com/repos/ciderapp/Cider/branches/stable | grep '"sha"' | head -1 | cut -d '"' -f 4)
+if [[ $GITHUB_REF_NAME == "main" ]]; then
+  STABLE_SHA=$(curl -H "Authorization: token ${GH_REQUEST_TOKEN}" https://api.github.com/repos/ciderapp/Cider/branches/stable | grep '"sha"' | head -1 | cut -d '"' -f 4)
+else
+  STABLE_SHA=$(curl -H "Authorization: token ${GITHUB_TOKEN}" https://api.github.com/repos/ciderapp/Cider/branches/main | grep '"sha"' | head -1 | cut -d '"' -f 4)
+fi
+
 SHA_DATE=$(git show -s --format=%ci $STABLE_SHA)
 COMMIT_SINCE_STABLE=$(git rev-list $STABLE_SHA..HEAD --count --since="$SHA_DATE")
 CURRENT_VERSION=$(node -p -e "require('./package.json').version")
