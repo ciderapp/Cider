@@ -10,7 +10,8 @@ LATEST_VERSION=$(curl -s https://api.github.com/repos/ciderapp/cider-releases/re
 if [[ ($CIRCLE_BRANCH == "main" || $GITHUB_REF_NAME == "main") && $COMMITSINCESTABLE -gt 0 ]]; then
   NEW_VERSION="${CURRENT_VERSION}-beta.${COMMITSINCESTABLE}"
 
-  if [[ $GITHUB_REF_NAME != "" && $LATEST_VERSION != $NEW_VERSION ]]; then
+  if [[ $GITHUB_REF_NAME == "main" && $LATEST_VERSION != $NEW_VERSION ]]; then
+    echo "No version could be made. Picking latest tag."
     NEW_VERSION="${LATEST_VERSION}"
   fi
 
