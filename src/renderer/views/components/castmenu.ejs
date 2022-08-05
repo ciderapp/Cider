@@ -55,7 +55,7 @@
                                     </div>
                                     <div class="md-option-segment_auto"
                                          style="display: flex;justify-content: center;align-items: center"
-                                         v-if="activeCasts.includes(device)">
+                                         v-if="activeCasts.some(item => { return item.host == device.host && item.name == device.name && item.port == device.port})">
                                         Connected
                                     </div>
                                     <div class="md-option-segment_auto" v-else

@@ -89,7 +89,7 @@ export default class RAOP {
     // console.log(this.castDevices.findIndex((item: any) => {return (item.name == host.replace(".local","") && item.port == port )}))
     if (
       this.castDevices.findIndex((item: any) => {
-        return item != null && item.name == (host ?? "Unknown").replace(".local", "") && item.port == port;
+        return item != null && item.name == (host ?? "Unknown").replace(".local", "") && item.port == port && (item.host == (addresses ? addresses[0] : ""));
       }) == -1
     ) {
       this.castDevices.push({
