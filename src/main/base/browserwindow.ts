@@ -1042,7 +1042,7 @@ export class BrowserWindow {
         i18nListing = [];
 
       for (let i = 0; i < i18nFiles.length; i++) {
-        console.debug("[i18n] Processing file: " + join(utils.getPath("i18nPath"), i18nFiles[i]))
+        console.debug("[i18n] Processing file: " + join(utils.getPath("i18nPath"), i18nFiles[i]));
         const i18n: { [index: string]: Object } = JSON.parse(readFileSync(join(utils.getPath("i18nPath"), i18nFiles[i]), "utf8"));
         i18nListing.push({
           code: i18nFiles[i].replace(".json", ""),
@@ -1192,7 +1192,7 @@ export class BrowserWindow {
 
         var inputIndex = 0;
 
-        for (var index = 0; index < length;) {
+        for (var index = 0; index < length; ) {
           result[index++] = leftChannel[inputIndex];
           result[index++] = rightChannel[inputIndex];
           inputIndex++;
