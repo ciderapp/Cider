@@ -1037,11 +1037,13 @@ export class BrowserWindow {
     });
 
     ipcMain.on("get-i18n-listing", (event) => {
-      let i18nFiles = readdirSync(join(__dirname, "../../src/i18n")).filter((file) => file.endsWith(".json"));
-      // read all the files and parse them
-      let i18nListing = [];
+      console.debug("[i18n] Getting i18n listing from " + utils.getPath("i18nPath"));
+      const i18nFiles = readdirSync(utils.getPath("i18nPath")).filter((file) => file.endsWith(".json")),
+        i18nListing = [];
+
       for (let i = 0; i < i18nFiles.length; i++) {
-        const i18n: { [index: string]: Object } = JSON.parse(readFileSync(join(__dirname, `../../src/i18n/${i18nFiles[i]}`), "utf8"));
+        console.debug("[i18n] Processing file: " + join(utils.getPath("i18nPath"), i18nFiles[i]))
+        const i18n: { [index: string]: Object } = JSON.parse(readFileSync(join(utils.getPath("i18nPath"), i18nFiles[i]), "utf8"));
         i18nListing.push({
           code: i18nFiles[i].replace(".json", ""),
           nameNative: i18n["i18n.languageName"] ?? i18nFiles[i].replace(".json", ""),
@@ -1190,7 +1192,7 @@ export class BrowserWindow {
 
         var inputIndex = 0;
 
-        for (var index = 0; index < length; ) {
+        for (var index = 0; index < length;) {
           result[index++] = leftChannel[inputIndex];
           result[index++] = rightChannel[inputIndex];
           inputIndex++;
