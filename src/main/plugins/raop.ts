@@ -378,4 +378,4 @@ export default class RAOP {
       this.uploadImageAirplay(artworkURL.replace("{w}", "1024").replace("{h}", "1024"));
     }
   }
-}
+} 
