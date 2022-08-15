@@ -1,4 +1,4 @@
-import * as electron from "electron"; 
+import * as electron from "electron";
 import * as os from "os";
 import * as fs from "fs";
 import { join, resolve } from "path";
