@@ -62,16 +62,18 @@
                 <div class="title text-overflow-elipsis" :title="item.attributes.name">
                     {{ item.attributes.name }}
                 </div>
-                <div class="subtitle text-overflow-elipsis" :title="item.attributes.artistName"
+                <div class="subtitle text-overflow-elipsis"
                      style="-webkit-box-orient: horizontal;">
                     <template v-if="item.attributes.artistName">
                         <div class="artist item-navigate text-overflow-elipsis"
+                             :title="item.attributes.artistName"
                              @click="app.searchAndNavigate(item,'artist')">
                             {{ item.attributes.artistName }}
                         </div>
                         <template v-if="item.attributes.albumName">&nbsp;—&nbsp;</template>
                         <template v-if="item.attributes.albumName">
                             <div class="artist item-navigate text-overflow-elipsis"
+                                 :title="item.attributes.albumName"
                                  @click="app.searchAndNavigate(item,'album')">
                                 {{ item.attributes.albumName }}
                             </div>

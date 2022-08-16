@@ -426,8 +426,9 @@ const CiderAudio = {
                           let dataLength = audioRawData[0]?.length ?? 0;
                           for (let idx=0; idx<dataLength; idx++) {
                             for (let channel=0; channel < numberOfChannels; channel++) {
+                              try {
                               let value = audioRawData[channel][idx];
-                              this._buffers[channel][this._bytesWritten] = value;
+                              this._buffers[channel][this._bytesWritten] = value;} catch(e){}
                             }
                             this._bytesWritten += 1;
                           }
