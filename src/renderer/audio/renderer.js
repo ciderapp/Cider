@@ -768,15 +768,13 @@ const CiderAudioRenderer = {
 
     return fetch(optimizerProfile.file)
       .then(async (response) => await response.arrayBuffer())
-      .then((arrayBuffer) => CiderAudioRenderer.context.decodeAudioData(arrayBuffer))
+      .then((arrayBuffer) => CiderAudio.context.decodeAudioData(arrayBuffer))
       .then((decodedBuffer) => {
-        const source = new AudioBufferSourceNode(CiderAudioRenderer.context, {
-          buffer: decodedBuffer,
-        });
-
+        const source = CiderAudioRenderer.context.createBufferSource();
+        source.buffer = decodedBuffer;
         source.connect(CiderAudioRenderer.audioNodes.intelliGainComp);
 
-        switch (lastNode) {
+        switch (app.cfg.audio.maikiwiAudio.lastNode) {
           case "spatial":
             CiderAudioRenderer.audioNodes.gainNode.connect(CiderAudioRenderer.audioNodes.spatialNode);
             break;
@@ -800,7 +798,7 @@ const CiderAudioRenderer = {
             break;
         }
 
-        switch (firstNode) {
+        switch (app.cfg.audio.maikiwiAudio.firstNode) {
           case "spatial":
             CiderAudioRenderer.audioNodes.spatialNode.disconnect();
             CiderAudioRenderer.audioNodes.spatialNode.connect(renderer.destination);
