@@ -1444,15 +1444,13 @@ export class BrowserWindow {
       if ((process.platform === "darwin" || utils.getStoreValue("general.close_button_hide")) && !isQuitting) {
         e.preventDefault();
         win.hide();
-      }
-    });
-
-    win.on("closed", (_: any) => {
-      win.webContents.executeJavaScript(`
+      } else {
+        win.webContents.executeJavaScript(`
             window.localStorage.setItem("currentTrack", JSON.stringify(app.mk.nowPlayingItem));
             window.localStorage.setItem("currentTime", JSON.stringify(app.mk.currentPlaybackTime));
             window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue._unplayedQueueItems));
             ipcRenderer.send('stopGCast','');`);
+      }
     });
 
     app.on("before-quit", () => {
