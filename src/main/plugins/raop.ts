@@ -87,13 +87,26 @@ export default class RAOP {
 
   private ondeviceup(name: any, host: any, port: any, addresses: any, text: any, airplay2: any = null) {
     // console.log(this.castDevices.findIndex((item: any) => {return (item.name == host.replace(".local","") && item.port == port )}))
+    let shown_name = (host ?? "Unknown").replace(".local", "")
+    try {
+      let model = text.filter((u: any) => String(u).startsWith('model='))
+      let manufacturer = text.filter((u: any) => String(u).startsWith('manufacturer='))
+      let name = text.filter((u: any) => String(u).startsWith('name='))
+      if (name.length > 0) {
+        shown_name = name[0].split("=")[1]
+      }
+      else if (manufacturer.length > 0) {
+        shown_name =  (manufacturer.length > 0 ? manufacturer[0].substring(13) : "") +  " " + (model.length > 0 ? model[0].substring(6) : "")
+        shown_name = (shown_name.trim()).length > 1 ? shown_name : (host ?? "Unknown").replace(".local", "")
+      }
+    } catch(e){}
     if (
       this.castDevices.findIndex((item: any) => {
-        return item != null && item.name == (host ?? "Unknown").replace(".local", "") && item.port == port && item.host == (addresses ? addresses[0] : "");
+        return item != null && item.name == shown_name && item.port == port && item.host == (addresses ? addresses[0] : "");
       }) == -1
     ) {
       this.castDevices.push({
-        name: (host ?? "Unknown").replace(".local", ""),
+        name: shown_name,
         host: addresses ? addresses[0] : "",
         port: port,
         addresses: addresses,
