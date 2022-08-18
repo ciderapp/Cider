@@ -17,7 +17,7 @@ export default class RAOP {
   private _win: any;
   private _app: any;
   private _store: any;
-  private _cacheAttr: any;
+  private _cacheAttr: any; 
   private u: any;
   private ipairplay: any = "";
   private portairplay: any = "";
