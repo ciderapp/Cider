@@ -103,7 +103,7 @@ export default class RAOP {
 
     if (
       this.castDevices.findIndex((item: any) => {
-        return item != null && item.name == shown_name && item.port == port && item.host == host_name;
+        return item != null && item.name == shown_name && item.port == port && item.host == host_name && item.host != "Unknown";
       }) == -1
     ) {
       this.castDevices.push({
@@ -114,9 +114,9 @@ export default class RAOP {
         txt: text,
         airplay2: airplay2,
       });
-      if (this.devices.indexOf(host_name) === -1) {
-        this.devices.push(host_name);
-      }
+      // if (this.devices.indexOf(host_name) === -1) {
+      //   this.devices.push(host_name);
+      // }
       if (shown_name) {
         this._win.webContents.executeJavaScript(`console.log('deviceFound','ip: ${host_name} name:${shown_name}')`).catch((err: any) => console.error(err));
         console.log("deviceFound", host_name, shown_name);
