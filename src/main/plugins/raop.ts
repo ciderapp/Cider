@@ -156,7 +156,7 @@ export default class RAOP {
     });
 
     electron.ipcMain.on("getAirplayDevice", (event, data) => {
-      this.castDevices = [];
+      // this.castDevices = [];
       console.log("scan for airplay devices");
 
       const browser = this.mdns.createBrowser(this.mdns.tcp("raop"));
