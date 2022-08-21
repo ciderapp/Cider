@@ -994,13 +994,15 @@ const app = new Vue({
           return;
         } // EVIL EMPTY OBJECTS BE GONE
 
-        try{
-          if ((MusicKit.getInstance().nowPlayingItem["type"] ?? '').includes("ideo")){
-          setTimeout(() => {
-          this.MVsource = CiderAudio.context.createMediaElementSource(document.querySelector('div#apple-music-video-player > video'));  
-          this.MVsource.connect(CiderAudio.audioNodes.intelliGainComp); }, 300);} else {
+        try {
+          if ((MusicKit.getInstance().nowPlayingItem["type"] ?? "").includes("ideo")) {
+            setTimeout(() => {
+              this.MVsource = CiderAudio.context.createMediaElementSource(document.querySelector("div#apple-music-video-player > video"));
+              this.MVsource.connect(CiderAudio.audioNodes.intelliGainComp);
+            }, 300);
+          } else {
             this.MVsource.disconnect();
-            this.MVsource = null
+            this.MVsource = null;
           }
         } catch (e) {
           // console.log(e);
