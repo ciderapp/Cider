@@ -3,7 +3,7 @@ import * as path from "path";
 const { readdir } = require("fs").promises;
 import { utils } from "../../base/utils";
 import * as mm from "music-metadata";
-import { Md5 } from "ts-md5/dist/md5";
+import { Md5 } from "ts-md5";
 import e from "express";
 import { EventEmitter } from "events";
 
