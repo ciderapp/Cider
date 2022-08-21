@@ -87,29 +87,43 @@ export default class RAOP {
 
   private ondeviceup(name: any, host: any, port: any, addresses: any, text: any, airplay2: any = null) {
     // console.log(this.castDevices.findIndex((item: any) => {return (item.name == host.replace(".local","") && item.port == port )}))
+    let shown_name = (host ?? "Unknown").replace(".local", "");
+    try {
+      let model = text.filter((u: any) => String(u).startsWith("model="));
+      let manufacturer = text.filter((u: any) => String(u).startsWith("manufacturer="));
+      let name1 = text.filter((u: any) => String(u).startsWith("name="));
+      if (name1.length > 0) {
+        shown_name = name1[0].split("=")[1];
+      } else if (manufacturer.length > 0) {
+        shown_name = (manufacturer.length > 0 ? manufacturer[0].substring(13) : "") + " " + (model.length > 0 ? model[0].substring(6) : "");
+        shown_name = shown_name.trim().length > 1 ? shown_name : (host ?? "Unknown").replace(".local", "");
+      }
+    } catch (e) {}
+    let host_name = addresses != null && typeof addresses == "object" && addresses.length > 0 ? addresses[0] : typeof addresses == "string" ? addresses : "";
+
     if (
       this.castDevices.findIndex((item: any) => {
-        return item != null && item.name == (host ?? "Unknown").replace(".local", "") && item.port == port && item.host == (addresses ? addresses[0] : "");
+        return item != null && item.name == shown_name && item.port == port && item.host == host_name && item.host != "Unknown";
       }) == -1
     ) {
       this.castDevices.push({
-        name: (host ?? "Unknown").replace(".local", ""),
-        host: addresses ? addresses[0] : "",
+        name: shown_name,
+        host: host_name,
         port: port,
         addresses: addresses,
         txt: text,
         airplay2: airplay2,
       });
-      if (this.devices.indexOf(host) === -1) {
-        this.devices.push(host);
-      }
-      if (name) {
-        this._win.webContents.executeJavaScript(`console.log('deviceFound','ip: ${host} name:${name}')`).catch((err: any) => console.error(err));
-        console.log("deviceFound", host, name);
+      // if (this.devices.indexOf(host_name) === -1) {
+      //   this.devices.push(host_name);
+      // }
+      if (shown_name) {
+        this._win.webContents.executeJavaScript(`console.log('deviceFound','ip: ${host_name} name:${shown_name}')`).catch((err: any) => console.error(err));
+        console.log("deviceFound", host_name, shown_name);
       }
     } else {
-      this._win.webContents.executeJavaScript(`console.log('deviceFound (added)','ip: ${host} name:${name}')`).catch((err: any) => console.error(err));
-      console.log("deviceFound (added)", host, name);
+      this._win.webContents.executeJavaScript(`console.log('deviceFound (added)','ip: ${host_name} name:${shown_name}')`).catch((err: any) => console.error(err));
+      console.log("deviceFound (added)", host_name, shown_name);
     }
   }
 
@@ -142,7 +156,7 @@ export default class RAOP {
     });
 
     electron.ipcMain.on("getAirplayDevice", (event, data) => {
-      this.castDevices = [];
+      // this.castDevices = [];
       console.log("scan for airplay devices");
 
       const browser = this.mdns.createBrowser(this.mdns.tcp("raop"));

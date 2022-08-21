@@ -30,7 +30,11 @@ const CiderAudioRenderer = {
       };
     } catch (e) {}
   },
-  init: function () {
+  init: function (
+    cb = function () {
+      console.log("CARenderer init");
+    }
+  ) {
     CiderAudioRenderer.context = new OfflineAudioContext({
       numberOfChannels: 2,
       length: 96000 * 8,
@@ -42,6 +46,7 @@ const CiderAudioRenderer = {
     CiderAudioRenderer.audioNodes.intelliGainComp.gain.value = 1;
     CiderAudioRenderer.audioNodes.intelliGainComp.connect(CiderAudioRenderer.audioNodes.gainNode);
     CiderAudioRenderer.hierarchical_loading();
+    cb();
   },
   optimizerProfile: [
     {
@@ -52,165 +57,17 @@ const CiderAudioRenderer = {
       container: "WAV",
     },
   ],
-  spatialProfiles: [
-    {
-      id: "maikiwi",
-      file: "./cideraudio/impulses/CiderSpatial_Maikiwi.wav",
-      name: "Maikiwi",
-      description: "",
-      gainComp: "1.044",
-    },
-    {
-      id: "maikiwiplus",
-      file: "./cideraudio/impulses/CiderSpatial_MaikiwiPlus.wav",
-      name: "Maikiwi+",
-      description: "",
-      gainComp: "1.044",
-    },
-    {
-      id: "71_420maikiwi",
-      file: "./cideraudio/impulses/CiderSpatial_v71.420_Maikiwi.wav",
-      name: "Soundstage",
-      description: "",
-      gainComp: "1.3963683610559376",
-    },
-    {
-      id: "70_422maikiwi",
-      file: "./cideraudio/impulses/CiderSpatial_v70.422_Maikiwi.wav",
-      name: "Separation",
-      description: "",
-      gainComp: "1.30767553892022",
-    },
-    {
-      id: "standard",
-      file: "./cideraudio/impulses/CiderSpatial_Natural.wav",
-      name: "Minimal",
-      description: "",
-      gainComp: "1.044",
-    },
-    {
-      id: "standardplus",
-      file: "./cideraudio/impulses/CiderSpatial_Natural+.wav",
-      name: "Minimal+",
-      description: "",
-      gainComp: "1.044",
-    },
-    {
-      id: "diffused",
-      file: "./cideraudio/impulses/CiderSpatial_Diffuse.wav",
-      name: "Diffused",
-      description: "",
-      gainComp: "1.044",
-    },
-    {
-      id: "BPLK",
-      file: "./cideraudio/impulses/CiderSpatial_BPLK.wav",
-      name: "BPLK",
-      description: "",
-      gainComp: "1.044",
-    },
-    {
-      id: "HW2K",
-      file: "./cideraudio/impulses/CiderSpatial_HW2K.wav",
-      name: "HW2K",
-      description: "",
-      gainComp: "1.044",
-    },
-    {
-      id: "live",
-      file: "./cideraudio/impulses/CiderSpatial_LIVE_2.wav",
-      name: "live",
-      description: "",
-      gainComp: "1.2647363474711515",
-    },
-  ],
-  atmosphereRealizerProfiles: [
-    {
-      id: "NATURAL_STANDARD",
-      file: "./cideraudio/impulses/AtmosphereRealizer_NaturalStandard.wav",
-      name: "ほうじ茶チーズクリーマティー",
-      description: "",
-    },
-    {
-      id: "NATURAL_PLUS",
-      file: "./cideraudio/impulses/AtmosphereRealizer_Natural+.wav",
-      name: "玄米茶タピオカミルクティー",
-      description: "",
-    },
-    {
-      id: "E68_1",
-      file: "./cideraudio/impulses/AtmosphereRealizer_E68_1.5.wav",
-      name: "岩塩クリームチーズティー",
-      description: "Light",
-    },
-    {
-      id: "E68_2",
-      file: "./cideraudio/impulses/AtmosphereRealizer_E68_2.2.wav",
-      name: "抹茶ミルクティー",
-      description: "Dark",
-    },
-    {
-      id: "BSCBM",
-      file: "./cideraudio/impulses/AtmosphereRealizer_BSCBM.wav",
-      name: "BSCBM",
-      description: "BSCBM",
-    },
-    {
-      id: "CUDDLE",
-      file: "./cideraudio/impulses/AtmosphereRealizer_Cuddle.wav",
-      name: "CUDDLE",
-      description: "CUDDLE",
-    },
-    {
-      id: "E168_1",
-      file: "./cideraudio/impulses/AtmosphereRealizer_E168_1.2.wav",
-      name: "春毫ジャスミンマキアート",
-      description: "Natural Air",
-    },
-    {
-      id: "Z3600",
-      file: "./cideraudio/impulses/AtmosphereRealizer_Z3600.wav",
-      name: "ロイヤルミルクティー",
-      description: "3600",
-    },
-    {
-      id: "Z8500A",
-      file: "./cideraudio/impulses/AtmosphereRealizer_Z8500_A.wav",
-      name: "ムーンライトソフトケーキ",
-      description: "8500",
-    },
-    {
-      id: "Z8500B",
-      file: "./cideraudio/impulses/AtmosphereRealizer_Z8500_B.wav",
-      name: "Clafoutis aux Cerises",
-      description: "8500",
-    },
-    {
-      id: "Z8500C",
-      file: "./cideraudio/impulses/AtmosphereRealizer_Z8500_C.wav",
-      name: "宇治抹茶だいふく",
-      description: "8500",
-    },
-  ],
-  opportunisticCorrectionProfiles: [
-    {
-      id: "CHU",
-      file: "./cideraudio/impulses/MoondropCHU_Cider.wav",
-      name: "Moondrop CHU Specific",
-      description: "",
-    },
-  ],
   spatial_ninf: function () {
     CiderAudioRenderer.audioNodes.spatialNode = null;
     CiderAudioRenderer.audioNodes.spatialNode = CiderAudioRenderer.context.createConvolver();
     CiderAudioRenderer.audioNodes.spatialNode.normalize = false;
 
-    let spatialProfile = CiderAudioRenderer.spatialProfiles.find(function (profile) {
+    let spatialProfile = CiderAudio.spatialProfiles.find(function (profile) {
       return profile.id === app.cfg.audio.maikiwiAudio.spatialProfile;
     });
 
     if (spatialProfile === undefined) {
-      spatialProfile = CiderAudioRenderer.spatialProfiles[0];
+      spatialProfile = CiderAudio.spatialProfiles[0];
     }
     fetch(spatialProfile.file).then(async (impulseData) => {
       let bufferedImpulse = await impulseData.arrayBuffer();
@@ -223,7 +80,7 @@ const CiderAudioRenderer = {
   spatialOff: function () {
     CiderAudioRenderer.hierarchical_loading();
   },
-  intelliGainComp_n0_0: function () {
+  intelliGainComp_n0_0: async function () {
     let filters = [];
     const precisionHz = 12;
     // Biquad calculation
@@ -250,18 +107,16 @@ const CiderAudioRenderer = {
         filterlessGain = filterlessGain * 1.096478196143185;
       }
       if (app.cfg.audio.maikiwiAudio.spatial == true) {
-        let spatialProfile = CiderAudioRenderer.spatialProfiles.find(function (profile) {
+        let spatialProfile = CiderAudio.spatialProfiles.find(function (profile) {
           return profile.id === app.cfg.audio.maikiwiAudio.spatialProfile;
         });
         if (spatialProfile === undefined) {
-          spatialProfile = CiderAudioRenderer.spatialProfiles[0];
+          spatialProfile = CiderAudio.spatialProfiles[0];
         }
         filterlessGain = filterlessGain * spatialProfile.gainComp;
       }
       filterlessGain = Math.pow(10, (-1 * (20 * Math.log10(filterlessGain))) / 20).toFixed(4);
-      filterlessGain > 1.0
-        ? CiderAudioRenderer.audioNodes.intelliGainComp.gain.exponentialRampToValueAtTime(1.0, CiderAudioRenderer.context.currentTime + 0.3)
-        : CiderAudioRenderer.audioNodes.intelliGainComp.gain.exponentialRampToValueAtTime(filterlessGain, CiderAudioRenderer.context.currentTime + 0.3);
+      filterlessGain > 1.0 ? (CiderAudioRenderer.audioNodes.intelliGainComp.gain.value = 1) : (CiderAudioRenderer.audioNodes.intelliGainComp.gain.value = filterlessGain);
       console.debug(`[Cider][Audio] IntelliGainComp: ${filterlessGain > 1.0 ? 0 : (20 * Math.log10(filterlessGain)).toFixed(2)} dB (${filterlessGain > 1.0 ? 1 : filterlessGain})`);
       return;
     }
@@ -307,11 +162,11 @@ const CiderAudioRenderer = {
       maxGain = maxGain * 1.096478196143185;
     }
     if (app.cfg.audio.maikiwiAudio.spatial == true) {
-      let spatialProfile = CiderAudioRenderer.spatialProfiles.find(function (profile) {
+      let spatialProfile = CiderAudio.spatialProfiles.find(function (profile) {
         return profile.id === app.cfg.audio.maikiwiAudio.spatialProfile;
       });
       if (spatialProfile === undefined) {
-        spatialProfile = CiderAudioRenderer.spatialProfiles[0];
+        spatialProfile = CiderAudio.spatialProfiles[0];
       }
       maxGain = maxGain * spatialProfile.gainComp;
     }
@@ -325,12 +180,12 @@ const CiderAudioRenderer = {
     if (status === true) {
       CiderAudioRenderer.audioNodes.atmosphereRealizer2 = CiderAudioRenderer.context.createConvolver();
       CiderAudioRenderer.audioNodes.atmosphereRealizer2.normalize = false;
-      let atmosphereRealizerProfile = CiderAudioRenderer.atmosphereRealizerProfiles.find(function (profile) {
+      let atmosphereRealizerProfile = CiderAudio.atmosphereRealizerProfiles.find(function (profile) {
         return profile.id === app.cfg.audio.maikiwiAudio.atmosphereRealizer2_value;
       });
 
       if (atmosphereRealizerProfile === undefined) {
-        atmosphereRealizerProfile = CiderAudioRenderer.atmosphereRealizerProfiles[0];
+        atmosphereRealizerProfile = CiderAudio.atmosphereRealizerProfiles[0];
       }
       fetch(atmosphereRealizerProfile.file).then(async (impulseData) => {
         let bufferedImpulse = await impulseData.arrayBuffer();
@@ -393,12 +248,12 @@ const CiderAudioRenderer = {
     if (status === true) {
       CiderAudioRenderer.audioNodes.atmosphereRealizer1 = CiderAudioRenderer.context.createConvolver();
       CiderAudioRenderer.audioNodes.atmosphereRealizer1.normalize = false;
-      let atmosphereRealizerProfile = CiderAudioRenderer.atmosphereRealizerProfiles.find(function (profile) {
+      let atmosphereRealizerProfile = CiderAudio.atmosphereRealizerProfiles.find(function (profile) {
         return profile.id === app.cfg.audio.maikiwiAudio.atmosphereRealizer1_value;
       });
 
       if (atmosphereRealizerProfile === undefined) {
-        atmosphereRealizerProfile = CiderAudioRenderer.atmosphereRealizerProfiles[0];
+        atmosphereRealizerProfile = CiderAudio.atmosphereRealizerProfiles[0];
       }
       fetch(atmosphereRealizerProfile.file).then(async (impulseData) => {
         let bufferedImpulse = await impulseData.arrayBuffer();
@@ -461,12 +316,12 @@ const CiderAudioRenderer = {
     if (status === true) {
       CiderAudioRenderer.audioNodes.opportunisticCorrection = CiderAudioRenderer.context.createConvolver();
       CiderAudioRenderer.audioNodes.opportunisticCorrection.normalize = false;
-      let opportunisticCorrectionProfile = CiderAudioRenderer.opportunisticCorrectionProfiles.find(function (profile) {
+      let opportunisticCorrectionProfile = CiderAudio.opportunisticCorrectionProfiles.find(function (profile) {
         return profile.id === app.cfg.audio.maikiwiAudio.opportunisticCorrection_state;
       });
 
       if (opportunisticCorrectionProfile === undefined) {
-        opportunisticCorrectionProfile = CiderAudioRenderer.opportunisticCorrectionProfiles[0];
+        opportunisticCorrectionProfile = CiderAudio.opportunisticCorrectionProfiles[0];
       }
       fetch(opportunisticCorrectionProfile.file).then(async (impulseData) => {
         let bufferedImpulse = await impulseData.arrayBuffer();
@@ -758,25 +613,22 @@ const CiderAudioRenderer = {
       }
     }
   },
-  hierarchical_optimizer: function () {
-    CiderAudioRenderer.intelliGainComp_n0_0(); // Calculate headroom for upcoming convolver
-
+  hierarchical_optimizer: async function () {
+    await CiderAudioRenderer.intelliGainComp_n0_0(); // Calculate headroom for upcoming convolver
     // Render and return convolved buffer
     let optimizerProfile = CiderAudioRenderer.optimizerProfile.find(function (profile) {
       return profile.id === "dirac32_96"; // Hard code for now
     });
 
-    return fetch(optimizerProfile.file)
+    fetch(optimizerProfile.file)
       .then(async (response) => await response.arrayBuffer())
-      .then((arrayBuffer) => CiderAudioRenderer.context.decodeAudioData(arrayBuffer))
+      .then((arrayBuffer) => CiderAudio.context.decodeAudioData(arrayBuffer))
       .then((decodedBuffer) => {
-        const source = new AudioBufferSourceNode(CiderAudioRenderer.context, {
-          buffer: decodedBuffer,
-        });
-
+        const source = CiderAudioRenderer.context.createBufferSource();
+        source.buffer = decodedBuffer;
         source.connect(CiderAudioRenderer.audioNodes.intelliGainComp);
 
-        switch (lastNode) {
+        switch (app.cfg.audio.maikiwiAudio.lastNode) {
           case "spatial":
             CiderAudioRenderer.audioNodes.gainNode.connect(CiderAudioRenderer.audioNodes.spatialNode);
             break;
@@ -800,34 +652,34 @@ const CiderAudioRenderer = {
             break;
         }
 
-        switch (firstNode) {
+        switch (app.cfg.audio.maikiwiAudio.firstNode) {
           case "spatial":
             CiderAudioRenderer.audioNodes.spatialNode.disconnect();
-            CiderAudioRenderer.audioNodes.spatialNode.connect(renderer.destination);
+            CiderAudioRenderer.audioNodes.spatialNode.connect(CiderAudioRenderer.destination);
             break;
           case "n6":
             CiderAudioRenderer.audioNodes.atmosphereRealizer2.disconnect();
-            CiderAudioRenderer.audioNodes.atmosphereRealizer2.connect(renderer.destination);
+            CiderAudioRenderer.audioNodes.atmosphereRealizer2.connect(CiderAudioRenderer.destination);
             break;
           case "n5":
             CiderAudioRenderer.audioNodes.atmosphereRealizer1.disconnect();
-            CiderAudioRenderer.audioNodes.atmosphereRealizer1.connect(renderer.destination);
+            CiderAudioRenderer.audioNodes.atmosphereRealizer1.connect(CiderAudioRenderer.destination);
             break;
           case "n4":
             CiderAudioRenderer.audioNodes.vibrantbassNode.at(-1).disconnect();
-            CiderAudioRenderer.audioNodes.vibrantbassNode.at(-1).connect(renderer.destination);
+            CiderAudioRenderer.audioNodes.vibrantbassNode.at(-1).connect(CiderAudioRenderer.destination);
             break;
           case "n3":
             CiderAudioRenderer.audioNodes.audioBands.at(-1).disconnect();
-            CiderAudioRenderer.audioNodes.audioBands.at(-1).connect(renderer.destination);
+            CiderAudioRenderer.audioNodes.audioBands.at(-1).connect(CiderAudioRenderer.destination);
             break;
           case "n2":
             CiderAudioRenderer.audioNodes.opportunisticCorrection.disconnect();
-            CiderAudioRenderer.audioNodes.opportunisticCorrection.connect(renderer.destination);
+            CiderAudioRenderer.audioNodes.opportunisticCorrection.connect(CiderAudioRenderer.destination);
             break;
           case "n1":
             CiderAudioRenderer.audioNodes.llpw.at(-1).disconnect();
-            CiderAudioRenderer.audioNodes.llpw.at(-1).connect(renderer.destination);
+            CiderAudioRenderer.audioNodes.llpw.at(-1).connect(CiderAudioRenderer.destination);
             break;
         }
 

@@ -48,6 +48,9 @@ jobs:
       - name: Setup Environment
         run: brew install automake #libtool autoconf
 
+      - name: Clear node_airtunes2 cache
+        run: sudo rm -rf /Users/runner/Library/Caches/Yarn/v6/.tmp/cf5bc2de2629636ca224995234b8eaa1 || true
+
       - name: Install and Configure Node Modules
         run: |
           yarn install

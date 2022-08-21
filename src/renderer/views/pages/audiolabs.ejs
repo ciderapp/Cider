@@ -28,7 +28,7 @@
                     </div>
                     <div class="md-option-segment md-option-segment_auto">
                         <input type="checkbox" v-model="app.cfg.audio.maikiwiAudio.staticOptimizer.state"
-                            v-on:change="CiderOptimizer()" switch/>
+                            v-on:change="CiderOptimizer()" :disabled="app.cfg.advanced.experiments.includes('staticOptimizer') === false" switch/>
                     </div>
                 </div>
                 <div class="md-option-line">

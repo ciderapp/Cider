@@ -189,11 +189,7 @@
             </template>
         </div>
         <div class="app-sidebar-footer display--small app-sidebar-footer--controls">
-            <div
-                    class="app-playback-controls"
-                    v-if="$root.mkReady()"
-                    @contextmenu="$root.nowPlayingContextMenu"
-            >
+            <div class="app-playback-controls" @contextmenu="$root.nowPlayingContextMenu">
                 <div class="control-buttons">
                     <div class="app-chrome-item">
                         <button
@@ -295,15 +291,9 @@
                 </div>
             </div>
         </div>
-        <div
-                class="app-sidebar-notification backgroundNotification"
-                v-if="$root.library.backgroundNotification.show"
-        >
+        <div class="app-sidebar-notification backgroundNotification" v-if="$root.library.backgroundNotification.show" >
             <div class="message">
-                {{ $root.library.backgroundNotification.message }} ({{
-                $root.library.backgroundNotification.progress
-                }}
-                / {{ $root.library.backgroundNotification.total }})
+                {{ $root.library.backgroundNotification.message }} ({{$root.library.backgroundNotification.progress }} / {{ $root.library.backgroundNotification.total }})
             </div>
         </div>
     </div>
@@ -311,6 +301,6 @@
 
 <script>
   Vue.component("cider-app-sidebar", {
-    template: "#cider-app-sidebar"
+    template: "#cider-app-sidebar",
   })
 </script>

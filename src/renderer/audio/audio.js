@@ -426,8 +426,9 @@ const CiderAudio = {
                           let dataLength = audioRawData[0]?.length ?? 0;
                           for (let idx=0; idx<dataLength; idx++) {
                             for (let channel=0; channel < numberOfChannels; channel++) {
+                              try {
                               let value = audioRawData[channel][idx];
-                              this._buffers[channel][this._bytesWritten] = value;
+                              this._buffers[channel][this._bytesWritten] = value;} catch(e){}
                             }
                             this._bytesWritten += 1;
                           }
@@ -967,28 +968,29 @@ const CiderAudio = {
       return;
     } // do nothing if there's no processing lmao
 
-    app.cfg.audio.maikiwiAudio.staticOptimizer.lock = true; // Lock CiderAudio from performing hierarchical loading.
+    CiderAudioRenderer.init(() => console.log("CARenderer Called back"));
 
-    CiderAudioRenderer.init();
+    app.cfg.audio.maikiwiAudio.staticOptimizer.lock = true; // Lock CiderAudio from performing hierarchical loading.
 
     if (MusicKit.getInstance().isPlaying) {
       MusicKit.getInstance().pause(); // Pause first
     }
-
-    const res = CiderAudioRenderer.hierarchical_optimizer();
 
     CiderAudioRenderer.off(); // Clean up IMMEDIATELY
 
     CiderAudio.audioNodes.optimizedNode = CiderAudio.context.createConvolver();
     CiderAudio.audioNodes.optimizedNode.normalize = false;
 
-    CiderAudio.audioNodes.optimizedNode.buffer = res; // Load the sucker up
+    const res = CiderAudioRenderer.hierarchical_optimizer().then((res) => {
+      CiderAudio.audioNodes.optimizedNode.buffer = res;
+    });
+
+    // Load the sucker up
 
     CiderAudio.hierarchical_unloading();
     CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.optimizedNode);
     CiderAudio.audioNodes.optimizedNode.connect(CiderAudio.context.destination);
 
-    console.debug("[Cider][Audio]\n" + [...configMap.entries()] + "\n lastNode: " + lastNode);
     console.debug("[Cider][Audio] Finished hierarchical loading + Optimizing");
 
     if (MusicKit.getInstance().nowPlayingItem != null) {
