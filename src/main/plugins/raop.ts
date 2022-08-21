@@ -34,7 +34,9 @@ export default class RAOP {
   private worker: any = null;
 
   private processNode = `
-    import {parentPort, workerData} from "worker_threads";
+  const {
+    Worker, isMainThread, parentPort, workerData
+  } = require('node:worker_threads');
     function getAudioConv (buffers) {
         
         function interleave16(leftChannel, rightChannel) {
@@ -264,10 +266,10 @@ export default class RAOP {
       if (this.airtunes != null) {
         if (this.worker == null) {
           try {
-            const toDataUrl = (js: any) => new URL(`data:text/javascript,${encodeURIComponent(js)}`);
+            // const toDataUrl = (js: any) => new URL(`data:text/javascript,${encodeURIComponent(js)}`);
             // let blob = new Blob([this.processNode], { type: 'application/javascript' });
             //Create new worker
-            this.worker = new Worker(toDataUrl(this.processNode));
+            this.worker = new Worker(this.processNode, { eval: true });
 
             //Listen for a message from worker
             this.worker.on("message", (result: any) => {
@@ -279,7 +281,7 @@ export default class RAOP {
             });
 
             this.worker.on("error", (error: any) => {
-              console.log("bruh", error);
+              console.log("worker err", error);
             });
             this.worker.postMessage({ buffer: [leftbuffer, rightbuffer] });
           } catch (e) {

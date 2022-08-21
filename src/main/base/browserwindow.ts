@@ -333,7 +333,7 @@ export class BrowserWindow {
       contextIsolation: false,
       webviewTag: true,
       plugins: true,
-      nodeIntegrationInWorker: false,
+      nodeIntegrationInWorker: true,
       webSecurity: false,
       preload: join(utils.getPath("srcPath"), "./preload/cider-preload.js"),
     },
