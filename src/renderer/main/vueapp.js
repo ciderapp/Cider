@@ -194,6 +194,7 @@ const app = new Vue({
       title: "",
       type: "",
     },
+    MVsource: null,
     prevButtonBackIndicator: false,
     currentSongInfo: {},
     page: "",
@@ -992,6 +993,19 @@ const app = new Vue({
         if (this.currentSongInfo === null || this.currentSongInfo === undefined) {
           return;
         } // EVIL EMPTY OBJECTS BE GONE
+
+        try{
+          if ((MusicKit.getInstance().nowPlayingItem["type"] ?? '').includes("ideo")){
+          setTimeout(() => {
+          this.MVsource = CiderAudio.context.createMediaElementSource(document.querySelector('div#apple-music-video-player > video'));  
+          this.MVsource.connect(CiderAudio.audioNodes.intelliGainComp); }, 300);} else {
+            this.MVsource.disconnect();
+            this.MVsource = null
+          }
+        } catch (e) {
+          // console.log(e);
+        }
+
         let localFiles = false;
         try {
           if (app.mk.nowPlayingItem.flavor.includes("64") && app.mk.nowPlayingItem.flavor.includes(":")) {
