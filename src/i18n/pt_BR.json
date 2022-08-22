@@ -555,8 +555,8 @@
   "settings.option.experimental.reinstallwidevine.confirm": "Você tem certeza que você quer reinstalar o Widevine?",
   "settings.option.experimental.unknownPlugin": "Fontes Desconhecidas",
   "settings.option.experimental.unknownPlugin.description": "Permitir a instalação dos plugins de repos além das do Cider Plugin Repository",
-  "settings.option.experimental.compactUI": "UI Compacto"
-  "settings.option.window.close_button_hide": "Botão de Fechar deve Esconder a Aplicação."
+  "settings.option.experimental.compactUI": "UI Compacto",
+  "settings.option.window.close_button_hide": "Botão de Fechar deve Esconder a Aplicação.",
   "settings.option.window.maxElementScale": "Escala Máxima dos Elementos",
   "settings.option.experimental.inline_playlists": "Playlist e Álbuns Alinhados",
   "settings.option.advanced.playlistTrackMapping": "Mapeamento de Faixas da Playlist",
