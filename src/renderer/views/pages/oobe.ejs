@@ -6,10 +6,32 @@
             <div class="oobe-header">
                 {{ getLz("oobe.amupsell.title") }}
             </div>
-            <div class="oobe-body text">{{ getLz("oobe.amupsell.text") }}</div>
+            <div class="oobe-body text">{{ getLz("oobe.amupsell.text") }}
+
+              <div class="md-option-line">
+                <div class="md-option-segment">
+                    {{$root.getLz('term.language')}}
+                </div>
+                <div class="md-option-segment md-option-segment_auto">
+                    <label>
+                        <select class="md-select" @change="$root.setLz('');$root.setLzManual()"
+                                v-model="$root.cfg.general.language">
+                            <optgroup :label="index" v-for="(categories, index) in getLanguages()">
+                                <option v-for="lang in categories" :value="lang.code">
+                                    {{lang.nameNative}}
+                                    ({{
+                                    lang.nameEnglish }})
+                                </option>
+                            </optgroup>
+                        </select>
+                    </label>
+                </div>
+              </div>
+
+            </div>
             <div class="oobe-footer">
                 <div class="btn-group">
-                    <div class="md-btn" @click="screen = 'welcome'">{{ getLz("oobe.next") }}</div>
+                    <div class="md-btn md-btn-primary" @click="screen = 'welcome'">{{ getLz("oobe.next") }}</div>
                 </div>
             </div>
         </div>
@@ -25,7 +47,7 @@
             <div class="oobe-footer">
                 <div class="btn-group">
                     <div class="md-btn" @click="screen = 'before_we_start'">{{ getLz("oobe.previous") }}</div>
-                    <div class="md-btn" @click="screen = 'general'">{{ getLz("oobe.next") }}</div>
+                    <div class="md-btn md-btn-primary" @click="screen = 'visual'">{{ getLz("oobe.next") }}</div>
                 </div>
             </div>
         </div>
@@ -37,11 +59,11 @@
             <div class="oobe-header">
                 {{ getLz("oobe.general.title") }}
             </div>
-            <div class="oobe-body text">{{ getLz("oobe.general.text") }}</div>
+            <div class="oobe-body text"></div>
             <div class="oobe-footer">
                 <div class="btn-group">
                     <div class="md-btn" @click="screen = 'welcome'">{{ getLz("oobe.previous") }}</div>
-                    <div class="md-btn" @click="screen = 'visual'">{{ getLz("oobe.next") }}</div>
+                    <div class="md-btn md-btn-primary" @click="screen = 'visual'">{{ getLz("oobe.next") }}</div>
                 </div>
             </div>
         </div>
@@ -84,8 +106,8 @@
             </div>
             <div class="oobe-footer">
                 <div class="btn-group">
-                    <div class="md-btn" @click="screen = 'general'">{{ getLz("oobe.previous") }}</div>
-                    <div class="md-btn" @click="screen = 'audio'">{{ getLz("oobe.next") }}</div>
+                    <div class="md-btn" @click="screen = 'welcome'">{{ getLz("oobe.previous") }}</div>
+                    <div class="md-btn md-btn-primary" @click="screen = 'audio'">{{ getLz("oobe.next") }}</div>
                 </div>
             </div>
         </div>
@@ -118,7 +140,7 @@
             <div class="oobe-footer">
                 <div class="btn-group">
                     <div class="md-btn" @click="screen = 'visual'">{{ getLz("oobe.previous") }}</div>
-                    <div class="md-btn" @click="signIn()">{{ getLz("oobe.next") }}</div>
+                    <div class="md-btn md-btn-primary" @click="signIn()">{{ getLz("oobe.next") }}</div>
                 </div>
             </div>
         </div>
@@ -164,6 +186,24 @@
       },
       getLz() {
         return this.$root.getLz.apply(this.$root, arguments);
+      },
+      getLanguages: function() {
+        let langs = this.$root.lzListing
+        let categories = {
+          "main": [],
+          "fun": [],
+          "unsorted": []
+        }
+        // sort by category if category is undefined or empty put it in "unsorted"
+        for (let i = 0; i < langs.length; i++) {
+          if (langs[i].category === undefined || langs[i].category === "") {
+            categories.unsorted.push(langs[i])
+          } else {
+            categories[langs[i].category].push(langs[i])
+          }
+        }
+        // return
+        return categories
       }
     }
   });
