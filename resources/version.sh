@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Setup the variables needed
-if [[ $GITHUB_REF_NAME == "main" ]]; then
-  STABLE_SHA=$(curl -H "Authorization: token ${GH_REQUEST_TOKEN}" https://api.github.com/repos/ciderapp/Cider/branches/stable | grep '"sha"' | head -1 | cut -d '"' -f 4)
-elif [[ $CIRCLE_BRANCH == "main" ]]; then
-  STABLE_SHA=$(curl -H "Authorization: token ${GITHUB_TOKEN}" https://api.github.com/repos/ciderapp/Cider/branches/stable | grep '"sha"' | head -1 | cut -d '"' -f 4)
+if [[ $GH_REQUEST_TOKEN != "" ]]; then
+  STABLE_SHA=$(curl -H "Authorization: token ${GH_REQUEST_TOKEN}" -s https://api.github.com/repos/ciderapp/Cider/branches/stable | grep '"sha"' | head -1 | cut -d '"' -f 4)
+elif [[ $GITHUB_TOKEN != "" ]]; then
+  STABLE_SHA=$(curl -H "Authorization: token ${GITHUB_TOKEN}" -s https://api.github.com/repos/ciderapp/Cider/branches/stable | grep '"sha"' | head -1 | cut -d '"' -f 4)
 else
   STABLE_SHA=$(curl -s https://api.github.com/repos/ciderapp/Cider/branches/stable | grep '"sha"' | head -1 | cut -d '"' -f 4)
 fi
