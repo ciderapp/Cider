@@ -23,9 +23,9 @@ if [[ ($CIRCLE_BRANCH == "main" || $GITHUB_REF_NAME == "main") && $COMMIT_SINCE_
   else
     sed -i "0,/$CURRENT_VERSION/s//$NEW_VERSION/" package.json
   fi
-  echo "Version updated to v${NEW_VERSION}"
+  echo $NEW_VERSION
 else
-  echo "Not on main branch or no commits since stable. Skipping version update."
+  echo $CURRENT_VERSION
 fi
 
 # Add the version to the environment for CI usage
