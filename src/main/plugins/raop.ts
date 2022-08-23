@@ -173,7 +173,7 @@ export default class RAOP {
           this.ondeviceup(service.name, service.host, service.port, service.addresses, service.txt);
         }
       });
-
+ 
       const browser2 = this.mdns.createBrowser(this.mdns.tcp("airplay"));
       browser2.on("ready", browser2.discover);
 
