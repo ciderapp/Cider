@@ -27,10 +27,3 @@ if [[ ($CIRCLE_BRANCH == "main" || $GITHUB_REF_NAME == "main") && $COMMIT_SINCE_
 else
   echo $CURRENT_VERSION
 fi
-
-# Add the version to the environment for CI usage
-if [[ $GITHUB_REF_NAME != "" ]]; then
-  echo "APP_VERSION=$(node -p -e 'require("./package.json").version')" >>$GITHUB_ENV
-else
-  echo "export APP_VERSION=$(node -p -e 'require("./package.json").version')" >>$BASH_ENV
-fi

@@ -34,11 +34,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Change Version
+      - name: Run Version Script
         env:
           GH_REQUEST_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         run: |
           sudo chmod +x resources/version.sh && ./resources/version.sh || true
+          echo "APP_VERSION=$(node -p -e 'require("./package.json").version')" >>$GITHUB_ENV
 
       - name: Sign in to EVS
         run: |

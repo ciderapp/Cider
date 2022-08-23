@@ -139,8 +139,10 @@ jobs:
       - store_artifacts:
           path: ~/Cider/dist/artifacts
       - run:
-          name: Update Version Number of App
-          command: sudo chmod +x resources/version.sh && ./resources/version.sh || true
+          name: Run Version Script
+          command: |
+            sudo chmod +x resources/version.sh && ./resources/version.sh || true
+            echo "export APP_VERSION=$(node -p -e 'require("./package.json").version')" >>$BASH_ENV
       - run:
           name: Publish Release
           command: |
