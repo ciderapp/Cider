@@ -189,7 +189,7 @@ export class Store {
       transparent: false,
       miniplayer_top_toggle: true,
       directives: {
-        windowLayout: "default",
+        windowLayout: "twopanel",
       },
       windowControlPosition: 0, // 0 default right
       nativeTitleBar: false,

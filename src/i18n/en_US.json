@@ -632,17 +632,5 @@
   "oobe.visual.subtitle": "",
   "oobe.visual.text": "",
   "oobe.visual.layout.text": "Cider features two window different layouts.\nMaverick is an iTunes like layout with the player at the top of the window.\nMojave is a new spin created by the Cider Collective.\n\nYou can change the layout any time in the settings.",
-  "oobe.visual.suggestingThemes": "Theming is a great way to personalize your experience. Here are a few we suggest: ",
-  "oobe.visual.suggestingThemes.subtext": "(These themes will be downloaded from GitHub)",
-  "oobe.visual.suggestingThemes.default": "Cider",
-  "oobe.visual.suggestingThemes.default.text": "The classic Cider theme.",
-  "oobe.visual.suggestingThemes.dark": "Dark",
-  "oobe.visual.suggestingThemes.dark.text": "Darkness.",
-  "oobe.visual.suggestingThemes.community1": "Groovy",
-  "oobe.visual.suggestingThemes.community1.text": "A WinUI influenced theme",
-  "oobe.visual.suggestingThemes.community2": "iTheme",
-  "oobe.visual.suggestingThemes.community2.text": "The classic big fruit layout.",
-  "oobe.visual.suggestingThemes.community3": "Dracula",
-  "oobe.visual.suggestingThemes.community3.text": "The iconic Dracula color scheme.",
   "oobe.amsignin.title": ""
 }

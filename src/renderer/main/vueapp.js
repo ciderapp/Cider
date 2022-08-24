@@ -22,6 +22,7 @@ const app = new Vue({
     lzListing: ipcRenderer.sendSync("get-i18n-listing"),
     search: {
       term: "",
+      cursor: -1,
       hints: [],
       showHints: false,
       results: {},
@@ -3873,6 +3874,17 @@ const app = new Vue({
         default:
           return type;
           break;
+      }
+    },
+    searchCursor(e) {
+      if (e.keyCode == "40") {
+        if (this.search.hints.length - 1 < this.search.cursor + 1) return;
+        this.search.cursor++;
+        this.search.term = this.search.hints[this.search.cursor];
+      } else if (e.keyCode == "38") {
+        if (this.search.cursor == 0) return;
+        this.search.cursor--;
+        this.search.term = this.search.hints[this.search.cursor];
       }
     },
     async searchQuery(term = this.search.term) {

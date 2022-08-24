@@ -367,7 +367,7 @@ const CiderAudio = {
     if (!CiderAudio.ccON) {
       CiderAudio.ccON = true;
       let searchInt = setInterval(async function () {
-        if (CiderAudio.context != null && CiderAudio.audioNodes.gainNode != null) {
+        if (CiderAudio.context != null && CiderAudio.audioNodes.intelliGainComp != null) {
           // var options = {
           //     mimeType: 'audio/webm; codecs=opus'
           // };
