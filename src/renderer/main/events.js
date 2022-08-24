@@ -58,13 +58,13 @@ const Events = {
         try {
           app.mk._services.mediaItemPlayback._currentPlayer.destroy();
         } catch (e) {}
-        try{
+        try {
           let searchInt = setInterval(function () {
             if (document.getElementById("apple-music-player")) {
               //AudioOutputs.eqReady = true;
               document.getElementById("apple-music-player").crossOrigin = "anonymous";
-              CiderAudio.source = CiderAudio.context.createMediaElementSource(document.getElementById("apple-music-player")) 
-              CiderAudio.source.connect(CiderAudio.audioNodes.intelliGainComp);     
+              CiderAudio.source = CiderAudio.context.createMediaElementSource(document.getElementById("apple-music-player"));
+              CiderAudio.source.connect(CiderAudio.audioNodes.intelliGainComp);
               clearInterval(searchInt);
             }
           }, 1000);
