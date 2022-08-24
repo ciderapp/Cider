@@ -8,7 +8,7 @@ export default class lastfm {
 
   private _apiCredentials = {
     key: "f9986d12aab5a0fe66193c559435ede3",
-    secret: "acba3c29bd5973efa38cc2f0b63cc625"
+    secret: "acba3c29bd5973efa38cc2f0b63cc625",
   };
   /**
    * Plugin Initialization
@@ -62,8 +62,7 @@ export default class lastfm {
    * Runs on playback State Change
    * @param attributes Music Attributes (attributes.status = current state)
    */
-  onPlaybackStateDidChange(attributes: object): void {
-  }
+  onPlaybackStateDidChange(attributes: object): void {}
 
   /**
    * Runs on song change
@@ -86,7 +85,7 @@ export default class lastfm {
     const LastfmAPI = require("lastfmapi");
     this._lfm = new LastfmAPI({
       api_key: api.key,
-      secret: api.secret
+      secret: api.secret,
     });
 
     if (this._utils.getStoreValue("connectivity.lastfm.secrets.username") && this._utils.getStoreValue("connectivity.lastfm.secrets.key")) {
@@ -130,7 +129,7 @@ export default class lastfm {
       this._lfm.album.getInfo(
         {
           artist: attributes.primaryArtist,
-          album: attributes.albumName.replace(/ - Single| - EP/g, "")
+          album: attributes.albumName.replace(/ - Single| - EP/g, ""),
         },
         (err: any, data: any) => {
           if (err) {
@@ -154,9 +153,9 @@ export default class lastfm {
           attributes.lfmTrack = {
             name: attributes.name,
             artist: {
-              name: attributes.primaryArtist
-            }
-          }
+              name: attributes.primaryArtist,
+            },
+          };
           callback(attributes);
         }
         if (data) {
@@ -196,7 +195,7 @@ export default class lastfm {
       albumArtist: attributes.lfmAlbum.artist,
       timestamp: new Date().getTime() / 1000,
       trackNumber: attributes.trackNumber,
-      duration: attributes.durationInMillis / 1000
+      duration: attributes.durationInMillis / 1000,
     };
 
     // Easy Debugging
@@ -240,7 +239,7 @@ export default class lastfm {
       album: attributes.lfmAlbum.name,
       trackNumber: attributes.trackNumber,
       duration: attributes.durationInMillis / 1000,
-      albumArtist: attributes.lfmAlbum.artist
+      albumArtist: attributes.lfmAlbum.artist,
     };
 
     this._lfm.track.updateNowPlaying(nowPlaying, (err: any, res: any) => {
