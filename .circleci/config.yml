@@ -145,7 +145,7 @@ jobs:
       - run:
           name: Publish Release
           command: |
-            echo "Attempting to create release for Cider v${APP_VERSION} on the ${CIRCLE_BRANCH} branch."
+            echo "Attempting to create release for Cider v${APP_VERSION} on the ${CIRCLE_BRANCH} branch.";
             if grep -q "beta" \\\<<< "${APP_VERSION}"; then
             echo "Beta Release Notes Used"
             gh release create "v${APP_VERSION}" --title "Cider Version ${APP_VERSION} (${CIRCLE_BRANCH})" --notes "**Beta Release**
