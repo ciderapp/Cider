@@ -10,6 +10,7 @@ import { MusicKitTools } from "./musickittools.js";
 import { spawnMica } from "./mica.js";
 import { svgIcon } from "./components/svg-icon.js";
 import { sidebarLibraryItem } from "./components/sidebar-library-item.js";
+import { i18nEditor } from "./components/i18n-editor.js";
 
 // Define window objects
 window.app = app;

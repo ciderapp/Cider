@@ -121,6 +121,11 @@ export class BrowserWindow {
       ],
       appRoutes: [
         {
+          page: "lzedit",
+          component: `<i18n-editor></i18n-editor>`,
+          condition: "$root.page == 'lzedit'",
+        },
+        {
           page: "library-recentlyadded",
           component: `<cider-recentlyadded></cider-recentlyadded>`,
           condition: "$root.page == 'library-recentlyadded'",
