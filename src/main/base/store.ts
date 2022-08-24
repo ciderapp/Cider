@@ -81,7 +81,7 @@ export class Store {
         scrobble_after: 50,
         filter_loop: false,
         filter_types: {},
-        remove_featured: false,
+        remove_featured: true,
         secrets: {
           username: "",
           key: "",

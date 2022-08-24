@@ -8,14 +8,13 @@ export default class lastfm {
 
   private _apiCredentials = {
     key: "f9986d12aab5a0fe66193c559435ede3",
-    secret: "acba3c29bd5973efa38cc2f0b63cc625",
+    secret: "acba3c29bd5973efa38cc2f0b63cc625"
   };
   /**
    * Plugin Initialization
    */
   private _lfm: any = null;
   private _authenticated: boolean = false;
-  private _scrobbleDelay: any = null;
   private _utils: any = null;
   private _scrobbleCache: any = {};
   private _nowPlayingCache: any = {};
@@ -63,7 +62,8 @@ export default class lastfm {
    * Runs on playback State Change
    * @param attributes Music Attributes (attributes.status = current state)
    */
-  onPlaybackStateDidChange(attributes: object): void {}
+  onPlaybackStateDidChange(attributes: object): void {
+  }
 
   /**
    * Runs on song change
@@ -86,7 +86,7 @@ export default class lastfm {
     const LastfmAPI = require("lastfmapi");
     this._lfm = new LastfmAPI({
       api_key: api.key,
-      secret: api.secret,
+      secret: api.secret
     });
 
     if (this._utils.getStoreValue("connectivity.lastfm.secrets.username") && this._utils.getStoreValue("connectivity.lastfm.secrets.key")) {
@@ -130,12 +130,16 @@ export default class lastfm {
       this._lfm.album.getInfo(
         {
           artist: attributes.primaryArtist,
-          album: attributes.albumName,
+          album: attributes.albumName.replace(/ - Single| - EP/g, "")
         },
         (err: any, data: any) => {
           if (err) {
             console.error(`[${lastfm.name}] [album.getInfo] Error: ${typeof err === "string" ? err : err.message}`);
-            return {};
+            attributes.lfmAlbum = {
+              name: attributes.albumName.replace(/ - Single| - EP/g, ""),
+              artist: attributes.primaryArtist,
+            };
+            callback(attributes);
           }
           if (data) {
             attributes.lfmAlbum = data;
@@ -147,7 +151,13 @@ export default class lastfm {
       this._lfm.track.getCorrection(attributes.primaryArtist, attributes.name, (err: any, data: any) => {
         if (err) {
           console.error(`[${lastfm.name}] [track.getCorrection] Error: ${typeof err === "string" ? err : err.message}`);
-          return {};
+          attributes.lfmTrack = {
+            name: attributes.name,
+            artist: {
+              name: attributes.primaryArtist
+            }
+          }
+          callback(attributes);
         }
         if (data) {
           attributes.lfmTrack = data.correction.track;
@@ -186,7 +196,7 @@ export default class lastfm {
       albumArtist: attributes.lfmAlbum.artist,
       timestamp: new Date().getTime() / 1000,
       trackNumber: attributes.trackNumber,
-      duration: attributes.durationInMillis / 1000,
+      duration: attributes.durationInMillis / 1000
     };
 
     // Easy Debugging
@@ -230,7 +240,7 @@ export default class lastfm {
       album: attributes.lfmAlbum.name,
       trackNumber: attributes.trackNumber,
       duration: attributes.durationInMillis / 1000,
-      albumArtist: attributes.lfmAlbum.artist,
+      albumArtist: attributes.lfmAlbum.artist
     };
 
     this._lfm.track.updateNowPlaying(nowPlaying, (err: any, res: any) => {

@@ -57,8 +57,6 @@ export default class playbackNotifications {
                 </toast>`,
     });
 
-    console.log(this._notification.toastXml);
-
     this._notification.on("click", (_: any) => {
       this._utils.getWindow().show();
       this._utils.getWindow().focus();
