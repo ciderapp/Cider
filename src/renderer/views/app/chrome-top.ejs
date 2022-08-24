@@ -280,15 +280,16 @@
                     <input type="search" spellcheck="false" @click="$root.appRoute('search');"
                            @focus="search.showHints = true"
                            @blur="setTimeout(()=>{search.showHints = false}, 300)"
-                           v-on:keyup.enter="searchQuery();search.showHints = false" @change="$root.appRoute('search');"
+                           v-on:keyup.enter="searchQuery();search.showHints = false;search.cursor = -1" @change="$root.appRoute('search');"
+                           v-on:keyup="searchCursor"
                            @input="getSearchHints()"
                            :placeholder="$root.getLz('term.search') + '...'" v-model="search.term" ref="searchInput"
                            class="search-input" />
 
                     <div class="search-hints-container" v-if="search.showHints && search.hints.length != 0">
                         <div class="search-hints">
-                            <button class="search-hint text-overflow-elipsis" v-for="hint in search.hints"
-                                    @click="search.term = hint;search.showHints = false;searchQuery(hint)">
+                            <button class="search-hint text-overflow-elipsis" :class="{active: (search.cursor == index)}" v-for="(hint, index) in search.hints"
+                                    @click="search.term = hint;search.showHints = false;searchQuery(hint);search.cursor = -1">
                                 {{ hint }}
                             </button>
                         </div>

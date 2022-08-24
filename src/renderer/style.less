@@ -724,6 +724,7 @@ input[type="range"].web-slider::-webkit-slider-runnable-track {
 
 .search-hints-container {
   top: 44px;
+  background: rgb(30 30 30);
   #cmenu.container();
 
   .search-hints {
@@ -731,6 +732,10 @@ input[type="range"].web-slider::-webkit-slider-runnable-track {
 
     .search-hint {
       #cmenu.item();
+
+      &.active {
+        background: var(--keyColor);
+      }
     }
   }
 }
