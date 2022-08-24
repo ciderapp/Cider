@@ -101,10 +101,9 @@ export default class playbackNotifications {
             const dest = createWriteStream(join(app.getPath("temp"), `${a.songId}-${a.artwork.url.split("/").pop()}`));
             // @ts-ignore
             let stream = res.body.pipe(dest);
-            stream.on('finish', () =>{
+            stream.on("finish", () => {
               this.createNotification(a);
             });
-            
           });
         } else {
           fetch(a.artwork.url).then(async (blob) => {
