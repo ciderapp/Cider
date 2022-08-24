@@ -17,13 +17,16 @@ CURRENT_VERSION=$(node -p -e "require('./package.json').version")
 if [[ ($CIRCLE_BRANCH == "main" || $GITHUB_REF_NAME == "main") && $COMMIT_SINCE_STABLE -gt 0 ]]; then
   NEW_VERSION="${CURRENT_VERSION}-beta.${COMMIT_SINCE_STABLE}"
 
-  # Update the version in package.json
-  if [[ $RUNNER_OS == "macOS" ]]; then
-    sed -i "" -e "s/$CURRENT_VERSION/$NEW_VERSION/" package.json
-  else
-    sed -i "0,/$CURRENT_VERSION/s//$NEW_VERSION/" package.json
+  # Not sure why this is needed, but it is
+  if [[ $() != $COMMIT_SINCE_STABLE ]]; then
+    # Update the version in package.json
+    if [[ $RUNNER_OS == "macOS" ]]; then
+      sed -i "" -e "s/$CURRENT_VERSION/$NEW_VERSION/" package.json
+    else
+      sed -i "0,/$CURRENT_VERSION/s//$NEW_VERSION/" package.json
+    fi
+      echo $NEW_VERSION
   fi
-  echo $NEW_VERSION
 else
   echo $CURRENT_VERSION
 fi
