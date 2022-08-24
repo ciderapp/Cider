@@ -145,20 +145,11 @@ jobs:
       - run:
           name: Publish Release
           command: |
-            echo "Attempting to create release for Cider v${APP_VERSION} on the ${CIRCLE_BRANCH} branch.";
-            if grep -q "beta" \\\<<< "${APP_VERSION}"; then
-            echo "Beta Release Notes Used"
+            echo "Attempting to create release for Cider v${APP_VERSION} on the ${CIRCLE_BRANCH} branch."
             gh release create "v${APP_VERSION}" --title "Cider Version ${APP_VERSION} (${CIRCLE_BRANCH})" --notes "**Beta Release**
             A full changelog is unavailable, but you can view the branch comparison [here](https://github.com/ciderapp/cider/compare/stable...main).
             These builds are considered bleeding edge, expect bugs and please do not use this as a representation of the full app.
-            Our full support disclaimer can be found [here](https://docs.cider.sh/support/disclaimer#support-nightly-beta-releases)." -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap;
-            else
-            echo "Stable Release Notes Used"
-            gh release create "v${APP_VERSION}" --title "Cider Version ${APP_VERSION} (${CIRCLE_BRANCH})" --notes "**Stable Release**
-            A full changelog is unavailable, but you can view the branch comparison [here](https://github.com/ciderapp/cider/compare/stable...main).
-            These are the most stable builds we can provide. If you find any issues please create an issue on the GitHub repository.
-            Our full support disclaimer can be found [here](https://docs.cider.sh/support/disclaimer#support-releases)." -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap;
-            fi
+            Our full support disclaimer can be found [here](https://docs.cider.sh/support/disclaimer#support-nightly-beta-releases)." -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
 
 # Orchestrate our job run sequence
 workflows:
