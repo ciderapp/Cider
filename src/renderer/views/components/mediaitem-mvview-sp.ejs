@@ -15,7 +15,7 @@
             </div>
             <div class="artwork">
                 <mediaitem-artwork
-                        :url="item.attributes?.artwork ? item.attributes?.artwork?.url : ''"
+                        :url="item.attributes?.editorialArtwork.subscriptionHero.url ?? item.attributes?.artwork"
                         :video="(item.attributes != null && item.attributes?.editorialVideo != null) ? (item.attributes?.editorialVideo?.motionDetailSquare ? item.attributes?.editorialVideo?.motionDetailSquare?.video : (item.attributes?.editorialVideo?.motionSquareVideo1x1 ? item?.attributes?.editorialVideo?.motionSquareVideo1x1?.video : '')) : '' "
                         :size="516" :width="900"
                 ></mediaitem-artwork>
