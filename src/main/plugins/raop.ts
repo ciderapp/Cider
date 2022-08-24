@@ -210,7 +210,7 @@ export default class RAOP {
         this.portairplay = ipport;
         this.device = this.airtunes.add(ipv4, {
           port: ipport,
-          volume: 50,
+          volume: airplay2dv ? 30 : 50,
           password: sepassword,
           txt: txt,
           airplay2: airplay2dv,
@@ -259,6 +259,12 @@ export default class RAOP {
     electron.ipcMain.on("setAirPlayPasscode", (event, passcode) => {
       if (this.device) {
         this.device.setPasscode(passcode);
+      }
+    });
+
+    electron.ipcMain.on("setAirPlayVolume", (event, volume) => {
+      if (this.device) {
+        this.device.setVolume(volume);
       }
     });
 
