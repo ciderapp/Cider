@@ -56,7 +56,8 @@ jobs:
             - LICENSE
 
   build-linux:
-    executor: cider-ci
+    docker:
+      - image: electronuserland/builder:wine
     steps:
       - attach_workspace:
           at: ~/Cider
