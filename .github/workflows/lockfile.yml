@@ -1,0 +1,30 @@
+name: Continuous Integration (Lockfile)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          # Make sure the actual branch is checked out when running on pull requests
+          ref: ${{ github.head_ref }}
+
+      - name: Update lockfile
+        run: pnpm i --lockfile-only
+
+      - name: Commit Updated Lockfile
+        uses: stefanzweifel/git-auto-commit-action@v4.14.1
+        with:
+          commit_message: "chore: Updated Lockfile\n [ci skip]"
+          commit_user_name: "cider-chore[bot]"
+          commit_user_email: "cider-chore[bot]@users.noreply.github.com"
+
