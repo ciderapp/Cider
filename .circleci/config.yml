@@ -120,7 +120,7 @@ jobs:
           path: ~/Cider/dist/artifacts
       - run:
           name: Fetch Version
-          command: ./resources/version.sh || true
+          command: ./Cider/resources/version.sh || true
       - run:
           name: Publish Release
           command: |
