@@ -60,7 +60,7 @@ jobs:
       - image: electronuserland/builder:wine
     steps:
       - attach_workspace:
-          at: ~/Cider
+          at: ~/project
       - run:
           name: Generate Builds (Linux)
           command: pnpm electron-builder -l -p never
