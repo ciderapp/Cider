@@ -16,13 +16,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Build Dependencies
-          command: |
-            sudo apt-get update -y
-            sudo apt-get install -y autoconf automake g++ libtool || true
-            sudo npm install -g pnpm
-            pnpm config set store-dir ~/.pnpm-store
-      - run:
           name: Fetch Application Version
           command: sudo chmod +x resources/version.sh && ./resources/version.sh || true
       - restore_cache:
@@ -113,14 +106,6 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/Cider/
-      - run:
-          name: Installing GitHub Command Line Interface
-          command: |
-            sudo apt-get update -y
-            curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-            echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-            sudo apt-get update -y
-            sudo apt install -y gh
       - run:
           name: Move Build Files
           command: |
