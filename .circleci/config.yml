@@ -101,11 +101,19 @@ jobs:
 
   release:
     docker:
-      - image: maniator/gh
+      - image: cimg/node:lts-browsers
     working_directory: ~/Cider
     steps:
       - attach_workspace:
           at: ~/Cider/
+      - run:
+          name: Installing GitHub Command Line Interface
+          command: |
+            sudo apt-get update -y
+            curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+            echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+            sudo apt-get update -y
+            sudo apt install -y gh
       - run:
           name: Move Build Files
           command: |
@@ -119,11 +127,14 @@ jobs:
       - store_artifacts:
           path: ~/Cider/dist/artifacts
       - run:
+          name: Run Version Script
+          command: |
+            sudo chmod +x resources/version.sh && ./resources/version.sh || true
+            echo "export APP_VERSION=$(node -p -e 'require("./package.json").version')" >>$BASH_ENV
+      - run:
           name: Publish Release
           command: |
-            cd ~/Cider;
-            APP_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | sed 's/ //g');
-            echo "Attempting to create release for Cider v${APP_VERSION} on the ${CIRCLE_BRANCH} branch.";
+            echo "Attempting to create release for Cider v${APP_VERSION} on the ${CIRCLE_BRANCH} branch."
             gh release create "v${APP_VERSION}" --title "Cider Version ${APP_VERSION} (${CIRCLE_BRANCH})" --notes "**Beta Release**
             A full changelog is unavailable, but you can view the branch comparison [here](https://github.com/ciderapp/cider/compare/stable...main).
             These builds are considered bleeding edge, expect bugs and please do not use this as a representation of the full app.
