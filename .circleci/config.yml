@@ -120,7 +120,7 @@ jobs:
           path: ~/Cider/dist/artifacts
       - run:
           name: Fetch Version
-          command: echo "export APP_VERSION=$(node -p -e 'require("./package.json").version')" >>$BASH_ENV
+          command: ./resources/version.sh || true
       - run:
           name: Publish Release
           command: |
