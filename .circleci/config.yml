@@ -12,7 +12,9 @@ orbs: # Add orbs to your configuration
 # The jobs for this project
 jobs:
   prepare-build:
-    executor: cider-ci
+    docker:
+      - image: cimg/node:lts-browsers
+    working_directory: ~/Cider
     steps:
       - checkout
       - run:
@@ -26,14 +28,14 @@ jobs:
       - run:
           name: Install Node Dependencies
           command: pnpm install --frozen-lockfile
+      - run:
+          name: TypeScript Compile
+          command: pnpm run build
       - save_cache:
           key: dependency-cache-{{ checksum "pnpm-lock.yaml" }}
           paths:
             - node_modules
             - ~/.pnpm-store
-      - run:
-          name: TypeScript Compile
-          command: pnpm run build
       - persist_to_workspace:
           # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
           # taken to be the root directory of the workspace.
@@ -101,7 +103,7 @@ jobs:
 
   release:
     docker:
-      - image: supportpal/github-gh-cli
+      - image: maniator/gh
     working_directory: ~/Cider
     steps:
       - attach_workspace:
