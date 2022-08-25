@@ -33,7 +33,7 @@
     "winget": "npm run build && electron-builder --win -c winget.json",
     "msft": "npm run build && electron-builder -c msft-package.json",
     "mstest": "npm run build && electron-builder -c msft-test.json",
-    "postinstall": "electron-builder install-app-deps ",
+    "postinstall": "electron-builder install-app-deps",
     "prettier": "npx prettier --write '**/*.{js,json,ts,css,less}'"
   },
   "dependencies": {
