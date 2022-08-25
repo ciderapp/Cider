@@ -12,19 +12,17 @@ orbs: # Add orbs to your configuration
 # The jobs for this project
 jobs:
   prepare-build:
-    docker:
-      - image: cimg/node:lts-browsers
-    working_directory: ~/Cider
+    executor: cider-ci
     steps:
       - checkout
       - run:
           name: Fetch Application Version
-          command: sudo chmod +x resources/version.sh && ./resources/version.sh || true
+          command: ./resources/version.sh || true
       - restore_cache:
           key: dependency-cache-{{ checksum "pnpm-lock.yaml" }}
       - run:
           name: Clear node_airtunes2 cache
-          command: sudo rm -rf ~/.pnpm-store/tmp/cf5bc2de2629636ca224995234b8eaa1 || true
+          command: rm -rf ~/.pnpm-store/tmp/cf5bc2de2629636ca224995234b8eaa1 || true
       - run:
           name: Install Node Dependencies
           command: pnpm install --frozen-lockfile
@@ -121,10 +119,8 @@ jobs:
       - store_artifacts:
           path: ~/Cider/dist/artifacts
       - run:
-          name: Run Version Script
-          command: |
-            sudo chmod +x resources/version.sh && ./resources/version.sh || true
-            echo "export APP_VERSION=$(node -p -e 'require("./package.json").version')" >>$BASH_ENV
+          name: Fetch Version
+          command: echo "export APP_VERSION=$(node -p -e 'require("./package.json").version')" >>$BASH_ENV
       - run:
           name: Publish Release
           command: |
