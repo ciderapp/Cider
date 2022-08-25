@@ -85,7 +85,7 @@
     "@types/qrcode-terminal": "^0.12.0",
     "@types/ws": "^8.5.3",
     "@types/node": "^18.7.13",
-    "electron": "git+https://github.com/castlabs/electron-releases.git#19-x-y",
+    "electron": "git+https://github.com/castlabs/electron-releases.git",
     "electron-builder": "^23.0.2",
     "electron-builder-notarize-pkg": "^1.2.0",
     "electron-webpack": "^2.8.2",
