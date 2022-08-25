@@ -9,6 +9,7 @@ specifiers:
   '@types/adm-zip': ^0.5.0
   '@types/discord-rpc': 4.0.3
   '@types/express': ^4.17.13
+  '@types/node': ^18.7.13
   '@types/pouchdb': ^6.4.0
   '@types/pouchdb-node': ^6.1.4
   '@types/qrcode-terminal': ^0.12.0
@@ -65,7 +66,7 @@ dependencies:
   '@types/pouchdb': 6.4.0
   '@types/pouchdb-node': 6.1.4
   adm-zip: 0.4.10
-  airtunes2: github.com/ciderapp/node_airtunes2/d2e7419048ffc044bbe29724b16bab584c6ab4e4
+  airtunes2: github.com/ciderapp/node_airtunes2/3ca66c6de35e3f84869c531c2a7c8572690751ab
   castv2-client: 1.2.0
   chokidar: 3.5.3
   discord-auto-rpc: 1.0.17
@@ -105,6 +106,7 @@ devDependencies:
   '@types/adm-zip': 0.5.0
   '@types/discord-rpc': 4.0.3
   '@types/express': 4.17.13
+  '@types/node': 18.7.13
   '@types/qrcode-terminal': 0.12.0
   '@types/ws': 8.5.3
   electron: github.com/castlabs/electron-releases/de727392ebcd8d862f9f333584a21006fef5980e
@@ -4553,6 +4555,7 @@ packages:
 
   /emoji-regex/8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
+    requiresBuild: true
 
   /emojis-list/3.0.0:
     resolution: {integrity: sha512-/kyM18EfinwXZbno9FyUGeFh87KC8HRQBQGildHZbEuRyWFOmv1U10o9BBp8XVZDVNNuQKyIGIu5ZYAAXJ0V2Q==}
@@ -4995,6 +4998,7 @@ packages:
 
   /fast-json-stable-stringify/2.1.0:
     resolution: {integrity: sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==}
+    requiresBuild: true
 
   /fast-srp-hap/2.0.4:
     resolution: {integrity: sha512-lHRYYaaIbMrhZtsdGTwPN82UbqD9Bv8QfOlKs+Dz6YRnByZifOh93EYmf2iEWFtkOEIqR2IK8cFD0UN5wLIWBQ==}
@@ -6179,6 +6183,7 @@ packages:
   /is-fullwidth-code-point/3.0.0:
     resolution: {integrity: sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==}
     engines: {node: '>=8'}
+    requiresBuild: true
 
   /is-function/1.0.2:
     resolution: {integrity: sha512-lw7DUp0aWXYg+CBCN+JKkcE0Q2RayZnSvnZBlwgxHBQhqt5pZNVy4Ri7H9GmmXkdu7LUthszM+Tor1u/2iBcpQ==}
@@ -6486,6 +6491,7 @@ packages:
 
   /json-schema-traverse/0.4.1:
     resolution: {integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==}
+    requiresBuild: true
 
   /json-schema-traverse/1.0.0:
     resolution: {integrity: sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==}
@@ -10482,8 +10488,8 @@ packages:
       - supports-color
     dev: false
 
-  github.com/ciderapp/node_airtunes2/d2e7419048ffc044bbe29724b16bab584c6ab4e4:
-    resolution: {tarball: https://codeload.github.com/ciderapp/node_airtunes2/tar.gz/d2e7419048ffc044bbe29724b16bab584c6ab4e4}
+  github.com/ciderapp/node_airtunes2/3ca66c6de35e3f84869c531c2a7c8572690751ab:
+    resolution: {tarball: https://codeload.github.com/ciderapp/node_airtunes2/tar.gz/3ca66c6de35e3f84869c531c2a7c8572690751ab}
     name: airtunes2
     version: 2.3.2
     hasBin: true
