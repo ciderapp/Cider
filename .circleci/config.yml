@@ -62,7 +62,7 @@ jobs:
           at: ~/Cider
       - run:
           name: Generate Builds (Linux)
-          command: npm run electron-builder -l -p never
+          command: pnpm electron-builder -l -p never
           post-steps:
             - jira/notify
       - persist_to_workspace:
@@ -81,7 +81,7 @@ jobs:
           at: ~/project
       - run:
           name: Generate Builds (Windows)
-          command: npm run electron-builder -w --x64 -p never
+          command: pnpm electron-builder -w --x64 -p never
           post-steps:
             - jira/notify
       - persist_to_workspace:
@@ -99,7 +99,7 @@ jobs:
           at: ~/project
       - run:
           name: Generate Builds (Winget)
-          command: npm run electron-builder --win -c winget.json -p never
+          command: pnpm electron-builder --win -c winget.json -p never
           post-steps:
             - jira/notify
       - persist_to_workspace:
