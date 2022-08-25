@@ -86,7 +86,7 @@
     "@types/ws": "^8.5.3",
     "@types/node": "^18.7.13",
     "electron": "git+https://github.com/castlabs/electron-releases.git#19-x-y",
-    "electron-builder": "^23.3.3",
+    "electron-builder": "^23.0.2",
     "electron-builder-notarize-pkg": "^1.2.0",
     "electron-webpack": "^2.8.2",
     "less": "^4.1.3",
