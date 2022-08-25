@@ -3,7 +3,7 @@ version: 2.1
 executors:
   cider-ci:
     docker:
-      - image: cimg/node:lts-browsers
+      - image: electronuserland/builder:wine
     working_directory: ~/Cider
 
 orbs: # Add orbs to your configuration
@@ -56,11 +56,10 @@ jobs:
             - LICENSE
 
   build-linux:
-    docker:
-      - image: electronuserland/builder:wine
+    executor: cider-ci
     steps:
       - attach_workspace:
-          at: ~/project
+          at: ~/Cider
       - run:
           name: Generate Builds (Linux)
           command: pnpm electron-builder -l -p never
@@ -75,11 +74,10 @@ jobs:
             - dist/latest-linux.yml
 
   build-windows:
-    docker:
-      - image: electronuserland/builder:wine
+    executor: cider-ci
     steps:
       - attach_workspace:
-          at: ~/project
+          at: ~/Cider
       - run:
           name: Generate Builds (Windows)
           command: pnpm electron-builder -w --x64 -p never
@@ -93,11 +91,10 @@ jobs:
             - dist/latest.yml
 
   build-winget:
-    docker:
-      - image: electronuserland/builder:wine
+    executor: cider-ci
     steps:
       - attach_workspace:
-          at: ~/project
+          at: ~/Cider
       - run:
           name: Generate Builds (Winget)
           command: pnpm electron-builder --win -c winget.json -p never
@@ -110,7 +107,9 @@ jobs:
             - dist/Cider-Setup-winget-*.exe.blockmap
 
   release:
-    executor: cider-ci
+    docker:
+      - image: supportpal/github-gh-cli
+    working_directory: ~/Cider
     steps:
       - attach_workspace:
           at: ~/Cider/
