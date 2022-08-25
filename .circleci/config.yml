@@ -16,6 +16,8 @@ jobs:
     steps:
       - checkout
       - run:
+          command: sudo npm i -g pnpm
+      - run:
           name: Fetch Application Version
           command: ./resources/version.sh || true
       - restore_cache:
