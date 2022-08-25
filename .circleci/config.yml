@@ -12,8 +12,7 @@ orbs: # Add orbs to your configuration
 # The jobs for this project
 jobs:
   prepare-build:
-    docker:
-      - image: znck/pnpm:latest
+    executor: cider-ci
     steps:
       - checkout
       - run:
@@ -21,6 +20,7 @@ jobs:
           command: |
             sudo apt-get update -y
             sudo apt-get install -y autoconf automake g++ libtool || true
+            curl -fsSL https://get.pnpm.io/install.sh | sh -
             pnpm config set store-dir ~/.pnpm-store
       - run:
           name: Fetch Application Version
@@ -28,12 +28,16 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "pnpm-lock.yaml" }}
       - run:
+          name: Clear node_airtunes2 cache
+          command: sudo rm -rf ~/.pnpm-store/tmp/cf5bc2de2629636ca224995234b8eaa1 || true
+      - run:
           name: Install Node Dependencies
           command: pnpm install --frozen-lockfile
       - save_cache:
           key: dependency-cache-{{ checksum "pnpm-lock.yaml" }}
           paths:
             - node_modules
+            - ~/.pnpm-store
       - run:
           name: TypeScript Compile
           command: pnpm run build
