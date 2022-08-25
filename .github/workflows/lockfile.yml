@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  prettier:
+  update-lockfile:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -17,6 +17,7 @@ jobs:
         with:
           # Make sure the actual branch is checked out when running on pull requests
           ref: ${{ github.head_ref }}
+      - uses: pnpm/action-setup@v2.2.2
 
       - name: Update lockfile
         run: pnpm i --lockfile-only

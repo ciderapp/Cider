@@ -20,7 +20,7 @@ jobs:
           command: |
             sudo apt-get update -y
             sudo apt-get install -y autoconf automake g++ libtool || true
-            curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@7
+            sudo curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@7
             pnpm config set store-dir ~/.pnpm-store
       - run:
           name: Fetch Application Version
