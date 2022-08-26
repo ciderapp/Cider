@@ -34,7 +34,9 @@
     "msft": "npm run build && electron-builder -c msft-package.json",
     "mstest": "npm run build && electron-builder -c msft-test.json",
     "postinstall": "electron-builder install-app-deps",
-    "prettier": "npx prettier --write '**/*.{js,json,ts,css,less}'"
+    "prettier": "npx prettier --write '**/*.{js,json,ts,css,less}'",
+    "slim-build:macarm": "ditto --arch arm64 ./dist/mac-universal/Cider.app ./dist/mac-universal/arm64/Cider.app",
+    "slim-build:macintel": "ditto --arch x86_64 ./dist/mac-universal/Cider.app ./dist/mac-universal/x86_x64/Cider.app"
   },
   "dependencies": {
     "@sentry/electron": "^4.0.0",
