@@ -16,7 +16,9 @@ jobs:
     steps:
       - checkout
       - run:
-          command: sudo npm i -g pnpm
+          command: |
+            sudo npm i -g pnpm
+            pnpm config set store-dir ~/.pnpm-store
       - run:
           name: Fetch Application Version
           command: ./resources/version.sh || true
