@@ -4,6 +4,7 @@ build
 .flatpak*
 yarn-cache
 src/renderer/style.css
+.pnpm-store
 
 # Misc
 .idea
