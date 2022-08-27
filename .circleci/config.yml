@@ -22,11 +22,11 @@ jobs:
       - run:
           name: Fetch Application Version
           command: ./resources/version.sh || true
-      - restore_cache:
-          key: dependency-cache-{{ checksum "pnpm-lock.yaml" }}
-      - run:
-          name: Clear node_airtunes2 cache
-          command: rm -rf ~/.pnpm-store/tmp|| true
+      # - restore_cache:
+      #     key: dependency-cache-{{ checksum "pnpm-lock.yaml" }}
+      # - run:
+      #     name: Clear node_airtunes2 cache
+      #     command: rm -rf ~/.pnpm-store/tmp/cf5bc2de2629636ca224995234b8eaa1 || true
       - run:
           name: Install Node Dependencies
           command: pnpm install --frozen-lockfile
