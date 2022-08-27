@@ -15,7 +15,6 @@ export default class lastfm {
    */
   private _lfm: any = null;
   private _authenticated: boolean = false;
-  private _scrobbleDelay: any = null;
   private _utils: any = null;
   private _scrobbleCache: any = {};
   private _nowPlayingCache: any = {};
@@ -130,12 +129,16 @@ export default class lastfm {
       this._lfm.album.getInfo(
         {
           artist: attributes.primaryArtist,
-          album: attributes.albumName,
+          album: attributes.albumName.replace(/ - Single| - EP/g, ""),
         },
         (err: any, data: any) => {
           if (err) {
             console.error(`[${lastfm.name}] [album.getInfo] Error: ${typeof err === "string" ? err : err.message}`);
-            return {};
+            attributes.lfmAlbum = {
+              name: attributes.albumName.replace(/ - Single| - EP/g, ""),
+              artist: attributes.primaryArtist,
+            };
+            callback(attributes);
           }
           if (data) {
             attributes.lfmAlbum = data;
@@ -147,7 +150,13 @@ export default class lastfm {
       this._lfm.track.getCorrection(attributes.primaryArtist, attributes.name, (err: any, data: any) => {
         if (err) {
           console.error(`[${lastfm.name}] [track.getCorrection] Error: ${typeof err === "string" ? err : err.message}`);
-          return {};
+          attributes.lfmTrack = {
+            name: attributes.name,
+            artist: {
+              name: attributes.primaryArtist,
+            },
+          };
+          callback(attributes);
         }
         if (data) {
           attributes.lfmTrack = data.correction.track;
