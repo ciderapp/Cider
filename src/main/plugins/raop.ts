@@ -236,6 +236,7 @@ export default class RAOP {
             this.airtunes.stopAll(() => {
               console.log("end");
             });
+            this._win.webContents.executeJavaScript(`app.airplayDisconnect(true, ${[ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv]})`).catch((err: any) => console.error(err));
             this.airtunes = null;
             this.device = null;
             this.ipairplay = "";
@@ -322,6 +323,7 @@ export default class RAOP {
       this.airtunes.stopAll(function () {
         console.log("end");
       });
+      this._win.webContents.executeJavaScript('app.airplayDisconnect(false)').catch((err: any) => console.error(err));
       this.airtunes = null;
       this.device = null;
       this.ipairplay = "";
