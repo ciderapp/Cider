@@ -82,30 +82,30 @@ const MusicKitInterop = {
   },
 
   async fetchPrimaryArtist() {
-    const songID = app.mk.nowPlayingItem.attributes.playParams.catalogId || app.mk.nowPlayingItem.attributes.playParams.id
+    const songID = app.mk.nowPlayingItem.attributes.playParams.catalogId || app.mk.nowPlayingItem.attributes.playParams.id;
     const res = await MusicKit.getInstance().api.v3.music("/v1/catalog/" + MusicKit.getInstance().storefrontId + `/songs/${songID}`, {
       include: {
-        songs: ["artists"]
-      }
-    })
+        songs: ["artists"],
+      },
+    });
     if (!res || !res.data) {
       console.warn("[cider:preload] fetchPrimaryArtist: no response");
       return app.mk.nowPlayingItem.attributes.artistName;
     }
 
     if (!res.data.data.length) {
-      console.error(`[cider:preload] fetchPrimaryArtist: Unable to locate song with id of ${songID}`)
+      console.error(`[cider:preload] fetchPrimaryArtist: Unable to locate song with id of ${songID}`);
       return app.mk.nowPlayingItem.attributes.artistName;
     }
-    const songData = res.data.data[0]
-    const artistData = songData.relationships.artists.data
+    const songData = res.data.data[0];
+    const artistData = songData.relationships.artists.data;
     if (artistData.length < 1) {
-      console.error(`[cider:preload] fetchPrimaryArtist: Unable to find artists related to the song with id of ${songID}`)
+      console.error(`[cider:preload] fetchPrimaryArtist: Unable to find artists related to the song with id of ${songID}`);
       return app.mk.nowPlayingItem.attributes.artistName;
     }
 
-    const primaryArtist = artistData[0]
-    return primaryArtist.attributes.name
+    const primaryArtist = artistData[0];
+    return primaryArtist.attributes.name;
   },
 
   getAttributes: function () {
