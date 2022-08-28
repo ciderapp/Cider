@@ -4343,6 +4343,7 @@ const app = new Vue({
       notyf.success("Device paring failed!");
     },
     airplayDisconnect(dropped, array = []) {
+      console.log('airplay dropped', dropped, array)
       // if (dropped) {
       //   let [ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv] = array;
       //   ipcRenderer.send("performAirplayPCM", ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv);
