@@ -139,7 +139,7 @@
                 >
                 </sidebar-library-item>
             </template>
-            <template v-if="$root.cfg.libraryPrefs.localPaths.length != 0">
+            <!-- <template v-if="$root.cfg.libraryPrefs.localPaths.length != 0">
                 <div class="app-sidebar-header-text"
                      @click="$root.cfg.general.sidebarCollapsed.localLibrary = !$root.cfg.general.sidebarCollapsed.localLibrary"
                      :class="{collapsed: $root.cfg.general.sidebarCollapsed.localLibrary}">
@@ -148,7 +148,7 @@
                 <template v-if="!$root.cfg.general.sidebarCollapsed.localLibrary">
                     <sidebar-playlist :item="{attributes: { name:'Songs'} , id:'ciderlocal'}"></sidebar-playlist>
                 </template>
-            </template>
+            </template> -->
             <template v-if="$root.getPlaylistFolderChildren('p.applemusic').length != 0">
                 <div
                         class="app-sidebar-header-text"

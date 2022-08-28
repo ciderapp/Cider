@@ -1178,13 +1178,14 @@ export class BrowserWindow {
 		    `);
     });
 
-    ipcMain.handle("scanLibrary", async (event, folders) => {
-      const oldmetadatalist = await LocalFiles.sendOldLibrary();
-      BrowserWindow.win.webContents.send("getUpdatedLocalList", oldmetadatalist);
-      const metadatalist = await LocalFiles.scanLibrary();
-      BrowserWindow.win.webContents.send("getUpdatedLocalList", metadatalist);
-      LocalFiles.cleanUpDB();
-    });
+    // ipcMain.handle("scanLibrary", async (event, folders) => {
+    //   // const oldmetadatalist = await LocalFiles.sendOldLibrary();
+    //   // BrowserWindow.win.webContents.send("getUpdatedLocalList", oldmetadatalist);
+    //   const metadatalist = await LocalFiles.scanLibrary();
+    //   BrowserWindow.win.webContents.send("getUpdatedLocalList", metadatalist);
+    //   LocalFiles.localSongs = metadatalist;
+    //   // LocalFiles.cleanUpDB();
+    // });
 
     LocalFiles.eventEmitter.on("newtracks", (data) => {
       BrowserWindow.win.webContents.send("getUpdatedLocalList", data);

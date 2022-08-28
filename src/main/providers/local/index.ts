@@ -1,4 +1,4 @@
-import { ProviderDB } from "./db";
+// import { ProviderDB } from "./db";
 import * as path from "path";
 const { readdir } = require("fs").promises;
 import { utils } from "../../base/utils";
@@ -10,7 +10,7 @@ import { EventEmitter } from "events";
 export class LocalFiles {
   static localSongs: any = [];
   static localSongsArts: any = [];
-  public static DB = ProviderDB.db;
+  // public static DB = ProviderDB.db;
   static eventEmitter = new EventEmitter();
 
   static getDataType(item_id: String | any) {
@@ -18,24 +18,24 @@ export class LocalFiles {
     else if ((item_id ?? "").startsWith("ciderlocal")) return "track";
   }
 
-  static async sendOldLibrary() {
-    ProviderDB.init();
-    let rows = (await ProviderDB.db.allDocs({ include_docs: true, attachments: true })).rows.map((item: any) => {
-      return item.doc;
-    });
-    let tracks = rows.filter((item: any) => {
-      return this.getDataType(item._id) == "track";
-    });
-    let arts = rows.filter((item: any) => {
-      return this.getDataType(item._id) == "artwork";
-    });
-    this.localSongs = tracks;
-    this.localSongsArts = arts;
-    return tracks;
-  }
+  // static async sendOldLibrary() {
+  //   ProviderDB.init();
+  //   let rows = (await ProviderDB.db.allDocs({ include_docs: true, attachments: true })).rows.map((item: any) => {
+  //     return item.doc;
+  //   });
+  //   let tracks = rows.filter((item: any) => {
+  //     return this.getDataType(item._id) == "track";
+  //   });
+  //   let arts = rows.filter((item: any) => {
+  //     return this.getDataType(item._id) == "artwork";
+  //   });
+  //   this.localSongs = tracks;
+  //   this.localSongsArts = arts;
+  //   return tracks;
+  // }
 
   static async scanLibrary() {
-    ProviderDB.init();
+    // ProviderDB.init();
     let folders = utils.getStoreValue("libraryPrefs.localPaths");
     if (folders == null || folders.length == null || folders.length == 0) folders = [];
     let files: any[] = [];
@@ -109,8 +109,8 @@ export class LocalFiles {
           };
           metadatalistart.push(art);
           numid += 1;
-          ProviderDB.db.putIfNotExists(form);
-          ProviderDB.db.putIfNotExists(art);
+          // ProviderDB.db.putIfNotExists(form);
+          // ProviderDB.db.putIfNotExists(art);
           metadatalist.push(form);
 
           if (this.localSongs.length === 0 && numid % 10 === 0) {
@@ -138,42 +138,42 @@ export class LocalFiles {
     return Array.prototype.concat(...files);
   }
 
-  static async cleanUpDB() {
-    let folders = utils.getStoreValue("libraryPrefs.localPaths");
-    let rows = (await ProviderDB.db.allDocs({ include_docs: true, attachments: true })).rows.map((item: any) => {
-      return item.doc;
-    });
-    let tracks = rows.filter((item: any) => {
-      return (
-        this.getDataType(item._id) == "track" &&
-        !folders.some((i: String) => {
-          return item["attributes"]["assetUrl"].startsWith("file:///" + i);
-        })
-      );
-    });
-    let hashs = tracks.map((i: any) => {
-      return i._id;
-    });
-    for (let hash of hashs) {
-      try {
-        ProviderDB.db.get(hash).then(function (doc: any) {
-          return ProviderDB.db.remove(doc);
-        });
-      } catch (e) {}
-      try {
-        ProviderDB.db.get(hash.replace("ciderlocal", "ciderlocalart")).then(function (doc: any) {
-          return ProviderDB.db.remove(doc);
-        });
-      } catch (e) {}
-    }
-  }
+  // static async cleanUpDB() {
+  //   let folders = utils.getStoreValue("libraryPrefs.localPaths");
+  //   let rows = (await ProviderDB.db.allDocs({ include_docs: true, attachments: true })).rows.map((item: any) => {
+  //     return item.doc;
+  //   });
+  //   let tracks = rows.filter((item: any) => {
+  //     return (
+  //       this.getDataType(item._id) == "track" &&
+  //       !folders.some((i: String) => {
+  //         return item["attributes"]["assetUrl"].startsWith("file:///" + i);
+  //       })
+  //     );
+  //   });
+  //   let hashs = tracks.map((i: any) => {
+  //     return i._id;
+  //   });
+  //   for (let hash of hashs) {
+  //     try {
+  //       ProviderDB.db.get(hash).then(function (doc: any) {
+  //         return ProviderDB.db.remove(doc);
+  //       });
+  //     } catch (e) {}
+  //     try {
+  //       ProviderDB.db.get(hash.replace("ciderlocal", "ciderlocalart")).then(function (doc: any) {
+  //         return ProviderDB.db.remove(doc);
+  //       });
+  //     } catch (e) {}
+  //   }
+  // }
 
   static setupHandlers() {
     const app = utils.getExpress();
     console.log("Setting up handlers for local files");
     app.get("/ciderlocal/:songs", (req: any, res: any) => {
       const audio = atob(req.params.songs.replace(/_/g, "/").replace(/-/g, "+"));
-      //console.log('auss', audio)
+      // console.log('auss', LocalFiles.localSongs)
       let data = {
         data: LocalFiles.localSongs.filter((f: any) => audio.split(",").includes(f.id)),
       };
