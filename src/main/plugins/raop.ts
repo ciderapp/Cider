@@ -323,7 +323,7 @@ export default class RAOP {
       this.airtunes.stopAll(function () {
         console.log("end");
       });
-      this._win.webContents.executeJavaScript('app.airplayDisconnect(false)').catch((err: any) => console.error(err));
+      this._win.webContents.executeJavaScript("app.airplayDisconnect(false)").catch((err: any) => console.error(err));
       this.airtunes = null;
       this.device = null;
       this.ipairplay = "";
