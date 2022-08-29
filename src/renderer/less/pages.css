@@ -569,6 +569,23 @@
   }
 }
 /* Album / Playlist Page */
+.album-header {
+  position: sticky;
+  left: 0;
+  z-index: 6;
+  padding: 0px 2em;
+  backdrop-filter: blur(32px);
+  background: rgba(0, 0, 0, 0.25);
+  top: var(--navigationBarHeight);
+  --bs-gutter-x: 4rem;
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(-1 * var(--bs-gutter-y));
+  margin-right: calc(-0.5 * var(--bs-gutter-x));
+  margin-left: calc(-0.5 * var(--bs-gutter-x));
+  border-bottom: 1px solid rgba(200, 200, 200, 0.05);
+}
 .playlist-page {
   --bgColor: transparent;
   padding: 0px;
