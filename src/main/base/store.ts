@@ -1,9 +1,9 @@
 import * as ElectronStore from "electron-store";
-import {app, ipcMain} from "electron";
+import { app, ipcMain } from "electron";
 import fetch from "electron-fetch";
-import {existsSync} from "fs";
-import {join} from "path";
-import {utils} from "./utils"
+import { existsSync } from "fs";
+import { join } from "path";
+import { utils } from "./utils";
 
 export class Store {
   static cfg: ElectronStore;
@@ -232,7 +232,7 @@ export class Store {
   };
 
   constructor() {
-    this.defaults.general.language = this.checkLocale(app.getLocale().replace('-', '_')) ?? "en_US"
+    this.defaults.general.language = this.checkLocale(app.getLocale().replace("-", "_")) ?? "en_US";
     Store.cfg = new ElectronStore({
       name: "cider-config",
       defaults: this.defaults,
@@ -326,6 +326,6 @@ export class Store {
   }
 
   private checkLocale(language: string) {
-    return (existsSync(join(utils.getPath("i18nPath"), `${language}.json`))) ? language : "en_US";
+    return existsSync(join(utils.getPath("i18nPath"), `${language}.json`)) ? language : "en_US";
   }
 }
