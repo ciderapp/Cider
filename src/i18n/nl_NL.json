@@ -132,8 +132,8 @@
   "term.reset": "Resetten",
   "term.tracks": "nummers",
   "term.track": {
-    "one" : "nummer",
-    "other" : "nummers"
+    "one": "nummer",
+    "other": "nummers"
   },
   "term.videos": "Video's",
   "term.menu": "Menu",
