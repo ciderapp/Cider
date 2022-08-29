@@ -10,7 +10,7 @@
                         :aria-label="app.getLz('menubar.options.reload')"><%- include('../svg/redo.svg') %></button>
             </div>
         </div>
-        <div class="row">
+        <div class="album-header">
             <div class="col" style="padding:0;">
                 <div class="search-input-container" style="width:100%;margin: 16px 0;">
                     <div class="search-input--icon"></div>
@@ -63,15 +63,15 @@
                     </div>
                 </div>
             </div>
+            <pagination
+              :length="app.library.albums.displayListing.length"
+              :pageSize="pageSize"
+              :scroll="prefs.scroll"
+              scrollSelector="#app-content"
+              @onRangeChange="onRangeChange"
+              style="margin-bottom: 0;"
+            />
         </div>
-        <pagination
-                :length="app.library.albums.displayListing.length
-            "
-                :pageSize="pageSize"
-                :scroll="prefs.scroll"
-                scrollSelector="#app-content"
-                @onRangeChange="onRangeChange"
-        />
         <div class="well">
             <div class="albums-square-container">
                 <div>
