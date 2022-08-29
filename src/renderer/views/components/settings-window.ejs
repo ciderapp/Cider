@@ -1016,6 +1016,11 @@
                                 <div class="md-option-line" v-show="lastfmConnecting">
                                     <div class="md-option-segment">
                                         {{$root.getLz('settings.option.connectivity.lastfmScrobble.manualToken')}}
+                                        <small>
+                                            <a href="https://www.last.fm/api/auth?api_key=f9986d12aab5a0fe66193c559435ede3" target="_blank">
+                                                {{$root.getLz('settings.option.connectivity.lastfmScrobble.manualToken.link')}}
+                                            </a>
+                                        </small>
                                     </div>
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>

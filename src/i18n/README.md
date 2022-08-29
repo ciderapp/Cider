@@ -529,3 +529,7 @@ Update 25/07/2022 00:22 UTC
 Update 01/08/2022 13:00 UTC
 
 * `term.skip`: Added to `en_US`
+
+Update 29/08/2022 12:00 UTC
+
+* `settings.option.connectivity.lastfmScrobble.manualToken.link`: Added to `en_US`
