@@ -1,7 +1,9 @@
 import * as ElectronStore from "electron-store";
-import * as electron from "electron";
-import { app } from "electron";
+import {app, ipcMain} from "electron";
 import fetch from "electron-fetch";
+import {existsSync} from "fs";
+import {join} from "path";
+import {utils} from "./utils"
 
 export class Store {
   static cfg: ElectronStore;
@@ -13,7 +15,7 @@ export class Store {
     },
     general: {
       close_button_hide: false,
-      language: "en_US", // electron.app.getLocale().replace('-', '_') this can be used in future
+      language: "en_US",
       playbackNotifications: true,
       resumeOnStartupBehavior: "local",
       privateEnabled: false,
@@ -230,6 +232,7 @@ export class Store {
   };
 
   constructor() {
+    this.defaults.general.language = this.checkLocale(app.getLocale().replace('-', '_')) ?? "en_US"
     Store.cfg = new ElectronStore({
       name: "cider-config",
       defaults: this.defaults,
@@ -266,8 +269,8 @@ export class Store {
     }
     let postBody = {
       id: Store.cfg.get("connectUser.id"),
-      app: electron.app.getName(),
-      version: electron.app.isPackaged ? electron.app.getVersion() : "dev",
+      app: app.getName(),
+      version: app.isPackaged ? app.getVersion() : "dev",
       syncData: syncData,
     };
 
@@ -305,20 +308,24 @@ export class Store {
    * IPC Handler
    */
   private ipcHandler(): void {
-    electron.ipcMain.handle("getStoreValue", (_event, key, defaultValue) => {
+    ipcMain.handle("getStoreValue", (_event, key, defaultValue) => {
       return defaultValue ? Store.cfg.get(key, true) : Store.cfg.get(key);
     });
 
-    electron.ipcMain.handle("setStoreValue", (_event, key, value) => {
+    ipcMain.handle("setStoreValue", (_event, key, value) => {
       Store.cfg.set(key, value);
     });
 
-    electron.ipcMain.on("getStore", (event) => {
+    ipcMain.on("getStore", (event) => {
       event.returnValue = Store.cfg.store;
     });
 
-    electron.ipcMain.on("setStore", (_event, store) => {
+    ipcMain.on("setStore", (_event, store) => {
       Store.cfg.store = store;
     });
+  }
+
+  private checkLocale(language: string) {
+    return (existsSync(join(utils.getPath("i18nPath"), `${language}.json`))) ? language : "en_US";
   }
 }
