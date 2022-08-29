@@ -1523,7 +1523,7 @@
             console.warn('[lastfm:authorize] Last.fm authorization timed out.');
             this.lastfmConnecting = false;
           }
-        }, 20000);
+        }, 40000);
 
         ipcRenderer.once('lastfm:authenticated', (_e, session) => {
           this.$root.cfg.connectivity.lastfm.secrets.username = session.username
