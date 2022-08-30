@@ -839,49 +839,49 @@ const CiderAudio = {
       switch (destination) {
         case "spatial":
           try {
-            CiderAudio.audioNodes.llpw.at(-1).connect(CiderAudio.audioNodes.spatialNode);
+            CiderAudio.audioNodes.llpw[CiderAudio.audioNodes.llpw.length-1].connect(CiderAudio.audioNodes.spatialNode);
             console.debug("[Cider][Audio] llpw_n1 -> Spatial");
           } catch (e) {}
           break;
         case "n6":
           try {
-            CiderAudio.audioNodes.llpw.at(-1).connect(CiderAudio.audioNodes.atmosphereRealizer2);
+            CiderAudio.audioNodes.llpw[CiderAudio.audioNodes.llpw.length-1].connect(CiderAudio.audioNodes.atmosphereRealizer2);
             console.debug("[Cider][Audio] llpw_n1 -> atmosphereRealizer2");
           } catch (e) {}
           break;
         case "n5":
           try {
-            CiderAudio.audioNodes.llpw.at(-1).connect(CiderAudio.audioNodes.atmosphereRealizer1);
+            CiderAudio.audioNodes.llpw[CiderAudio.audioNodes.llpw.length-1].connect(CiderAudio.audioNodes.atmosphereRealizer1);
             console.debug("[Cider][Audio] llpw_n1 -> atmosphereRealizer1");
           } catch (e) {}
           break;
         case "n4":
           try {
-            CiderAudio.audioNodes.llpw.at(-1).connect(CiderAudio.audioNodes.vibrantbassNode[0]);
+            CiderAudio.audioNodes.llpw[CiderAudio.audioNodes.llpw.length-1].connect(CiderAudio.audioNodes.vibrantbassNode[0]);
             console.debug("[Cider][Audio] llpw_n1 -> vibrantbassNode");
           } catch (e) {}
           break;
         case "n3":
           try {
-            CiderAudio.audioNodes.llpw.at(-1).connect(CiderAudio.audioNodes.audioBands[0]);
+            CiderAudio.audioNodes.llpw[CiderAudio.audioNodes.llpw.length-1].connect(CiderAudio.audioNodes.audioBands[0]);
             console.debug("[Cider][Audio] llpw_n1 -> audioBands");
           } catch (e) {}
           break;
         case "n2":
           try {
-            CiderAudio.audioNodes.llpw.at(-1).connect(CiderAudio.audioNodes.opportunisticCorrection);
+            CiderAudio.audioNodes.llpw[CiderAudio.audioNodes.llpw.length-1].connect(CiderAudio.audioNodes.opportunisticCorrection);
             console.debug("[Cider][Audio] llpw_n1 -> opportunisticCorrection");
           } catch (e) {}
           break;
         case "n1":
           try {
-            CiderAudio.audioNodes.llpw.at(-1).connect(CiderAudio.audioNodes.llpw[0]);
+            CiderAudio.audioNodes.llpw[CiderAudio.audioNodes.llpw.length-1].connect(CiderAudio.audioNodes.llpw[0]);
             console.debug("[Cider][Audio] llpw_n1 -> llpw");
           } catch (e) {}
           break;
         case "n0":
           try {
-            CiderAudio.audioNodes.llpw.at(-1).connect(CiderAudio.context.destination);
+            CiderAudio.audioNodes.llpw[CiderAudio.audioNodes.llpw.length-1].connect(CiderAudio.context.destination);
             console.debug("[Cider][Audio] llpw_n1 -> destination");
           } catch (e) {}
           break;
@@ -910,50 +910,50 @@ const CiderAudio = {
       switch (destination) {
         case "spatial":
           try {
-            CiderAudio.audioNodes.vibrantbassNode.at(-1).connect(CiderAudio.audioNodes.spatialNode);
+            CiderAudio.audioNodes.vibrantbassNode[CiderAudio.audioNodes.vibrantbassNode.length-1].connect(CiderAudio.audioNodes.spatialNode);
             console.debug("[Cider][Audio] vibrantbass_n4 -> Spatial");
           } catch (e) {}
           break;
 
         case "n6":
           try {
-            CiderAudio.audioNodes.vibrantbassNode.at(-1).connect(CiderAudio.audioNodes.atmosphereRealizer2);
+            CiderAudio.audioNodes.vibrantbassNode[CiderAudio.audioNodes.vibrantbassNode.length-1].connect(CiderAudio.audioNodes.atmosphereRealizer2);
             console.debug("[Cider][Audio] vibrantbass_n4 -> atmosphereRealizer2");
           } catch (e) {}
           break;
         case "n5":
           try {
-            CiderAudio.audioNodes.vibrantbassNode.at(-1).connect(CiderAudio.audioNodes.atmosphereRealizer1);
+            CiderAudio.audioNodes.vibrantbassNode[CiderAudio.audioNodes.vibrantbassNode.length-1].connect(CiderAudio.audioNodes.atmosphereRealizer1);
             console.debug("[Cider][Audio] vibrantbass_n4 -> atmosphereRealizer1");
           } catch (e) {}
           break;
         case "n4":
           try {
-            CiderAudio.audioNodes.vibrantbassNode.at(-1).connect(CiderAudio.audioNodes.vibrantbassNode[0]);
+            CiderAudio.audioNodes.vibrantbassNode[CiderAudio.audioNodes.vibrantbassNode.length-1].connect(CiderAudio.audioNodes.vibrantbassNode[0]);
             console.debug("[Cider][Audio] vibrantbass_n4 -> vibrantbassNode");
           } catch (e) {}
           break;
         case "n3":
           try {
-            CiderAudio.audioNodes.vibrantbassNode.at(-1).connect(CiderAudio.audioNodes.audioBands[0]);
+            CiderAudio.audioNodes.vibrantbassNode[CiderAudio.audioNodes.vibrantbassNode.length-1].connect(CiderAudio.audioNodes.audioBands[0]);
             console.debug("[Cider][Audio] vibrantbass_n4 -> audioBands");
           } catch (e) {}
           break;
         case "n2":
           try {
-            CiderAudio.audioNodes.vibrantbassNode.at(-1).connect(CiderAudio.audioNodes.opportunisticCorrection);
+            CiderAudio.audioNodes.vibrantbassNode[CiderAudio.audioNodes.vibrantbassNode.length-1].connect(CiderAudio.audioNodes.opportunisticCorrection);
             console.debug("[Cider][Audio] vibrantbass_n4 -> opportunisticCorrection");
           } catch (e) {}
           break;
         case "n1":
           try {
-            CiderAudio.audioNodes.vibrantbassNode.at(-1).connect(CiderAudio.audioNodes.llpw[0]);
+            CiderAudio.audioNodes.vibrantbassNode[CiderAudio.audioNodes.vibrantbassNode.length-1].connect(CiderAudio.audioNodes.llpw[0]);
             console.debug("[Cider][Audio] vibrantbass_n4 -> llpw");
           } catch (e) {}
           break;
         case "n0":
           try {
-            CiderAudio.audioNodes.vibrantbassNode.at(-1).connect(CiderAudio.context.destination);
+            CiderAudio.audioNodes.vibrantbassNode[CiderAudio.audioNodes.vibrantbassNode.length-1].connect(CiderAudio.context.destination);
             console.debug("[Cider][Audio] vibrantbass_n4 -> destination");
           } catch (e) {}
           break;
@@ -1168,48 +1168,48 @@ const CiderAudio = {
 
       switch (destination) {
         case "spatial":
-          CiderAudio.audioNodes.audioBands.at(-1).connect(CiderAudio.audioNodes.spatialNode);
+          CiderAudio.audioNodes.audioBands[CiderAudio.audioNodes.audioBands.length-1].connect(CiderAudio.audioNodes.spatialNode);
           console.debug("[Cider][Audio] Equalizer -> Spatial");
           break;
         case "n6":
           try {
-            CiderAudio.audioNodes.audioBands.at(-1).connect(CiderAudio.audioNodes.atmosphereRealizer2);
+            CiderAudio.audioNodes.audioBands[CiderAudio.audioNodes.audioBands.length-1].connect(CiderAudio.audioNodes.atmosphereRealizer2);
             console.debug("[Cider][Audio] Equalizer -> atmosphereRealizer2");
           } catch (e) {}
           break;
         case "n5":
           try {
-            CiderAudio.audioNodes.audioBands.at(-1).connect(CiderAudio.audioNodes.atmosphereRealizer1);
+            CiderAudio.audioNodes.audioBands[CiderAudio.audioNodes.audioBands.length-1].connect(CiderAudio.audioNodes.atmosphereRealizer1);
             console.debug("[Cider][Audio] Equalizer -> atmosphereRealizer1");
           } catch (e) {}
           break;
         case "n4":
           try {
-            CiderAudio.audioNodes.audioBands.at(-1).connect(CiderAudio.audioNodes.vibrantbassNode[0]);
+            CiderAudio.audioNodes.audioBands[CiderAudio.audioNodes.audioBands.length-1].connect(CiderAudio.audioNodes.vibrantbassNode[0]);
             console.debug("[Cider][Audio] Equalizer -> vibrantbassNode");
           } catch (e) {}
           break;
         case "n3":
           try {
-            CiderAudio.audioNodes.audioBands.at(-1).connect(CiderAudio.audioNodes.audioBands[0]);
+            CiderAudio.audioNodes.audioBands[CiderAudio.audioNodes.audioBands.length-1].connect(CiderAudio.audioNodes.audioBands[0]);
             console.debug("[Cider][Audio] Equalizer -> audioBands");
           } catch (e) {}
           break;
         case "n2":
           try {
-            CiderAudio.audioNodes.audioBands.at(-1).connect(CiderAudio.audioNodes.opportunisticCorrection);
+            CiderAudio.audioNodes.audioBands[CiderAudio.audioNodes.audioBands.length-1].connect(CiderAudio.audioNodes.opportunisticCorrection);
             console.debug("[Cider][Audio] Equalizer -> opportunisticCorrection");
           } catch (e) {}
           break;
         case "n1":
           try {
-            CiderAudio.audioNodes.audioBands.at(-1).connect(CiderAudio.audioNodes.llpw[0]);
+            CiderAudio.audioNodes.audioBands[CiderAudio.audioNodes.audioBands.length-1].connect(CiderAudio.audioNodes.llpw[0]);
             console.debug("[Cider][Audio] Equalizer -> llpw");
           } catch (e) {}
           break;
         case "n0":
           try {
-            CiderAudio.audioNodes.audioBands.at(-1).connect(CiderAudio.context.destination);
+            CiderAudio.audioNodes.audioBands[CiderAudio.audioNodes.audioBands.length-1].connect(CiderAudio.context.destination);
             console.debug("[Cider][Audio] Equalizer -> destination");
           } catch (e) {}
           break;
