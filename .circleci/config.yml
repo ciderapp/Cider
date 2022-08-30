@@ -142,12 +142,11 @@ jobs:
             echo "Attempting to create release for Cider v${APP_VERSION} on the ${CIRCLE_BRANCH} branch.";
             if [[ "${APP_VERSION}" = *"beta"* ]]; then
               echo $'**Beta Release**\nA full changelog is unavailable, but you can view the branch comparison [here](https://github.com/ciderapp/cider/compare/stable...main).\nThese builds are considered bleeding edge, expect bugs and please do not use this as a representation of the fu    ll app.\nOur full support disclaimer can be found [here](https://docs.cider.sh/support/disclaimer#support-nightly-beta-releases).' > release-notes.md
+              gh release create "v${APP_VERSION}" --prerelease --title "Cider Version ${APP_VERSION} (${CIRCLE_BRANCH})" --notes-file release-notes.md -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
             else
               echo $'**Stable Release**\nA full changelog is unavailable, but you can view the branch comparison [here](https://github.com/ciderapp/cider/compare/stable...main).\nThese are the most stable builds we can provide. If you experience any issues, please report them [here](https://github.com/ciderapp/cider/issues/new).\nOur full support disclaimer can be found [here](https://docs.cider.sh/support/disclaimer#support-releases).' > release-notes.md
+              gh release create "v${APP_VERSION}" --title "Cider Version ${APP_VERSION} (${CIRCLE_BRANCH})" --notes-file release-notes.md -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
             fi;
-            gh release create "v${APP_VERSION}" --title "Cider Version ${APP_VERSION} (${CIRCLE_BRANCH})" --notes-file release-notes.md -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
-
-
 
 # Orchestrate our job run sequence
 workflows:
