@@ -262,7 +262,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="md-option-line">
+                                <!-- <div class="md-option-line">
                                     <div class="md-option-segment">
                                         {{'Local files path'}}
                                     </div>
@@ -271,7 +271,7 @@
                                             {{'Edit Paths'}}
                                         </button>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -620,7 +620,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="md-option-line" v-show="app.platform !== 'darwin'">
+                                <div class="md-option-line" v-show="app.platform !== 'darwin' && !app.cfg.visual.nativeTitleBar">
                                     <div class="md-option-segment">
                                         {{$root.getLz("settings.option.window.windowControlStyle")}}
                                     </div>
@@ -1016,6 +1016,11 @@
                                 <div class="md-option-line" v-show="lastfmConnecting">
                                     <div class="md-option-segment">
                                         {{$root.getLz('settings.option.connectivity.lastfmScrobble.manualToken')}}
+                                        <small>
+                                            <a href="https://www.last.fm/api/auth?api_key=f9986d12aab5a0fe66193c559435ede3" target="_blank">
+                                                {{$root.getLz('settings.option.connectivity.lastfmScrobble.manualToken.link')}}
+                                            </a>
+                                        </small>
                                     </div>
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
@@ -1523,7 +1528,7 @@
             console.warn('[lastfm:authorize] Last.fm authorization timed out.');
             this.lastfmConnecting = false;
           }
-        }, 20000);
+        }, 40000);
 
         ipcRenderer.once('lastfm:authenticated', (_e, session) => {
           this.$root.cfg.connectivity.lastfm.secrets.username = session.username
