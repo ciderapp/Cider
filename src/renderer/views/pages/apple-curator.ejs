@@ -1,6 +1,6 @@
 <script type="text/x-template" id="cider-applecurator">
     <div class="content-inner">
-        <h1 class="header-text">{{ data.attributes.shortName ?? data.attributes.name}}</h1>
+        <h1 class="header-text">{{ data.attributes?.shortName ?? data.attributes.name}}</h1>
         <template v-if="data.relationships && data.relationships.grouping">
             <template
                     v-for="(recom,index) in data.relationships.grouping.data[0].relationships.tabs.data[0].relationships.children.data">
@@ -43,6 +43,9 @@
       return {
         app: this.$root
       }
-    }
+    },
+    mounted() {
+        console.log('ping')
+    },
   })
 </script>

@@ -216,7 +216,7 @@ export default class RAOP {
           password: sepassword,
           txt: txt,
           airplay2: airplay2dv,
-          debug: true,
+          debug: null,
         });
         // console.log('lol',txt)
         this.device.on("status", (status: any) => {

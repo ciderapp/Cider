@@ -45,9 +45,9 @@
                   <div class="title"
                        :title="item.attributes?.name ?? (item.relationships?.contents?.data[0]?.attributes?.name ?? (item.attributes?.editorialNotes?.name ?? ''))"
                        v-if="item.attributes.artistNames == null || kind != 'card'" @click='app.routeView(item)'>
-                      <div class="item-navigate text-overflow-elipsis">{{ item.attributes?.name.replace(/&nbsp;/g, ' ').replace(/Apple Music |^Apple |/g, '') ??
+                      <div class="item-navigate text-overflow-elipsis">{{ (item.attributes?.editorialElementKind == "394" && item.relationships?.contents?.data[0]?.attributes?.shortName != null ) ? item.relationships?.contents?.data[0]?.attributes?.shortName : (item.attributes?.name ? ((removeamtext ) ? item.attributes?.name.replace(/&nbsp;/g, ' ').replace(/Apple Music |^Apple |/g, '') : item.attributes?.name.replace(/&nbsp;/g, ' ')) :
                           (item.relationships?.contents?.data[0]?.attributes?.name ??
-                          (item.attributes?.editorialNotes?.name ?? '')) }}
+                          (item.attributes?.editorialNotes?.name ?? ''))) }}
                       </div>
                       <div class="explicit-icon" v-if="item.attributes && item.attributes.contentRating == 'explicit'"
                            style="background-image: url(./assets/explicit.svg);height: 12px;width: 12px;filter: contrast(0);background-repeat: no-repeat;margin-top: 2.63px;margin-left: 4px;"></div>
@@ -98,6 +98,11 @@ Vue.component('mediaitem-square', {
               default: 'cc',
               required: false
           },
+    removeamtext: {
+              type: Boolean,
+              default: false,
+              required: false
+    },     
     'contextExt': { type: Object, required: false },
   },
   data: function () {

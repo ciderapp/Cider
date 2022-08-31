@@ -2007,9 +2007,10 @@ const app = new Vue({
           include: "grouping,playlists",
           extend: "editorialArtwork",
           "art[url]": "f",
-        });
+        }).then(() => {
+          kind = "appleCurator";
         window.location.hash = `${kind}/${id}`;
-        document.querySelector("#app-content").scrollTop = 0;
+        document.querySelector("#app-content").scrollTop = 0});
       } else if (kind == "editorial-elements" || kind == "editorial-items") {
         console.debug(item);
         if (item.relationships?.contents?.data != null && item.relationships?.contents?.data.length > 0) {
@@ -4022,6 +4023,7 @@ const app = new Vue({
       }
     },
     getMediaItemArtwork(url, height = 64, width) {
+      try {
       if (typeof url == "undefined" || url == "") {
         return "./assets/MissingArtwork.svg";
       }
@@ -4029,7 +4031,7 @@ const app = new Vue({
       if (width) {
         width = parseInt(width * window.devicePixelRatio);
       }
-      let newurl = `${url
+      let newurl = `${(url ?? "")
         .replace("{w}", width ?? height)
         .replace("{h}", height)
         .replace("{f}", "webp")
@@ -4038,7 +4040,11 @@ const app = new Vue({
       if (newurl.includes("900x516")) {
         newurl = newurl.replace("900x516cc", "900x516sr").replace("900x516bb", "900x516sr");
       }
-      return newurl;
+      return newurl;}
+      catch (e) {
+        console.log(url)
+        return "./assets/MissingArtwork.svg"
+      }
     },
     _rgbToRgb(rgb = [0, 0, 0]) {
       // if rgb
