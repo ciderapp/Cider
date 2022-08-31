@@ -27,8 +27,20 @@ export default class mpris {
    */
   constructor(utils: any) {
     mpris.utils = utils;
-
     console.debug(`[Plugin][${mpris.name}] Loading Complete.`);
+  }
+
+  /**
+   * Blocks non-linux systems from running this plugin
+   * @private
+   * @decorator
+   */
+  private static linuxOnly(_target: any, _propertyKey: string, descriptor: PropertyDescriptor) {
+    if (process.platform !== "linux") {
+      descriptor.value = function () {
+        return;
+      };
+    }
   }
 
   /**
@@ -121,24 +133,24 @@ export default class mpris {
   /**
    * Runs on app ready
    */
+  @mpris.linuxOnly
   onReady(_: any): void {
-    if (process.platform !== "linux") return;
     console.debug(`[${mpris.name}:onReady] Ready.`);
   }
 
   /**
    * Renderer ready
    */
+  @mpris.linuxOnly
   onRendererReady(): void {
-    if (process.platform !== "linux") return;
     mpris.connect();
   }
 
   /**
    * Runs on app stop
    */
+  @mpris.linuxOnly
   onBeforeQuit(): void {
-    if (process.platform !== "linux") return;
     console.debug(`[Plugin][${mpris.name}] Stopped.`);
     mpris.clearState();
   }
@@ -147,8 +159,8 @@ export default class mpris {
    * Runs on playback State Change
    * @param attributes Music Attributes (attributes.status = current state)
    */
+  @mpris.linuxOnly
   onPlaybackStateDidChange(attributes: any): void {
-    if (process.platform !== "linux") return;
     mpris.player.playbackStatus = attributes?.status ? Player.PLAYBACK_STATUS_PLAYING : Player.PLAYBACK_STATUS_PAUSED;
   }
 
@@ -156,8 +168,8 @@ export default class mpris {
    * Runs on song change
    * @param attributes Music Attributes
    */
+  @mpris.linuxOnly
   onNowPlayingItemDidChange(attributes: object): void {
-    if (process.platform !== "linux") return;
     mpris.updateMetaData(attributes);
   }
 }
