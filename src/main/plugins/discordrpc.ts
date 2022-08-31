@@ -126,7 +126,11 @@ export default class DiscordRPC {
    */
   onPlaybackStateDidChange(attributes: object): void {
     this._attributes = attributes;
-    this.setActivity(attributes);
+    if (this._utils.getStoreValue("general.privateEnabled")) {
+      this._client.clearActivity();
+    } else {
+      this.setActivity(attributes);
+    }
   }
 
   /**
@@ -135,7 +139,11 @@ export default class DiscordRPC {
    */
   onNowPlayingItemDidChange(attributes: object): void {
     this._attributes = attributes;
-    this.setActivity(attributes);
+    if (this._utils.getStoreValue("general.privateEnabled")) {
+      this._client.clearActivity();
+    } else {
+      this.setActivity(attributes);
+    }
   }
 
   /*******************************************************************************************
@@ -202,7 +210,9 @@ export default class DiscordRPC {
     }
 
     // Set the activity
-    if (!attributes.status && this._utils.getStoreValue("connectivity.discord_rpc.clear_on_pause")) {
+    if (this._utils.getStoreValue("general.privateEnabled")) {
+      this._client.clearActivity();
+    } else if (!attributes.status && this._utils.getStoreValue("connectivity.discord_rpc.clear_on_pause")) {
       this._client.clearActivity();
     } else if (activity && this._activityCache !== activity) {
       this._client.setActivity(activity);
