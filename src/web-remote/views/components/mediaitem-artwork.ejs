@@ -1,7 +1,7 @@
 <script type="text/x-template" id="mediaitem-artwork">
     <div class="mediaitem-artwork" :class="[{'rounded': (type == 'artists')}, classes]" :key="url"
          v-observe-visibility="{callback: visibilityChanged}">
-        <img :src="getMediaItemArtwork(url, size, width)"
+        <img :src="getMediaItemArtwork(url, size, width)"  :style="{ width: size + 'px'}"
              decoding="async" loading="lazy"
              class="mediaitem-artwork--img">
         <!-- <div v-if="video && isVisible && getVideoPriority()" class="animatedartwork-view-box">
