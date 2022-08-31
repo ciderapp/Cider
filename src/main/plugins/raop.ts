@@ -89,7 +89,7 @@ export default class RAOP {
 
   private ondeviceup(name: any, host: any, port: any, addresses: any, text: any, airplay2: any = null) {
     // console.log(this.castDevices.findIndex((item: any) => {return (item.name == host.replace(".local","") && item.port == port )}))
-    let shown_name = (host ?? "Unknown").replace(".local", "");
+    let shown_name = name;
     try {
       let model = text.filter((u: any) => String(u).startsWith("model="));
       let manufacturer = text.filter((u: any) => String(u).startsWith("manufacturer="));
@@ -105,7 +105,7 @@ export default class RAOP {
 
     if (
       this.castDevices.findIndex((item: any) => {
-        return item != null && item.name == shown_name && item.port == port && item.host == host_name && item.host != "Unknown";
+        return item != null && item.name == shown_name && item.host == host_name && item.host != "Unknown";
       }) == -1
     ) {
       this.castDevices.push({
@@ -158,7 +158,7 @@ export default class RAOP {
     });
 
     electron.ipcMain.on("getAirplayDevice", (event, data) => {
-      // this.castDevices = [];
+      this.castDevices = [];
       console.log("scan for airplay devices");
 
       const browser = this.mdns.createBrowser(this.mdns.tcp("raop"));
@@ -168,9 +168,10 @@ export default class RAOP {
         if (service.addresses && service.fullname && service.fullname.includes("_raop._tcp")) {
           // console.log(service.txt)
           this._win.webContents.executeJavaScript(`console.log(
-                    "${service.name} ${service.host}:${service.port} ${service.addresses}"
+                    "${service.name} ${service.host}:${service.port} ${service.addresses} ${service.fullname}" 
                 )`);
-          this.ondeviceup(service.name, service.host, service.port, service.addresses, service.txt);
+          let itemname = service.fullname.substring(service.fullname.indexOf("@")+1,service.fullname.indexOf("._raop._tcp") )   
+          this.ondeviceup(itemname, service.host, service.port, service.addresses, service.txt);
         }
       });
 
@@ -183,7 +184,8 @@ export default class RAOP {
           this._win.webContents.executeJavaScript(`console.log(
                     "${service.name} ${service.host}:${service.port} ${service.addresses}"
                 )`);
-          this.ondeviceup(service.name, service.host, service.port, service.addresses, service.txt, true);
+          let itemname = service.fullname.substring(service.fullname.indexOf("@")+1,service.fullname.indexOf("._airplay._tcp") )       
+          this.ondeviceup(itemname, service.host, service.port, service.addresses, service.txt, true);
         }
       });
 
