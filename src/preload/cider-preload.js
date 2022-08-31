@@ -38,8 +38,10 @@ const MusicKitInterop = {
       const attributes = MusicKitInterop.getAttributes();
       attributes.primaryArtist = app.cfg.connectivity.lastfm.remove_featured ? await this.fetchPrimaryArtist() : attributes.artistName;
 
+      global.ipcRenderer.send("nowPlayingItemDidChange", attributes);
+
       if (MusicKitInterop.filterTrack(attributes, false, true)) {
-        global.ipcRenderer.send("nowPlayingItemDidChange", attributes);
+        global.ipcRenderer.send("lastfm:FilteredNowPlayingItemDidChange", attributes);
       } else if (attributes.name !== "no-title-found" && attributes.playParams.id !== "no-id-found") {
         global.ipcRenderer.send("lastfm:nowPlayingChange", attributes);
       }
