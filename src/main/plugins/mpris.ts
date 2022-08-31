@@ -89,7 +89,6 @@ export default class mpris {
    * Update M.P.R.I.S Player Attributes
    */
   private static updateMetaData(attributes: any) {
-    console.log(attributes)
     mpris.player.metadata = {
       "mpris:trackid": mpris.player.objectPath(`track/${attributes.playParams.id.replace(/[.]+/g, "")}`),
       "mpris:length": attributes.durationInMillis * 1000, // In microseconds
