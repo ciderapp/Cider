@@ -6,6 +6,7 @@
     "allowJs": true,
     "noImplicitAny": true,
     "strict": true,
+    "inlineSources": true,
     "sourceMap": true,
     "outDir": "./build",
     "baseUrl": ".",

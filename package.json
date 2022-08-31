@@ -224,5 +224,8 @@
         "NSUserNotificationAlertStyle": "alert"
       }
     }
+  },
+  "electronWebpack": {
+    "devtool": "source-map"
   }
 }
