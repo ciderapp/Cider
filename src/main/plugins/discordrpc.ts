@@ -105,7 +105,7 @@ export default class DiscordRPC {
         this._client.destroy();
       }
 
-      if (!this._utils.getStoreValue("connectivity.discord_rpc.enabled")) return
+      if (!this._utils.getStoreValue("connectivity.discord_rpc.enabled")) return;
       this._client
         .endlessLogin({
           clientId: this._utils.getStoreValue("connectivity.discord_rpc.client") === "Cider" ? "911790844204437504" : "886578863147192350",
@@ -219,11 +219,10 @@ export default class DiscordRPC {
       return;
     }
 
-
     if (!attributes.status && this._utils.getStoreValue("connectivity.discord_rpc.clear_on_pause")) {
       this._client.clearActivity();
     } else if (activity && this._activityCache !== activity) {
-      if (this._utils.getStoreValue("general.privateEnabled")) return
+      if (this._utils.getStoreValue("general.privateEnabled")) return;
       this._client.setActivity(activity);
     }
     this._activityCache = activity;
