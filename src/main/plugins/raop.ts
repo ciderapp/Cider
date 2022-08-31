@@ -38,7 +38,7 @@ export default class RAOP {
     Worker, isMainThread, parentPort, workerData
   } = require('node:worker_threads');
     function getAudioConv (buffers) {
-        
+
         function interleave16(leftChannel, rightChannel) {
             var length = leftChannel.length + rightChannel.length;
             var result = new Int16Array(length);
@@ -340,7 +340,7 @@ export default class RAOP {
       }
     });
 
-    electron.ipcMain.on("updateRPCImage", (_event, imageurl) => {
+    electron.ipcMain.on("discordrpc:updateImage", (_event, imageurl) => {
       this.uploadImageAirplay(imageurl);
     });
   }

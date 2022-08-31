@@ -1508,7 +1508,7 @@
         ipcRenderer.send('cc-logout')
       },
       reloadDiscordRPC() {
-        ipcRenderer.send('reloadRPC')
+        ipcRenderer.send('discordrpc:reload')
       },
       lfmDisconnect() {
         this.$root.cfg.connectivity.lastfm.enabled = false;

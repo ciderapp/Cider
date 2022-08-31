@@ -256,6 +256,12 @@ const app = new Vue({
       },
       deep: true,
     },
+    'cfg.connectivity.discord_rpc.enabled'(newValue) {
+      ipcRenderer.send("discordrpc:reload", newValue)
+    },
+    'mk.privateEnabled'(newValue) {
+      ipcRenderer.send("onPrivacyModeChange", newValue);
+    },
     page: () => {
       document.getElementById("app-content").scrollTo(0, 0);
       app.resetState();
@@ -4115,7 +4121,7 @@ const app = new Vue({
             if (this.mk.nowPlayingItem._assets[0].artworkURL) {
               this.currentArtUrl = this.mk.nowPlayingItem._assets[0].artworkURL;
             }
-            ipcRenderer.send("updateRPCImage", this.currentArtUrl ?? "");
+            ipcRenderer.send("discordrpc:updateImage", this.currentArtUrl ?? "");
             try {
               // document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
             } catch (e) {}
