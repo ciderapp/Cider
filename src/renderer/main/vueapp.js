@@ -256,10 +256,10 @@ const app = new Vue({
       },
       deep: true,
     },
-    'cfg.connectivity.discord_rpc.enabled'(newValue) {
-      ipcRenderer.send("discordrpc:reload", newValue)
+    "cfg.connectivity.discord_rpc.enabled"(newValue) {
+      ipcRenderer.send("discordrpc:reload", newValue);
     },
-    'mk.privateEnabled'(newValue) {
+    "mk.privateEnabled"(newValue) {
       ipcRenderer.send("onPrivacyModeChange", newValue);
     },
     page: () => {
