@@ -272,6 +272,10 @@ export default class ChromecastPlugin {
           if (err) throw err;
           console.log("playing ...");
         });
+        if (!this.connectedHosts[device.host]) {
+          this.connectedHosts[device.host] = client;
+          this.activeConnections.push(client);
+        }
       } catch (e) {}
     }
   }
