@@ -29,6 +29,7 @@ export default class ChromecastPlugin {
   private connectedHosts: any = {};
   private connectedPlayer: any;
   private ciderPort: any = 9000;
+  private scanCount: any = 0;
   // private server = false;
   // private  bufcount = 0;
   // private bufcount2 = 0;
@@ -318,6 +319,9 @@ export default class ChromecastPlugin {
     });
 
     electron.ipcMain.on("getChromeCastDevices", (_event, _data) => {
+      if(this.scanCount++ == 2) {
+      this.scanCount = 0
+      this.castDevices = [];}
       this.searchForGCDevices();
     });
 

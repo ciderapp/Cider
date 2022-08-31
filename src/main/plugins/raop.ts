@@ -217,6 +217,7 @@ export default class RAOP {
           txt: txt,
           airplay2: airplay2dv,
           debug: null,
+          forceAlac: false
         });
         // console.log('lol',txt)
         this.device.on("status", (status: any) => {
@@ -235,15 +236,15 @@ export default class RAOP {
             this._win.webContents.executeJavaScript(`app.sendAirPlayFailed()`);
           }
           if (status == "stopped") {
-            this.airtunes.stopAll(() => {
-              console.log("end");
-            });
-            this._win.webContents.executeJavaScript(`app.airplayDisconnect(true, ${[ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv]})`).catch((err: any) => console.error(err));
-            this.airtunes = null;
-            this.device = null;
-            this.ipairplay = "";
-            this.portairplay = "";
-            this.ok = 1;
+            // this.airtunes.stopAll(() => {
+            //   console.log("end");
+            // });
+            // this._win.webContents.executeJavaScript(`app.airplayDisconnect(true, ${[ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv]})`).catch((err: any) => console.error(err));
+            // this.airtunes = null;
+            // this.device = null;
+            // this.ipairplay = "";
+            // this.portairplay = "";
+            // this.ok = 1;
           } else {
             setTimeout(() => {
               if (this.ok == 1) {
