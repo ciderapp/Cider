@@ -88,7 +88,7 @@ export class Plugins {
                 win: utils.getWindow(),
                 dir: pluginPath,
                 dirName: file,
-                express: utils.getExpress()
+                express: utils.getExpress(),
               };
               plugins[plugin.name] = new plugin(pluginEnv);
             }
