@@ -2,7 +2,7 @@ import * as electron from "electron";
 import * as os from "os";
 import { resolve } from "path";
 import * as CiderReceiver from "../base/castreceiver";
-const MediaRendererClient = require('upnp-mediarenderer-client')
+const MediaRendererClient = require("upnp-mediarenderer-client");
 
 export default class ChromecastPlugin {
   /**
@@ -15,7 +15,6 @@ export default class ChromecastPlugin {
   private _timer: any;
   private audioClient = require("castv2-client").Client;
   private mdns = require("mdns-js");
-  
 
   private devices: any = [];
   private castDevices: any = [];
@@ -71,15 +70,13 @@ export default class ChromecastPlugin {
 
       // actual upnp devices
       let ssdpBrowser2 = new Client();
-      ssdpBrowser2.on('response',  (headers: any, statusCode: any, rinfo: any) => {
-               var location = getLocation(headers);
-               if (location != null) {
-                   this.getServiceDescription(location, rinfo.address);
-               }
-
-          });
-      ssdpBrowser2.search('urn:schemas-upnp-org:device:MediaRenderer:1');
-
+      ssdpBrowser2.on("response", (headers: any, statusCode: any, rinfo: any) => {
+        var location = getLocation(headers);
+        if (location != null) {
+          this.getServiceDescription(location, rinfo.address);
+        }
+      });
+      ssdpBrowser2.search("urn:schemas-upnp-org:device:MediaRenderer:1");
     } catch (e) {
       console.log("Search GC err", e);
     }
@@ -258,25 +255,24 @@ export default class ChromecastPlugin {
     } else {
       // upnp devices
       try {
-         let client = new MediaRendererClient(UPNPDesc);
-          const options = {
-              autoplay: true,
-              contentType: 'audio/x-wav',
-              dlnaFeatures: 'DLNA.ORG_PN=-;DLNA.ORG_OP=01;DLNA.ORG_FLAGS=01700000000000000000000000000000',
-              metadata: {
-                  title: 'Cider',
-                  creator: 'Streaming ...',
-                  type: 'audio', // can be 'video', 'audio' or 'image'
-                  //  url: 'http://' + getIp() + ':' + server.address().port + '/',
-                  //  protocolInfo: 'DLNA.ORG_PN=MP3;DLNA.ORG_OP=01;DLNA.ORG_CI=0;DLNA.ORG_FLAGS=01700000000000000000000000000000;
-              }
-          };
-          client.load('http://' + this.getIp() + ':' + this.ciderPort + '/audio.wav', options, function (err: any, _result: any) {
-              if (err) throw err;
-              console.log('playing ...');
-          });
-      } catch (e) {
-      }
+        let client = new MediaRendererClient(UPNPDesc);
+        const options = {
+          autoplay: true,
+          contentType: "audio/x-wav",
+          dlnaFeatures: "DLNA.ORG_PN=-;DLNA.ORG_OP=01;DLNA.ORG_FLAGS=01700000000000000000000000000000",
+          metadata: {
+            title: "Cider",
+            creator: "Streaming ...",
+            type: "audio", // can be 'video', 'audio' or 'image'
+            //  url: 'http://' + getIp() + ':' + server.address().port + '/',
+            //  protocolInfo: 'DLNA.ORG_PN=MP3;DLNA.ORG_OP=01;DLNA.ORG_CI=0;DLNA.ORG_FLAGS=01700000000000000000000000000000;
+          },
+        };
+        client.load("http://" + this.getIp() + ":" + this.ciderPort + "/audio.wav", options, function (err: any, _result: any) {
+          if (err) throw err;
+          console.log("playing ...");
+        });
+      } catch (e) {}
     }
   }
 
