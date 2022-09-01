@@ -170,7 +170,7 @@ export default class RAOP {
           this._win.webContents.executeJavaScript(`console.log(
                     "${service.name} ${service.host}:${service.port} ${service.addresses} ${service.fullname}" 
                 )`);
-          let itemname = service.fullname.substring(service.fullname.indexOf("@")+1,service.fullname.indexOf("._raop._tcp") )   
+          let itemname = service.fullname.substring(service.fullname.indexOf("@") + 1, service.fullname.indexOf("._raop._tcp"));
           this.ondeviceup(itemname, service.host, service.port, service.addresses, service.txt);
         }
       });
@@ -184,7 +184,7 @@ export default class RAOP {
           this._win.webContents.executeJavaScript(`console.log(
                     "${service.name} ${service.host}:${service.port} ${service.addresses}"
                 )`);
-          let itemname = service.fullname.substring(service.fullname.indexOf("@")+1,service.fullname.indexOf("._airplay._tcp") )       
+          let itemname = service.fullname.substring(service.fullname.indexOf("@") + 1, service.fullname.indexOf("._airplay._tcp"));
           this.ondeviceup(itemname, service.host, service.port, service.addresses, service.txt, true);
         }
       });

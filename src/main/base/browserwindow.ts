@@ -619,8 +619,8 @@ export class BrowserWindow {
         const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
         if (!this.chromecastIP.includes(ip)) {
           this.headerSent = false;
-          this.audioStream._readableState.buffer.clear()
-          this.audioStream._readableState.length = 0
+          this.audioStream._readableState.buffer.clear();
+          this.audioStream._readableState.length = 0;
           this.chromecastIP.push(ip);
         }
         req.socket.setTimeout(Number.MAX_SAFE_INTEGER);
