@@ -319,9 +319,10 @@ export default class ChromecastPlugin {
     });
 
     electron.ipcMain.on("getChromeCastDevices", (_event, _data) => {
-      if(this.scanCount++ == 2) {
-      this.scanCount = 0
-      this.castDevices = [];}
+      if (this.scanCount++ == 2) {
+        this.scanCount = 0;
+        this.castDevices = [];
+      }
       this.searchForGCDevices();
     });
 

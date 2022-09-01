@@ -217,7 +217,7 @@ export default class RAOP {
           txt: txt,
           airplay2: airplay2dv,
           debug: null,
-          forceAlac: false
+          forceAlac: false,
         });
         // console.log('lol',txt)
         this.device.on("status", (status: any) => {
