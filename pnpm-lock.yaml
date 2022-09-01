@@ -43,6 +43,7 @@ specifiers:
   source-map-support: ^0.5.21
   ts-md5: 1.2.11
   typescript: ^4.7.4
+  upnp-mediarenderer-client: github:vapormusic/node-upnp-mediarenderer-client
   v8-compile-cache: ^2.3.0
   vue-devtools: ^5.1.4
   wallpaper: 5.0.1
@@ -55,7 +56,7 @@ dependencies:
   '@sentry/electron': 4.0.0
   '@sentry/integrations': 7.11.1
   adm-zip: 0.4.10
-  airtunes2: github.com/ciderapp/node_airtunes2/63e3a34a551aa700f89b622d65d19f52f48548ce
+  airtunes2: github.com/ciderapp/node_airtunes2/909bc9ae208731bfe286cc6ee46d075aa56766eb
   castv2-client: 1.2.0
   chokidar: 3.5.3
   discord-auto-rpc: 1.0.17
@@ -81,6 +82,7 @@ dependencies:
   run-script-os: 1.1.6
   source-map-support: 0.5.21
   ts-md5: 1.2.11
+  upnp-mediarenderer-client: github.com/vapormusic/node-upnp-mediarenderer-client/d4856931500026eb6c4c67b3eb12c1c34755627e
   v8-compile-cache: 2.3.0
   wallpaper: 5.0.1
   ws: 8.8.1
@@ -94,7 +96,7 @@ devDependencies:
   '@types/node': 18.7.13
   '@types/qrcode-terminal': 0.12.0
   '@types/ws': 8.5.3
-  electron: github.com/castlabs/electron-releases/a1749958b51da6ce1596992260cbacb602c23762
+  electron: github.com/castlabs/electron-releases/8ca09f8539dc0c3f5a57af3fe23fb2db9661ab68
   electron-builder: 23.3.3
   electron-builder-notarize-pkg: 1.2.0
   electron-webpack: 2.8.2_webpack@5.74.0
@@ -3459,6 +3461,16 @@ packages:
   /concat-map/0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
+  /concat-stream/1.6.2:
+    resolution: {integrity: sha512-27HBghJxjiZtIk3Ycvn/4kbJk/1uZuJFfuPEns6LaEvpvG1f0hTea8lilrouyo9mVc2GWdcEZ8OLoGmSADlrCw==}
+    engines: {'0': node >= 0.8}
+    dependencies:
+      buffer-from: 1.1.2
+      inherits: 2.0.4
+      readable-stream: 2.3.7
+      typedarray: 0.0.6
+    dev: false
+
   /conf/10.2.0:
     resolution: {integrity: sha512-8fLl9F04EJqjSqH+QjITQfJF8BrOVaYr1jewVgSRAEWePfxT0sku4w2hrGQ60BC/TNLGQ2pgxNlTbWQmMPFvXg==}
     engines: {node: '>=12'}
@@ -4283,6 +4295,13 @@ packages:
     dependencies:
       jsonfile: 4.0.0
       mkdirp: 0.5.6
+    dev: false
+
+  /elementtree/0.1.7:
+    resolution: {integrity: sha512-wkgGT6kugeQk/P6VZ/f4T+4HB41BVgNBq5CDIZVbQ02nvTVqAiVTbskxxu3eA/X96lMlfYOwnLQpN2v5E1zDEg==}
+    engines: {node: '>= 0.4.0'}
+    dependencies:
+      sax: 1.1.4
     dev: false
 
   /elliptic/6.5.4:
@@ -6064,7 +6083,6 @@ packages:
 
   /isarray/1.0.0:
     resolution: {integrity: sha512-VLghIWNM6ELQzo7zwmcg0NmTVyWKYjvIeM83yjp0wRDTmUnrM678fQbcKBo6n2CJEF0szoG//ytg+TKla89ALQ==}
-    dev: true
 
   /isbinaryfile/3.0.3:
     resolution: {integrity: sha512-8cJBL5tTd2OS0dM4jz07wQd5g0dCCqIhUxPIGtZfa5L6hWlvV5MHTITy/DBAsF+Oe2LS1X3krBUhNwaGUWpWxw==}
@@ -6891,6 +6909,11 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
 
+  /network-address/1.1.2:
+    resolution: {integrity: sha512-Q6878fmvItA1mE7H9Il46lONgFgTzX2f98zkS0c2YlkCACzNjwvum/8Kq693IQpxe9zy+w+Zm/4p0wQreLEtZw==}
+    hasBin: true
+    dev: false
+
   /nice-try/1.0.5:
     resolution: {integrity: sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==}
     dev: true
@@ -7570,7 +7593,6 @@ packages:
 
   /process-nextick-args/2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
-    dev: true
 
   /process/0.11.10:
     resolution: {integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==}
@@ -7808,7 +7830,6 @@ packages:
       safe-buffer: 5.1.2
       string_decoder: 1.1.1
       util-deprecate: 1.0.2
-    dev: true
 
   /readable-stream/3.6.0:
     resolution: {integrity: sha512-BViHy7LKeTz4oNnkcLJ+lVSL6vpiFeX6/d3oSH8zCW7UxP2onchk+vTGB143xuFjHS3deTgkKoXXymXqymiIdA==}
@@ -8097,7 +8118,6 @@ packages:
 
   /safe-buffer/5.1.2:
     resolution: {integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==}
-    dev: true
 
   /safe-buffer/5.2.1:
     resolution: {integrity: sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==}
@@ -8116,6 +8136,10 @@ packages:
     dependencies:
       truncate-utf8-bytes: 1.0.2
     dev: true
+
+  /sax/1.1.4:
+    resolution: {integrity: sha512-5f3k2PbGGp+YtKJjOItpg3P99IMD84E4HOvcfleTb5joCHNXYLsR9yWFPOYGgaeMPDubQILTCMdsFb2OMeOjtg==}
+    dev: false
 
   /sax/1.2.4:
     resolution: {integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==}
@@ -8694,7 +8718,6 @@ packages:
     resolution: {integrity: sha512-n/ShnvDi6FHbbVfviro+WojiFzv+s8MPMHBczVePfUpDJLwoLT0ht1l4YwBCbi8pJAveEEdnkHyPyTP/mzRfwg==}
     dependencies:
       safe-buffer: 5.1.2
-    dev: true
 
   /string_decoder/1.3.0:
     resolution: {integrity: sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==}
@@ -9080,6 +9103,10 @@ packages:
     dependencies:
       is-typedarray: 1.0.0
     dev: true
+
+  /typedarray/0.0.6:
+    resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
+    dev: false
 
   /typescript/4.7.4:
     resolution: {integrity: sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==}
@@ -9838,10 +9865,10 @@ packages:
       got: 11.8.5
     dev: false
 
-  github.com/castlabs/electron-releases/a1749958b51da6ce1596992260cbacb602c23762:
-    resolution: {tarball: https://codeload.github.com/castlabs/electron-releases/tar.gz/a1749958b51da6ce1596992260cbacb602c23762}
+  github.com/castlabs/electron-releases/8ca09f8539dc0c3f5a57af3fe23fb2db9661ab68:
+    resolution: {tarball: https://codeload.github.com/castlabs/electron-releases/tar.gz/8ca09f8539dc0c3f5a57af3fe23fb2db9661ab68}
     name: electron
-    version: 21.0.0-alpha.5
+    version: 21.0.0-beta.1
     engines: {node: '>= 10.17.0'}
     hasBin: true
     requiresBuild: true
@@ -9878,8 +9905,8 @@ packages:
       - supports-color
     dev: false
 
-  github.com/ciderapp/node_airtunes2/63e3a34a551aa700f89b622d65d19f52f48548ce:
-    resolution: {tarball: https://codeload.github.com/ciderapp/node_airtunes2/tar.gz/63e3a34a551aa700f89b622d65d19f52f48548ce}
+  github.com/ciderapp/node_airtunes2/909bc9ae208731bfe286cc6ee46d075aa56766eb:
+    resolution: {tarball: https://codeload.github.com/ciderapp/node_airtunes2/tar.gz/909bc9ae208731bfe286cc6ee46d075aa56766eb}
     name: airtunes2
     version: 2.3.2
     hasBin: true
@@ -9934,6 +9961,31 @@ packages:
     dependencies:
       inherits: 2.0.4
       readable-stream: 1.1.14
+    dev: false
+
+  github.com/vapormusic/node-upnp-device-client/371819a856573e3624768bd0a113ac6dc084053d:
+    resolution: {tarball: https://codeload.github.com/vapormusic/node-upnp-device-client/tar.gz/371819a856573e3624768bd0a113ac6dc084053d}
+    name: upnp-device-client
+    version: 1.0.2
+    dependencies:
+      concat-stream: 1.6.2
+      debug: 2.6.9
+      elementtree: 0.1.7
+      network-address: 1.1.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  github.com/vapormusic/node-upnp-mediarenderer-client/d4856931500026eb6c4c67b3eb12c1c34755627e:
+    resolution: {tarball: https://codeload.github.com/vapormusic/node-upnp-mediarenderer-client/tar.gz/d4856931500026eb6c4c67b3eb12c1c34755627e}
+    name: upnp-mediarenderer-client
+    version: 1.4.0
+    dependencies:
+      debug: 2.6.9
+      elementtree: 0.1.7
+      upnp-device-client: github.com/vapormusic/node-upnp-device-client/371819a856573e3624768bd0a113ac6dc084053d
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   github.com/wavesplatform/curve25519-js/cae68782564b83ffa1c7c757e40a3944cb140290:
