@@ -232,7 +232,7 @@ export class AppEvents {
 
         startArgs.forEach((arg) => {
           console.log(arg);
-          if (arg.includes("cider://")) {
+          if (arg.includes("cider://") || arg.includes("itms://") || arg.includes("itmss://") || arg.includes("music://") || arg.includes("musics://")) {
             console.debug("[InstanceHandler] (second-instance) Link detected with " + arg);
             this.LinkHandler(arg);
           } else if (arg.includes("--force-quit")) {
