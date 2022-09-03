@@ -494,6 +494,10 @@
                 "name": `${app.getLz('action.share')} (song.link)`,
                 "action": async function() {
                   let item = self.item
+                  if(item.type.startsWith('library-')) {
+                    self.item.attributes.url = self.item.relationships.catalog.data[0].attributes.url
+                    item.attributes.url = item.relationships.catalog.data[0].attributes.url
+                  }
                   if (!item.attributes.url) {
                     if (item.type.includes("library")) {
                       let result = (await app.mk.api.v3.music(`/v1/me/library/${item.type.replace("library-", '')}/${item.id}/catalog`)).data.data[0]
