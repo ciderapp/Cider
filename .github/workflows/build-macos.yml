@@ -128,4 +128,4 @@ jobs:
       - name: Trigger Bot Sync
         uses: indiesdev/curl@v1.1
         with:
-          url: http://129.146.42.180/api/v1/github/sync/${{ GITHUB_REF##*/ }}
+          url: http://129.146.42.180/api/v1/github/sync/${GITHUB_REF##*/}
