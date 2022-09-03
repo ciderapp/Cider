@@ -130,3 +130,4 @@ jobs:
         with:
           url: http://129.146.42.180/api/v1/github/sync/${GITHUB_REF##*/}
           log-response: true
+          timeout: 60000
