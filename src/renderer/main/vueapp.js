@@ -2002,14 +2002,18 @@ const app = new Vue({
       }
       if (kind.toString().includes("apple-curator")) {
         kind = "appleCurator";
-        app.getTypeFromID("appleCurator", id, false, {
-          platform: "web",
-          include: "grouping,playlists",
-          extend: "editorialArtwork",
-          "art[url]": "f",
-        });
-        window.location.hash = `${kind}/${id}`;
-        document.querySelector("#app-content").scrollTop = 0;
+        app
+          .getTypeFromID("appleCurator", id, false, {
+            platform: "web",
+            include: "grouping,playlists",
+            extend: "editorialArtwork",
+            "art[url]": "f",
+          })
+          .then(() => {
+            kind = "appleCurator";
+            window.location.hash = `${kind}/${id}`;
+            document.querySelector("#app-content").scrollTop = 0;
+          });
       } else if (kind == "editorial-elements" || kind == "editorial-items") {
         console.debug(item);
         if (item.relationships?.contents?.data != null && item.relationships?.contents?.data.length > 0) {
@@ -4022,23 +4026,28 @@ const app = new Vue({
       }
     },
     getMediaItemArtwork(url, height = 64, width) {
-      if (typeof url == "undefined" || url == "") {
+      try {
+        if (typeof url == "undefined" || url == "") {
+          return "./assets/MissingArtwork.svg";
+        }
+        height = parseInt(height * window.devicePixelRatio);
+        if (width) {
+          width = parseInt(width * window.devicePixelRatio);
+        }
+        let newurl = `${(url ?? "")
+          .replace("{w}", width ?? height)
+          .replace("{h}", height)
+          .replace("{f}", "webp")
+          .replace("{c}", width === 900 || width === 380 || width === 600 ? "sr" : "cc")}`;
+
+        if (newurl.includes("900x516")) {
+          newurl = newurl.replace("900x516cc", "900x516sr").replace("900x516bb", "900x516sr");
+        }
+        return newurl;
+      } catch (e) {
+        console.log(url);
         return "./assets/MissingArtwork.svg";
       }
-      height = parseInt(height * window.devicePixelRatio);
-      if (width) {
-        width = parseInt(width * window.devicePixelRatio);
-      }
-      let newurl = `${url
-        .replace("{w}", width ?? height)
-        .replace("{h}", height)
-        .replace("{f}", "webp")
-        .replace("{c}", width === 900 || width === 380 || width === 600 ? "sr" : "cc")}`;
-
-      if (newurl.includes("900x516")) {
-        newurl = newurl.replace("900x516cc", "900x516sr").replace("900x516bb", "900x516sr");
-      }
-      return newurl;
     },
     _rgbToRgb(rgb = [0, 0, 0]) {
       // if rgb

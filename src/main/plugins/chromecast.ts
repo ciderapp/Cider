@@ -2,6 +2,7 @@ import * as electron from "electron";
 import * as os from "os";
 import { resolve } from "path";
 import * as CiderReceiver from "../base/castreceiver";
+const MediaRendererClient = require("upnp-mediarenderer-client");
 
 export default class ChromecastPlugin {
   /**
@@ -28,6 +29,7 @@ export default class ChromecastPlugin {
   private connectedHosts: any = {};
   private connectedPlayer: any;
   private ciderPort: any = 9000;
+  private scanCount: any = 0;
   // private server = false;
   // private  bufcount = 0;
   // private bufcount2 = 0;
@@ -67,19 +69,15 @@ export default class ChromecastPlugin {
 
       ssdpBrowser.search("urn:dial-multiscreen-org:device:dial:1");
 
-      // // actual upnp devices
-      // if (app.cfg.get("audio.enableDLNA")) {
-      //     let ssdpBrowser2 = new Client();
-      //     ssdpBrowser2.on('response',  (headers, statusCode, rinfo) => {
-      //          var location = getLocation(headers);
-      //          if (location != null) {
-      //              this.getServiceDescription(location, rinfo.address);
-      //          }
-
-      //     });
-      //     ssdpBrowser2.search('urn:schemas-upnp-org:device:MediaRenderer:1');
-
-      // }
+      // actual upnp devices
+      let ssdpBrowser2 = new Client();
+      ssdpBrowser2.on("response", (headers: any, statusCode: any, rinfo: any) => {
+        var location = getLocation(headers);
+        if (location != null) {
+          this.getServiceDescription(location, rinfo.address);
+        }
+      });
+      ssdpBrowser2.search("urn:schemas-upnp-org:device:MediaRenderer:1");
     } catch (e) {
       console.log("Search GC err", e);
     }
@@ -257,26 +255,29 @@ export default class ChromecastPlugin {
       });
     } else {
       // upnp devices
-      //try {
-      //     client = new MediaRendererClient(UPNPDesc);
-      //     const options = {
-      //         autoplay: true,
-      //         contentType: 'audio/x-wav',
-      //         dlnaFeatures: 'DLNA.ORG_PN=-;DLNA.ORG_OP=01;DLNA.ORG_FLAGS=01700000000000000000000000000000',
-      //         metadata: {
-      //             title: 'Apple Music Electron',
-      //             creator: 'Streaming ...',
-      //             type: 'audio', // can be 'video', 'audio' or 'image'
-      //             //  url: 'http://' + getIp() + ':' + server.address().port + '/',
-      //             //  protocolInfo: 'DLNA.ORG_PN=MP3;DLNA.ORG_OP=01;DLNA.ORG_CI=0;DLNA.ORG_FLAGS=01700000000000000000000000000000;
-      //         }
-      //     };
-      //     client.load('http://' + getIp() + ':' + server.address().port + '/a.wav', options, function (err, _result) {
-      //         if (err) throw err;
-      //         console.log('playing ...');
-      //     });
-      // } catch (e) {
-      // }
+      try {
+        let client = new MediaRendererClient(UPNPDesc);
+        const options = {
+          autoplay: true,
+          contentType: "audio/x-wav",
+          dlnaFeatures: "DLNA.ORG_PN=-;DLNA.ORG_OP=01;DLNA.ORG_FLAGS=01700000000000000000000000000000",
+          metadata: {
+            title: "Cider",
+            creator: "Streaming ...",
+            type: "audio", // can be 'video', 'audio' or 'image'
+            //  url: 'http://' + getIp() + ':' + server.address().port + '/',
+            //  protocolInfo: 'DLNA.ORG_PN=MP3;DLNA.ORG_OP=01;DLNA.ORG_CI=0;DLNA.ORG_FLAGS=01700000000000000000000000000000;
+          },
+        };
+        client.load("http://" + this.getIp() + ":" + this.ciderPort + "/audio.wav", options, function (err: any, _result: any) {
+          if (err) throw err;
+          console.log("playing ...");
+        });
+        if (!this.connectedHosts[device.host]) {
+          this.connectedHosts[device.host] = client;
+          this.activeConnections.push(client);
+        }
+      } catch (e) {}
     }
   }
 
@@ -318,6 +319,10 @@ export default class ChromecastPlugin {
     });
 
     electron.ipcMain.on("getChromeCastDevices", (_event, _data) => {
+      if (this.scanCount++ == 2) {
+        this.scanCount = 0;
+        this.castDevices = [];
+      }
       this.searchForGCDevices();
     });
 

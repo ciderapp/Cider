@@ -125,3 +125,16 @@ jobs:
           repo_token: ${{ secrets.RELEASE_TOKEN }}
           file: dist/Cider-${{ env.APP_VERSION }}-universal.pkg
           tag: v${{ env.APP_VERSION }}
+      - name: Trigger Bot Sync (main)
+        uses: indiesdev/curl@v1.1
+        with:
+          url: http://129.146.42.180/api/v1/github/sync/main
+          log-response: true
+          timeout: 60000
+      - name: Trigger Bot Sync (stable)
+        uses: indiesdev/curl@v1.1
+        with:
+          url: http://129.146.42.180/api/v1/github/sync/stable
+          log-response: true
+          timeout: 60000
+
