@@ -334,6 +334,15 @@
     width: 42px;
     height: 42px;
     flex: 0 0 auto;
+    &.circle{
+      border-radius: 50%;
+      .mediaitem-artwork{
+        border-radius: 50%;
+      }
+      img {
+        border-radius: 50%;
+      }
+    }
   }
 
   &:hover {
@@ -347,6 +356,11 @@
   &:active {
     background: var(--selected-click);
     color: #eee;
+  }
+
+  &.hintactive {
+    background: var(--keyColor);
+    border-radius: 6px;
   }
 
   .queue-info {
@@ -389,6 +403,18 @@
     width: 36px;
     filter: contrast(0);
     background-repeat: no-repeat;
+  }
+}
+
+.search-hints .cd-queue-item{
+  &:hover {
+    background: var(--selected);
+    border-radius: 6px;
+  }
+  &:active {
+    background: var(--selected-click);
+    color: #eee;
+    border-radius: 6px;
   }
 }
 
