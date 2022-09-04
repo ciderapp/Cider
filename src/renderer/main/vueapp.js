@@ -1903,17 +1903,20 @@ const app = new Vue({
         this.search.hints = [];
         return;
       }
-      let hints = await (await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/search/suggestions?term=${this.search.term}`, 
-      {"fields[albums]": "artwork,name,playParams,url,artistName,id",
-      "fields[artists]": "url,name,artwork,id",
-      "fields[songs]": "artwork,name,playParams,url,artistName,id",
-      "kinds": "terms,topResults",
-      "l": this.mklang,
-      "limit[results:terms]": 5,
-      "limit[results:topResults]": 5,
-      "omit[resource]": "autos",
-      "platform": "web",
-      "types": "activities,albums,artists,editorial-items,music-movies,playlists,record-labels,songs,stations"})).data.results;
+      let hints = await (
+        await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/search/suggestions?term=${this.search.term}`, {
+          "fields[albums]": "artwork,name,playParams,url,artistName,id",
+          "fields[artists]": "url,name,artwork,id",
+          "fields[songs]": "artwork,name,playParams,url,artistName,id",
+          kinds: "terms,topResults",
+          l: this.mklang,
+          "limit[results:terms]": 5,
+          "limit[results:topResults]": 5,
+          "omit[resource]": "autos",
+          platform: "web",
+          types: "activities,albums,artists,editorial-items,music-movies,playlists,record-labels,songs,stations",
+        })
+      ).data.results;
       this.search.hints = hints ? hints.suggestions : [];
     },
     getSongProgress() {
@@ -3900,20 +3903,20 @@ const app = new Vue({
       if (e.keyCode == "40") {
         if (this.search.hints.length - 1 < this.search.cursor + 1) return;
         this.search.cursor++;
-        let item = this.search.hints[this.search.cursor]
-        this.search.term = item.content ? (item.content?.attributes?.name ?? "") :item.displayTerm;
+        let item = this.search.hints[this.search.cursor];
+        this.search.term = item.content ? item.content?.attributes?.name ?? "" : item.displayTerm;
       } else if (e.keyCode == "38") {
         if (this.search.cursor == 0) return;
         this.search.cursor--;
-        let item = this.search.hints[this.search.cursor]
-        this.search.term = item.content ? (item.content?.attributes?.name ?? "") :item.displayTerm;
+        let item = this.search.hints[this.search.cursor];
+        this.search.term = item.content ? item.content?.attributes?.name ?? "" : item.displayTerm;
       }
     },
     async searchQuery(term = this.search.term) {
       let self = this;
-      if (typeof term === "object"){
-        this.routeView(term)
-        this.search.term = ""
+      if (typeof term === "object") {
+        this.routeView(term);
+        this.search.term = "";
         return;
       }
       if (term == "") {
