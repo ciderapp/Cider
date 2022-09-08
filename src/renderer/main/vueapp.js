@@ -159,6 +159,7 @@ const app = new Vue({
     miniTmpY: "",
     tmpVar: [],
     notification: false,
+    hintscontext: false,
     chrome: {
       sidebarCollapsed: false,
       nativeControls: false,

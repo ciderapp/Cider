@@ -90,6 +90,7 @@ export class BrowserWindow {
         "components/equalizer",
         "components/add-to-playlist",
         "components/queue",
+        "components/smarthints",
         "components/mediaitem-scroller-horizontal",
         "components/mediaitem-scroller-horizontal-large",
         "components/mediaitem-scroller-horizontal-sp",

@@ -279,7 +279,7 @@
                     <div class="search-input--icon"></div>
                     <input type="search" spellcheck="false" @click="$root.appRoute('search');search.showHints = true"
                            @focus="search.showHints = true"
-                           @blur="setTimeout(()=>{search.showHints = false}, 300)"
+                           @blur="setTimeout(()=>{if(hintscontext != true){search.showHints = false} }, 300)"
                            v-on:keyup.enter="searchQuery(search.hints[search.cursor].content ?? search.hints[search.cursor].searchTerm);search.showHints = false;search.cursor = -1" @change="$root.appRoute('search');"
                            v-on:keyup="searchCursor"
                            @input="getSearchHints()"
@@ -293,34 +293,7 @@
                                 {{ hint.displayTerm }}
                             </button>
                             <template v-for="(item, position) in search.hints.filter((a) => {return a.content != null})">
-                                <div class="cd-queue-item" @click="search.showHints = false;routeView(item.content);search.cursor = -1"
-                                     :class="{'hintactive': (search.cursor == position + search.hints.filter((a) => {return a.content == null}).length)}">
-                                    <div class="row">
-                                        <div class="col-auto cider-flex-center">
-                                            <div class="artwork" :class="{'circle': item.content.type == 'artists'}">
-                                                <mediaitem-artwork
-                                                        :url="item.content.attributes.artwork ? item.content.attributes.artwork.url : ''"
-                                                        :size="32"></mediaitem-artwork>
-                                            </div>
-                                        </div>
-                                        <div class="col queue-info">
-                                            <div class="queue-title text-overflow-elipsis">{{ item.content.attributes.name }}
-                                            </div>
-                                            <div class="queue-subtitle text-overflow-elipsis">{{
-                                                item.content.attributes.artistName }}
-                                            </div>
-                                        </div>
-                                        <div class="queue-explicit-icon cider-flex-center"
-                                             v-if="item.content.attributes.contentRating == 'explicit'">
-                                            <div class="explicit-icon"></div>
-                                        </div>
-                                        <!-- <div class="col queue-duration-info">
-                                            <div class="queue-duration cider-flex-center">
-                                                {{convertTimeToString(item.content.attributes.durationInMillis)}}
-                                            </div>
-                                        </div> -->
-                                    </div>
-                                </div>
+                                <mediaitem-smarthints :item="item.content" :position="position"> </mediaitem-smarthints>
                             </template>    
                         </div>
                     </div>

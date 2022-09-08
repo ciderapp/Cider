@@ -397,7 +397,7 @@ const CiderAudio = {
 
                         constructor() {
                           super();
-                          this._bufferSize = 1024;
+                          this._bufferSize = 2048;
                           this._buffers = null;
                           this._initBuffer();
                         }

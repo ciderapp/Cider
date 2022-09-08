@@ -576,7 +576,7 @@ Vue.component('mediaitem-square', {
             icon: "./assets/feather/play.svg",
             name: app.getLz('action.startRadio'),
             action: () => {
-              app.mk.setStationQueue({ artist: this.item.id }).then(() => {
+              app.mk.setStationQueue({ artist: 'a-'+this.item.id }).then(() => {
                 app.mk.play()
               })
             }
@@ -586,7 +586,7 @@ Vue.component('mediaitem-square', {
             icon: "./assets/feather/share.svg",
             name: app.getLz('term.share'),
             action: () => {
-              self.app.copyToClipboard(this.item.id.attributes.url)
+              self.app.copyToClipboard(this.item.attributes.url)
             }
           },
           {
