@@ -50,6 +50,28 @@
       async mounted() {
       },
       methods: {
+        async isInLibrary() {
+              if (this.item.type && !this.item.type.includes("library")) {
+                let params = {
+                  relate: "library",
+                  "fields": "inLibrary",
+                  "extend": this.revisedRandId()
+                }
+                let kind = this.item.type ?? this.item.attributes.playParams.kind
+                let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+                if (truekind === "musicVideos") {
+                  truekind = "music-videos"
+                }
+                let res = await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/?ids[${truekind}]=${this.item.attributes.playParams.id ?? this.item.id}`, params);
+                res = res.data.data[0]
+                this.addedToLibrary = (res && res.attributes && res.attributes.inLibrary) ? res.attributes.inLibrary : false
+              } else {
+                this.addedToLibrary = true
+              }
+        },
+        revisedRandId() {
+            return Math.random().toString(36).replace(/[^a-z]+/g, '').slice(2, 10);
+        },
         uuidv4() {
             return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
               (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
@@ -276,7 +298,7 @@
             })
     
           } catch (e) {
-    
+            console.log(e)
           }
           try {
             let rating = await app.getRating(self.item)
