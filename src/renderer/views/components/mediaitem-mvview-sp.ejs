@@ -1,5 +1,5 @@
 <script type="text/x-template" id="mediaitem-mvview-sp">
-    <div style="position: relative; display: inline-flex;">
+    <div v-if="(item.attributes?.editorialArtwork?.subscriptionHero?.url ?? item.attributes?.artwork?.url ?? '') !='' " style="position: relative; display: inline-flex;">
         <div @click.self='log(item);app.routeView(item)'
              class="cd-mediaitem-mvview">
             <div style="height: 70px; min-height: 70px; max-height: 70px; width: 100%; margin-left: 5px;">
