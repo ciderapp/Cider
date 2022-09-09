@@ -10,7 +10,7 @@
                             @click="$root.appRoute('search');$root.search.showHints = true"
                             @focus="$root.search.showHints = true"
                             @blur="$root.setTimeout(()=>{if($root.hintscontext != true){$root.search.showHints = false} }, 300)"
-                            v-on:keyup.enter="$root.searchQuery($root.search.hints[$root.search.cursor].content ?? $root.search.hints[$root.search.cursor].searchTerm);$root.search.showHints = false;$root.search.cursor = -1"
+                            v-on:keyup.enter="$root.searchQuery($root.search.hints[$root.search.cursor]?.content ?? $root.search.hints[$root.search.cursor]?.searchTerm ?? $root.search.term);$root.search.showHints = false;$root.search.cursor = -1"
                             v-on:keyup="$root.searchCursor"
                             @change="$root.appRoute('search');"
                             @input="$root.getSearchHints()"

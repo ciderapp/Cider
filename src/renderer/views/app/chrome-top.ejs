@@ -280,7 +280,7 @@
                     <input type="search" spellcheck="false" @click="$root.appRoute('search');search.showHints = true"
                            @focus="search.showHints = true"
                            @blur="setTimeout(()=>{if(hintscontext != true){search.showHints = false} }, 300)"
-                           v-on:keyup.enter="searchQuery(search.hints[search.cursor].content ?? search.hints[search.cursor].searchTerm);search.showHints = false;search.cursor = -1" @change="$root.appRoute('search');"
+                           v-on:keyup.enter="searchQuery(search.hints[search.cursor]?.content ?? search.hints[search.cursor]?.searchTerm ?? search.term);search.showHints = false;search.cursor = -1" @change="$root.appRoute('search');"
                            v-on:keyup="searchCursor"
                            @input="getSearchHints()"
                            :placeholder="$root.getLz('term.search') + '...'" v-model="search.term" ref="searchInput"

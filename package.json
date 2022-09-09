@@ -68,7 +68,7 @@
     "run-script-os": "^1.1.6",
     "source-map-support": "^0.5.21",
     "ts-md5": "1.2.11",
-    "upnp-mediarenderer-client": "github:vapormusic/node-upnp-mediarenderer-client",
+    "upnp-mediarenderer-client": "git+https://github.com/vapormusic/node-upnp-mediarenderer-client.git",
     "v8-compile-cache": "^2.3.0",
     "wallpaper": "5.0.1",
     "ws": "^8.8.1",
