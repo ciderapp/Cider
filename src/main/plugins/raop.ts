@@ -23,7 +23,7 @@ export default class RAOP {
   private portairplay: any = "";
 
   private airtunes: any;
-  private device: any;
+  // private device: any;
   private mdns = require("mdns-js");
   private ok: any = 1;
   private devices: any = [];
@@ -100,7 +100,7 @@ export default class RAOP {
         shown_name = (manufacturer.length > 0 ? manufacturer[0].substring(13) : "") + " " + (model.length > 0 ? model[0].substring(6) : "");
         shown_name = shown_name.trim().length > 1 ? shown_name : (host ?? "Unknown").replace(".local", "");
       }
-    } catch (e) {}
+    } catch (e) { }
     let host_name = addresses != null && typeof addresses == "object" && addresses.length > 0 ? addresses[0] : typeof addresses == "string" ? addresses : "";
 
     if (
@@ -203,43 +203,62 @@ export default class RAOP {
       // });
     });
 
-    electron.ipcMain.on("performAirplayPCM", (event, ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv) => {
+    electron.ipcMain.on("performAirplayPCM", (event, ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv, silent) => {
       if (ipv4 != this.ipairplay || ipport != this.portairplay) {
         if (this.airtunes == null) {
           this.airtunes = new this.u();
         }
         this.ipairplay = ipv4;
         this.portairplay = ipport;
-        this.device = this.airtunes.add(ipv4, {
-          port: ipport,
-          volume: airplay2dv ? 30 : 50,
-          password: sepassword,
-          txt: txt,
-          airplay2: airplay2dv,
-          debug: null,
-          forceAlac: false,
-        });
-        // console.log('lol',txt)
-        this.device.on("status", (status: any) => {
+        let identifier = ipv4 + ":" + ipport + "ap";
+        let idx = this.devices.findIndex(((a: any) => { return a.id == identifier }))
+        if (idx != -1) {
+          delete this.devices[idx]
+          this.devices = this.devices.filter((n: any) => n) // remove old controller
+        }
+        this.devices.push(
+          {
+            id: identifier,
+            ip: ipv4,
+            port: ipport,
+            state: 0,
+            controller: this.airtunes.add(ipv4, {
+              port: ipport,
+              volume: airplay2dv ? 30 : 50,
+              password: sepassword,
+              txt: txt,
+              airplay2: airplay2dv,
+              debug: null,
+              forceAlac: false,
+            })
+          }
+        );
+
+        idx = this.devices.findIndex(((a: any) => { return a.id == identifier }))
+
+        // console.log('lol', this.devices)
+        this.devices[idx].controller.on("status", (status: any) => {
           console.log("device status", status);
           if (status == "ready") {
             this._win.webContents.setAudioMuted(true);
             this._win.webContents.executeJavaScript(`CiderAudio.sendAudio()`).catch((err: any) => console.error(err));
           }
           if (status == "need_password") {
-            this._win.webContents.executeJavaScript(`app.setAirPlayCodeUI()`);
+            this._win.webContents.executeJavaScript(`app.setAirPlayCodeUI('${this.devices[idx].id}')`);
           }
           if (status == "pair_success") {
-            this._win.webContents.executeJavaScript(`app.sendAirPlaySuccess()`);
+            this._win.webContents.executeJavaScript(`app.sendAirPlaySuccess(${silent},'${this.devices[idx].id}')`);
           }
           if (status == "pair_failed") {
             this._win.webContents.executeJavaScript(`app.sendAirPlayFailed()`);
+            this.disconnectAirplay(this.devices[idx].id)
           }
           if (status == "stopped") {
             // this.airtunes.stopAll(() => {
             //   console.log("end");
             // });
-            // this._win.webContents.executeJavaScript(`app.airplayDisconnect(true, ${[ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv]})`).catch((err: any) => console.error(err));
+            if (this.devices[idx]?.state != null && this.devices[idx].state != -1)
+              this._win.webContents.executeJavaScript(`app.airplayDisconnect(true, ${JSON.stringify([ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv])})`).catch((err: any) => console.error(err));
             // this.airtunes = null;
             // this.device = null;
             // this.ipairplay = "";
@@ -248,8 +267,8 @@ export default class RAOP {
           } else {
             setTimeout(() => {
               if (this.ok == 1) {
-                console.log(this.device.key, title ?? "", artist ?? "", album ?? "");
-                this.airtunes.setTrackInfo(this.device.key, title ?? "", artist ?? "", album ?? "");
+                console.log(this.devices[idx].controller.key, title ?? "", artist ?? "", album ?? "");
+                this.airtunes.setTrackInfo(this.devices[idx].controller.key, title ?? "", artist ?? "", album ?? "");
                 this.uploadImageAirplay(artworkURL);
                 console.log("done");
                 this.ok == 2;
@@ -260,15 +279,21 @@ export default class RAOP {
       }
     });
 
-    electron.ipcMain.on("setAirPlayPasscode", (event, passcode) => {
-      if (this.device) {
-        this.device.setPasscode(passcode);
+    electron.ipcMain.on("setAirPlayPasscode", (event, passcode, identifier) => {
+      if (this.devices.length > 0) {
+        let idx = this.devices.findIndex(((a: any) => { return a.id == identifier }))
+        if (idx != -1) {
+          this.devices[idx].controller.setPasscode(passcode);
+        }
       }
     });
 
-    electron.ipcMain.on("setAirPlayVolume", (event, volume) => {
-      if (this.device) {
-        this.device.setVolume(volume);
+    electron.ipcMain.on("setAirPlayVolume", (event, volume, identifier) => {
+      if (this.devices.length > 0) {
+        let idx = this.devices.findIndex(((a: any) => { return a.id == identifier }))
+        if (idx != -1) {
+          this.devices[idx].controller.setVolume(volume);
+        }
       }
     });
 
@@ -321,24 +346,17 @@ export default class RAOP {
       }
     });
 
-    electron.ipcMain.on("disconnectAirplay", (event) => {
-      this._win.webContents.setAudioMuted(false);
-      this.airtunes.stopAll(function () {
-        console.log("end");
-      });
-      this._win.webContents.executeJavaScript("app.airplayDisconnect(false)").catch((err: any) => console.error(err));
-      this.airtunes = null;
-      this.device = null;
-      this.ipairplay = "";
-      this.portairplay = "";
-      this.ok = 1;
-      this.i = false;
+    electron.ipcMain.on("disconnectAirplay", (event, identifier = "") => {
+      console.log('iden', identifier)
+      this.disconnectAirplay(identifier)
     });
 
     electron.ipcMain.on("updateAirplayInfo", (event, title, artist, album, artworkURL) => {
-      if (this.airtunes && this.device) {
-        console.log(this.device.key, title, artist, album);
-        this.airtunes.setTrackInfo(this.device.key, title, artist, album);
+      if (this.airtunes && this.devices.length > 0) {
+        for (let i in this.devices) {
+          console.log(this.devices[i].controller.key, title, artist, album);
+          this.airtunes.setTrackInfo(this.devices[i].controller.key, title, artist, album);
+        }
         this.uploadImageAirplay(artworkURL);
       }
     });
@@ -347,7 +365,47 @@ export default class RAOP {
       this.uploadImageAirplay(imageurl);
     });
   }
+  private disconnectAirplay(identifier: any = "") {
+    console.log("awdas")
+    this._win.webContents.executeJavaScript(`app.airplayDisconnect(false, [], '${identifier}')`).then(() => {
+      if (identifier == "") {
+        if (this.airtunes) {
+          for (let i in this.devices){
+            this.devices[i].state = -1
+          }
+          this.airtunes.stopAll(() => {
+            console.log("endAll");
+            this.airtunes = null;
+            this.devices = []
+          });
+        } else {
+          this.devices = [];
+        }
+      } else {
+        let idx = this.devices.findIndex(((a: any) => { return a.id == identifier }))
+        if (idx != -1) {
+          this.devices[idx].state = -1
+          this.devices[idx].controller.stop(() =>{
+            console.log(this.devices[idx].id , "stopped")
+          });
+         
+          delete this.devices[idx]
+          this.devices = this.devices.filter((n: any) => n)
+        }
+      }
+      if (this.devices.length == 0) {
+        console.log('cleanup airtunes')
+        this._win.webContents.setAudioMuted(false);
+        this.airtunes = null;
 
+        this.ipairplay = "";
+        this.portairplay = "";
+        this.ok = 1;
+        this.i = false;
+      }
+    }).catch((err: any) => console.error("lsdsd", err));
+
+  }
   private uploadImageAirplay = (url: any) => {
     try {
       if (url != null && url != "") {
@@ -355,7 +413,11 @@ export default class RAOP {
         fetch(url)
           .then((res) => res.buffer())
           .then((buffer) => {
-            this.airtunes.setArtwork(this.device.key, buffer, "image/png");
+            if (this.airtunes && this.devices.length > 0) {
+              for (let i in this.devices) {
+                this.airtunes.setArtwork(this.devices[i].controller.key, buffer, "image/png");
+              }
+            }
           })
           .catch((err) => {
             console.log(err);
@@ -369,7 +431,7 @@ export default class RAOP {
   /**
    * Runs on app stop
    */
-  onBeforeQuit(): void {}
+  onBeforeQuit(): void { }
 
   // /**
   //  * Runs on song change
@@ -393,16 +455,20 @@ export default class RAOP {
    * @param attributes Music Attributes (attributes.status = current state)
    */
   onPlaybackStateDidChange(attributes: any): void {
-    if (this.airtunes && this.device) {
+    if (this.airtunes && this.devices.length > 0) {
+
       let title = attributes?.name ?? "";
       let artist = attributes?.artistName ?? "";
       let album = attributes?.albumName ?? "";
-      let artworkURL = attributes?.artwork?.url ?? null;
-      console.log(this.device.key, title, artist, album);
-      this.airtunes.setTrackInfo(this.device.key, title, artist, album);
-      if (artworkURL != null) {
+      for (let i in this.devices) {
+        console.log(this.devices[i].controller.key, title, artist, album);
+        this.airtunes.setTrackInfo(this.devices[i].controller.key, title, artist, album);
       }
-      this.uploadImageAirplay(artworkURL.replace("{w}", "1024").replace("{h}", "1024"));
+      let artworkURL = attributes?.artwork?.url ?? null;
+
+      if (artworkURL != null) {
+        this.uploadImageAirplay(artworkURL.replace("{w}", "1024").replace("{h}", "1024"));
+      }
     }
   }
 }

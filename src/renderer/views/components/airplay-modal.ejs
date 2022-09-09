@@ -37,7 +37,7 @@
       },
       enterPassword() {
         console.log('Entered passCode: ', this.passcode)
-        ipcRenderer.send("setAirPlayPasscode", this.passcode)
+        ipcRenderer.send("setAirPlayPasscode", this.passcode, this.$root.currentAirPlayCodeID)
         this.close()
       }
     }

@@ -248,6 +248,8 @@ const app = new Vue({
     idleTimer: null,
     idleState: false,
     appVisible: true,
+    currentAirPlayCodeID: "",
+    airplayTrys: []
   },
   watch: {
     cfg: {
@@ -4369,24 +4371,56 @@ const app = new Vue({
 
       // tracks are found in relationship.data
     },
-    setAirPlayCodeUI() {
+    setAirPlayCodeUI(identifier) {
       this.modals.airplayPW = true;
+      this.currentAirPlayCodeID = identifier
     },
-    sendAirPlaySuccess() {
-      notyf.success("Device paired successfully!");
+    sendAirPlaySuccess(silent = false, identifier = "") {
+      if (!silent){
+      notyf.success("Device paired successfully!");}
+      console.log("delete idx-pre", identifier)
+      let idx = this.airplayTrys.findIndex(((a) => {return a.id == identifier}))
+      console.log("delete idx", idx)
+      if (idx != -1)
+      delete this.airplayTrys[idx]
+      this.airplayTrys = this.airplayTrys.filter(n => n)
     },
     sendAirPlayFailed() {
       notyf.success("Device paring failed!");
     },
-    airplayDisconnect(dropped, array = []) {
-      console.log("airplay dropped", dropped, array);
-      // if (dropped) {
-      //   let [ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv] = array;
-      //   ipcRenderer.send("performAirplayPCM", ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv);
-      // } else {
-      //   app.activeCasts = [];
-      //   notyf.error("Devices disconnected!");
-      // }
+    airplayDisconnect(dropped, array = [], identifier = "") {
+      console.log("airplay dropped", dropped, array, identifier);
+      if (dropped) {
+        let [ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv] = array;
+        console.log(ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv)
+        let idx = this.airplayTrys.findIndex(((a) => {return a.id == ipv4+":"+ipport+"ap"}))
+        if (idx == -1) {
+          this.airplayTrys.push({
+            id : ipv4+":"+ipport+"ap",
+            attempts : 1
+          })
+        }
+        idx = this.airplayTrys.findIndex(((a) => {return a.id == ipv4+":"+ipport+"ap"}))
+        if (this.airplayTrys[idx].attempts > 3){
+            delete this.airplayTrys[idx]
+            this.airplayTrys = this.airplayTrys.filter(n => n)
+            console.log("delete idx", idx)
+            return;
+        } else {
+            this.airplayTrys[idx].attempts = this.airplayTrys[idx].attempts + 1
+            setTimeout(() => {
+              ipcRenderer.send("performAirplayPCM", ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv, true);}, 1000)
+        }
+       
+      } else {
+        if (identifier == "") {
+          app.activeCasts = [];
+          notyf.error("Devices disconnected!");
+        } else {
+          app.activeCasts;
+          notyf.error("Device disconnected!");
+        }
+      }
     },
     windowFocus(val) {
       if (val) {
