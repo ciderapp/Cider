@@ -441,8 +441,8 @@ export class BrowserWindow {
         this.options.hasShadow = true;
         break;
     }
-    
-    nativeTheme.themeSource = utils.getStoreValue("visual.overrideDisplayTheme")
+
+    nativeTheme.themeSource = utils.getStoreValue("visual.overrideDisplayTheme");
 
     // Start the webserver for the browser window to load
     // LocalFiles.DB.init()
@@ -1142,7 +1142,7 @@ export class BrowserWindow {
 
     // Override light, dark
     ipcMain.on("changeDisplayTheme", (event, theme) => {
-      nativeTheme.themeSource = theme
+      nativeTheme.themeSource = theme;
     });
 
     //Fullscreen
