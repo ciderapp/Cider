@@ -43,7 +43,7 @@ specifiers:
   source-map-support: ^0.5.21
   ts-md5: 1.2.11
   typescript: ^4.7.4
-  upnp-mediarenderer-client: github:vapormusic/node-upnp-mediarenderer-client
+  upnp-mediarenderer-client: git+https://github.com/vapormusic/node-upnp-mediarenderer-client.git
   v8-compile-cache: ^2.3.0
   vue-devtools: ^5.1.4
   wallpaper: 5.0.1
@@ -56,7 +56,7 @@ dependencies:
   '@sentry/electron': 4.0.0
   '@sentry/integrations': 7.11.1
   adm-zip: 0.4.10
-  airtunes2: github.com/ciderapp/node_airtunes2/909bc9ae208731bfe286cc6ee46d075aa56766eb
+  airtunes2: github.com/ciderapp/node_airtunes2/dd94d42717cd4f3b6117a121755933fd4f510239
   castv2-client: 1.2.0
   chokidar: 3.5.3
   discord-auto-rpc: 1.0.17
@@ -96,7 +96,7 @@ devDependencies:
   '@types/node': 18.7.13
   '@types/qrcode-terminal': 0.12.0
   '@types/ws': 8.5.3
-  electron: github.com/castlabs/electron-releases/8ca09f8539dc0c3f5a57af3fe23fb2db9661ab68
+  electron: github.com/castlabs/electron-releases/5fdb0713d72234fb3a4f8b59aee90d0fccfd52c6
   electron-builder: 23.3.3
   electron-builder-notarize-pkg: 1.2.0
   electron-webpack: 2.8.2_webpack@5.74.0
@@ -9865,10 +9865,10 @@ packages:
       got: 11.8.5
     dev: false
 
-  github.com/castlabs/electron-releases/8ca09f8539dc0c3f5a57af3fe23fb2db9661ab68:
-    resolution: {tarball: https://codeload.github.com/castlabs/electron-releases/tar.gz/8ca09f8539dc0c3f5a57af3fe23fb2db9661ab68}
+  github.com/castlabs/electron-releases/5fdb0713d72234fb3a4f8b59aee90d0fccfd52c6:
+    resolution: {tarball: https://codeload.github.com/castlabs/electron-releases/tar.gz/5fdb0713d72234fb3a4f8b59aee90d0fccfd52c6}
     name: electron
-    version: 21.0.0-beta.1
+    version: 21.0.0-beta.4
     engines: {node: '>= 10.17.0'}
     hasBin: true
     requiresBuild: true
@@ -9905,8 +9905,8 @@ packages:
       - supports-color
     dev: false
 
-  github.com/ciderapp/node_airtunes2/909bc9ae208731bfe286cc6ee46d075aa56766eb:
-    resolution: {tarball: https://codeload.github.com/ciderapp/node_airtunes2/tar.gz/909bc9ae208731bfe286cc6ee46d075aa56766eb}
+  github.com/ciderapp/node_airtunes2/dd94d42717cd4f3b6117a121755933fd4f510239:
+    resolution: {tarball: https://codeload.github.com/ciderapp/node_airtunes2/tar.gz/dd94d42717cd4f3b6117a121755933fd4f510239}
     name: airtunes2
     version: 2.3.2
     hasBin: true
