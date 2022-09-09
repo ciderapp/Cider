@@ -1,5 +1,5 @@
 import { join } from "path";
-import { app, BrowserWindow as bw, ipcMain, ShareMenu, shell, screen, dialog } from "electron";
+import { app, BrowserWindow as bw, ipcMain, ShareMenu, shell, screen, dialog, nativeTheme } from "electron";
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
@@ -441,6 +441,8 @@ export class BrowserWindow {
         this.options.hasShadow = true;
         break;
     }
+    
+    nativeTheme.themeSource = utils.getStoreValue("visual.overrideDisplayTheme")
 
     // Start the webserver for the browser window to load
     // LocalFiles.DB.init()
@@ -1136,6 +1138,11 @@ export class BrowserWindow {
     // Move window
     ipcMain.on("windowmove", (_event, x, y) => {
       BrowserWindow.win.setBounds({ x, y });
+    });
+
+    // Override light, dark
+    ipcMain.on("changeDisplayTheme", (event, theme) => {
+      nativeTheme.themeSource = theme
     });
 
     //Fullscreen

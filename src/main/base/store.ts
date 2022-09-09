@@ -200,6 +200,7 @@ export class Store {
       accentColor: "#fc3c44",
       purplePodcastPlaybackBar: false,
       maxElementScale: -1, // -1 default, anything else is a custom scale
+      overrideDisplayTheme : "system" // system , dark, light
     },
     lyrics: {
       enable_mxm: true,

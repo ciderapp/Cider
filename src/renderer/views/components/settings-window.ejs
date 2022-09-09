@@ -473,6 +473,22 @@
                                 </div>
                                 <div class="md-option-line">
                                     <div class="md-option-segment">
+                                        {{'Display Style'}}
+                                    </div>
+                                    <div class="md-option-segment md-option-segment_auto">
+                                        <label>
+                                            <select class="md-select"
+                                                    v-model="$root.cfg.visual.overrideDisplayTheme"
+                                                    @change="changeDisplayTheme">
+                                                <option value="system">System</option>
+                                                <option value="dark">Dark</option>
+                                                <option value="light">Light</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="md-option-line">
+                                    <div class="md-option-segment">
                                         {{$root.getLz('settings.option.visual.windowBackgroundStyle')}}
                                     </div>
                                     <div class="md-option-segment md-option-segment_auto">
@@ -1441,6 +1457,9 @@
       },
       openAppData() {
         ipcRenderer.send('open-appdata')
+      },
+      changeDisplayTheme(){
+        ipcRenderer.send('changeDisplayTheme',app.cfg.visual.overrideDisplayTheme)
       },
       getLanguages: function() {
         let langs = this.$root.lzListing
