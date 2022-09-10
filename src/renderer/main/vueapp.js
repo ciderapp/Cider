@@ -249,7 +249,7 @@ const app = new Vue({
     idleState: false,
     appVisible: true,
     currentAirPlayCodeID: "",
-    airplayTrys: []
+    airplayTrys: [],
   },
   watch: {
     cfg: {
@@ -4373,17 +4373,19 @@ const app = new Vue({
     },
     setAirPlayCodeUI(identifier) {
       this.modals.airplayPW = true;
-      this.currentAirPlayCodeID = identifier
+      this.currentAirPlayCodeID = identifier;
     },
     sendAirPlaySuccess(silent = false, identifier = "") {
-      if (!silent){
-      notyf.success("Device paired successfully!");}
-      console.log("delete idx-pre", identifier)
-      let idx = this.airplayTrys.findIndex(((a) => {return a.id == identifier}))
-      console.log("delete idx", idx)
-      if (idx != -1)
-      delete this.airplayTrys[idx]
-      this.airplayTrys = this.airplayTrys.filter(n => n)
+      if (!silent) {
+        notyf.success("Device paired successfully!");
+      }
+      console.log("delete idx-pre", identifier);
+      let idx = this.airplayTrys.findIndex((a) => {
+        return a.id == identifier;
+      });
+      console.log("delete idx", idx);
+      if (idx != -1) delete this.airplayTrys[idx];
+      this.airplayTrys = this.airplayTrys.filter((n) => n);
     },
     sendAirPlayFailed() {
       notyf.success("Device paring failed!");
@@ -4392,26 +4394,30 @@ const app = new Vue({
       console.log("airplay dropped", dropped, array, identifier);
       if (dropped) {
         let [ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv] = array;
-        console.log(ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv)
-        let idx = this.airplayTrys.findIndex(((a) => {return a.id == ipv4+":"+ipport+"ap"}))
+        console.log(ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv);
+        let idx = this.airplayTrys.findIndex((a) => {
+          return a.id == ipv4 + ":" + ipport + "ap";
+        });
         if (idx == -1) {
           this.airplayTrys.push({
-            id : ipv4+":"+ipport+"ap",
-            attempts : 1
-          })
+            id: ipv4 + ":" + ipport + "ap",
+            attempts: 1,
+          });
         }
-        idx = this.airplayTrys.findIndex(((a) => {return a.id == ipv4+":"+ipport+"ap"}))
-        if (this.airplayTrys[idx].attempts > 3){
-            delete this.airplayTrys[idx]
-            this.airplayTrys = this.airplayTrys.filter(n => n)
-            console.log("delete idx", idx)
-            return;
+        idx = this.airplayTrys.findIndex((a) => {
+          return a.id == ipv4 + ":" + ipport + "ap";
+        });
+        if (this.airplayTrys[idx].attempts > 3) {
+          delete this.airplayTrys[idx];
+          this.airplayTrys = this.airplayTrys.filter((n) => n);
+          console.log("delete idx", idx);
+          return;
         } else {
-            this.airplayTrys[idx].attempts = this.airplayTrys[idx].attempts + 1
-            setTimeout(() => {
-              ipcRenderer.send("performAirplayPCM", ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv, true);}, 1000)
+          this.airplayTrys[idx].attempts = this.airplayTrys[idx].attempts + 1;
+          setTimeout(() => {
+            ipcRenderer.send("performAirplayPCM", ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv, true);
+          }, 1000);
         }
-       
       } else {
         if (identifier == "") {
           app.activeCasts = [];

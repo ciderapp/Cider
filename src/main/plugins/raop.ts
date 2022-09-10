@@ -100,7 +100,7 @@ export default class RAOP {
         shown_name = (manufacturer.length > 0 ? manufacturer[0].substring(13) : "") + " " + (model.length > 0 ? model[0].substring(6) : "");
         shown_name = shown_name.trim().length > 1 ? shown_name : (host ?? "Unknown").replace(".local", "");
       }
-    } catch (e) { }
+    } catch (e) {}
     let host_name = addresses != null && typeof addresses == "object" && addresses.length > 0 ? addresses[0] : typeof addresses == "string" ? addresses : "";
 
     if (
@@ -211,30 +211,32 @@ export default class RAOP {
         this.ipairplay = ipv4;
         this.portairplay = ipport;
         let identifier = ipv4 + ":" + ipport + "ap";
-        let idx = this.devices.findIndex(((a: any) => { return a.id == identifier }))
+        let idx = this.devices.findIndex((a: any) => {
+          return a.id == identifier;
+        });
         if (idx != -1) {
-          delete this.devices[idx]
-          this.devices = this.devices.filter((n: any) => n) // remove old controller
+          delete this.devices[idx];
+          this.devices = this.devices.filter((n: any) => n); // remove old controller
         }
-        this.devices.push(
-          {
-            id: identifier,
-            ip: ipv4,
+        this.devices.push({
+          id: identifier,
+          ip: ipv4,
+          port: ipport,
+          state: 0,
+          controller: this.airtunes.add(ipv4, {
             port: ipport,
-            state: 0,
-            controller: this.airtunes.add(ipv4, {
-              port: ipport,
-              volume: airplay2dv ? 30 : 50,
-              password: sepassword,
-              txt: txt,
-              airplay2: airplay2dv,
-              debug: null,
-              forceAlac: false,
-            })
-          }
-        );
+            volume: airplay2dv ? 30 : 50,
+            password: sepassword,
+            txt: txt,
+            airplay2: airplay2dv,
+            debug: null,
+            forceAlac: false,
+          }),
+        });
 
-        idx = this.devices.findIndex(((a: any) => { return a.id == identifier }))
+        idx = this.devices.findIndex((a: any) => {
+          return a.id == identifier;
+        });
 
         // console.log('lol', this.devices)
         this.devices[idx].controller.on("status", (status: any) => {
@@ -251,7 +253,7 @@ export default class RAOP {
           }
           if (status == "pair_failed") {
             this._win.webContents.executeJavaScript(`app.sendAirPlayFailed()`);
-            this.disconnectAirplay(this.devices[idx].id)
+            this.disconnectAirplay(this.devices[idx].id);
           }
           if (status == "stopped") {
             // this.airtunes.stopAll(() => {
@@ -281,7 +283,9 @@ export default class RAOP {
 
     electron.ipcMain.on("setAirPlayPasscode", (event, passcode, identifier) => {
       if (this.devices.length > 0) {
-        let idx = this.devices.findIndex(((a: any) => { return a.id == identifier }))
+        let idx = this.devices.findIndex((a: any) => {
+          return a.id == identifier;
+        });
         if (idx != -1) {
           this.devices[idx].controller.setPasscode(passcode);
         }
@@ -290,7 +294,9 @@ export default class RAOP {
 
     electron.ipcMain.on("setAirPlayVolume", (event, volume, identifier) => {
       if (this.devices.length > 0) {
-        let idx = this.devices.findIndex(((a: any) => { return a.id == identifier }))
+        let idx = this.devices.findIndex((a: any) => {
+          return a.id == identifier;
+        });
         if (idx != -1) {
           this.devices[idx].controller.setVolume(volume);
         }
@@ -347,8 +353,8 @@ export default class RAOP {
     });
 
     electron.ipcMain.on("disconnectAirplay", (event, identifier = "") => {
-      console.log('iden', identifier)
-      this.disconnectAirplay(identifier)
+      console.log("iden", identifier);
+      this.disconnectAirplay(identifier);
     });
 
     electron.ipcMain.on("updateAirplayInfo", (event, title, artist, album, artworkURL) => {
@@ -366,45 +372,49 @@ export default class RAOP {
     });
   }
   private disconnectAirplay(identifier: any = "") {
-    console.log("awdas")
-    this._win.webContents.executeJavaScript(`app.airplayDisconnect(false, [], '${identifier}')`).then(() => {
-      if (identifier == "") {
-        if (this.airtunes) {
-          for (let i in this.devices){
-            this.devices[i].state = -1
+    console.log("awdas");
+    this._win.webContents
+      .executeJavaScript(`app.airplayDisconnect(false, [], '${identifier}')`)
+      .then(() => {
+        if (identifier == "") {
+          if (this.airtunes) {
+            for (let i in this.devices) {
+              this.devices[i].state = -1;
+            }
+            this.airtunes.stopAll(() => {
+              console.log("endAll");
+              this.airtunes = null;
+              this.devices = [];
+            });
+          } else {
+            this.devices = [];
           }
-          this.airtunes.stopAll(() => {
-            console.log("endAll");
-            this.airtunes = null;
-            this.devices = []
-          });
         } else {
-          this.devices = [];
-        }
-      } else {
-        let idx = this.devices.findIndex(((a: any) => { return a.id == identifier }))
-        if (idx != -1) {
-          this.devices[idx].state = -1
-          this.devices[idx].controller.stop(() =>{
-            console.log(this.devices[idx].id , "stopped")
+          let idx = this.devices.findIndex((a: any) => {
+            return a.id == identifier;
           });
-         
-          delete this.devices[idx]
-          this.devices = this.devices.filter((n: any) => n)
+          if (idx != -1) {
+            this.devices[idx].state = -1;
+            this.devices[idx].controller.stop(() => {
+              console.log(this.devices[idx].id, "stopped");
+            });
+
+            delete this.devices[idx];
+            this.devices = this.devices.filter((n: any) => n);
+          }
         }
-      }
-      if (this.devices.length == 0) {
-        console.log('cleanup airtunes')
-        this._win.webContents.setAudioMuted(false);
-        this.airtunes = null;
+        if (this.devices.length == 0) {
+          console.log("cleanup airtunes");
+          this._win.webContents.setAudioMuted(false);
+          this.airtunes = null;
 
-        this.ipairplay = "";
-        this.portairplay = "";
-        this.ok = 1;
-        this.i = false;
-      }
-    }).catch((err: any) => console.error("lsdsd", err));
-
+          this.ipairplay = "";
+          this.portairplay = "";
+          this.ok = 1;
+          this.i = false;
+        }
+      })
+      .catch((err: any) => console.error("lsdsd", err));
   }
   private uploadImageAirplay = (url: any) => {
     try {
@@ -431,7 +441,7 @@ export default class RAOP {
   /**
    * Runs on app stop
    */
-  onBeforeQuit(): void { }
+  onBeforeQuit(): void {}
 
   // /**
   //  * Runs on song change
@@ -456,7 +466,6 @@ export default class RAOP {
    */
   onPlaybackStateDidChange(attributes: any): void {
     if (this.airtunes && this.devices.length > 0) {
-
       let title = attributes?.name ?? "";
       let artist = attributes?.artistName ?? "";
       let album = attributes?.albumName ?? "";
