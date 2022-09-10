@@ -2388,10 +2388,8 @@ const app = new Vue({
             aa = a.attributes.genreNames[0];
             bb = b.attributes.genreNames[0];
           } else if (prefs.sort == "dateAdded") {
-            let albumida = a.relationships?.albums?.data[0]?.id;
-            let albumidb = b.relationships?.albums?.data[0]?.id;
-            aa = startTime - new Date(albumAdded[albumida] ?? "1970-01-01T00:01:01Z").getTime();
-            bb = startTime - new Date(albumAdded[albumidb] ?? "1970-01-01T00:01:01Z").getTime();
+            aa = a.relationships?.albums?.data[0]?.attributes?.dateAdded;
+            bb = b.relationships?.albums?.data[0]?.attributes?.dateAdded;
           }
           if (aa == null) {
             aa = "";
