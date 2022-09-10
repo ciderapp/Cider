@@ -4539,7 +4539,7 @@ const app = new Vue({
                 if (app.mk.nowPlayingItem.relationships.artists.data[0].id) {
                   app.appRoute(`artist/${app.mk.nowPlayingItem.relationships.artists.data[0].id}`);
                 } else {
-                  const id = await MusicKitInterop.fetchPrimaryArtist("id")
+                  const id = await MusicKitInterop.fetchPrimaryArtist("id");
                   app.appRoute(`artist/${id}`);
                 }
               },
