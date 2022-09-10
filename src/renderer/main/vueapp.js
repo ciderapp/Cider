@@ -2370,14 +2370,6 @@ const app = new Vue({
       let self = this;
       let prefs = this.cfg.libraryPrefs.songs;
 
-      const albumAdded = {};
-
-      for (const listing of self.library?.albums?.listing ?? []) {
-        albumAdded[listing.id] = listing.attributes?.dateAdded;
-      }
-
-      let startTime = new Date().getTime();
-
       function sortSongs() {
         // sort this.library.songs.displayListing by song.attributes[self.library.songs.sorting] in descending or ascending order based on alphabetical order and numeric order
         // check if song.attributes[self.library.songs.sorting] is a number and if so, sort by number if not, sort by alphabetical order ignoring case
