@@ -4535,8 +4535,13 @@ const app = new Vue({
             {
               icon: "./assets/feather/user.svg",
               name: app.getLz("action.goToArtist"),
-              action: function () {
-                app.appRoute(`artist/${app.mk.nowPlayingItem.relationships.artists.data[0].id}`);
+              action: async function () {
+                if (app.mk.nowPlayingItem.relationships.artists.data[0].id) {
+                  app.appRoute(`artist/${app.mk.nowPlayingItem.relationships.artists.data[0].id}`);
+                } else {
+                  const id = await MusicKitInterop.fetchPrimaryArtist("id")
+                  app.appRoute(`artist/${id}`);
+                }
               },
             },
             {

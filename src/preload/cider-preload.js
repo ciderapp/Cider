@@ -83,7 +83,7 @@ const MusicKitInterop = {
     });
   },
 
-  async fetchPrimaryArtist() {
+  async fetchPrimaryArtist(returnType = "name") {
     const songID = app.mk.nowPlayingItem.attributes.playParams.catalogId || app.mk.nowPlayingItem.attributes.playParams.id;
     const res = await MusicKit.getInstance().api.v3.music("/v1/catalog/" + MusicKit.getInstance().storefrontId + `/songs/${songID}`, {
       include: {
@@ -107,7 +107,11 @@ const MusicKitInterop = {
     }
 
     const primaryArtist = artistData[0];
-    return primaryArtist.attributes.name;
+    if (returnType === "name") {
+      return primaryArtist.attributes.name;
+    } else if (returnType === "id") {
+      return primaryArtist.id;
+    }
   },
 
   getAttributes: function () {
