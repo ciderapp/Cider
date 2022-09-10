@@ -27,6 +27,7 @@
     "pack": "electron-builder --dir",
     "dist": "npm run build && electron-builder",
     "dist:macarm": "npm run build && electron-builder --mac --arm64",
+    "dist:linuxdir": "npm run build && electron-builder --linux dir",
     "slim-build:macarm": "ditto --arch arm64 ./dist/mac-universal/Cider.app ./dist/mac-universal/arm64/Cider.app",
     "slim-build:macintel": "ditto --arch x86_64 ./dist/mac-universal/Cider.app ./dist/mac-universal/x86_x64/Cider.app",
     "dist:universalNotWorking": "npm run build && electron-builder --mac --universal",
