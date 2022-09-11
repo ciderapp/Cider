@@ -16,9 +16,9 @@
                     </button>
                     <template v-for="(item, position) in $root.search.hints.filter((a) => {return a.content != null})">
                         <mediaitem-smarthints :item="item.content" :position="position"> </mediaitem-smarthints>
-                    </template> 
+                    </template>
                 </div>
-                
+
             </div>
         </div>
         <div class="btn-group searchToggle">
@@ -39,10 +39,6 @@
                 <mediaitem-scroller-horizontal
                         :items="search.results[search.results.meta.results.order[0]]['data']"></mediaitem-scroller-horizontal>
                 <div class="row">
-                    <div v-else style="text-align: center">
-                        <h3>{{app.getLz('error.noResults')}}</h3>
-                        <p>{{app.getLz('error.noResults.description')}}</p>
-                    </div>
                     <div class="col" v-if="search.results.song">
                         <div class="row">
                             <div class="col">
@@ -58,6 +54,10 @@
                             <listitem-horizontal :items="search.results.song.data.limit(12)">
                             </listitem-horizontal>
                         </div>
+                    </div>
+                    <div v-else style="text-align: center">
+                        <h3>{{app.getLz('error.noResults')}}</h3>
+                        <p>{{app.getLz('error.noResults.description')}}</p>
                     </div>
                 </div>
 
