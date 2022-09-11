@@ -1905,8 +1905,8 @@ const app = new Vue({
     async getSearchHints() {
       if (this.search.term == "") {
         this.search.hints = [];
-        this.search.showHints = true
-        this.search.showSearchView = false
+        this.search.showHints = true;
+        this.search.showSearchView = false;
         return;
       }
       let hints = await (
