@@ -2145,6 +2145,18 @@ const app = new Vue({
         }
 
         // app.getTypeFromID((kind), (id), (isLibrary), params);
+      } else if (kind.toString().includes("song")) {
+        const albumUrl = new Promise(async (resolve, reject) => {
+          resolve(await MusicKitInterop.fetchSongRelationships({id: id, relationship: "album"}));
+        });
+        albumUrl.then((data) => {
+          if (data && data.type === "albums" && data.id) {
+            window.location.hash = `album/${data.id}${isLibrary ? "/" + isLibrary : ""}`;
+          } else {
+            app.playMediaItemById(id, kind, isLibrary, item.attributes.url ?? "");
+          }
+        })
+
       } else {
         app.playMediaItemById(id, kind, isLibrary, item.attributes.url ?? "");
       }
@@ -4542,8 +4554,8 @@ const app = new Vue({
                 if (app.mk.nowPlayingItem.relationships.artists.data[0].id) {
                   app.appRoute(`artist/${app.mk.nowPlayingItem.relationships.artists.data[0].id}`);
                 } else {
-                  const id = await MusicKitInterop.fetchPrimaryArtist("id");
-                  app.appRoute(`artist/${id}`);
+                  const primaryArtist = await MusicKitInterop.fetchSongRelationships({ relationship: "primaryArtist"})
+                  app.appRoute(`artist/${primaryArtist.id}`);
                 }
               },
             },

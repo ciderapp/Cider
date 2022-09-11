@@ -22,7 +22,7 @@ const MusicKitInterop = {
       ipcRenderer.send("wsapi-updatePlaybackState", attributes);
       // lastfm call
       if (app.mk.currentPlaybackProgress === app.cfg.connectivity.lastfm.scrobble_after / 100) {
-        attributes.primaryArtist = app.cfg.connectivity.lastfm.remove_featured ? await this.fetchPrimaryArtist() : attributes.artistName;
+        attributes.primaryArtist = app.cfg.connectivity.lastfm.remove_featured ? await this.fetchSongRelationships() : attributes.artistName;
         ipcRenderer.send("lastfm:scrobbleTrack", attributes);
       }
     });
@@ -36,7 +36,7 @@ const MusicKitInterop = {
     MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, async () => {
       console.debug("[cider:preload] nowPlayingItemDidChange");
       const attributes = MusicKitInterop.getAttributes();
-      attributes.primaryArtist = app.cfg.connectivity.lastfm.remove_featured ? await this.fetchPrimaryArtist() : attributes.artistName;
+      attributes.primaryArtist = app.cfg.connectivity.lastfm.remove_featured ? await this.fetchSongRelationships() : attributes.artistName;
 
       global.ipcRenderer.send("nowPlayingItemDidChange", attributes);
 
@@ -83,34 +83,45 @@ const MusicKitInterop = {
     });
   },
 
-  async fetchPrimaryArtist(returnType = "name") {
-    const songID = app.mk.nowPlayingItem.attributes.playParams.catalogId || app.mk.nowPlayingItem.attributes.playParams.id;
-    const res = await MusicKit.getInstance().api.v3.music("/v1/catalog/" + MusicKit.getInstance().storefrontId + `/songs/${songID}`, {
+  async fetchSongRelationships({id = app.mk.nowPlayingItem.attributes.playParams.catalogId || app.mk.nowPlayingItem.attributes.playParams.id, relationship = "primaryName"}={}) {
+    const res = await MusicKit.getInstance().api.v3.music("/v1/catalog/" + MusicKit.getInstance().storefrontId + `/songs/${id}`, {
       include: {
         songs: ["artists"],
       },
     });
+
     if (!res || !res.data) {
-      console.warn("[cider:preload] fetchPrimaryArtist: no response");
-      return app.mk.nowPlayingItem.attributes.artistName;
+      console.warn("[cider:preload] fetchSongRelationships: no response");
+      if (id === app.mk.nowPlayingItem.attributes.playParams.catalogId || id === app.mk.nowPlayingItem.attributes.playParams.id) {
+        return app.mk.nowPlayingItem.attributes.artistName;
+      }
+    }
+    if (!res.data.data.length) {
+      console.error(`[cider:preload] fetchSongRelationships: Unable to locate song with id of ${id}`);
+      if (id === app.mk.nowPlayingItem.attributes.playParams.catalogId || id === app.mk.nowPlayingItem.attributes.playParams.id) {
+        return app.mk.nowPlayingItem.attributes.artistName;
+      }
     }
 
-    if (!res.data.data.length) {
-      console.error(`[cider:preload] fetchPrimaryArtist: Unable to locate song with id of ${songID}`);
-      return app.mk.nowPlayingItem.attributes.artistName;
-    }
     const songData = res.data.data[0];
     const artistData = songData.relationships.artists.data;
-    if (artistData.length < 1) {
-      console.error(`[cider:preload] fetchPrimaryArtist: Unable to find artists related to the song with id of ${songID}`);
-      return app.mk.nowPlayingItem.attributes.artistName;
-    }
-
+    const albumData = songData.relationships.albums.data;
     const primaryArtist = artistData[0];
-    if (returnType === "name") {
-      return primaryArtist.attributes.name;
-    } else if (returnType === "id") {
-      return primaryArtist.id;
+
+    switch(relationship) {
+      default:
+      case "primaryName":
+        if (artistData.length < 1) {
+          console.error(`[cider:preload] fetchSongRelationships: Unable to find artists related to the song with id of ${id}`);
+          return app.mk.nowPlayingItem.attributes.artistName;
+        }
+        return primaryArtist.attributes.name;
+
+      case "primaryArtist":
+        return primaryArtist;
+
+      case "album":
+        return albumData[0]
     }
   },
 
