@@ -1486,7 +1486,7 @@ export class BrowserWindow {
 
     // Set window Handler
     BrowserWindow.win.webContents.setWindowOpenHandler((x: any) => {
-      if (x.url.includes("apple") || x.url.includes("localhost")) {
+      if (x.url.includes("apple.com") || x.url.includes("localhost")) {
         return { action: "allow" };
       }
       shell.openExternal(x.url).catch(console.error);
