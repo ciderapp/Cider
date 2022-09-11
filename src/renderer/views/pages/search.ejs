@@ -4,7 +4,7 @@
             <div class="search-input--icon"></div>
             <input type="search" spellcheck="false" @focus="$root.search.showHints = true"
                     @blur="$root.setTimeout(()=>{if($root.hintscontext != true){$root.search.showHints = false} }, 300)"
-                   v-on:keyup.enter="$root.searchQuery($root.search.hints[$root.search.cursor]?.content ?? $root.search.hints[$root.search.cursor]?.searchTerm ?? $root.search.term);$root.search.showHints = false" @input="$root.getSearchHints()"
+                   v-on:keyup.enter="$root.searchQuery($root.search.hints[$root.search.cursor]?.content ?? $root.search.hints[$root.search.cursor]?.searchTerm ?? $root.search.term);$root.search.showHints = false; $root.search.showSearchView = true" @input="$root.getSearchHints()"
                    :placeholder="$root.getLz('term.search') + '...'" v-model="$root.search.term"
                    class="search-input" />
 
@@ -33,7 +33,7 @@
                 $root.getLz("term.library") }}
             </button>
         </div>
-        <div v-if="search != null && search != [] && search.term != ''">
+        <div v-if="search != null && search != [] && search.term != '' && $root.search.showSearchView">
             <template v-if="searchType == 'catalog'">
                 <h3>{{app.getLz('term.topResult')}}</h3>
                 <mediaitem-scroller-horizontal
