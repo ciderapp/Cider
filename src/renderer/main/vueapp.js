@@ -46,9 +46,8 @@ const app = new Vue({
     listennow: [],
     madeforyou: [],
     radio: {
-      personal: {},
-      recent: {},
-      amlive: {},
+      "editorial": [],
+      "recent": [],
     },
     mklang: "en",
     webview: {
@@ -782,6 +781,9 @@ const app = new Vue({
         // Set mk.volume to -1 (setting to 0 wont work, so temp solution setting to -1)
         this.mk.volume = -1;
       }
+
+      // Restore mk
+
 
       // load cached library
       let librarySongs = await CiderCache.getCache("library-songs");
@@ -3002,6 +3004,48 @@ const app = new Vue({
         this.getListenNow(attempt + 1);
       }
     },
+    async getRadioPage(attempt = 0) {
+      if (this.radio.timestamp > Date.now() - 120000) {
+        return;
+      }
+      if (attempt > 3) {
+        return;
+      }
+      try {
+        app.mk.api.v3.music(`/v1/editorial/${app.mk.storefrontId}/groupings`, {
+          platform: "web",
+          name: "radio",
+          "omit[resource:artists]": "relationships",
+          "include[albums]": "artists",
+          "include[music-videos]": "artists",
+          "include[songs]": "artists",
+          "include[stations]": "events",
+          extend: "artistUrl,editorialArtwork",
+          "fields[artists]": "name,url,artwork,editorialArtwork,genreNames,editorialNotes",
+          "format[resources]": "map",
+          "art[url]": "f",
+          l: app.mklang
+        }).then((radio) => {
+          app.radio.editorial = radio.data.resources
+          console.debug(app.radio);
+        })
+
+
+        app.mk.api.v3.music(`/v1/me/recent/radio-stations`, {
+          "platform": "web",
+          "art[url]": "f",
+          "format[resources]": "map",
+          l: app.mklang
+        }).then((radio) => {
+          app.radio.recent = radio.data
+          console.debug(app.radio);
+        })
+        this.radio.timestamp = Date.now();
+      } catch (e) {
+        console.log(e);
+        this.getRadioPage(attempt + 1);
+      }
+    },
     async getBrowsePage(attempt = 0) {
       if (this.browsepage.timestamp > Date.now() - 120000) {
         return;
@@ -3020,7 +3064,7 @@ const app = new Vue({
           extend: "editorialArtwork,artistUrl",
           "fields[artists]": "name,url,artwork,editorialArtwork,genreNames,editorialNotes",
           "art[url]": "f",
-          l: this.mklang,
+          l: app.mklang,
         });
         this.browsepage = browse.data.data[0];
         this.browsepage.timestamp = Date.now();
