@@ -78,6 +78,9 @@ export class AppEvents {
       case "webgpu":
         console.info("WebGPU is enabled.");
         app.commandLine.appendSwitch("enable-unsafe-webgpu");
+        if (process.platform === "linux") {
+          app.commandLine.appendSwitch("enable-features", "Vulkan");
+        }
         break;
 
       case "disabled":
@@ -328,10 +331,10 @@ export class AppEvents {
 
             {
                 visible: visible,
-                label: 'track info',  
-                enabled: false,          
+                label: 'track info',
+                enabled: false,
             },
-            
+
             {type: 'separator'},
             */
 
