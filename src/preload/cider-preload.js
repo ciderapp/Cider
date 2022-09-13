@@ -83,7 +83,8 @@ const MusicKitInterop = {
     });
   },
 
-  async fetchSongRelationships({ id = app.mk.nowPlayingItem.attributes.playParams.catalogId || app.mk.nowPlayingItem.attributes.playParams.id, relationship = "primaryName" } = {}) {
+  async fetchSongRelationships({ id = this.getAttributes().songId, relationship = "primaryName" } = {}) {
+    if (!id) return null;
     const res = await MusicKit.getInstance().api.v3.music("/v1/catalog/" + MusicKit.getInstance().storefrontId + `/songs/${id}`, {
       include: {
         songs: ["artists"],
@@ -92,14 +93,14 @@ const MusicKitInterop = {
 
     if (!res || !res.data) {
       console.warn("[cider:preload] fetchSongRelationships: no response");
-      if (id === app.mk.nowPlayingItem.attributes.playParams.catalogId || id === app.mk.nowPlayingItem.attributes.playParams.id) {
-        return app.mk.nowPlayingItem.attributes.artistName;
+      if (id === this.getAttributes().songId) {
+        return this.getAttributes().artistName;
       }
     }
     if (!res.data.data.length) {
       console.error(`[cider:preload] fetchSongRelationships: Unable to locate song with id of ${id}`);
-      if (id === app.mk.nowPlayingItem.attributes.playParams.catalogId || id === app.mk.nowPlayingItem.attributes.playParams.id) {
-        return app.mk.nowPlayingItem.attributes.artistName;
+      if (id === this.getAttributes().songId) {
+        return this.getAttributes().artistName;
       }
     }
 
