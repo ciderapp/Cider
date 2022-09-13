@@ -171,6 +171,7 @@
                                                                  :showIndex="true"
                                                                  :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
                                                                  :context-ext="buildContextMenu()"
+                                                                 v-bind:key="item.id"
                                                                  v-for="(item,index) in data.relationships.tracks.data"></mediaitem-list-item>
                                         </template>
                                         <template v-else>
@@ -183,6 +184,7 @@
                                                                      :showIndex="true"
                                                                      :showIndexPlaylist="(data.attributes.playParams.kind ?? data.type ?? '').includes('playlist')"
                                                                      :context-ext="buildContextMenu()"
+                                                                     v-bind:key="item.id"
                                                                      v-for="(item,index) in disc.tracks"></mediaitem-list-item>
                                             </div>
 
@@ -197,6 +199,7 @@
                                     <div class="badge-container">
                                         <div class="socialBadge"
                                              :title="`${badge.attributes.name} - @${badge.attributes.handle}`"
+                                             v-bind:key="badge.id"
                                              v-for="badge in itemBadges">
                                             <mediaitem-artwork
                                                     :url="badge.attributes.artwork.url"

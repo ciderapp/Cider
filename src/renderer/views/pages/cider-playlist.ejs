@@ -243,6 +243,7 @@
                                                                  :showIndex="true"
                                                                  :showIndexPlaylist="(data.attributes.playParams?.kind ?? data.type ?? '').includes('playlist')"
                                                                  :context-ext="buildContextMenu()"
+                                                                 v-bind:key="item.id"
                                                                  v-for="(item,index) in currentSlice"></mediaitem-list-item>
                                         </template>
                                         <template v-else>
@@ -255,6 +256,7 @@
                                                                      :showIndex="true"
                                                                      :showIndexPlaylist="(data.attributes.playParams?.kind ?? data.type ?? '').includes('playlist')"
                                                                      :context-ext="buildContextMenu()"
+                                                                     v-bind:key="item.id"
                                                                      v-for="(item,index) in disc.tracks"></mediaitem-list-item>
                                             </div>
 

@@ -165,6 +165,7 @@
                 <template v-if="!$root.cfg.general.sidebarCollapsed.amplaylists">
                     <sidebar-playlist
                             v-for="item in $root.getPlaylistFolderChildren('p.applemusic')"
+                            v-bind:key="item.id"
                             :item="item"
                     >
                     </sidebar-playlist>
@@ -187,6 +188,7 @@
                 </button>
                 <sidebar-playlist
                         v-for="item in $root.getPlaylistFolderChildren('p.playlistsroot')"
+                        v-bind:key="item.id"madeforyou
                         :item="item"
                 >
                 </sidebar-playlist>

@@ -84,12 +84,12 @@
         <div v-if="library.songs.downloadState == 3">Library contains no songs.</div>
         <div class="well" :key="1" v-if="prefs.size == 'compact'">
             <mediaitem-list-item class-list="compact" :item="item" :parent="'librarysongs'" :index="index"
-                                 :show-meta-data="true" :show-library-status="false"
+                                 :show-meta-data="true" :show-library-status="false" v-bind:key="item.id"
                                  v-for="(item, index) in currentSlice"></mediaitem-list-item>
         </div>
         <div class="well" :key="2" v-else>
             <mediaitem-list-item :item="item" :parent="'librarysongs'" :index="index" :show-meta-data="true"
-                                 :show-library-status="false"
+                                 :show-library-status="false" v-bind:key="item.id"
                                  v-for="(item, index) in currentSlice"></mediaitem-list-item>
         </div>
     </div>

@@ -32,7 +32,7 @@
                       <%- include("../svg/play.svg") %>
                   </button>
                   <div class="badge-container" v-if="itemBadges.length != 0">
-                      <div class="socialBadge" v-for="badge in itemBadges.limit(1)">
+                      <div class="socialBadge" v-for="badge in itemBadges.limit(1)" v-bind:key="badge.id">
                           <mediaitem-artwork
                                   :url="(badge.attributes.artwork ? badge.attributes.artwork.url : '')"
                                   :size="32"></mediaitem-artwork>
@@ -102,7 +102,7 @@ Vue.component('mediaitem-square', {
               type: Boolean,
               default: false,
               required: false
-    },     
+    },
     'contextExt': { type: Object, required: false },
   },
   data: function () {

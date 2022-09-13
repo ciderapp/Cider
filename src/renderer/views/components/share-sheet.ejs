@@ -15,7 +15,7 @@
                         <div class="name">{{app.getLz('action.createPlaylist')}}</div>
                     </button>
                     <sidebar-playlist :playlist-select="playlistSelect"
-                                      v-for="item in $root.getPlaylistFolderChildren('p.playlistsroot')" :item="item">
+                                      v-for="item in $root.getPlaylistFolderChildren('p.playlistsroot')" v-bind:key="item.id" :item="item">
                     </sidebar-playlist>
                 </div>
                 <div class="modal-search">
