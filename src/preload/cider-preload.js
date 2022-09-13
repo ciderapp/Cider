@@ -83,7 +83,7 @@ const MusicKitInterop = {
     });
   },
 
-  async fetchSongRelationships({id = app.mk.nowPlayingItem.attributes.playParams.catalogId || app.mk.nowPlayingItem.attributes.playParams.id, relationship = "primaryName"}={}) {
+  async fetchSongRelationships({ id = app.mk.nowPlayingItem.attributes.playParams.catalogId || app.mk.nowPlayingItem.attributes.playParams.id, relationship = "primaryName" } = {}) {
     const res = await MusicKit.getInstance().api.v3.music("/v1/catalog/" + MusicKit.getInstance().storefrontId + `/songs/${id}`, {
       include: {
         songs: ["artists"],
@@ -108,7 +108,7 @@ const MusicKitInterop = {
     const albumData = songData.relationships.albums.data;
     const primaryArtist = artistData[0];
 
-    switch(relationship) {
+    switch (relationship) {
       default:
       case "primaryName":
         if (artistData.length < 1) {
@@ -121,7 +121,7 @@ const MusicKitInterop = {
         return primaryArtist;
 
       case "album":
-        return albumData[0]
+        return albumData[0];
     }
   },
 
