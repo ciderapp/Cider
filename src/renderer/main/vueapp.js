@@ -45,10 +45,7 @@ const app = new Vue({
     browsepage: [],
     listennow: [],
     madeforyou: [],
-    radio: {
-      "editorial": [],
-      "recent": [],
-    },
+    radio: [],
     mklang: "en",
     webview: {
       url: "",
@@ -3017,29 +3014,17 @@ const app = new Vue({
           name: "radio",
           "omit[resource:artists]": "relationships",
           "include[albums]": "artists",
-          "include[music-videos]": "artists",
           "include[songs]": "artists",
-          "include[stations]": "events",
-          extend: "artistUrl,editorialArtwork",
+          "include[music-videos]": "artists",
+          extend: "editorialArtwork,artistUrl",
           "fields[artists]": "name,url,artwork,editorialArtwork,genreNames,editorialNotes",
-          "format[resources]": "map",
           "art[url]": "f",
-          l: app.mklang
+          l: app.mklang,
         }).then((radio) => {
-          app.radio.editorial = radio.data.resources
+          app.radio = radio.data.data[0];
           console.debug(app.radio);
         })
 
-
-        app.mk.api.v3.music(`/v1/me/recent/radio-stations`, {
-          "platform": "web",
-          "art[url]": "f",
-          "format[resources]": "map",
-          l: app.mklang
-        }).then((radio) => {
-          app.radio.recent = radio.data
-          console.debug(app.radio);
-        })
         this.radio.timestamp = Date.now();
       } catch (e) {
         console.log(e);
