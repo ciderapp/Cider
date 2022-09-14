@@ -8,7 +8,22 @@
             <h1 class="header-text">{{data.attributes?.title ?? ""}}</h1>
             <h2 class="header-desc" v-html='data.relationships?.children?.data[0]?.attributes?.description ?? ""'></h2>
             <template v-if="data.relationships">
-                <template v-for="(recom,index) in data.relationships.children.data">
+                <template v-if="data.type=='rooms' &&  (data?.relationships?.contents?.data ?? []).length > 0">
+                    <div class="row">
+                        <div class="col-auto cider-flex-center"
+                             v-if="index != 0 && data?.relationships?.contents?.data.length > 10">
+                            <button class="cd-btn-seeall"
+                                    @click="app.showCollection(recom, data.attributes.name ?? '', 'listen_now')">
+                                {{app.getLz('term.seeAll')}}
+                            </button>
+                        </div>
+                    </div>
+                    <template>
+                            <mediaitem-scroller-horizontal-large
+                                    :items="data?.relationships?.contents?.data.limit(10)"></mediaitem-scroller-horizontal-large>
+                    </template>
+                </template>
+                <template v-else v-for="(recom,index) in (data.relationships?.children?.data ?? recom?.relationships?.contents?.data)">
                     <template v-if="(recom.relationships?.contents?.data ?? []).length > 0">
                         <div class="row">
                             <div class="col" v-if="recom.attributes.name != 'Chart Set'">
@@ -37,7 +52,7 @@
                                         :items="recom.relationships.children ? recom.relationships.children.data.limit(10) : recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal-large>
                             </template>
                         </template>
-                    </template>
+                    </template>  
                 </template>
             </template>
         </div>

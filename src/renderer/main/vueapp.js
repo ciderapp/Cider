@@ -575,7 +575,22 @@ const app = new Vue({
         window.location.hash = `#charts/top`;
       } else {
         const id = url.split("id=")[1];
-        window.location.hash = `#groupings/${id}`;
+        if (id != null){
+        window.location.hash = `#groupings/${id}`;} else {
+          const params = new Proxy(new URLSearchParams(new URL(url).search), {
+            get: (searchParams, prop) => searchParams.get(prop),
+          });
+          let id = params.fcId;
+          app.getTypeFromID("room", id, false, {
+            platform: "web",
+            extend: "editorialArtwork,uber,lockupStyle",
+          })
+          .then(() => {
+            let kind = "multiroom";
+            window.location.hash = `${kind}/${id}`;
+            document.querySelector("#app-content").scrollTop = 0;
+          });
+        }
       }
     },
     navigateForward() {
@@ -2036,13 +2051,18 @@ const app = new Vue({
         if (item.relationships?.contents?.data != null && item.relationships?.contents?.data.length > 0) {
           this.routeView(item.relationships.contents.data[0]);
         } else if (item.attributes?.link?.url != null) {
-          if (item.attributes.link.url.includes("viewMultiRoom")) {
+          if (item.attributes.link.url.includes("viewMultiRoom") || item.attributes.link.url.includes("/collection/")) {
             const params = new Proxy(new URLSearchParams(new URL(item.attributes.link.url).search), {
               get: (searchParams, prop) => searchParams.get(prop),
             });
             id = params.fcId;
-            app
-              .getTypeFromID("multiroom", id, false, {
+            kind = "multiroom"
+            if (item.attributes.link.url.includes("viewMultiRoom")){
+              kind = "multiroom"
+            } else {
+              kind = "room"
+            }
+            app.getTypeFromID(kind, id, false, {
                 platform: "web",
                 extend: "editorialArtwork,uber,lockupStyle",
               })
@@ -2362,7 +2382,7 @@ const app = new Vue({
         } finally {
           if (kind == "appleCurator") {
             app.appleCurator = a.data.data[0];
-          } else if (kind == "multiroom") {
+          } else if (kind == "multiroom" || kind == "room") {
             app.multiroom = a.data.data[0];
           } else {
             this.getPlaylistContinuous(a, true);
@@ -2371,7 +2391,7 @@ const app = new Vue({
       } finally {
         if (kind == "appleCurator") {
           app.appleCurator = a.data.data[0];
-        } else if (kind == "multiroom") {
+        } else if (kind == "multiroom" || kind == "room") {
           app.multiroom = a.data.data[0];
         } else {
           this.getPlaylistContinuous(a, true);
@@ -2604,7 +2624,7 @@ const app = new Vue({
       }
       let truemethod = !method.endsWith("s") ? method + "s" : method;
       try {
-        if (method.includes(`multiroom`)) {
+        if (method.includes(`room`)) {
           return await this.mk.api.v3.music(`v1/editorial/${app.mk.storefrontId}/${truemethod}/${term.toString()}`, params, params2);
         } else if (library) {
           return await this.mk.api.v3.music(`v1/me/library/${truemethod}/${term.toString()}`, params, params2);
