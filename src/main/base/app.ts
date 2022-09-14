@@ -86,6 +86,7 @@ export class AppEvents {
       case "disabled":
         console.info("Hardware acceleration is disabled.");
         app.commandLine.appendSwitch("disable-gpu");
+        app.disableHardwareAcceleration()
         break;
     }
 
