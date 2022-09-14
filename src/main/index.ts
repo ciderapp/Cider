@@ -62,9 +62,11 @@ app.on("ready", () => {
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Renderer Event Handlers
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
+let rendererInitialized = false;
 ipcMain.handle("renderer-ready", (event) => {
+  if (rendererInitialized) return;
   CiderPlug.callPlugins("onRendererReady", event);
+  rendererInitialized = true;
 });
 
 ipcMain.on("playbackStateDidChange", (_event, attributes) => {
