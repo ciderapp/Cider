@@ -20,6 +20,7 @@ const app = new Vue({
     pluginMenuEntries: [],
     lz: ipcRenderer.sendSync("get-i18n", "en_US"),
     lzListing: ipcRenderer.sendSync("get-i18n-listing"),
+    radiohls: null,
     search: {
       term: "",
       cursor: -1,
@@ -5056,7 +5057,35 @@ const app = new Vue({
           });
           // Load first source
           let src = sources[0];
-          app.mk._services.mediaItemPlayback._currentPlayer._playAssetURL(src, false);
+          if (src.includes("http")){
+          app.mk._services.mediaItemPlayback._currentPlayer._playAssetURL(src, false);} else {
+            if (Hls.isSupported()) {
+              let d = "WIDEVINE_SOFTWARE"
+              let h = {
+                initDataTypes: ["cenc", "keyids"],
+                distinctiveIdentifier: "optional",
+                persistentState: "required"
+              }
+              let p = {
+                platformInfo: { requiresCDMAttachOnStart: !0, maxSecurityLevel: d, keySystemConfig: h },
+                appData: { serviceName: "Apple Music" }
+              }
+              if (app.radiohls != null && app.radiohls.destroy != null){
+                app.radiohls.destroy()
+                setTimeout(()=>{
+                app.radiohls = new CiderHls();
+                app.radiohls.loadSource(e);              
+                app.radiohls.attachMedia(app.mk._services.mediaItemPlayback._currentPlayer._targetElement);
+                app.mk._services.mediaItemPlayback._currentPlayer._targetElement.play()},500)
+              } else {
+              app.radiohls = new CiderHls();
+              app.radiohls.loadSource(e);              
+              app.radiohls.attachMedia(app.mk._services.mediaItemPlayback._currentPlayer._targetElement);
+              app.mk._services.mediaItemPlayback._currentPlayer._targetElement.play()}
+            }
+          }
+
+          
         }
       }
     },
