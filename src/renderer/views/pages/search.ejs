@@ -37,7 +37,7 @@
             <template v-if="searchType == 'catalog'">
                 <h3>{{app.getLz('term.topResult')}}</h3>
                 <mediaitem-scroller-horizontal
-                        :items="search.results[search.results.meta.results.order[0]]['data']"></mediaitem-scroller-horizontal>
+                        :items="search?.results[search?.results?.meta?.results?.order[0]]?.data"></mediaitem-scroller-horizontal>
                 <div class="row">
                     <div class="col" v-if="search.results.song">
                         <div class="row">

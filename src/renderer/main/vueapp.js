@@ -2247,6 +2247,11 @@ const app = new Vue({
                 artistId = item.relationships.artists.data[0].id;
               }
             }
+            if (item.relationships.albums && item.relationships.albums.data.length > 0) {
+              if (item.relationships.albums.data[0].attributes.artistUrl) {
+                artistId = item.relationships.albums.data[0].attributes.artistUrl.split("/").pop();
+              }
+            }
             if (artistId == "") {
               const url = item.relationships.catalog.data[0].attributes.artistUrl;
               artistId = url.substring(url.lastIndexOf("/") + 1);
