@@ -50,17 +50,17 @@ export default class lastfm {
     });
 
     this._utils.getIPCMain().on("lastfm:nowPlayingChange", (event: any, attributes: any) => {
-      if (this._utils.getStoreValue("connectivity.lastfm.filter_loop") || this._utils.getStoreValue("general.privateEnabled")) return;
+      if (this._utils.getStoreValue("connectivity.lastfm.filter_loop") || this._utils.getStoreValue("general.privateEnabled") || attributes.type === "radioStation") return;
       this.updateNowPlayingTrack(attributes);
     });
 
     this._utils.getIPCMain().on("lastfm:FilteredNowPlayingItemDidChange", (event: any, attributes: any) => {
-      if (this._utils.getStoreValue("general.privateEnabled")) return;
+      if (this._utils.getStoreValue("general.privateEnabled") || attributes.type === "radioStation") return;
       this.updateNowPlayingTrack(attributes);
     });
 
     this._utils.getIPCMain().on("lastfm:scrobbleTrack", (event: any, attributes: any) => {
-      if (this._utils.getStoreValue("general.privateEnabled")) return;
+      if (this._utils.getStoreValue("general.privateEnabled") || attributes.type === "radioStation") return;
       this.scrobbleTrack(attributes);
     });
   }

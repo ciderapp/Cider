@@ -241,7 +241,7 @@ export default class DiscordRPC {
     }
 
     // Add the timestamp if its playing and people want them
-    if (!this._utils.getStoreValue("connectivity.discord_rpc.hide_timestamp") && attributes.status) {
+    if (!this._utils.getStoreValue("connectivity.discord_rpc.hide_timestamp") && attributes.status && new Date(attributes.endTime).getTime() > 0 && isFinite(attributes.endTime) && isFinite(attributes.startTime)) {
       activity.startTimestamp = Date.now() - (attributes?.durationInMillis - attributes?.remainingTime);
       activity.endTimestamp = attributes.endTime;
     }
@@ -296,12 +296,6 @@ export default class DiscordRPC {
     // Check large image
     if (activity.largeImageKey == null || activity.largeImageKey === "" || activity.largeImageKey.length > 256) {
       activity.largeImageKey = "cider";
-    }
-
-    // Timestamp
-    if (new Date(attributes.endTime).getTime() < 0) {
-      delete activity.startTime;
-      delete activity.endTime;
     }
 
     // not sure

@@ -1957,6 +1957,7 @@ const app = new Vue({
      * @memberOf app
      */
     convertTime(seconds, format = "short") {
+      if (app.mk?.nowPlayingItem?.type === "radioStation") return;
       if (isNaN(seconds) || seconds === Infinity) {
         seconds = 0;
       }

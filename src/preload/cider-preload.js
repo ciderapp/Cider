@@ -135,6 +135,7 @@ const MusicKitInterop = {
     const attributes = nowPlayingItem != null ? nowPlayingItem.attributes : {};
 
     attributes.songId = attributes.songId ?? attributes.playParams?.catalogId ?? attributes.playParams?.id;
+    attributes.type = nowPlayingItem.type ?? "";
     attributes.status = isPlayingExport ?? null;
     attributes.name = attributes?.name ?? "no-title-found";
     attributes.artwork = attributes?.artwork ?? { url: "" };
