@@ -1,28 +1,73 @@
 <script type="text/x-template" id="cider-radio">
     <div class="content-inner">
-        <h1 class="header-text">{{ app.getLz('term.radio') }}</h1>
-        <div class="row">
-            <div class="col">
-                <h3>{{ app.getLz('term.personalStations') }}</h3>
-            </div>
-        </div>
-        <!--        <mediaitem-square :kind="'385'" size="600"-->
-        <!--                          :item="item ? (item.attributes.kind ? item : ((item.relationships && item.relationships.contents ) ? item.relationships.contents.data[0] : item)) : []"-->
-        <!--                          :imagesize="800"-->
-        <!--                          v-for="item of getFlattenedCategories()">-->
-        <mediaitem-square :item="item" v-for="item in radio.personal"></mediaitem-square>
-        <div class="row">
-            <div class="col">
-                <h3>{{ app.getLz('term.recentStations') }}</h3>
-            </div>
-        </div>
-        <mediaitem-square :item="station" v-for="station in radio.recent"></mediaitem-square>
-        <div class="row">
-            <div class="col">
-                <h3>{{ app.getLz('term.amLive') }}</h3>
-            </div>
-        </div>
-        <mediaitem-square :item="station" v-for="station in radio.am"></mediaitem-square>
+        <h1 class="header-text">{{$root.getLz("term.radio")}}</h1>
+        <template v-if="data.relationships && data.relationships.tabs">
+            <template v-for="(recom,index) in data.relationships.tabs.data[0].relationships.children.data">
+                <div class="row">
+                    <div class="col" v-if="recom.attributes.name != 'Chart Set'">
+                        <h3>{{ recom.attributes.name ?? ""}}</h3>
+                    </div>
+                    <div class="col-auto cider-flex-center">
+                        <button class="cd-btn-seeall" v-if="recom.attributes.name == 'Recently Played' && recent.length > 10"
+                                @click="app.showCollection({ data: recent }, recom.attributes.name ?? '', 'listen_now')">
+                            {{app.getLz('term.seeAll')}}
+                        </button>
+                        <template v-if="index != 0 && recom.relationships && ((recom.relationships.children &&  recom.relationships.children.data.length > 10) || (recom.relationships.contents && recom.relationships.contents.data.length > 10))">
+                            <button class="cd-btn-seeall" v-if="recom.relationships.room"
+                                    @click="app.showRoom(recom.relationships.room?.data[0].href)">
+                                {{app.getLz('term.seeAll')}}
+                            </button>
+                            <button class="cd-btn-seeall" v-else
+                                    @click="app.showCollection(recom.relationships.children ? recom.relationships.children : recom.relationships.contents, recom.attributes.name ?? '', 'listen_now')">
+                                {{app.getLz('term.seeAll')}}
+                            </button>
+                        </template>
+                    </div>
+                </div>
+
+                <div v-if="recom.attributes.name == 'Recently Played'">
+                    <mediaitem-scroller-horizontal-mvview :imagesize="800"
+                                                          :browsesp="index == 0|| (data.relationships.tabs.data[0].relationships.children.data[0].relationships == null && index === 1)"
+                                                          :kind="recom.attributes.editorialElementKind"
+                                                          :items="recent.limit(10)"></mediaitem-scroller-horizontal-mvview>
+                </div>
+                <template v-else-if="(recom.relationships != null && ((recom.relationships.children && recom.relationships.children.data) || (recom.relationships.contents && recom.relationships.contents.data)))">
+                    <template v-if="index === 0|| (data.relationships.tabs.data[0].relationships.children.data[0].relationships == null && index === 1)">
+                        <mediaitem-scroller-horizontal-mvview :imagesize="800"
+                                                              :browsesp="index == 0|| (data.relationships.tabs.data[0].relationships.children.data[0].relationships == null && index === 1)"
+                                                              :kind="recom.attributes.editorialElementKind"
+                                                              :items="recom.relationships.children ? recom.relationships.children.data.limit(10) : recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal-mvview>
+                    </template>
+                    <template v-else-if="(['327']).includes(recom.attributes.editorialElementKind)">
+                        <div class="mediaitem-list-item__grid">
+                            <listitem-horizontal :items="recom.relationships.contents.data.limit(20)">
+                            </listitem-horizontal>
+                        </div>
+                    </template>
+                    <template v-else-if="(['385']).includes(recom.attributes.editorialElementKind)">
+                        <mediaitem-scroller-horizontal-mvview :imagesize="800"
+                                                              :kind="recom.attributes.editorialElementKind"
+                                                              :items="recom.relationships.children ? recom.relationships.children.data.limit(10) : recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal-mvview>
+                    </template>
+                    <template v-else-if="recom.attributes.name == 'Chart Set'">
+                        <!-- ignored -->
+                    </template>
+                    <template v-else>
+                        <mediaitem-scroller-horizontal-large
+                                :items="recom.relationships.children ? recom.relationships.children.data.limit(10) : recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal-large>
+                    </template>
+                </template>
+                <template v-else>
+                    <template v-if="recom.attributes.links && recom.attributes.editorialElementKind.includes('391')">
+                        <div class="grouping-container">
+                            <button class="grouping-btn" @click="$root.goToGrouping(link.url)"
+                                    v-for="link in recom.attributes.links">{{ link.label }}
+                            </button>
+                        </div>
+                    </template>
+                </template>
+            </template>
+        </template>
     </div>
 </script>
 
@@ -33,59 +78,30 @@
     data: function() {
       return {
         app: this.$root,
-        radio: { personal: [], recent: [], am: [] }
-      }
+        recent: []
+      };
     },
-    async mounted() {
-      this.radio.personal = await this.getPersonalStations()
-      this.radio.recent = await this.getRecentStations()
-      this.radio.am = await this.getAmStations()
-      console.log(this.radio)
-      // this.getPersonalStations();
-      // this.getAmStations();
+    mounted() {
+      this.$root.getRadioPage();
+      debugger
+      this.getRecentlyPlayed();
+      debugger
     },
     methods: {
-      async getPersonalStations(attempts = 0) {
-        if (attempts > 3) {
-          return []
+      getRecentlyPlayed: async function (next = null) {
+        const recent = await app.mk.api.v3.music(`${next ?? "/v1/me/recent/radio-stations"}`, {
+          "platform": "web",
+          "art[url]": "f",
+          l: app.mklang
+        })
+
+        console.debug(recent.data.data)
+        this.recent = this.recent.concat(recent.data.data);
+
+        if (recent.data.next) {
+            this.getRecentlyPlayed(recent.data.next);
         }
-        try {
-          return (await app.mk.api.v3.music(`/v1/catalog/${app.mk.api.v3.storefrontId}/stations`, {
-            "filter[identity]": "personal",
-          })).data.data
-        } catch (e) {
-          console.error(`Failed to get personal stations: ${e}`)
-          await this.getPersonalStations(attempts + 1)
-        }
-      },
-      async getRecentStations(attempts = 0) {
-        if (attempts > 3) {
-          return []
-        }
-        try {
-          return (await app.mk.api.v3.music(`/v1/me/recent/radio-stations`, {
-            "platform": "web",
-            "art[url]": "f",
-            l: app.mklang
-          })).data.data
-        } catch (e) {
-          console.error(`Failed to get recent stations: ${e}`)
-          await this.getRecentStations(attempts + 1)
-        }
-      },
-      async getAmStations(attempt = 0) {
-        if (attempt > 3) {
-          return []
-        }
-        try {
-          return (await app.mk.api.v3.music(`/v1/catalog/${app.mk.api.v3.storefrontId}/stations`, {
-            "filter[featured]": "apple-music-live-radio",
-          })).data.data
-        } catch (e) {
-          console.error(`Failed to get AM stations: ${e}`)
-          await this.getAmStations(attempt + 1)
-        }
-      },
+      }
     }
-  })
+  });
 </script>

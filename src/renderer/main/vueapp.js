@@ -45,11 +45,7 @@ const app = new Vue({
     browsepage: [],
     listennow: [],
     madeforyou: [],
-    radio: {
-      personal: {},
-      recent: {},
-      amlive: {},
-    },
+    radio: [],
     mklang: "en",
     webview: {
       url: "",
@@ -782,6 +778,9 @@ const app = new Vue({
         // Set mk.volume to -1 (setting to 0 wont work, so temp solution setting to -1)
         this.mk.volume = -1;
       }
+
+      // Restore mk
+
 
       // load cached library
       let librarySongs = await CiderCache.getCache("library-songs");
@@ -3002,6 +3001,36 @@ const app = new Vue({
         this.getListenNow(attempt + 1);
       }
     },
+    async getRadioPage(attempt = 0) {
+      if (this.radio.timestamp > Date.now() - 120000) {
+        return;
+      }
+      if (attempt > 3) {
+        return;
+      }
+      try {
+        app.mk.api.v3.music(`/v1/editorial/${app.mk.storefrontId}/groupings`, {
+          platform: "web",
+          name: "radio",
+          "omit[resource:artists]": "relationships",
+          "include[albums]": "artists",
+          "include[songs]": "artists",
+          "include[music-videos]": "artists",
+          extend: "editorialArtwork,artistUrl",
+          "fields[artists]": "name,url,artwork,editorialArtwork,genreNames,editorialNotes",
+          "art[url]": "f",
+          l: app.mklang,
+        }).then((radio) => {
+          app.radio = radio.data.data[0];
+          console.debug(app.radio);
+        })
+
+        this.radio.timestamp = Date.now();
+      } catch (e) {
+        console.log(e);
+        this.getRadioPage(attempt + 1);
+      }
+    },
     async getBrowsePage(attempt = 0) {
       if (this.browsepage.timestamp > Date.now() - 120000) {
         return;
@@ -3020,7 +3049,7 @@ const app = new Vue({
           extend: "editorialArtwork,artistUrl",
           "fields[artists]": "name,url,artwork,editorialArtwork,genreNames,editorialNotes",
           "art[url]": "f",
-          l: this.mklang,
+          l: app.mklang,
         });
         this.browsepage = browse.data.data[0];
         this.browsepage.timestamp = Date.now();
