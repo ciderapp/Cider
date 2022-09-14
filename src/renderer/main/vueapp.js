@@ -781,7 +781,6 @@ const app = new Vue({
 
       // Restore mk
 
-
       // load cached library
       let librarySongs = await CiderCache.getCache("library-songs");
       let libraryAlbums = await CiderCache.getCache("library-albums");
@@ -3009,21 +3008,23 @@ const app = new Vue({
         return;
       }
       try {
-        app.mk.api.v3.music(`/v1/editorial/${app.mk.storefrontId}/groupings`, {
-          platform: "web",
-          name: "radio",
-          "omit[resource:artists]": "relationships",
-          "include[albums]": "artists",
-          "include[songs]": "artists",
-          "include[music-videos]": "artists",
-          extend: "editorialArtwork,artistUrl",
-          "fields[artists]": "name,url,artwork,editorialArtwork,genreNames,editorialNotes",
-          "art[url]": "f",
-          l: app.mklang,
-        }).then((radio) => {
-          app.radio = radio.data.data[0];
-          console.debug(app.radio);
-        })
+        app.mk.api.v3
+          .music(`/v1/editorial/${app.mk.storefrontId}/groupings`, {
+            platform: "web",
+            name: "radio",
+            "omit[resource:artists]": "relationships",
+            "include[albums]": "artists",
+            "include[songs]": "artists",
+            "include[music-videos]": "artists",
+            extend: "editorialArtwork,artistUrl",
+            "fields[artists]": "name,url,artwork,editorialArtwork,genreNames,editorialNotes",
+            "art[url]": "f",
+            l: app.mklang,
+          })
+          .then((radio) => {
+            app.radio = radio.data.data[0];
+            console.debug(app.radio);
+          });
 
         this.radio.timestamp = Date.now();
       } catch (e) {
