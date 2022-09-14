@@ -52,6 +52,9 @@
                     <template v-else-if="recom.attributes.name == 'Chart Set'">
                         <!-- ignored -->
                     </template>
+                    <template v-else-if="(['488']).includes(recom.attributes.editorialElementKind)">
+                        <!-- ignored -->
+                    </template>
                     <template v-else>
                         <mediaitem-scroller-horizontal-large
                                 :items="recom.relationships.children ? recom.relationships.children.data.limit(10) : recom.relationships.contents.data.limit(10)"></mediaitem-scroller-horizontal-large>
