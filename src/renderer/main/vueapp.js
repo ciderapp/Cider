@@ -575,21 +575,23 @@ const app = new Vue({
         window.location.hash = `#charts/top`;
       } else {
         const id = url.split("id=")[1];
-        if (id != null){
-        window.location.hash = `#groupings/${id}`;} else {
+        if (id != null) {
+          window.location.hash = `#groupings/${id}`;
+        } else {
           const params = new Proxy(new URLSearchParams(new URL(url).search), {
             get: (searchParams, prop) => searchParams.get(prop),
           });
           let id = params.fcId;
-          app.getTypeFromID("room", id, false, {
-            platform: "web",
-            extend: "editorialArtwork,uber,lockupStyle",
-          })
-          .then(() => {
-            let kind = "multiroom";
-            window.location.hash = `${kind}/${id}`;
-            document.querySelector("#app-content").scrollTop = 0;
-          });
+          app
+            .getTypeFromID("room", id, false, {
+              platform: "web",
+              extend: "editorialArtwork,uber,lockupStyle",
+            })
+            .then(() => {
+              let kind = "multiroom";
+              window.location.hash = `${kind}/${id}`;
+              document.querySelector("#app-content").scrollTop = 0;
+            });
         }
       }
     },
@@ -2056,13 +2058,14 @@ const app = new Vue({
               get: (searchParams, prop) => searchParams.get(prop),
             });
             id = params.fcId;
-            kind = "multiroom"
-            if (item.attributes.link.url.includes("viewMultiRoom")){
-              kind = "multiroom"
+            kind = "multiroom";
+            if (item.attributes.link.url.includes("viewMultiRoom")) {
+              kind = "multiroom";
             } else {
-              kind = "room"
+              kind = "room";
             }
-            app.getTypeFromID(kind, id, false, {
+            app
+              .getTypeFromID(kind, id, false, {
                 platform: "web",
                 extend: "editorialArtwork,uber,lockupStyle",
               })
