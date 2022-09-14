@@ -5057,35 +5057,36 @@ const app = new Vue({
           });
           // Load first source
           let src = sources[0];
-          if (src.includes("http")){
-          app.mk._services.mediaItemPlayback._currentPlayer._playAssetURL(src, false);} else {
+          if (src.includes("http")) {
+            app.mk._services.mediaItemPlayback._currentPlayer._playAssetURL(src, false);
+          } else {
             if (Hls.isSupported()) {
-              let d = "WIDEVINE_SOFTWARE"
+              let d = "WIDEVINE_SOFTWARE";
               let h = {
                 initDataTypes: ["cenc", "keyids"],
                 distinctiveIdentifier: "optional",
-                persistentState: "required"
-              }
+                persistentState: "required",
+              };
               let p = {
                 platformInfo: { requiresCDMAttachOnStart: !0, maxSecurityLevel: d, keySystemConfig: h },
-                appData: { serviceName: "Apple Music" }
-              }
-              if (app.radiohls != null && app.radiohls.destroy != null){
-                app.radiohls.destroy()
-                setTimeout(()=>{
-                app.radiohls = new CiderHls();
-                app.radiohls.loadSource(e);              
-                app.radiohls.attachMedia(app.mk._services.mediaItemPlayback._currentPlayer._targetElement);
-                app.mk._services.mediaItemPlayback._currentPlayer._targetElement.play()},500)
+                appData: { serviceName: "Apple Music" },
+              };
+              if (app.radiohls != null && app.radiohls.destroy != null) {
+                app.radiohls.destroy();
+                setTimeout(() => {
+                  app.radiohls = new CiderHls();
+                  app.radiohls.loadSource(e);
+                  app.radiohls.attachMedia(app.mk._services.mediaItemPlayback._currentPlayer._targetElement);
+                  app.mk._services.mediaItemPlayback._currentPlayer._targetElement.play();
+                }, 500);
               } else {
-              app.radiohls = new CiderHls();
-              app.radiohls.loadSource(e);              
-              app.radiohls.attachMedia(app.mk._services.mediaItemPlayback._currentPlayer._targetElement);
-              app.mk._services.mediaItemPlayback._currentPlayer._targetElement.play()}
+                app.radiohls = new CiderHls();
+                app.radiohls.loadSource(e);
+                app.radiohls.attachMedia(app.mk._services.mediaItemPlayback._currentPlayer._targetElement);
+                app.mk._services.mediaItemPlayback._currentPlayer._targetElement.play();
+              }
             }
           }
-
-          
         }
       }
     },
