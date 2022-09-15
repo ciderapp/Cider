@@ -1931,7 +1931,7 @@ const app = new Vue({
         return;
       }
       let hints = await (
-        await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/search/suggestions?term=${this.search.term}`, {
+        await app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/search/suggestions?term=${encodeURIComponent(this.search.term)}`, {
           "fields[albums]": "artwork,name,playParams,url,artistName,id",
           "fields[artists]": "url,name,artwork,id",
           "fields[songs]": "artwork,name,playParams,url,artistName,id",
