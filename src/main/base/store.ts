@@ -72,12 +72,18 @@ export class Store {
       discord_rpc: {
         enabled: true,
         client: "Cider",
-        clear_on_pause: true,
-        hide_buttons: false,
-        show_songlink: false,
-        hide_timestamp: false,
-        state_format: "by {artist}",
-        details_format: "{title}",
+        activity: {
+          state_format: "by {artist}",
+          details_format: "{title}",
+          hide_timestamp: false,
+          buttons: {
+            enabled: true,
+            first: "listenOnCider",
+            second: "viewOnAppleMusic",
+            options: ["listenOnCider", "viewOnAppleMusic", "viewOnOtherMusicServices"]
+          },
+        },
+        clear_on_pause: true
       },
       lastfm: {
         enabled: false,
