@@ -9,6 +9,7 @@ const MusicKitInterop = {
     /* MusicKit.Events.playbackStateDidChange */
     MusicKit.getInstance().addEventListener(MusicKit.Events.playbackStateDidChange, () => {
       const attributes = MusicKitInterop.getAttributes();
+      if (!attributes) return;
       if (MusicKitInterop.filterTrack(attributes, true, false)) {
         global.ipcRenderer.send("playbackStateDidChange", attributes);
         global.ipcRenderer.send("wsapi-updatePlaybackState", attributes);
@@ -18,6 +19,7 @@ const MusicKitInterop = {
     /* MusicKit.Events.playbackProgressDidChange */
     MusicKit.getInstance().addEventListener(MusicKit.Events.playbackProgressDidChange, async () => {
       const attributes = MusicKitInterop.getAttributes();
+      if (!attributes) return;
       // wsapi call
       ipcRenderer.send("wsapi-updatePlaybackState", attributes);
       // lastfm call
@@ -34,8 +36,8 @@ const MusicKitInterop = {
 
     /* MusicKit.Events.nowPlayingItemDidChange */
     MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, async () => {
-      console.debug("[cider:preload] nowPlayingItemDidChange");
       const attributes = MusicKitInterop.getAttributes();
+      if (!attributes) return;
       attributes.primaryArtist = app.cfg.connectivity.lastfm.remove_featured ? await this.fetchSongRelationships() : attributes.artistName;
 
       global.ipcRenderer.send("nowPlayingItemDidChange", attributes);
@@ -54,6 +56,7 @@ const MusicKitInterop = {
         await this.sleep(750);
         MusicKit.getInstance().playbackRate = app.cfg.audio.playbackRate;
       }
+      console.debug("[cider:preload] nowPlayingItemDidChange");
     });
 
     /* MusicKit.Events.authorizationStatusDidChange */
@@ -159,6 +162,10 @@ const MusicKitInterop = {
     attributes.currentPlaybackProgress = currentPlaybackProgress ?? 0;
     attributes.startTime = Date.now();
     attributes.endTime = Math.round(attributes?.playParams?.id === cache.playParams.id ? Date.now() + attributes?.remainingTime : attributes?.startTime + attributes?.durationInMillis);
+
+    if (attributes.name === "no-title-found") {
+      return;
+    }
     return attributes;
   },
 

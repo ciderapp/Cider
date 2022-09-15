@@ -198,7 +198,7 @@ export default class DiscordRPC {
    * @param attributes Music Attributes
    */
   private setActivity(attributes: any) {
-    if (!this._client) {
+    if (!this._client || !attributes) {
       return;
     }
 
@@ -216,6 +216,10 @@ export default class DiscordRPC {
 
     if (!this.ready) {
       this._activityCache = activity;
+      return;
+    }
+
+    if (!activity) {
       return;
     }
 
@@ -240,25 +244,16 @@ export default class DiscordRPC {
         viewOnOtherMusicServices: "songLink",
       };
 
-      const firstActivity = {
-        label: this._utils.getLocale(this._utils.getStoreValue("general.language"), `settings.option.connectivity.discordRPC.buttons.${this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.first")}`),
-        url: activityUrls[this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.first")],
-      };
-      const secondActivity = {
-        label: this._utils.getLocale(this._utils.getStoreValue("general.language"), `settings.option.connectivity.discordRPC.buttons.${this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.second")}`),
-        url: activityUrls[this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.second")],
-      };
+      const firstActivity = this._utils.getLocale(this._utils.getStoreValue("general.language"), `settings.option.connectivity.discordRPC.buttons.${this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.first")}`);
+      const secondActivity = this._utils.getLocale(this._utils.getStoreValue("general.language"), `settings.option.connectivity.discordRPC.buttons.${this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.second")}`);
 
       if (this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.second") != "disabled") {
         activity.buttons = [
-          { label: firstActivity.label, url: attributes.url[firstActivity.url] },
-          { label: secondActivity.label, url: attributes.url[secondActivity.url] },
+          { label: firstActivity, url: attributes.url[activityUrls[this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.first")]] },
+          { label: secondActivity, url: attributes.url[activityUrls[this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.second")]] },
         ];
-        console.log(secondActivity);
-        console.log("Its not disabled");
       } else {
-        activity.buttons = [{ label: firstActivity.label, url: attributes.url[firstActivity.url] }];
-        console.log("Its disabled");
+        activity.buttons = [{ label: firstActivity, url: attributes.url[activityUrls[this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.first")]] }];
       }
     }
 
@@ -327,6 +322,10 @@ export default class DiscordRPC {
 
     if (!activity.largeImageText || activity.largeImageText.length < 2) {
       delete activity.largeImageText;
+    }
+
+    if (activity.status === "" || activity.details === "") {
+      return false;
     }
     return activity;
   }
