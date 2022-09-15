@@ -49,7 +49,9 @@ app.on("ready", () => {
     win.on("ready-to-show", () => {
       console.debug("[Cider] Window is Ready.");
       CiderPlug.callPlugins("onReady", win);
-      win.show();
+      if (!app.commandLine.hasSwitch("hidden")) {
+        win.show();
+      }
     });
   });
 });
