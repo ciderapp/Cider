@@ -260,9 +260,6 @@ export default class DiscordRPC {
         activity.buttons = [{ label: firstActivity.label, url: attributes.url[firstActivity.url] }];
         console.log("Its disabled");
       }
-
-      console.log("LOOK HERELOOK HERELOOK HERELOOK HERELOOK HERELOOK HERELOOK HERE");
-      console.log(activity.buttons);
     }
 
     // Add the timestamp if its playing and people want them
