@@ -233,12 +233,13 @@ export default class DiscordRPC {
    */
   private filterActivity(activity: any, attributes: any): Object {
     // Add the buttons if people want them
+    const showSongLink = this._utils.getStoreValue("connectivity.discord_rpc.show_songlink");
     if (!this._utils.getStoreValue("connectivity.discord_rpc.hide_buttons")) {
       activity.buttons = [
         { label: "Listen on Cider", url: attributes.url.cider },
         { label: "View on Apple Music", url: attributes.url.appleMusic },
-        { label: "Song.link", url: 'https://song.link/i/' + attributes.songId }
-      ]; //To change attributes.url => preload/cider-preload.js
+        ... showSongLink ? [{label: "Song.link", url: 'https://song.link/i/' + attributes.songId}] : []
+      ]; //To change attributes.url => preload/cider-preload.js 
     }
 
     // Add the timestamp if its playing and people want them
