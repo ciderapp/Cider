@@ -1022,9 +1022,9 @@ const app = new Vue({
         } // EVIL EMPTY OBJECTS BE GONE
 
         try {
-          this.radiohls.destroy()
+          this.radiohls.destroy();
           this.radiohls = null;
-        } catch (_){}
+        } catch (_) {}
 
         try {
           if ((MusicKit.getInstance().nowPlayingItem["type"] ?? "").includes("ideo")) {
@@ -5083,12 +5083,12 @@ const app = new Vue({
                 appData: { serviceName: "Apple Music" },
               };
               if (app.radiohls != null && app.radiohls.destroy != null) {
-                  app.radiohls.destroy();
-                  app.radiohls = null;
-                  app.radiohls = new CiderHls();
-                  app.radiohls.loadSource(e);
-                  app.radiohls.attachMedia(app.mk._services.mediaItemPlayback._currentPlayer._targetElement);
-                  app.mk._services.mediaItemPlayback._currentPlayer._targetElement.play();
+                app.radiohls.destroy();
+                app.radiohls = null;
+                app.radiohls = new CiderHls();
+                app.radiohls.loadSource(e);
+                app.radiohls.attachMedia(app.mk._services.mediaItemPlayback._currentPlayer._targetElement);
+                app.mk._services.mediaItemPlayback._currentPlayer._targetElement.play();
               } else {
                 app.radiohls = null;
                 app.radiohls = new CiderHls();
