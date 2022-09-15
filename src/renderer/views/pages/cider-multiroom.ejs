@@ -9,7 +9,7 @@
             <h2 class="header-desc" v-html='data.relationships?.children?.data[0]?.attributes?.description ?? ""'></h2>
             <template v-if="data.relationships">
                 <template v-if="data.type=='rooms' &&  (data?.relationships?.contents?.data ?? []).length > 0">
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-auto cider-flex-center"
                              v-if="data?.relationships?.contents?.data.length > 10">
                             <button class="cd-btn-seeall"
@@ -17,10 +17,10 @@
                                 {{app.getLz('term.seeAll')}}
                             </button>
                         </div>
-                    </div>
+                    </div> -->
                     <template>
-                            <mediaitem-scroller-horizontal-large
-                                    :items="data?.relationships?.contents?.data.limit(10)"></mediaitem-scroller-horizontal-large>
+                            <mediaitem-square :item="item" :key="item?.id ?? ''"
+                            v-for="item in data?.relationships?.contents?.data"></mediaitem-square>
                     </template>
                 </template>
                 <template v-else v-for="(recom,index) in (data.relationships?.children?.data ?? recom?.relationships?.contents?.data)">
