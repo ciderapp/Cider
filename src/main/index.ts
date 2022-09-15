@@ -74,6 +74,10 @@ ipcMain.on("nowPlayingItemDidChange", (_event, attributes) => {
   CiderPlug.callPlugins("onNowPlayingItemDidChange", attributes);
 });
 
+ipcMain.on("playbackTimeDidChange", (_event, attributes) => {
+  CiderPlug.callPlugins("playbackTimeDidChange", attributes);
+});
+
 app.on("before-quit", () => {
   CiderPlug.callPlugins("onBeforeQuit");
   console.warn(`${app.getName()} exited.`);

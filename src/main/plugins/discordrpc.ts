@@ -151,7 +151,7 @@ export default class DiscordRPC {
    * Runs on song change
    * @param attributes Music Attributes
    */
-  onNowPlayingItemDidChange(attributes: object): void {
+  playbackTimeDidChange(attributes: object): void {
     this._attributes = attributes;
     this.setActivity(attributes);
   }

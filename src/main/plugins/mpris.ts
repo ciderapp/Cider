@@ -169,7 +169,7 @@ export default class mpris {
    * @param attributes Music Attributes
    */
   @mpris.linuxOnly
-  onNowPlayingItemDidChange(attributes: object): void {
+  playbackTimeDidChange(attributes: object): void {
     mpris.updateMetaData(attributes);
   }
 }

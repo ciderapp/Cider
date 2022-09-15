@@ -32,6 +32,9 @@ const MusicKitInterop = {
     /* MusicKit.Events.playbackTimeDidChange */
     MusicKit.getInstance().addEventListener(MusicKit.Events.playbackTimeDidChange, () => {
       ipcRenderer.send("mpris:playbackTimeDidChange", MusicKit.getInstance()?.currentPlaybackTime * 1000 * 1000 ?? 0);
+      const attributes = MusicKitInterop.getAttributes();
+      if (!attributes) return;
+      ipcRenderer.send("playbackTimeDidChange", attributes);
     });
 
     /* MusicKit.Events.nowPlayingItemDidChange */
