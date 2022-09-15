@@ -232,34 +232,37 @@ export default class DiscordRPC {
    * Filter the Discord activity object
    */
   private filterActivity(activity: any, attributes: any): Object {
-
     // Handling Activity Buttons
     if (this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.enabled") && this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.first") != "disabled") {
       const activityUrls: { [key: string]: any } = {
-        "listenOnCider": "cider",
-        "viewOnAppleMusic": "appleMusic",
-        "viewOnOtherMusicServices": "songLink"
-      }
+        listenOnCider: "cider",
+        viewOnAppleMusic: "appleMusic",
+        viewOnOtherMusicServices: "songLink",
+      };
 
-      const firstActivity = {"label": this._utils.getLocale(this._utils.getStoreValue("general.language"), `settings.option.connectivity.discordRPC.buttons.${this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.first")}`), "url": activityUrls[this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.first")]}
-      const secondActivity = {"label": this._utils.getLocale(this._utils.getStoreValue("general.language"), `settings.option.connectivity.discordRPC.buttons.${this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.second")}`), "url": activityUrls[this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.second")]}
+      const firstActivity = {
+        label: this._utils.getLocale(this._utils.getStoreValue("general.language"), `settings.option.connectivity.discordRPC.buttons.${this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.first")}`),
+        url: activityUrls[this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.first")],
+      };
+      const secondActivity = {
+        label: this._utils.getLocale(this._utils.getStoreValue("general.language"), `settings.option.connectivity.discordRPC.buttons.${this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.second")}`),
+        url: activityUrls[this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.second")],
+      };
 
       if (this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.second") != "disabled") {
         activity.buttons = [
-          {"label": firstActivity.label, "url": attributes.url[firstActivity.url]},
-          {"label": secondActivity.label, "url": attributes.url[secondActivity.url]}
-        ]
-        console.log(secondActivity)
-        console.log("Its not disabled")
+          { label: firstActivity.label, url: attributes.url[firstActivity.url] },
+          { label: secondActivity.label, url: attributes.url[secondActivity.url] },
+        ];
+        console.log(secondActivity);
+        console.log("Its not disabled");
       } else {
-        activity.buttons = [
-          {"label": firstActivity.label, "url": attributes.url[firstActivity.url]}
-        ]
-        console.log("Its disabled")
+        activity.buttons = [{ label: firstActivity.label, url: attributes.url[firstActivity.url] }];
+        console.log("Its disabled");
       }
 
-      console.log("LOOK HERELOOK HERELOOK HERELOOK HERELOOK HERELOOK HERELOOK HERE")
-      console.log(activity.buttons)
+      console.log("LOOK HERELOOK HERELOOK HERELOOK HERELOOK HERELOOK HERELOOK HERE");
+      console.log(activity.buttons);
     }
 
     // Add the timestamp if its playing and people want them

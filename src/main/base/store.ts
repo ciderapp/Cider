@@ -80,10 +80,10 @@ export class Store {
             enabled: true,
             first: "listenOnCider",
             second: "viewOnAppleMusic",
-            options: ["listenOnCider", "viewOnAppleMusic", "viewOnOtherMusicServices"]
+            options: ["listenOnCider", "viewOnAppleMusic", "viewOnOtherMusicServices"],
           },
         },
-        clear_on_pause: true
+        clear_on_pause: true,
       },
       lastfm: {
         enabled: false,

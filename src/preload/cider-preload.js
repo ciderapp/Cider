@@ -145,7 +145,7 @@ const MusicKitInterop = {
     attributes.url = {
       cider: `https://cider.sh/link?play/s/${nowPlayingItem?._songId ?? nowPlayingItem?.songId ?? "no-id-found"}`,
       appleMusic: attributes.websiteUrl ? attributes.websiteUrl : `https://music.apple.com/${mk.storefrontId}/song/${nowPlayingItem?._songId ?? nowPlayingItem?.songId ?? "no-id-found"}`,
-      songLink: "https://song.link/i/" + attributes.songId
+      songLink: "https://song.link/i/" + attributes.songId,
     };
     if (attributes.playParams.id === "no-id-found") {
       attributes.playParams.id = nowPlayingItem?.id ?? "no-id-found";
