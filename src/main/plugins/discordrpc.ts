@@ -238,8 +238,8 @@ export default class DiscordRPC {
       activity.buttons = [
         { label: "Listen on Cider", url: attributes.url.cider },
         { label: "View on Apple Music", url: attributes.url.appleMusic },
-        ... showSongLink ? [{label: "Song.link", url: 'https://song.link/i/' + attributes.songId}] : []
-      ]; //To change attributes.url => preload/cider-preload.js 
+        ...(showSongLink ? [{ label: "Song.link", url: "https://song.link/i/" + attributes.songId }] : []),
+      ]; //To change attributes.url => preload/cider-preload.js
     }
 
     // Add the timestamp if its playing and people want them
