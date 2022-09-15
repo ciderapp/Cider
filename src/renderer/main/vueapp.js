@@ -1945,9 +1945,9 @@ const app = new Vue({
         })
       ).data.results;
       let shints = hints ? hints.suggestions : [];
-      for (item in shints){
-        if ((shints[item]?.displayTerm ?? "").includes("?fields[")){
-          shints[item].displayTerm = shints[item].searchTerm = shints[item].displayTerm.split('?fields[')[0]
+      for (item in shints) {
+        if ((shints[item]?.displayTerm ?? "").includes("?fields[")) {
+          shints[item].displayTerm = shints[item].searchTerm = shints[item].displayTerm.split("?fields[")[0];
         }
       }
       this.search.hints = shints;
