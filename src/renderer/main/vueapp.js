@@ -1944,7 +1944,13 @@ const app = new Vue({
           types: "activities,albums,artists,editorial-items,music-movies,playlists,record-labels,songs,stations",
         })
       ).data.results;
-      this.search.hints = hints ? hints.suggestions : [];
+      let shints = hints ? hints.suggestions : [];
+      for (item in shints){
+        if ((shints[item]?.displayTerm ?? "").includes("?fields[")){
+          shints[item].displayTerm = shints[item].searchTerm = shints[item].displayTerm.split('?fields[')[0]
+        }
+      }
+      this.search.hints = shints;
     },
     getSongProgress() {
       if (this.playerLCD.userInteraction) {
