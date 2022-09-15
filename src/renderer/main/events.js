@@ -59,9 +59,9 @@ const Events = {
           app.mk._services.mediaItemPlayback._currentPlayer.destroy();
         } catch (e) {}
         try {
-          this.radiohls.destroy()
+          this.radiohls.destroy();
           this.radiohls = null;
-        } catch (_){}
+        } catch (_) {}
         try {
           let searchInt = setInterval(function () {
             if (document.getElementById("apple-music-player")) {
