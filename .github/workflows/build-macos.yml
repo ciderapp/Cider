@@ -51,6 +51,9 @@ jobs:
           sudo chmod +x resources/version.sh && ./resources/version.sh || true
           echo "APP_VERSION=$(node -p -e 'require("./package.json").version')" >>$GITHUB_ENV
 
+      - name: Clear node_airtunes2 cache
+        run: rm -rf ~/.pnpm-store/tmp/cf5bc2de2629636ca224995234b8eaa1 || true
+
       - name: Sign in to EVS
         run: |
           python3 -m pip install --upgrade castlabs-evs
