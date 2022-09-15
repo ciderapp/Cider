@@ -237,7 +237,7 @@ export default class DiscordRPC {
     if (!this._utils.getStoreValue("connectivity.discord_rpc.hide_buttons")) {
       activity.buttons = [
         { label: "Listen on Cider", url: attributes.url.cider },
-        ... showSongLink ? [{ label: "View on other platforms", url: 'https://song.link/i/' + attributes.songId }] : [{ label: "View on Apple Music", url: attributes.url.appleMusic }]
+        ...(showSongLink ? [{ label: "View on other platforms", url: "https://song.link/i/" + attributes.songId }] : [{ label: "View on Apple Music", url: attributes.url.appleMusic }]),
       ]; //To change attributes.url => preload/cider-preload.js
     }
 
