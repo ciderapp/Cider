@@ -52,7 +52,7 @@ jobs:
           echo "APP_VERSION=$(node -p -e 'require("./package.json").version')" >>$GITHUB_ENV
 
       - name: Clear node_airtunes2 cache
-        run: rm -rf ~/.pnpm-store/tmp/cf5bc2de2629636ca224995234b8eaa1 || true
+        run: rm -rf ~/Library/pnpm/store/v3/tmp/cf5bc2de2629636ca224995234b8eaa1 || true
 
       - name: Sign in to EVS
         run: |
