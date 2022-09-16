@@ -12,20 +12,24 @@ export const i18nEditor = Vue.component("i18n-editor", {
           <select
             class="md-select"
             @change="$root.setLz('');$root.setLzManual()"
-            v-model="$root.cfg.general.language">
+            v-model="$root.cfg.general.language"
+          >
             <optgroup
               :label="index"
-              v-for="(categories, index) in getLanguages()">
+              v-for="(categories, index) in getLanguages()"
+            >
               <option
                 v-for="lang in categories"
-                :value="lang.code">
+                :value="lang.code"
+              >
                 {{lang.nameNative}} ({{lang.nameEnglish }})
               </option>
             </optgroup>
           </select>
           <button
             class="md-btn"
-            @click="exportLz">
+            @click="exportLz"
+          >
             Export
           </button>
         </div>
@@ -35,7 +39,8 @@ export const i18nEditor = Vue.component("i18n-editor", {
         <template v-for="(val, key) in baseLz">
           <div
             class="md-option-line"
-            v-if="$root.lz[key]">
+            v-if="$root.lz[key]"
+          >
             <div class="md-option-segment">{{ key }}</div>
             <div class="md-option-segment">
               <template v-if='typeof $root.lz[key] == "object"'>
@@ -43,18 +48,21 @@ export const i18nEditor = Vue.component("i18n-editor", {
                   {{variant}}
                   <input
                     type="text"
-                    v-model="$root.lz[key][vkey]" />
+                    v-model="$root.lz[key][vkey]"
+                  />
                 </div>
               </template>
               <textarea
                 type="text"
                 v-model="$root.lz[key]"
-                v-else></textarea>
+                v-else
+              ></textarea>
             </div>
           </div>
           <div
             class="md-option-line"
-            v-else>
+            v-else
+          >
             <div class="md-option-segment">
               <b>{{ key }}</b>
             </div>
@@ -62,7 +70,8 @@ export const i18nEditor = Vue.component("i18n-editor", {
               <textarea
                 type="text"
                 v-model="$root.lz[key]"
-                :placeholder="val"></textarea>
+                :placeholder="val"
+              ></textarea>
             </div>
           </div>
         </template>
