@@ -696,8 +696,7 @@
   }
   function it(e, n, i, o, a, s) {
     var c, u, l, f;
-    for (c in e)
-      (u = e[c]), (l = n[c]), (f = nt(c)), t(u) || (t(l) ? (t(u.fns) && (u = e[c] = rt(u, s)), r(f.once) && (u = e[c] = a(f.name, u, f.capture)), i(f.name, u, f.capture, f.passive, f.params)) : u !== l && ((l.fns = u), (e[c] = l)));
+    for (c in e) (u = e[c]), (l = n[c]), (f = nt(c)), t(u) || (t(l) ? (t(u.fns) && (u = e[c] = rt(u, s)), r(f.once) && (u = e[c] = a(f.name, u, f.capture)), i(f.name, u, f.capture, f.passive, f.params)) : u !== l && ((l.fns = u), (e[c] = l)));
     for (c in n) t(e[c]) && o((f = nt(c)).name, n[c], f.capture);
   }
   function ot(e, i, o) {
@@ -1166,8 +1165,7 @@
         var u, l;
         if ("string" == typeof i) {
           var f;
-          (l = (e.$vnode && e.$vnode.ns) || F.getTagNamespace(i)),
-            (u = F.isReservedTag(i) ? new pe(F.parsePlatformTagName(i), a, s, void 0, void 0, e) : (a && a.pre) || !n((f = Le(e.$options, "components", i))) ? new pe(i, a, s, void 0, void 0, e) : Mt(f, a, e, s, i));
+          (l = (e.$vnode && e.$vnode.ns) || F.getTagNamespace(i)), (u = F.isReservedTag(i) ? new pe(F.parsePlatformTagName(i), a, s, void 0, void 0, e) : (a && a.pre) || !n((f = Le(e.$options, "components", i))) ? new pe(i, a, s, void 0, void 0, e) : Mt(f, a, e, s, i));
         } else u = Mt(i, a, e, s);
         return Array.isArray(u)
           ? u
@@ -1862,9 +1860,7 @@
       (function (e) {
         I.forEach(function (t) {
           e[t] = function (e, n) {
-            return n
-              ? ("component" === t && s(n) && ((n.name = n.name || e), (n = this.options._base.extend(n))), "directive" === t && "function" == typeof n && (n = { bind: n, update: n }), (this.options[t + "s"][e] = n), n)
-              : this.options[t + "s"][e];
+            return n ? ("component" === t && s(n) && ((n.name = n.name || e), (n = this.options._base.extend(n))), "directive" === t && "function" == typeof n && (n = { bind: n, update: n }), (this.options[t + "s"][e] = n), n) : this.options[t + "s"][e];
           };
         });
       })(e);
@@ -2264,11 +2260,7 @@
   }
   function Mr(t, n, r, i, o, a, s, c) {
     var u;
-    (i = i || e).right
-      ? c
-        ? (n = "(" + n + ")==='click'?'contextmenu':(" + n + ")")
-        : "click" === n && ((n = "contextmenu"), delete i.right)
-      : i.middle && (c ? (n = "(" + n + ")==='click'?'mouseup':(" + n + ")") : "click" === n && (n = "mouseup")),
+    (i = i || e).right ? (c ? (n = "(" + n + ")==='click'?'contextmenu':(" + n + ")") : "click" === n && ((n = "contextmenu"), delete i.right)) : i.middle && (c ? (n = "(" + n + ")==='click'?'mouseup':(" + n + ")") : "click" === n && (n = "mouseup")),
       i.capture && (delete i.capture, (n = Ir("!", n, c))),
       i.once && (delete i.once, (n = Ir("~", n, c))),
       i.passive && (delete i.passive, (n = Ir("&", n, c))),
@@ -2558,9 +2550,7 @@
     Oi = "transitionend",
     Si = "animation",
     Ti = "animationend";
-  Ci &&
-    (void 0 === window.ontransitionend && void 0 !== window.onwebkittransitionend && ((Ai = "WebkitTransition"), (Oi = "webkitTransitionEnd")),
-    void 0 === window.onanimationend && void 0 !== window.onwebkitanimationend && ((Si = "WebkitAnimation"), (Ti = "webkitAnimationEnd")));
+  Ci && (void 0 === window.ontransitionend && void 0 !== window.onwebkittransitionend && ((Ai = "WebkitTransition"), (Oi = "webkitTransitionEnd")), void 0 === window.onanimationend && void 0 !== window.onwebkitanimationend && ((Si = "WebkitAnimation"), (Ti = "webkitAnimationEnd")));
   var Ni = V
     ? window.requestAnimationFrame
       ? window.requestAnimationFrame.bind(window)
@@ -2786,11 +2776,7 @@
         var f = e.data,
           p = e.children,
           m = e.tag;
-        n(m)
-          ? ((e.elm = e.ns ? u.createElementNS(e.ns, m) : u.createElement(m, e)), g(e), h(e, p, t), n(f) && y(e, t), v(i, e.elm, o))
-          : r(e.isComment)
-          ? ((e.elm = u.createComment(e.text)), v(i, e.elm, o))
-          : ((e.elm = u.createTextNode(e.text)), v(i, e.elm, o));
+        n(m) ? ((e.elm = e.ns ? u.createElementNS(e.ns, m) : u.createElement(m, e)), g(e), h(e, p, t), n(f) && y(e, t), v(i, e.elm, o)) : r(e.isComment) ? ((e.elm = u.createComment(e.text)), v(i, e.elm, o)) : ((e.elm = u.createTextNode(e.text)), v(i, e.elm, o));
       }
     }
     function d(e, t) {
@@ -2894,9 +2880,7 @@
                       ? (x(h, b, o, i, y), w && u.insertBefore(e, h.elm, u.nextSibling(m.elm)), (h = r[++p]), (b = i[--y]))
                       : or(m, g)
                       ? (x(m, g, o, i, d), w && u.insertBefore(e, m.elm, h.elm), (m = r[--v]), (g = i[++d]))
-                      : (t(s) && (s = ar(r, p, v)),
-                        t((c = n(g.key) ? s[g.key] : C(g, r, p, v))) ? f(g, o, e, h.elm, !1, i, d) : or((l = r[c]), g) ? (x(l, g, o, i, d), (r[c] = void 0), w && u.insertBefore(e, l.elm, h.elm)) : f(g, o, e, h.elm, !1, i, d),
-                        (g = i[++d]));
+                      : (t(s) && (s = ar(r, p, v)), t((c = n(g.key) ? s[g.key] : C(g, r, p, v))) ? f(g, o, e, h.elm, !1, i, d) : or((l = r[c]), g) ? (x(l, g, o, i, d), (r[c] = void 0), w && u.insertBefore(e, l.elm, h.elm)) : f(g, o, e, h.elm, !1, i, d), (g = i[++d]));
                   p > v ? _(e, t(i[y + 1]) ? null : i[y + 1].elm, i, d, y, o) : d > y && $(r, p, v);
                 })(p, h, y, o, l)
               : n(y)
@@ -3015,8 +2999,7 @@
               })
             : Ji(e, t, n.context),
           (e._vOptions = [].map.call(e.options, Zi)))
-        : ("textarea" === n.tag || Yn(e.type)) &&
-          ((e._vModifiers = t.modifiers), t.modifiers.lazy || (e.addEventListener("compositionstart", Gi), e.addEventListener("compositionend", Xi), e.addEventListener("change", Xi), W && (e.vmodel = !0)));
+        : ("textarea" === n.tag || Yn(e.type)) && ((e._vModifiers = t.modifiers), t.modifiers.lazy || (e.addEventListener("compositionstart", Gi), e.addEventListener("compositionend", Xi), e.addEventListener("change", Xi), W && (e.vmodel = !0)));
     },
     componentUpdated: function (e, t, n) {
       if ("select" === n.tag) {
@@ -3884,8 +3867,7 @@
           if (e.component) return Br(e, r, i), !1;
           if ("select" === o)
             !(function (e, t, n) {
-              var r =
-                'var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return ' + (n && n.number ? "_n(val)" : "val") + "});";
+              var r = 'var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return ' + (n && n.number ? "_n(val)" : "val") + "});";
               (r = r + " " + Ur(t, "$event.target.multiple ? $$selectedVal : $$selectedVal[0]")), Mr(e, "change", r, null, !0);
             })(e, r, i);
           else if ("input" === o && "checkbox" === a)
@@ -4408,9 +4390,7 @@
   function Ya(e) {
     return e.replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029");
   }
-  new RegExp(
-    "\\b" + "do,if,for,let,new,try,var,case,else,with,await,break,catch,class,const,super,throw,while,yield,delete,export,import,return,switch,default,extends,finally,continue,debugger,function,arguments".split(",").join("\\b|\\b") + "\\b"
-  );
+  new RegExp("\\b" + "do,if,for,let,new,try,var,case,else,with,await,break,catch,class,const,super,throw,while,yield,delete,export,import,return,switch,default,extends,finally,continue,debugger,function,arguments".split(",").join("\\b|\\b") + "\\b");
   function Qa(e, t) {
     try {
       return new Function(e);

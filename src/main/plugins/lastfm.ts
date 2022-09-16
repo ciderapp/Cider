@@ -170,13 +170,7 @@ export default class lastfm {
       return;
     }
 
-    if (
-      !this._authenticated ||
-      !attributes ||
-      this._utils.getStoreValue("connectivity.lastfm.filter_types")[attributes.playParams.kind] ||
-      (this._utils.getStoreValue("connectivity.lastfm.filter_loop") && this._scrobbleCache.track === attributes.lfmTrack.name)
-    )
-      return;
+    if (!this._authenticated || !attributes || this._utils.getStoreValue("connectivity.lastfm.filter_types")[attributes.playParams.kind] || (this._utils.getStoreValue("connectivity.lastfm.filter_loop") && this._scrobbleCache.track === attributes.lfmTrack.name)) return;
 
     // Scrobble
     const scrobble = {
@@ -216,13 +210,7 @@ export default class lastfm {
       return;
     }
 
-    if (
-      !this._authenticated ||
-      !attributes ||
-      this._utils.getStoreValue("connectivity.lastfm.filter_types")[attributes.playParams.kind] ||
-      (this._utils.getStoreValue("connectivity.lastfm.filter_loop") && this._nowPlayingCache.track === attributes.lfmTrack.name)
-    )
-      return;
+    if (!this._authenticated || !attributes || this._utils.getStoreValue("connectivity.lastfm.filter_types")[attributes.playParams.kind] || (this._utils.getStoreValue("connectivity.lastfm.filter_loop") && this._nowPlayingCache.track === attributes.lfmTrack.name)) return;
 
     const nowPlaying = {
       artist: attributes.lfmTrack.artist.name,

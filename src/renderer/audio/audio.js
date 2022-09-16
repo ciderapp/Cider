@@ -301,9 +301,7 @@ const CiderAudio = {
         filterlessGain = filterlessGain * spatialProfile.gainComp;
       }
       filterlessGain = Math.pow(10, (-1 * (20 * Math.log10(filterlessGain))) / 20).toFixed(4);
-      filterlessGain > 1.0
-        ? CiderAudio.audioNodes.intelliGainComp.gain.exponentialRampToValueAtTime(1.0, CiderAudio.context.currentTime + 0.3)
-        : CiderAudio.audioNodes.intelliGainComp.gain.exponentialRampToValueAtTime(filterlessGain, CiderAudio.context.currentTime + 0.3);
+      filterlessGain > 1.0 ? CiderAudio.audioNodes.intelliGainComp.gain.exponentialRampToValueAtTime(1.0, CiderAudio.context.currentTime + 0.3) : CiderAudio.audioNodes.intelliGainComp.gain.exponentialRampToValueAtTime(filterlessGain, CiderAudio.context.currentTime + 0.3);
       console.debug(`[Cider][Audio] IntelliGainComp: ${filterlessGain > 1.0 ? 0 : (20 * Math.log10(filterlessGain)).toFixed(2)} dB (${filterlessGain > 1.0 ? 1 : filterlessGain})`);
       return;
     }
@@ -358,9 +356,7 @@ const CiderAudio = {
       maxGain = maxGain * spatialProfile.gainComp;
     }
     maxGain = Math.pow(10, (-1 * (20 * Math.log10(maxGain))) / 20).toFixed(4);
-    maxGain > 1.0
-      ? CiderAudio.audioNodes.intelliGainComp.gain.exponentialRampToValueAtTime(1.0, CiderAudio.context.currentTime + 0.3)
-      : CiderAudio.audioNodes.intelliGainComp.gain.exponentialRampToValueAtTime(maxGain, CiderAudio.context.currentTime + 0.3);
+    maxGain > 1.0 ? CiderAudio.audioNodes.intelliGainComp.gain.exponentialRampToValueAtTime(1.0, CiderAudio.context.currentTime + 0.3) : CiderAudio.audioNodes.intelliGainComp.gain.exponentialRampToValueAtTime(maxGain, CiderAudio.context.currentTime + 0.3);
     console.debug(`[Cider][Audio] IntelliGainComp: ${maxGain > 1.0 ? 0 : (20 * Math.log10(maxGain)).toFixed(2)} dB (${maxGain > 1.0 ? 1 : maxGain})`);
   },
   sendAudio: function () {

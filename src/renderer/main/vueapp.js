@@ -3104,9 +3104,7 @@ const app = new Vue({
         return;
       }
       try {
-        let mfu = await app.mk.api.v3.music(
-          "/v1/me/library/playlists?platform=web&extend=editorialVideo&fields%5Bplaylists%5D=lastModifiedDate&filter%5Bfeatured%5D=made-for-you&include%5Blibrary-playlists%5D=catalog&fields%5Blibrary-playlists%5D=artwork%2Cname%2CplayParams%2CdateAdded"
-        );
+        let mfu = await app.mk.api.v3.music("/v1/me/library/playlists?platform=web&extend=editorialVideo&fields%5Bplaylists%5D=lastModifiedDate&filter%5Bfeatured%5D=made-for-you&include%5Blibrary-playlists%5D=catalog&fields%5Blibrary-playlists%5D=artwork%2Cname%2CplayParams%2CdateAdded");
         this.madeforyou = mfu.data;
       } catch (e) {
         console.log(e);
@@ -3286,10 +3284,7 @@ const app = new Vue({
               let id,
                 songLang = "";
               try {
-                if (
-                  jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["header"]["status_code"] == 200 &&
-                  jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["header"]["status_code"] == 200
-                ) {
+                if (jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["header"]["status_code"] == 200 && jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["header"]["status_code"] == 200) {
                   id = jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["body"]["track"]["track_id"] ?? "";
                   lrcfile = jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["body"]["subtitle_list"][0]["subtitle"]["subtitle_body"];
                   vanity_id = jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["body"]["track"]["commontrack_vanity_id"];
@@ -4202,13 +4197,7 @@ const app = new Vue({
         }
         this.currentArtUrl = "";
         this.currentArtUrlRaw = "";
-        if (
-          app.mk.nowPlayingItem != null &&
-          app.mk.nowPlayingItem.attributes != null &&
-          app.mk.nowPlayingItem.attributes.artwork != null &&
-          app.mk.nowPlayingItem.attributes.artwork.url != null &&
-          app.mk.nowPlayingItem.attributes.artwork.url != ""
-        ) {
+        if (app.mk.nowPlayingItem != null && app.mk.nowPlayingItem.attributes != null && app.mk.nowPlayingItem.attributes.artwork != null && app.mk.nowPlayingItem.attributes.artwork.url != null && app.mk.nowPlayingItem.attributes.artwork.url != "") {
           this.currentArtUrlRaw = this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"] ?? "";
           this.currentArtUrl = (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"] ?? "").replace("{w}", artworkSize).replace("{h}", artworkSize);
           if (this.mk.nowPlayingItem._assets[0].artworkURL) {

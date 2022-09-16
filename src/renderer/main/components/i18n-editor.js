@@ -9,35 +9,60 @@ export const i18nEditor = Vue.component("i18n-editor", {
           <h1>i18n Editor</h1>
         </div>
         <div class="col-auto nopadding selectCol">
-          <select class="md-select" @change="$root.setLz('');$root.setLzManual()" v-model="$root.cfg.general.language">
-            <optgroup :label="index" v-for="(categories, index) in getLanguages()">
-              <option v-for="lang in categories" :value="lang.code">{{lang.nameNative}} ({{lang.nameEnglish }})</option>
+          <select
+            class="md-select"
+            @change="$root.setLz('');$root.setLzManual()"
+            v-model="$root.cfg.general.language">
+            <optgroup
+              :label="index"
+              v-for="(categories, index) in getLanguages()">
+              <option
+                v-for="lang in categories"
+                :value="lang.code">
+                {{lang.nameNative}} ({{lang.nameEnglish }})
+              </option>
             </optgroup>
           </select>
-          <button class="md-btn" @click="exportLz">Export</button>
+          <button
+            class="md-btn"
+            @click="exportLz">
+            Export
+          </button>
         </div>
       </div>
       <hr />
       <div class="md-option-container">
         <template v-for="(val, key) in baseLz">
-          <div class="md-option-line" v-if="$root.lz[key]">
+          <div
+            class="md-option-line"
+            v-if="$root.lz[key]">
             <div class="md-option-segment">{{ key }}</div>
             <div class="md-option-segment">
               <template v-if='typeof $root.lz[key] == "object"'>
                 <div v-for="(variant, vkey) in $root.lz[key]">
                   {{variant}}
-                  <input type="text" v-model="$root.lz[key][vkey]" />
+                  <input
+                    type="text"
+                    v-model="$root.lz[key][vkey]" />
                 </div>
               </template>
-              <textarea type="text" v-model="$root.lz[key]" v-else></textarea>
+              <textarea
+                type="text"
+                v-model="$root.lz[key]"
+                v-else></textarea>
             </div>
           </div>
-          <div class="md-option-line" v-else>
+          <div
+            class="md-option-line"
+            v-else>
             <div class="md-option-segment">
               <b>{{ key }}</b>
             </div>
             <div class="md-option-segment">
-              <textarea type="text" v-model="$root.lz[key]" :placeholder="val"></textarea>
+              <textarea
+                type="text"
+                v-model="$root.lz[key]"
+                :placeholder="val"></textarea>
             </div>
           </div>
         </template>

@@ -259,8 +259,7 @@ export default class RAOP {
             // this.airtunes.stopAll(() => {
             //   console.log("end");
             // });
-            if (this.devices[idx]?.state != null && this.devices[idx].state != -1)
-              this._win.webContents.executeJavaScript(`app.airplayDisconnect(true, ${JSON.stringify([ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv])})`).catch((err: any) => console.error(err));
+            if (this.devices[idx]?.state != null && this.devices[idx].state != -1) this._win.webContents.executeJavaScript(`app.airplayDisconnect(true, ${JSON.stringify([ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv])})`).catch((err: any) => console.error(err));
             // this.airtunes = null;
             // this.device = null;
             // this.ipairplay = "";
