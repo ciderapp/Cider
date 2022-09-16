@@ -4597,7 +4597,7 @@ const app = new Vue({
               name: app.getLz("action.removeFromLibrary"),
               hidden: true,
               action: function () {
-                self.removeFromLibrary();
+                self.removeFromLibrary(app.mk.nowPlayingItem.type, MusicKitInterop.getAttributes().songId);
               },
             },
             {
