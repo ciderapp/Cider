@@ -6,7 +6,7 @@
     {
       "files": "src/renderer/main/**/*.js",
       "options": {
-        "bracketSameLine": false
+        "singleAttributePerLine": false
       }
     }
   ]
