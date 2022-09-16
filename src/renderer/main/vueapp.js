@@ -1172,8 +1172,6 @@ const app = new Vue({
       if (this.cfg.general.themeUpdateNotification && !this.isDev) {
         this.checkForThemeUpdates();
       }
-
-      ipcRenderer.invoke("scanLibrary");
     },
     setWindowScaleFactor() {
       let scale = (((window.devicePixelRatio * window.innerWidth) / 1280) * window.innerHeight) / 720;
