@@ -63,7 +63,7 @@ jobs:
       - name: Prettify code
         uses: creyD/prettier_action@v4.2
         with:
-          prettier_options: --write "src/**/*.{js,json,ts,css,less}"
+          prettier_options: --write src/**/*.{js,json,ts,css,less}
 
       - name: Commit Prettier Code
         uses: stefanzweifel/git-auto-commit-action@v4.14.1
