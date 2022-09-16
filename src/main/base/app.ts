@@ -27,7 +27,7 @@ export class AppEvents {
    */
   private start(): void {
     AppEvents.initLogging();
-    console.info("[AppEvents] App started");
+    console.info("[AppEvents] App started ");
 
     /**********************************************************************************************************************
      * Startup arguments handling
