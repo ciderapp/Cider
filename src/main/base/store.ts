@@ -240,7 +240,6 @@ export class Store {
   };
 
   constructor() {
-    this.defaults.general.language = this.checkLocale(app.getLocale().replace("-", "_")) ?? "en_US";
     Store.cfg = new ElectronStore({
       name: "cider-config",
       defaults: this.defaults,

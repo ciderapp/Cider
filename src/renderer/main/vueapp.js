@@ -1502,7 +1502,7 @@ const app = new Vue({
         }
       }
 
-      this.library.backgroundNotification.message = "Building playlist cache...";
+      this.library.backgroundNotification.message = app.getLz("notification.buildingPlaylistCache");
       this.library.backgroundNotification.show = true;
 
       async function deepScan(parent = "p.playlistsroot") {
