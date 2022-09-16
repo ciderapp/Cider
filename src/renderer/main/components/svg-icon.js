@@ -6,7 +6,8 @@ export const svgIcon = Vue.component("svg-icon", {
       class="_svg-icon"
       :class="classes"
       :svg-name="name"
-      :style="{'--icon': 'url(' + url + ')'}"></div>
+      :style="{'--icon': 'url(' + url + ')'}"
+    ></div>
   `,
   props: {
     name: {
