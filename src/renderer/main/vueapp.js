@@ -1216,7 +1216,7 @@ const app = new Vue({
                 const notify = notyf.open({
                   className: "notyf-info",
                   type: "info",
-                  message: app.stringTemplateParser(app.getLz("settings.notyf.visual.theme.updateAvailable"), { repo: theme.name }),
+                  message: app.stringTemplateParser(app.getLz("settings.notyf.visual.theme.updateAvailable"), { theme: theme.name }),
                 });
                 notify.on("click", () => {
                   app.openSettingsPage("github-themes");
