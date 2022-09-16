@@ -61,7 +61,7 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - name: Prettify code
-        run: npm run prettier
+        run: npm run format:write
 
       - name: Commit Prettier Code
         uses: stefanzweifel/git-auto-commit-action@v4.14.1
