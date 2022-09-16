@@ -2433,12 +2433,26 @@ const app = new Vue({
         self.library.songs.displayListing.sort((a, b) => {
           let aa = a.attributes[prefs.sort];
           let bb = b.attributes[prefs.sort];
-          if (prefs.sort == "genre") {
+          if (prefs.sort === "genre") {
             aa = a.attributes.genreNames[0];
             bb = b.attributes.genreNames[0];
-          } else if (prefs.sort == "dateAdded") {
+          } else if (prefs.sort === "dateAdded") {
             aa = a.relationships?.albums?.data[0]?.attributes?.dateAdded;
             bb = b.relationships?.albums?.data[0]?.attributes?.dateAdded;
+          } else if (prefs.sort === "artistName") {
+            if (a.relationships?.artists?.data[0]?.id === b.relationships?.artists?.data[0]?.id) {
+              aa = a.attributes.albumName;
+              bb = b.attributes.albumName;
+            }
+            if (a.relationships?.albums?.data[0]?.id === b.relationships?.albums?.data[0]?.id) {
+              aa = a.attributes.trackNumber;
+              bb = b.attributes.trackNumber;
+            }
+          } else if (prefs.sort === "albumName") {
+            if (a.relationships?.albums?.data[0]?.id === b.relationships?.albums?.data[0]?.id) {
+              aa = a.attributes.trackNumber;
+              bb = b.attributes.trackNumber;
+            }
           }
           if (aa == null) {
             aa = "";
@@ -2446,13 +2460,13 @@ const app = new Vue({
           if (bb == null) {
             bb = "";
           }
-          if (prefs.sortOrder == "asc") {
+          if (prefs.sortOrder === "asc") {
             if (aa.toString().match(/^\d+$/) && bb.toString().match(/^\d+$/)) {
               return aa - bb;
             } else {
               return aa.toString().toLowerCase().localeCompare(bb.toString().toLowerCase());
             }
-          } else if (prefs.sortOrder == "desc") {
+          } else if (prefs.sortOrder === "desc") {
             if (aa.toString().match(/^\d+$/) && bb.toString().match(/^\d+$/)) {
               return bb - aa;
             } else {
