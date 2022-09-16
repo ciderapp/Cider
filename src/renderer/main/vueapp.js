@@ -294,6 +294,12 @@ const app = new Vue({
     },
     async oobeInit() {
       this.appMode = "oobe";
+      for (const [k, v] of Object.entries(ipcRenderer.sendSync("get-i18n-listing"))) {
+        if (v.code === navigator.language.replace("-", "_")) {
+          this.cfg.general.language = v.code;
+          break;
+        }
+      }
       this.setLz(this.cfg.general.language);
       this.setLzManual();
       clearTimeout(this.hangtimer);
@@ -1210,7 +1216,7 @@ const app = new Vue({
                 const notify = notyf.open({
                   className: "notyf-info",
                   type: "info",
-                  message: `[Themes] ${theme.name} has an update available.`,
+                  message: app.stringTemplateParser(app.getLz("settings.notyf.visual.theme.updateAvailable"), { repo: theme.name }),
                 });
                 notify.on("click", () => {
                   app.openSettingsPage("github-themes");
@@ -1486,15 +1492,15 @@ const app = new Vue({
         const cachedTrackMapping = await CiderCache.getCache("library-playlists-tracks");
 
         if (cachedPlaylist) {
-          console.debug("using cached playlists");
+          console.debug("[CiderCache] Using cached playlist");
           this.playlists.listing = cachedPlaylist;
           self.sortPlaylists();
         } else {
-          console.debug("playlist has no cache");
+          console.debug("[CiderCache] Playlist has no cache");
         }
 
         if (cachedTrackMapping) {
-          console.debug("using cached track mapping");
+          console.debug("[CiderCache] Using cached track mapping");
           this.playlists.trackMapping = cachedTrackMapping;
         }
         if (localOnly) {
