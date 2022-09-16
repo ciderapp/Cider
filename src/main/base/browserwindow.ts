@@ -1350,7 +1350,7 @@ export class BrowserWindow {
         .then(async (buffer) => {
           const metadata = await mm.parseBuffer(buffer, "audio/x-m4a");
           let SoundCheckTag = metadata.native.iTunes[1].value;
-          console.log("sc", SoundCheckTag);
+          console.debug("sc", SoundCheckTag);
           BrowserWindow.win.webContents.send("SoundCheckTag", SoundCheckTag);
         })
         .catch((err) => {

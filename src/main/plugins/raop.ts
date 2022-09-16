@@ -159,7 +159,7 @@ export default class RAOP {
 
     electron.ipcMain.on("getAirplayDevice", (event, data) => {
       this.castDevices = [];
-      console.log("scan for airplay devices");
+      console.debug("scan for airplay devices");
 
       const browser = this.mdns.createBrowser(this.mdns.tcp("raop"));
       browser.on("ready", browser.discover);
@@ -168,7 +168,7 @@ export default class RAOP {
         if (service.addresses && service.fullname && service.fullname.includes("_raop._tcp")) {
           // console.log(service.txt)
           this._win.webContents.executeJavaScript(`console.log(
-                    "${service.name} ${service.host}:${service.port} ${service.addresses} ${service.fullname}" 
+                    "${service.name} ${service.host}:${service.port} ${service.addresses} ${service.fullname}"
                 )`);
           let itemname = service.fullname.substring(service.fullname.indexOf("@") + 1, service.fullname.indexOf("._raop._tcp"));
           this.ondeviceup(itemname, service.host, service.port, service.addresses, service.txt);

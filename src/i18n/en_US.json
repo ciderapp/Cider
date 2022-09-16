@@ -548,6 +548,7 @@
   "settings.option.connectivity.lastfmScrobble.filterLoop": "Filter looped track (Last.fm)",
   "settings.option.connectivity.lastfmScrobble.filterLoop.description": "Prevent looped tracks from being scrobbled or displayed in the Now Playing list on Last.fm.",
   "settings.option.connectivity.lastfmScrobble.filterTypes": "Filter Media Types (Last.fm)",
+  "settings.option.connectivity.lastfmScrobble.filterTypes.description": "Prevent tracks of the selected media types from being scrobbled or displayed in the Now Playing list on Last.fm.",
   "settings.option.connectivity.lastfmScrobble.manualToken": "Enter Last.fm Token Manually",
   "settings.option.connectivity.lastfmScrobble.manualToken.link": "Click here to get a Last.fm token",
   "settings.notyf.connectivity.lastfmScrobble.connectError": "Last.fm Connection Timed Out",
