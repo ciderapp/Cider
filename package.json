@@ -37,7 +37,8 @@
     "msft": "npm run build && electron-builder -c msft-package.json",
     "mstest": "npm run build && electron-builder -c msft-test.json",
     "postinstall": "electron-builder install-app-deps",
-    "prettier": "npx prettier --write '**/*.{js,json,ts,css,less}'"
+    "format:check": "prettier --check \"src/**/*.{js,json,ts,css,less}\"",
+    "format:write": "prettier --write \"src/**/*.{js,json,ts,css,less}\""
   },
   "dependencies": {
     "@sentry/electron": "^4.0.2",

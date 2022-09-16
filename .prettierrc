@@ -1,2 +1,5 @@
-bracketSameLine: true
-printWidth: 240
+{
+  "printWidth": 300,
+  "singleAttributePerLine": true,
+  "bracketSameLine": true
+}
