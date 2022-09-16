@@ -1,13 +1,17 @@
 require("v8-compile-cache");
 
 import { app, components, ipcMain } from "electron";
-
+import { join } from "path";
 import { Store } from "./base/store";
 import { AppEvents } from "./base/app";
 import { Plugins } from "./base/plugins";
 import { BrowserWindow } from "./base/browserwindow";
 import { init as Sentry } from "@sentry/electron";
 import { RewriteFrames } from "@sentry/integrations";
+
+if (!app.isPackaged) {
+  app.setPath("userData", join(app.getPath("appData"), "Cider"));
+}
 
 // Analytics for debugging fun yeah.
 Sentry({
