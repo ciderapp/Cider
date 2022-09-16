@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [ 18 ]
+        node-version: [18]
 
     permissions:
       contents: write
@@ -31,7 +31,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
+          cache: "pnpm"
 
       - name: Update lockfile
         run: pnpm i --lockfile-only
@@ -48,7 +48,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [ 18 ]
+        node-version: [18]
 
     permissions:
       contents: write
@@ -69,3 +69,21 @@ jobs:
           commit_message: "chore: Prettified Code\n [ci skip]"
           commit_user_name: "cider-chore[bot]"
           commit_user_email: "cider-chore[bot]@users.noreply.github.com"
+
+  synchronize-with-crowdin:
+    runs-on: ubuntu-latest
+    if: ${{ false }} # disable for now
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: crowdin action
+        uses: crowdin/github-action@1.4.13
+        with:
+          upload_translations: true
+          download_translations: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
