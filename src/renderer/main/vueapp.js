@@ -663,9 +663,26 @@ const app = new Vue({
       this.modals.addToPlaylist = false;
       app.newPlaylist(app.getLz("term.newPlaylist"), pl_items);
     },
+    async isSongInPlaylist(song_ids, playlist_id) {
+      let isInPlaylist = false;
+      const playlistTracks = (
+        await app.mk.api.v3.music(`/v1/me/library/playlists/${playlist_id}/tracks`, {
+          platform: "web",
+          l: app.mklang,
+        })
+      ).data?.data;
+
+      playlistTracks.forEach((track) => {
+        if (song_ids.includes(track.id)) {
+          isInPlaylist = true;
+        }
+      });
+      return isInPlaylist;
+    },
     async addSelectedToPlaylist(playlist_id) {
       let self = this;
       let pl_items = [];
+      const song_ids = [];
       for (let i = 0; i < self.selectedMediaItems.length; i++) {
         if (self.selectedMediaItems[i].kind == "song" || self.selectedMediaItems[i].kind == "songs") {
           self.selectedMediaItems[i].kind = "songs";
@@ -673,6 +690,7 @@ const app = new Vue({
             id: self.selectedMediaItems[i].id,
             type: self.selectedMediaItems[i].kind,
           });
+          song_ids.push(self.selectedMediaItems[i].id);
         } else if ((self.selectedMediaItems[i].kind == "album" || self.selectedMediaItems[i].kind == "albums") && self.selectedMediaItems[i].isLibrary != true) {
           self.selectedMediaItems[i].kind = "albums";
           let res = await self.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/albums/${self.selectedMediaItems[i].id}/tracks`);
@@ -680,12 +698,14 @@ const app = new Vue({
             return { id: i.id, type: i.type };
           });
           pl_items = pl_items.concat(ids);
+          song_ids.push(...ids.map((id) => id.id));
         } else if (self.selectedMediaItems[i].kind == "library-song" || self.selectedMediaItems[i].kind == "library-songs") {
           self.selectedMediaItems[i].kind = "library-songs";
           pl_items.push({
             id: self.selectedMediaItems[i].id,
             type: self.selectedMediaItems[i].kind,
           });
+          song_ids.push(self.selectedMediaItems[i].id);
         } else if (self.selectedMediaItems[i].kind == "library-album" || self.selectedMediaItems[i].kind == "library-albums" || (self.selectedMediaItems[i].kind == "album" && self.selectedMediaItems[i].isLibrary == true)) {
           self.selectedMediaItems[i].kind = "library-albums";
           let res = await self.mk.api.v3.music(`/v1/me/library/albums/${self.selectedMediaItems[i].id}/tracks`);
@@ -693,32 +713,47 @@ const app = new Vue({
             return { id: i.id, type: i.type };
           });
           pl_items = pl_items.concat(ids);
+          song_ids.push(...ids.map((id) => id.id));
         } else {
           pl_items.push({
             id: self.selectedMediaItems[i].id,
             type: self.selectedMediaItems[i].kind,
           });
+          song_ids.push(self.selectedMediaItems[i].id);
         }
       }
       this.modals.addToPlaylist = false;
-      await app.mk.api.v3
-        .music(
-          `/v1/me/library/playlists/${playlist_id}/tracks`,
-          {},
-          {
-            fetchOptions: {
-              method: "POST",
-              body: JSON.stringify({
-                data: pl_items,
-              }),
-            },
-          }
-        )
-        .then(() => {
-          if (this.page == "playlist_" + this.showingPlaylist.id) {
-            this.getPlaylistFromID(this.showingPlaylist.id, true);
+
+      function addToPlaylist(pid, pitems) {
+        app.mk.api.v3
+          .music(
+            `/v1/me/library/playlists/${pid}/tracks`,
+            {},
+            {
+              fetchOptions: {
+                method: "POST",
+                body: JSON.stringify({
+                  data: pitems,
+                }),
+              },
+            }
+          )
+          .then(() => {
+            if (app.page === "playlist_" + pid) {
+              app.getPlaylistFromID(app.showingPlaylist.id, true);
+            }
+          });
+      }
+
+      if (await this.isSongInPlaylist(song_ids, playlist_id)) {
+        app.confirm(app.getLz("action.addToPlaylist.duplicate"), (result) => {
+          if (result === true) {
+            addToPlaylist(playlist_id, pl_items);
           }
         });
+      } else {
+        addToPlaylist(playlist_id, pl_items);
+      }
     },
     async init() {
       let self = this;
