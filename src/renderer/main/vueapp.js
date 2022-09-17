@@ -679,6 +679,26 @@ const app = new Vue({
       });
       return isInPlaylist;
     },
+    addToPlaylist(pid, pitems) {
+      app.mk.api.v3
+        .music(
+          `/v1/me/library/playlists/${pid}/tracks`,
+          {},
+          {
+            fetchOptions: {
+              method: "POST",
+              body: JSON.stringify({
+                data: pitems,
+              }),
+            },
+          }
+        )
+        .then(() => {
+          if (app.page === "playlist_" + pid) {
+            app.getPlaylistFromID(app.showingPlaylist.id, true);
+          }
+        });
+    },
     async addSelectedToPlaylist(playlist_id) {
       let self = this;
       let pl_items = [];
@@ -724,35 +744,14 @@ const app = new Vue({
       }
       this.modals.addToPlaylist = false;
 
-      function addToPlaylist(pid, pitems) {
-        app.mk.api.v3
-          .music(
-            `/v1/me/library/playlists/${pid}/tracks`,
-            {},
-            {
-              fetchOptions: {
-                method: "POST",
-                body: JSON.stringify({
-                  data: pitems,
-                }),
-              },
-            }
-          )
-          .then(() => {
-            if (app.page === "playlist_" + pid) {
-              app.getPlaylistFromID(app.showingPlaylist.id, true);
-            }
-          });
-      }
-
       if (await this.isSongInPlaylist(song_ids, playlist_id)) {
         app.confirm(app.getLz("action.addToPlaylist.duplicate"), (result) => {
           if (result === true) {
-            addToPlaylist(playlist_id, pl_items);
+            app.addToPlaylist(playlist_id, pl_items);
           }
         });
       } else {
-        addToPlaylist(playlist_id, pl_items);
+        app.addToPlaylist(playlist_id, pl_items);
       }
     },
     async init() {
