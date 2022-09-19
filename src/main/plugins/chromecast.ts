@@ -200,11 +200,7 @@ export default class ChromecastPlugin {
         if (details.family === "IPv4" && !details.internal) {
           if (!/(loopback|vmware|internal|hamachi|vboxnet|virtualbox)/gi.test(dev + (alias ? ":" + alias : ""))) {
             if (details.address.substring(0, 8) === "192.168." || details.address.substring(0, 7) === "172.16." || details.address.substring(0, 3) === "10.") {
-              if (
-                !ip.startsWith("192.168.") ||
-                (ip2.startsWith("192.168.") && !ip.startsWith("192.168.") && ip2.startsWith("172.16.") && !ip.startsWith("192.168.") && !ip.startsWith("172.16.")) ||
-                (ip2.startsWith("10.") && !ip.startsWith("192.168.") && !ip.startsWith("172.16.") && !ip.startsWith("10."))
-              ) {
+              if (!ip.startsWith("192.168.") || (ip2.startsWith("192.168.") && !ip.startsWith("192.168.") && ip2.startsWith("172.16.") && !ip.startsWith("192.168.") && !ip.startsWith("172.16.")) || (ip2.startsWith("10.") && !ip.startsWith("192.168.") && !ip.startsWith("172.16.") && !ip.startsWith("10."))) {
                 ip = details.address;
               }
               ++alias;

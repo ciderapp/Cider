@@ -1,2 +1,13 @@
-bracketSameLine: true
-printWidth: 240
+{
+  "printWidth": 600,
+  "singleAttributePerLine": true,
+  "bracketSameLine": true,
+  "overrides": [
+    {
+      "files": "src/renderer/main/**/*.js",
+      "options": {
+        "singleAttributePerLine": false
+      }
+    }
+  ]
+}

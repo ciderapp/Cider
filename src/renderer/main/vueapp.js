@@ -294,6 +294,12 @@ const app = new Vue({
     },
     async oobeInit() {
       this.appMode = "oobe";
+      for (const [k, v] of Object.entries(ipcRenderer.sendSync("get-i18n-listing"))) {
+        if (v.code === navigator.language.replace("-", "_")) {
+          this.cfg.general.language = v.code;
+          break;
+        }
+      }
       this.setLz(this.cfg.general.language);
       this.setLzManual();
       clearTimeout(this.hangtimer);
@@ -657,9 +663,46 @@ const app = new Vue({
       this.modals.addToPlaylist = false;
       app.newPlaylist(app.getLz("term.newPlaylist"), pl_items);
     },
+    async isSongInPlaylist(song_ids, playlist_id) {
+      let isInPlaylist = false;
+      const playlistTracks = (
+        await app.mk.api.v3.music(`/v1/me/library/playlists/${playlist_id}/tracks`, {
+          platform: "web",
+          l: app.mklang,
+        })
+      ).data?.data;
+
+      playlistTracks.forEach((track) => {
+        if (song_ids.includes(track.id)) {
+          isInPlaylist = true;
+        }
+      });
+      return isInPlaylist;
+    },
+    addToPlaylist(pid, pitems) {
+      app.mk.api.v3
+        .music(
+          `/v1/me/library/playlists/${pid}/tracks`,
+          {},
+          {
+            fetchOptions: {
+              method: "POST",
+              body: JSON.stringify({
+                data: pitems,
+              }),
+            },
+          }
+        )
+        .then(() => {
+          if (app.page === "playlist_" + pid) {
+            app.getPlaylistFromID(app.showingPlaylist.id, true);
+          }
+        });
+    },
     async addSelectedToPlaylist(playlist_id) {
       let self = this;
       let pl_items = [];
+      const song_ids = [];
       for (let i = 0; i < self.selectedMediaItems.length; i++) {
         if (self.selectedMediaItems[i].kind == "song" || self.selectedMediaItems[i].kind == "songs") {
           self.selectedMediaItems[i].kind = "songs";
@@ -667,6 +710,7 @@ const app = new Vue({
             id: self.selectedMediaItems[i].id,
             type: self.selectedMediaItems[i].kind,
           });
+          song_ids.push(self.selectedMediaItems[i].id);
         } else if ((self.selectedMediaItems[i].kind == "album" || self.selectedMediaItems[i].kind == "albums") && self.selectedMediaItems[i].isLibrary != true) {
           self.selectedMediaItems[i].kind = "albums";
           let res = await self.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/albums/${self.selectedMediaItems[i].id}/tracks`);
@@ -674,12 +718,14 @@ const app = new Vue({
             return { id: i.id, type: i.type };
           });
           pl_items = pl_items.concat(ids);
+          song_ids.push(...ids.map((id) => id.id));
         } else if (self.selectedMediaItems[i].kind == "library-song" || self.selectedMediaItems[i].kind == "library-songs") {
           self.selectedMediaItems[i].kind = "library-songs";
           pl_items.push({
             id: self.selectedMediaItems[i].id,
             type: self.selectedMediaItems[i].kind,
           });
+          song_ids.push(self.selectedMediaItems[i].id);
         } else if (self.selectedMediaItems[i].kind == "library-album" || self.selectedMediaItems[i].kind == "library-albums" || (self.selectedMediaItems[i].kind == "album" && self.selectedMediaItems[i].isLibrary == true)) {
           self.selectedMediaItems[i].kind = "library-albums";
           let res = await self.mk.api.v3.music(`/v1/me/library/albums/${self.selectedMediaItems[i].id}/tracks`);
@@ -687,32 +733,26 @@ const app = new Vue({
             return { id: i.id, type: i.type };
           });
           pl_items = pl_items.concat(ids);
+          song_ids.push(...ids.map((id) => id.id));
         } else {
           pl_items.push({
             id: self.selectedMediaItems[i].id,
             type: self.selectedMediaItems[i].kind,
           });
+          song_ids.push(self.selectedMediaItems[i].id);
         }
       }
       this.modals.addToPlaylist = false;
-      await app.mk.api.v3
-        .music(
-          `/v1/me/library/playlists/${playlist_id}/tracks`,
-          {},
-          {
-            fetchOptions: {
-              method: "POST",
-              body: JSON.stringify({
-                data: pl_items,
-              }),
-            },
-          }
-        )
-        .then(() => {
-          if (this.page == "playlist_" + this.showingPlaylist.id) {
-            this.getPlaylistFromID(this.showingPlaylist.id, true);
+
+      if (await this.isSongInPlaylist(song_ids, playlist_id)) {
+        app.confirm(app.getLz("action.addToPlaylist.duplicate"), (result) => {
+          if (result === true) {
+            app.addToPlaylist(playlist_id, pl_items);
           }
         });
+      } else {
+        app.addToPlaylist(playlist_id, pl_items);
+      }
     },
     async init() {
       let self = this;
@@ -1210,7 +1250,7 @@ const app = new Vue({
                 const notify = notyf.open({
                   className: "notyf-info",
                   type: "info",
-                  message: `[Themes] ${theme.name} has an update available.`,
+                  message: app.stringTemplateParser(app.getLz("settings.notyf.visual.theme.updateAvailable"), { theme: theme.name }),
                 });
                 notify.on("click", () => {
                   app.openSettingsPage("github-themes");
@@ -1486,15 +1526,15 @@ const app = new Vue({
         const cachedTrackMapping = await CiderCache.getCache("library-playlists-tracks");
 
         if (cachedPlaylist) {
-          console.debug("using cached playlists");
+          console.debug("[CiderCache] Using cached playlist");
           this.playlists.listing = cachedPlaylist;
           self.sortPlaylists();
         } else {
-          console.debug("playlist has no cache");
+          console.debug("[CiderCache] Playlist has no cache");
         }
 
         if (cachedTrackMapping) {
-          console.debug("using cached track mapping");
+          console.debug("[CiderCache] Using cached track mapping");
           this.playlists.trackMapping = cachedTrackMapping;
         }
         if (localOnly) {
@@ -1502,7 +1542,7 @@ const app = new Vue({
         }
       }
 
-      this.library.backgroundNotification.message = "Building playlist cache...";
+      this.library.backgroundNotification.message = app.getLz("notification.buildingPlaylistCache");
       this.library.backgroundNotification.show = true;
 
       async function deepScan(parent = "p.playlistsroot") {
@@ -2427,12 +2467,26 @@ const app = new Vue({
         self.library.songs.displayListing.sort((a, b) => {
           let aa = a.attributes[prefs.sort];
           let bb = b.attributes[prefs.sort];
-          if (prefs.sort == "genre") {
+          if (prefs.sort === "genre") {
             aa = a.attributes.genreNames[0];
             bb = b.attributes.genreNames[0];
-          } else if (prefs.sort == "dateAdded") {
+          } else if (prefs.sort === "dateAdded") {
             aa = a.relationships?.albums?.data[0]?.attributes?.dateAdded;
             bb = b.relationships?.albums?.data[0]?.attributes?.dateAdded;
+          } else if (prefs.sort === "artistName") {
+            if (a.relationships?.artists?.data[0]?.id === b.relationships?.artists?.data[0]?.id) {
+              aa = a.attributes.albumName;
+              bb = b.attributes.albumName;
+            }
+            if (a.relationships?.albums?.data[0]?.id === b.relationships?.albums?.data[0]?.id) {
+              aa = a.attributes.trackNumber;
+              bb = b.attributes.trackNumber;
+            }
+          } else if (prefs.sort === "albumName") {
+            if (a.relationships?.albums?.data[0]?.id === b.relationships?.albums?.data[0]?.id) {
+              aa = a.attributes.trackNumber;
+              bb = b.attributes.trackNumber;
+            }
           }
           if (aa == null) {
             aa = "";
@@ -2440,13 +2494,13 @@ const app = new Vue({
           if (bb == null) {
             bb = "";
           }
-          if (prefs.sortOrder == "asc") {
+          if (prefs.sortOrder === "asc") {
             if (aa.toString().match(/^\d+$/) && bb.toString().match(/^\d+$/)) {
               return aa - bb;
             } else {
               return aa.toString().toLowerCase().localeCompare(bb.toString().toLowerCase());
             }
-          } else if (prefs.sortOrder == "desc") {
+          } else if (prefs.sortOrder === "desc") {
             if (aa.toString().match(/^\d+$/) && bb.toString().match(/^\d+$/)) {
               return bb - aa;
             } else {
@@ -3104,9 +3158,7 @@ const app = new Vue({
         return;
       }
       try {
-        let mfu = await app.mk.api.v3.music(
-          "/v1/me/library/playlists?platform=web&extend=editorialVideo&fields%5Bplaylists%5D=lastModifiedDate&filter%5Bfeatured%5D=made-for-you&include%5Blibrary-playlists%5D=catalog&fields%5Blibrary-playlists%5D=artwork%2Cname%2CplayParams%2CdateAdded"
-        );
+        let mfu = await app.mk.api.v3.music("/v1/me/library/playlists?platform=web&extend=editorialVideo&fields%5Bplaylists%5D=lastModifiedDate&filter%5Bfeatured%5D=made-for-you&include%5Blibrary-playlists%5D=catalog&fields%5Blibrary-playlists%5D=artwork%2Cname%2CplayParams%2CdateAdded");
         this.madeforyou = mfu.data;
       } catch (e) {
         console.log(e);
@@ -3286,10 +3338,7 @@ const app = new Vue({
               let id,
                 songLang = "";
               try {
-                if (
-                  jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["header"]["status_code"] == 200 &&
-                  jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["header"]["status_code"] == 200
-                ) {
+                if (jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["header"]["status_code"] == 200 && jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["header"]["status_code"] == 200) {
                   id = jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["body"]["track"]["track_id"] ?? "";
                   lrcfile = jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["body"]["subtitle_list"][0]["subtitle"]["subtitle_body"];
                   vanity_id = jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["body"]["track"]["commontrack_vanity_id"];
@@ -4202,13 +4251,7 @@ const app = new Vue({
         }
         this.currentArtUrl = "";
         this.currentArtUrlRaw = "";
-        if (
-          app.mk.nowPlayingItem != null &&
-          app.mk.nowPlayingItem.attributes != null &&
-          app.mk.nowPlayingItem.attributes.artwork != null &&
-          app.mk.nowPlayingItem.attributes.artwork.url != null &&
-          app.mk.nowPlayingItem.attributes.artwork.url != ""
-        ) {
+        if (app.mk.nowPlayingItem != null && app.mk.nowPlayingItem.attributes != null && app.mk.nowPlayingItem.attributes.artwork != null && app.mk.nowPlayingItem.attributes.artwork.url != null && app.mk.nowPlayingItem.attributes.artwork.url != "") {
           this.currentArtUrlRaw = this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"] ?? "";
           this.currentArtUrl = (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"] ?? "").replace("{w}", artworkSize).replace("{h}", artworkSize);
           if (this.mk.nowPlayingItem._assets[0].artworkURL) {
@@ -4595,7 +4638,7 @@ const app = new Vue({
               name: app.getLz("action.removeFromLibrary"),
               hidden: true,
               action: function () {
-                self.removeFromLibrary();
+                self.removeFromLibrary(app.mk.nowPlayingItem.type, MusicKitInterop.getAttributes().songId);
               },
             },
             {

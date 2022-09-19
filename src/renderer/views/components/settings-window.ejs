@@ -1118,11 +1118,12 @@
                                 <div class="md-option-line" v-show="app.cfg.connectivity.lastfm.enabled">
                                     <div class="md-option-segment">
                                         {{$root.getLz('settings.option.connectivity.lastfmScrobble.filterTypes')}}
+                                        <small>{{$root.getLz('settings.option.connectivity.lastfmScrobble.filterTypes.description')}}</small>
                                     </div>
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
-                                            <input type="checkbox" @change="filterChange" value="song">{{$root.getLz('term.songs')}}<br>
-                                            <input type="checkbox" @change="filterChange" value="musicVideo">{{$root.getLz('term.musicVideos')}}<br>
+                                            <input type="checkbox" v-model="app.cfg.connectivity.lastfm.filter_types['song']">{{$root.getLz('term.songs')}}<br>
+                                            <input type="checkbox" v-model="app.cfg.connectivity.lastfm.filter_types['musicVideo']">{{$root.getLz('term.musicVideos')}}
                                         </label>
                                     </div>
                                 </div>

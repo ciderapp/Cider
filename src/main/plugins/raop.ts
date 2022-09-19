@@ -159,7 +159,7 @@ export default class RAOP {
 
     electron.ipcMain.on("getAirplayDevice", (event, data) => {
       this.castDevices = [];
-      console.log("scan for airplay devices");
+      console.debug("scan for airplay devices");
 
       const browser = this.mdns.createBrowser(this.mdns.tcp("raop"));
       browser.on("ready", browser.discover);
@@ -168,7 +168,7 @@ export default class RAOP {
         if (service.addresses && service.fullname && service.fullname.includes("_raop._tcp")) {
           // console.log(service.txt)
           this._win.webContents.executeJavaScript(`console.log(
-                    "${service.name} ${service.host}:${service.port} ${service.addresses} ${service.fullname}" 
+                    "${service.name} ${service.host}:${service.port} ${service.addresses} ${service.fullname}"
                 )`);
           let itemname = service.fullname.substring(service.fullname.indexOf("@") + 1, service.fullname.indexOf("._raop._tcp"));
           this.ondeviceup(itemname, service.host, service.port, service.addresses, service.txt);
@@ -259,8 +259,7 @@ export default class RAOP {
             // this.airtunes.stopAll(() => {
             //   console.log("end");
             // });
-            if (this.devices[idx]?.state != null && this.devices[idx].state != -1)
-              this._win.webContents.executeJavaScript(`app.airplayDisconnect(true, ${JSON.stringify([ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv])})`).catch((err: any) => console.error(err));
+            if (this.devices[idx]?.state != null && this.devices[idx].state != -1) this._win.webContents.executeJavaScript(`app.airplayDisconnect(true, ${JSON.stringify([ipv4, ipport, sepassword, title, artist, album, artworkURL, txt, airplay2dv])})`).catch((err: any) => console.error(err));
             // this.airtunes = null;
             // this.device = null;
             // this.ipairplay = "";

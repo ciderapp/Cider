@@ -1589,9 +1589,7 @@ typeof window !== "undefined" &&
                   }
 
                   var levelDetails = levelInfo.details;
-                  var avgDuration =
-                    (partCurrent ? (levelDetails === null || levelDetails === void 0 ? void 0 : levelDetails.partTarget) : levelDetails === null || levelDetails === void 0 ? void 0 : levelDetails.averagetargetduration) ||
-                    currentFragDuration;
+                  var avgDuration = (partCurrent ? (levelDetails === null || levelDetails === void 0 ? void 0 : levelDetails.partTarget) : levelDetails === null || levelDetails === void 0 ? void 0 : levelDetails.averagetargetduration) || currentFragDuration;
                   var adjustedbw = void 0; // follow algorithm captured from stagefright :
                   // https://android.googlesource.com/platform/frameworks/av/+/master/media/libstagefright/httplive/LiveSession.cpp
                   // Pick the highest bandwidth stream below or equal to estimated bandwidth.
@@ -1607,9 +1605,7 @@ typeof window !== "undefined" &&
 
                   var bitrate = levels[i].maxBitrate;
                   var fetchDuration = (bitrate * avgDuration) / adjustedbw;
-                  _utils_logger__WEBPACK_IMPORTED_MODULE_6__["logger"].trace(
-                    "level/adjustedbw/bitrate/avgDuration/maxFetchDuration/fetchDuration: " + i + "/" + Math.round(adjustedbw) + "/" + bitrate + "/" + avgDuration + "/" + maxFetchDuration + "/" + fetchDuration
-                  ); // if adjusted bw is greater than level bitrate AND
+                  _utils_logger__WEBPACK_IMPORTED_MODULE_6__["logger"].trace("level/adjustedbw/bitrate/avgDuration/maxFetchDuration/fetchDuration: " + i + "/" + Math.round(adjustedbw) + "/" + bitrate + "/" + avgDuration + "/" + maxFetchDuration + "/" + fetchDuration); // if adjusted bw is greater than level bitrate AND
 
                   if (
                     adjustedbw > bitrate && // fragment fetchDuration unknown OR live stream OR fragment fetchDuration less than max allowed fetch duration, then this level matches
@@ -1971,11 +1967,7 @@ typeof window !== "undefined" &&
 
                 if (this.bufferFlushed) {
                   this.bufferFlushed = false;
-                  this.afterBufferFlushed(
-                    this.mediaBuffer ? this.mediaBuffer : this.media,
-                    _loader_fragment__WEBPACK_IMPORTED_MODULE_7__["ElementaryStreamTypes"].AUDIO,
-                    _types_loader__WEBPACK_IMPORTED_MODULE_6__["PlaylistLevelType"].AUDIO
-                  );
+                  this.afterBufferFlushed(this.mediaBuffer ? this.mediaBuffer : this.media, _loader_fragment__WEBPACK_IMPORTED_MODULE_7__["ElementaryStreamTypes"].AUDIO, _types_loader__WEBPACK_IMPORTED_MODULE_6__["PlaylistLevelType"].AUDIO);
                 }
 
                 var bufferInfo = this.getFwdBufferInfo(this.mediaBuffer ? this.mediaBuffer : this.media, _types_loader__WEBPACK_IMPORTED_MODULE_6__["PlaylistLevelType"].AUDIO);
@@ -2024,10 +2016,7 @@ typeof window !== "undefined" &&
                   return;
                 }
 
-                if (
-                  ((_frag$decryptdata = frag.decryptdata) === null || _frag$decryptdata === void 0 ? void 0 : _frag$decryptdata.keyFormat) === "identity" &&
-                  !((_frag$decryptdata2 = frag.decryptdata) !== null && _frag$decryptdata2 !== void 0 && _frag$decryptdata2.key)
-                ) {
+                if (((_frag$decryptdata = frag.decryptdata) === null || _frag$decryptdata === void 0 ? void 0 : _frag$decryptdata.keyFormat) === "identity" && !((_frag$decryptdata2 = frag.decryptdata) !== null && _frag$decryptdata2 !== void 0 && _frag$decryptdata2.key)) {
                   this.loadKey(frag, trackDetails);
                 } else {
                   this.loadFragment(frag, trackDetails, targetBufferTime);
@@ -2176,12 +2165,7 @@ typeof window !== "undefined" &&
                 var transmuxer = this.transmuxer;
 
                 if (!transmuxer) {
-                  transmuxer = this.transmuxer = new _demux_transmuxer_interface__WEBPACK_IMPORTED_MODULE_9__["default"](
-                    this.CiderHls,
-                    _types_loader__WEBPACK_IMPORTED_MODULE_6__["PlaylistLevelType"].AUDIO,
-                    this._handleTransmuxComplete.bind(this),
-                    this._handleTransmuxerFlush.bind(this)
-                  );
+                  transmuxer = this.transmuxer = new _demux_transmuxer_interface__WEBPACK_IMPORTED_MODULE_9__["default"](this.CiderHls, _types_loader__WEBPACK_IMPORTED_MODULE_6__["PlaylistLevelType"].AUDIO, this._handleTransmuxComplete.bind(this), this._handleTransmuxerFlush.bind(this));
                 } // Check if we have video initPTS
                 // If not we need to wait for it
 
@@ -2198,9 +2182,7 @@ typeof window !== "undefined" &&
                   var chunkMeta = new _types_transmuxer__WEBPACK_IMPORTED_MODULE_10__["ChunkMetadata"](frag.level, frag.sn, frag.stats.chunkCount, payload.byteLength, partIndex, partial);
                   transmuxer.push(payload, initSegmentData, audioCodec, "", frag, part, details.totalduration, accurateTimeOffset, chunkMeta, initPTS);
                 } else {
-                  _utils_logger__WEBPACK_IMPORTED_MODULE_14__["logger"].log(
-                    "Unknown video PTS for cc " + frag.cc + ", waiting for video PTS before demuxing audio frag " + frag.sn + " of [" + details.startSN + " ," + details.endSN + "],track " + trackId
-                  );
+                  _utils_logger__WEBPACK_IMPORTED_MODULE_14__["logger"].log("Unknown video PTS for cc " + frag.cc + ", waiting for video PTS before demuxing audio frag " + frag.sn + " of [" + details.startSN + " ," + details.endSN + "],track " + trackId);
 
                   var _this$waitingData = (this.waitingData = this.waitingData || {
                       frag: frag,
@@ -3267,9 +3249,7 @@ typeof window !== "undefined" &&
                   state = this.state;
                 var currentTime = media ? media.currentTime : 0;
                 var bufferInfo = _utils_buffer_helper__WEBPACK_IMPORTED_MODULE_3__["BufferHelper"].bufferInfo(mediaBuffer || media, currentTime, config.maxBufferHole);
-                this.log(
-                  "media seeking to " + (Object(_home_runner_work_CiderHls_js_CiderHls_js_src_polyfills_number__WEBPACK_IMPORTED_MODULE_0__["isFiniteNumber"])(currentTime) ? currentTime.toFixed(3) : currentTime) + ", state: " + state
-                );
+                this.log("media seeking to " + (Object(_home_runner_work_CiderHls_js_CiderHls_js_src_polyfills_number__WEBPACK_IMPORTED_MODULE_0__["isFiniteNumber"])(currentTime) ? currentTime.toFixed(3) : currentTime) + ", state: " + state);
 
                 if (state === State.ENDED) {
                   this.resetLoadingState();
@@ -3619,19 +3599,7 @@ typeof window !== "undefined" &&
                   }
                 }
 
-                this.log(
-                  "Loading fragment " +
-                    frag.sn +
-                    " cc: " +
-                    frag.cc +
-                    " " +
-                    (details ? "of [" + details.startSN + "-" + details.endSN + "] " : "") +
-                    (this.logPrefix === "[stream-controller]" ? "level" : "track") +
-                    ": " +
-                    frag.level +
-                    ", target: " +
-                    parseFloat(targetBufferTime.toFixed(3))
-                ); // Don't update nextLoadPosition for fragments which are not buffered
+                this.log("Loading fragment " + frag.sn + " cc: " + frag.cc + " " + (details ? "of [" + details.startSN + "-" + details.endSN + "] " : "") + (this.logPrefix === "[stream-controller]" ? "level" : "track") + ": " + frag.level + ", target: " + parseFloat(targetBufferTime.toFixed(3))); // Don't update nextLoadPosition for fragments which are not buffered
 
                 if (Object(_home_runner_work_CiderHls_js_CiderHls_js_src_polyfills_number__WEBPACK_IMPORTED_MODULE_0__["isFiniteNumber"])(frag.sn) && !this.bitrateTest) {
                   this.nextLoadPosition = frag.start + frag.duration;
@@ -4099,18 +4067,7 @@ typeof window !== "undefined" &&
                 if (firstLevelLoad || (!aligned && !slidingStart)) {
                   Object(_utils_discontinuities__WEBPACK_IMPORTED_MODULE_9__["alignStream"])(fragPrevious, lastLevel, details);
                   var alignedSlidingStart = details.fragments[0].start;
-                  this.log(
-                    "Live playlist sliding: " +
-                      alignedSlidingStart.toFixed(2) +
-                      " start-sn: " +
-                      (previousDetails ? previousDetails.startSN : "na") +
-                      "->" +
-                      details.startSN +
-                      " prev-sn: " +
-                      (fragPrevious ? fragPrevious.sn : "na") +
-                      " fragments: " +
-                      length
-                  );
+                  this.log("Live playlist sliding: " + alignedSlidingStart.toFixed(2) + " start-sn: " + (previousDetails ? previousDetails.startSN : "na") + "->" + details.startSN + " prev-sn: " + (fragPrevious ? fragPrevious.sn : "na") + " fragments: " + length);
                   return alignedSlidingStart;
                 }
 
@@ -5767,11 +5724,7 @@ typeof window !== "undefined" &&
                       ot: ot,
                     };
 
-                    if (
-                      ot === _types_cmcd__WEBPACK_IMPORTED_MODULE_1__["CMCDObjectType"].VIDEO ||
-                      ot === _types_cmcd__WEBPACK_IMPORTED_MODULE_1__["CMCDObjectType"].AUDIO ||
-                      ot == _types_cmcd__WEBPACK_IMPORTED_MODULE_1__["CMCDObjectType"].MUXED
-                    ) {
+                    if (ot === _types_cmcd__WEBPACK_IMPORTED_MODULE_1__["CMCDObjectType"].VIDEO || ot === _types_cmcd__WEBPACK_IMPORTED_MODULE_1__["CMCDObjectType"].AUDIO || ot == _types_cmcd__WEBPACK_IMPORTED_MODULE_1__["CMCDObjectType"].MUXED) {
                       data.br = level.bitrate / 1000;
                       data.tb = _this.getTopBandwidth(ot);
                       data.bl = _this.getBufferLength(ot);
@@ -5871,10 +5824,7 @@ typeof window !== "undefined" &&
                 // apply baseline data
                 _extends(data, this.createData());
 
-                var isVideo =
-                  data.ot === _types_cmcd__WEBPACK_IMPORTED_MODULE_1__["CMCDObjectType"].INIT ||
-                  data.ot === _types_cmcd__WEBPACK_IMPORTED_MODULE_1__["CMCDObjectType"].VIDEO ||
-                  data.ot === _types_cmcd__WEBPACK_IMPORTED_MODULE_1__["CMCDObjectType"].MUXED;
+                var isVideo = data.ot === _types_cmcd__WEBPACK_IMPORTED_MODULE_1__["CMCDObjectType"].INIT || data.ot === _types_cmcd__WEBPACK_IMPORTED_MODULE_1__["CMCDObjectType"].VIDEO || data.ot === _types_cmcd__WEBPACK_IMPORTED_MODULE_1__["CMCDObjectType"].MUXED;
 
                 if (this.starved && isVideo) {
                   data.bs = true;
@@ -8610,10 +8560,7 @@ typeof window !== "undefined" &&
                 levels = levels.filter(function (_ref2) {
                   var audioCodec = _ref2.audioCodec,
                     videoCodec = _ref2.videoCodec;
-                  return (
-                    (!audioCodec || Object(_utils_codecs__WEBPACK_IMPORTED_MODULE_3__["isCodecSupportedInMp4"])(audioCodec, "audio")) &&
-                    (!videoCodec || Object(_utils_codecs__WEBPACK_IMPORTED_MODULE_3__["isCodecSupportedInMp4"])(videoCodec, "video"))
-                  );
+                  return (!audioCodec || Object(_utils_codecs__WEBPACK_IMPORTED_MODULE_3__["isCodecSupportedInMp4"])(audioCodec, "audio")) && (!videoCodec || Object(_utils_codecs__WEBPACK_IMPORTED_MODULE_3__["isCodecSupportedInMp4"])(videoCodec, "video"));
                 });
 
                 if (data.audioTracks) {
@@ -9319,10 +9266,7 @@ typeof window !== "undefined" &&
                   ccOffset = oldFrag.cc - newFrag.cc;
                 }
 
-                if (
-                  Object(_home_runner_work_CiderHls_js_CiderHls_js_src_polyfills_number__WEBPACK_IMPORTED_MODULE_0__["isFiniteNumber"])(oldFrag.startPTS) &&
-                  Object(_home_runner_work_CiderHls_js_CiderHls_js_src_polyfills_number__WEBPACK_IMPORTED_MODULE_0__["isFiniteNumber"])(oldFrag.endPTS)
-                ) {
+                if (Object(_home_runner_work_CiderHls_js_CiderHls_js_src_polyfills_number__WEBPACK_IMPORTED_MODULE_0__["isFiniteNumber"])(oldFrag.startPTS) && Object(_home_runner_work_CiderHls_js_CiderHls_js_src_polyfills_number__WEBPACK_IMPORTED_MODULE_0__["isFiniteNumber"])(oldFrag.endPTS)) {
                   newFrag.start = newFrag.startPTS = oldFrag.startPTS;
                   newFrag.startDTS = oldFrag.startDTS;
                   newFrag.appendedPTS = oldFrag.appendedPTS;
@@ -9902,10 +9846,7 @@ typeof window !== "undefined" &&
                 } // We want to load the key if we're dealing with an identity key, because we will decrypt
                 // this content using the key we fetch. Other keys will be handled by the DRM CDM via EME.
 
-                if (
-                  ((_frag$decryptdata = frag.decryptdata) === null || _frag$decryptdata === void 0 ? void 0 : _frag$decryptdata.keyFormat) === "identity" &&
-                  !((_frag$decryptdata2 = frag.decryptdata) !== null && _frag$decryptdata2 !== void 0 && _frag$decryptdata2.key)
-                ) {
+                if (((_frag$decryptdata = frag.decryptdata) === null || _frag$decryptdata === void 0 ? void 0 : _frag$decryptdata.keyFormat) === "identity" && !((_frag$decryptdata2 = frag.decryptdata) !== null && _frag$decryptdata2 !== void 0 && _frag$decryptdata2.key)) {
                   this.loadKey(frag, levelDetails);
                 } else {
                   this.loadFragment(frag, levelDetails, targetBufferTime);
@@ -10257,13 +10198,7 @@ typeof window !== "undefined" &&
                 // this.log(`Transmuxing ${frag.sn} of [${details.startSN} ,${details.endSN}],level ${frag.level}, cc ${frag.cc}`);
 
                 var transmuxer = (this.transmuxer =
-                  this.transmuxer ||
-                  new _demux_transmuxer_interface__WEBPACK_IMPORTED_MODULE_8__["default"](
-                    this.CiderHls,
-                    _types_loader__WEBPACK_IMPORTED_MODULE_6__["PlaylistLevelType"].MAIN,
-                    this._handleTransmuxComplete.bind(this),
-                    this._handleTransmuxerFlush.bind(this)
-                  ));
+                  this.transmuxer || new _demux_transmuxer_interface__WEBPACK_IMPORTED_MODULE_8__["default"](this.CiderHls, _types_loader__WEBPACK_IMPORTED_MODULE_6__["PlaylistLevelType"].MAIN, this._handleTransmuxComplete.bind(this), this._handleTransmuxerFlush.bind(this)));
                 var partIndex = part ? part.index : -1;
                 var partial = partIndex !== -1;
                 var chunkMeta = new _types_transmuxer__WEBPACK_IMPORTED_MODULE_9__["ChunkMetadata"](frag.level, frag.sn, frag.stats.chunkCount, payload.byteLength, partIndex, partial);
@@ -14779,8 +14714,8 @@ typeof window !== "undefined" &&
              */
             var chromeVersion = null;
             var BitratesMap = [
-              32, 64, 96, 128, 160, 192, 224, 256, 288, 320, 352, 384, 416, 448, 32, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 384, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 32, 48, 56, 64, 80, 96, 112,
-              128, 144, 160, 176, 192, 224, 256, 8, 16, 24, 32, 40, 48, 56, 64, 80, 96, 112, 128, 144, 160,
+              32, 64, 96, 128, 160, 192, 224, 256, 288, 320, 352, 384, 416, 448, 32, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 384, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 32, 48, 56, 64, 80, 96, 112, 128, 144, 160, 176, 192, 224, 256, 8, 16, 24, 32, 40, 48, 56,
+              64, 80, 96, 112, 128, 144, 160,
             ];
             var SamplingRateMap = [44100, 48000, 32000, 22050, 24000, 16000, 11025, 12000, 8000];
             var SamplesCoefficients = [
@@ -18354,9 +18289,7 @@ typeof window !== "undefined" &&
               var _sourceBuffer$prototy;
 
               var sourceBuffer = getSourceBuffer();
-              return (
-                typeof (sourceBuffer === null || sourceBuffer === void 0 ? void 0 : (_sourceBuffer$prototy = sourceBuffer.prototype) === null || _sourceBuffer$prototy === void 0 ? void 0 : _sourceBuffer$prototy.changeType) === "function"
-              );
+              return typeof (sourceBuffer === null || sourceBuffer === void 0 ? void 0 : (_sourceBuffer$prototy = sourceBuffer.prototype) === null || _sourceBuffer$prototy === void 0 ? void 0 : _sourceBuffer$prototy.changeType) === "function";
             }
 
             /***/
@@ -18743,10 +18676,7 @@ typeof window !== "undefined" &&
               var start = segment.byteRangeStartOffset;
               var end = segment.byteRangeEndOffset;
 
-              if (
-                Object(_home_runner_work_CiderHls_js_CiderHls_js_src_polyfills_number__WEBPACK_IMPORTED_MODULE_0__["isFiniteNumber"])(start) &&
-                Object(_home_runner_work_CiderHls_js_CiderHls_js_src_polyfills_number__WEBPACK_IMPORTED_MODULE_0__["isFiniteNumber"])(end)
-              ) {
+              if (Object(_home_runner_work_CiderHls_js_CiderHls_js_src_polyfills_number__WEBPACK_IMPORTED_MODULE_0__["isFiniteNumber"])(start) && Object(_home_runner_work_CiderHls_js_CiderHls_js_src_polyfills_number__WEBPACK_IMPORTED_MODULE_0__["isFiniteNumber"])(end)) {
                 loaderContext.rangeStart = start;
                 loaderContext.rangeEnd = end;
               }
@@ -18854,12 +18784,7 @@ typeof window !== "undefined" &&
                 this._url = null;
                 this.baseurl = void 0;
                 this.relurl = void 0;
-                this.elementaryStreams =
-                  ((_this$elementaryStrea = {}),
-                  (_this$elementaryStrea[ElementaryStreamTypes.AUDIO] = null),
-                  (_this$elementaryStrea[ElementaryStreamTypes.VIDEO] = null),
-                  (_this$elementaryStrea[ElementaryStreamTypes.AUDIOVIDEO] = null),
-                  _this$elementaryStrea);
+                this.elementaryStreams = ((_this$elementaryStrea = {}), (_this$elementaryStrea[ElementaryStreamTypes.AUDIO] = null), (_this$elementaryStrea[ElementaryStreamTypes.VIDEO] = null), (_this$elementaryStrea[ElementaryStreamTypes.AUDIOVIDEO] = null), _this$elementaryStrea);
                 this.baseurl = baseurl;
               } // setByteRange converts a EXT-X-BYTERANGE attribute into a two element array
 
@@ -19730,11 +19655,7 @@ typeof window !== "undefined" &&
             function isMP4Url(url) {
               var _URLToolkit$parseURL$, _URLToolkit$parseURL;
 
-              return MP4_REGEX_SUFFIX.test(
-                (_URLToolkit$parseURL$ = (_URLToolkit$parseURL = url_toolkit__WEBPACK_IMPORTED_MODULE_1__["parseURL"](url)) === null || _URLToolkit$parseURL === void 0 ? void 0 : _URLToolkit$parseURL.path) != null
-                  ? _URLToolkit$parseURL$
-                  : ""
-              );
+              return MP4_REGEX_SUFFIX.test((_URLToolkit$parseURL$ = (_URLToolkit$parseURL = url_toolkit__WEBPACK_IMPORTED_MODULE_1__["parseURL"](url)) === null || _URLToolkit$parseURL === void 0 ? void 0 : _URLToolkit$parseURL.path) != null ? _URLToolkit$parseURL$ : "");
             }
 
             var M3U8Parser = /*#__PURE__*/ (function () {
@@ -20819,9 +20740,7 @@ typeof window !== "undefined" &&
                   timeout = false;
                 }
 
-                _utils_logger__WEBPACK_IMPORTED_MODULE_3__["logger"].warn(
-                  "[playlist-loader]: A network " + (timeout ? "timeout" : "error") + " occurred while loading " + context.type + " level: " + context.level + " id: " + context.id + ' group-id: "' + context.groupId + '"'
-                );
+                _utils_logger__WEBPACK_IMPORTED_MODULE_3__["logger"].warn("[playlist-loader]: A network " + (timeout ? "timeout" : "error") + " occurred while loading " + context.type + " level: " + context.level + " id: " + context.id + ' group-id: "' + context.groupId + '"');
                 var details = _errors__WEBPACK_IMPORTED_MODULE_2__["ErrorDetails"].UNKNOWN;
                 var fatal = false;
                 var loader = this.getInternalLoader(context);
@@ -21004,20 +20923,20 @@ typeof window !== "undefined" &&
                     if (channelCount === 1) {
                       // ffmpeg -y -f lavfi -i "aevalsrc=0:d=0.05" -c:a libfdk_aac -profile:a aac_he -b:a 4k output.aac && hexdump -v -e '16/1 "0x%x," "\n"' -v output.aac
                       return new Uint8Array([
-                        0x1, 0x40, 0x22, 0x80, 0xa3, 0x4e, 0xe6, 0x80, 0xba, 0x8, 0x0, 0x0, 0x0, 0x1c, 0x6, 0xf1, 0xc1, 0xa, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a,
-                        0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5e,
+                        0x1, 0x40, 0x22, 0x80, 0xa3, 0x4e, 0xe6, 0x80, 0xba, 0x8, 0x0, 0x0, 0x0, 0x1c, 0x6, 0xf1, 0xc1, 0xa, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a,
+                        0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5e,
                       ]);
                     } else if (channelCount === 2) {
                       // ffmpeg -y -f lavfi -i "aevalsrc=0|0:d=0.05" -c:a libfdk_aac -profile:a aac_he_v2 -b:a 4k output.aac && hexdump -v -e '16/1 "0x%x," "\n"' -v output.aac
                       return new Uint8Array([
-                        0x1, 0x40, 0x22, 0x80, 0xa3, 0x5e, 0xe6, 0x80, 0xba, 0x8, 0x0, 0x0, 0x0, 0x0, 0x95, 0x0, 0x6, 0xf1, 0xa1, 0xa, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a,
-                        0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5e,
+                        0x1, 0x40, 0x22, 0x80, 0xa3, 0x5e, 0xe6, 0x80, 0xba, 0x8, 0x0, 0x0, 0x0, 0x0, 0x95, 0x0, 0x6, 0xf1, 0xa1, 0xa, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a,
+                        0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5e,
                       ]);
                     } else if (channelCount === 3) {
                       // ffmpeg -y -f lavfi -i "aevalsrc=0|0|0:d=0.05" -c:a libfdk_aac -profile:a aac_he_v2 -b:a 4k output.aac && hexdump -v -e '16/1 "0x%x," "\n"' -v output.aac
                       return new Uint8Array([
-                        0x1, 0x40, 0x22, 0x80, 0xa3, 0x5e, 0xe6, 0x80, 0xba, 0x8, 0x0, 0x0, 0x0, 0x0, 0x95, 0x0, 0x6, 0xf1, 0xa1, 0xa, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a,
-                        0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5e,
+                        0x1, 0x40, 0x22, 0x80, 0xa3, 0x5e, 0xe6, 0x80, 0xba, 0x8, 0x0, 0x0, 0x0, 0x0, 0x95, 0x0, 0x6, 0xf1, 0xa1, 0xa, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a,
+                        0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5a, 0x5e,
                       ]);
                     }
 
@@ -22334,13 +22253,7 @@ typeof window !== "undefined" &&
                         initSegment = this.generateIS(audioTrack, videoTrack, timeOffset);
                       }
 
-                      audio = this.remuxAudio(
-                        audioTrack,
-                        audioTimeOffset,
-                        this.isAudioContiguous,
-                        accurateTimeOffset,
-                        hasVideo || enoughVideoSamples || playlistType === _types_loader__WEBPACK_IMPORTED_MODULE_6__["PlaylistLevelType"].AUDIO ? videoTimeOffset : undefined
-                      );
+                      audio = this.remuxAudio(audioTrack, audioTimeOffset, this.isAudioContiguous, accurateTimeOffset, hasVideo || enoughVideoSamples || playlistType === _types_loader__WEBPACK_IMPORTED_MODULE_6__["PlaylistLevelType"].AUDIO ? videoTimeOffset : undefined);
 
                       if (enoughVideoSamples) {
                         var audioTrackLength = audio ? audio.endPTS - audio.startPTS : 0; // if initSegment was generated without video samples, regenerate it again
@@ -22531,9 +22444,7 @@ typeof window !== "undefined" &&
                   if (ptsDtsShift < averageSampleDuration * -2) {
                     // Fix for "CNN special report, with CC" in test-streams (including Safari browser)
                     // With large PTS < DTS errors such as this, we want to correct CTS while maintaining increasing DTS values
-                    _utils_logger__WEBPACK_IMPORTED_MODULE_5__["logger"].warn(
-                      "PTS < DTS detected in video samples, offsetting DTS from PTS by " + Object(_utils_timescale_conversion__WEBPACK_IMPORTED_MODULE_7__["toMsFromMpegTsClock"])(-averageSampleDuration, true) + " ms"
-                    );
+                    _utils_logger__WEBPACK_IMPORTED_MODULE_5__["logger"].warn("PTS < DTS detected in video samples, offsetting DTS from PTS by " + Object(_utils_timescale_conversion__WEBPACK_IMPORTED_MODULE_7__["toMsFromMpegTsClock"])(-averageSampleDuration, true) + " ms");
                     var lastDts = ptsDtsShift;
 
                     for (var _i = 0; _i < nbSamples; _i++) {
@@ -22543,9 +22454,7 @@ typeof window !== "undefined" &&
                   } else {
                     // Fix for "Custom IV with bad PTS DTS" in test-streams
                     // With smaller PTS < DTS errors we can simply move all DTS back. This increases CTS without causing buffer gaps or decode errors in Safari
-                    _utils_logger__WEBPACK_IMPORTED_MODULE_5__["logger"].warn(
-                      "PTS < DTS detected in video samples, shifting DTS by " + Object(_utils_timescale_conversion__WEBPACK_IMPORTED_MODULE_7__["toMsFromMpegTsClock"])(ptsDtsShift, true) + " ms to overcome this issue"
-                    );
+                    _utils_logger__WEBPACK_IMPORTED_MODULE_5__["logger"].warn("PTS < DTS detected in video samples, shifting DTS by " + Object(_utils_timescale_conversion__WEBPACK_IMPORTED_MODULE_7__["toMsFromMpegTsClock"])(ptsDtsShift, true) + " ms to overcome this issue");
 
                     for (var _i2 = 0; _i2 < nbSamples; _i2++) {
                       inputSamples[_i2].dts = inputSamples[_i2].dts + ptsDtsShift;
@@ -22563,13 +22472,9 @@ typeof window !== "undefined" &&
 
                   if (foundHole || foundOverlap) {
                     if (foundHole) {
-                      _utils_logger__WEBPACK_IMPORTED_MODULE_5__["logger"].warn(
-                        "AVC: " + Object(_utils_timescale_conversion__WEBPACK_IMPORTED_MODULE_7__["toMsFromMpegTsClock"])(delta, true) + " ms (" + delta + "dts) hole between fragments detected, filling it"
-                      );
+                      _utils_logger__WEBPACK_IMPORTED_MODULE_5__["logger"].warn("AVC: " + Object(_utils_timescale_conversion__WEBPACK_IMPORTED_MODULE_7__["toMsFromMpegTsClock"])(delta, true) + " ms (" + delta + "dts) hole between fragments detected, filling it");
                     } else {
-                      _utils_logger__WEBPACK_IMPORTED_MODULE_5__["logger"].warn(
-                        "AVC: " + Object(_utils_timescale_conversion__WEBPACK_IMPORTED_MODULE_7__["toMsFromMpegTsClock"])(-delta, true) + " ms (" + delta + "dts) overlapping between fragments detected"
-                      );
+                      _utils_logger__WEBPACK_IMPORTED_MODULE_5__["logger"].warn("AVC: " + Object(_utils_timescale_conversion__WEBPACK_IMPORTED_MODULE_7__["toMsFromMpegTsClock"])(-delta, true) + " ms (" + delta + "dts) overlapping between fragments detected");
                     }
 
                     firstDTS = nextAvcDts;
@@ -22682,9 +22587,7 @@ typeof window !== "undefined" &&
                           mp4SampleDuration = lastFrameDuration;
                         }
 
-                        _utils_logger__WEBPACK_IMPORTED_MODULE_5__["logger"].log(
-                          "[mp4-remuxer]: It is approximately " + deltaToFrameEnd / 90 + " ms to the next segment; using duration " + mp4SampleDuration / 90 + " ms for the last video frame."
-                        );
+                        _utils_logger__WEBPACK_IMPORTED_MODULE_5__["logger"].log("[mp4-remuxer]: It is approximately " + deltaToFrameEnd / 90 + " ms to the next segment; using duration " + mp4SampleDuration / 90 + " ms for the last video frame.");
                       } else {
                         mp4SampleDuration = lastFrameDuration;
                       }
@@ -22759,10 +22662,7 @@ typeof window !== "undefined" &&
 
                 var timeOffsetMpegTS = timeOffset * inputTimeScale;
                 this.isAudioContiguous = contiguous =
-                  contiguous ||
-                  (inputSamples.length &&
-                    nextAudioPts > 0 &&
-                    ((accurateTimeOffset && Math.abs(timeOffsetMpegTS - nextAudioPts) < 9000) || Math.abs(normalizePts(inputSamples[0].pts - initPTS, timeOffsetMpegTS) - nextAudioPts) < 20 * inputSampleDuration)); // compute normalized PTS
+                  contiguous || (inputSamples.length && nextAudioPts > 0 && ((accurateTimeOffset && Math.abs(timeOffsetMpegTS - nextAudioPts) < 9000) || Math.abs(normalizePts(inputSamples[0].pts - initPTS, timeOffsetMpegTS) - nextAudioPts) < 20 * inputSampleDuration)); // compute normalized PTS
 
                 inputSamples.forEach(function (sample) {
                   sample.pts = normalizePts(sample.pts - initPTS, timeOffsetMpegTS);
@@ -22833,9 +22733,7 @@ typeof window !== "undefined" &&
                         this.nextAudioPts = nextAudioPts = nextPts;
                       }
 
-                      _utils_logger__WEBPACK_IMPORTED_MODULE_5__["logger"].warn(
-                        "[mp4-remuxer]: Injecting " + missing + " audio frame @ " + (nextPts / inputTimeScale).toFixed(3) + "s due to " + Math.round((1000 * delta) / inputTimeScale) + " ms gap."
-                      );
+                      _utils_logger__WEBPACK_IMPORTED_MODULE_5__["logger"].warn("[mp4-remuxer]: Injecting " + missing + " audio frame @ " + (nextPts / inputTimeScale).toFixed(3) + "s due to " + Math.round((1000 * delta) / inputTimeScale) + " ms gap.");
 
                       for (var j = 0; j < missing; j++) {
                         var newStamp = Math.max(nextPts, 0);

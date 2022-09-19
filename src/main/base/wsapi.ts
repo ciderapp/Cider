@@ -208,9 +208,7 @@ export class wsapi {
             response.message = "Next";
             break;
           case "previous":
-            this._win.webContents.executeJavaScript(
-              `if (MusicKit.getInstance().queue.previousPlayableItemIndex != -1 && MusicKit.getInstance().queue.previousPlayableItemIndex != null) {MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.previousPlayableItemIndex)}`
-            );
+            this._win.webContents.executeJavaScript(`if (MusicKit.getInstance().queue.previousPlayableItemIndex != -1 && MusicKit.getInstance().queue.previousPlayableItemIndex != null) {MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.previousPlayableItemIndex)}`);
             response.message = "Previous";
             break;
           case "musickit-api":
