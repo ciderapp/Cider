@@ -39,7 +39,7 @@
         </div>
         <div class="row fs-row" v-if="tabMode != 'catalog'">
             <div class="col artwork-col">
-                <div class="artwork" @click="app.fullscreen(false)">
+                <div class="artwork" :class="$root.mk.isPlaying && 'playing'" @click="app.fullscreen(false)">
                     <mediaitem-artwork
                             :size="600"
                             :video="video"
