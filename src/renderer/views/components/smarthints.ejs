@@ -5,8 +5,14 @@
         <div class="col-auto cider-flex-center" @contextmenu="$root.hintscontext = true;getContextMenu()">
             <div class="artwork"  :class="{'circle': item.type == 'artists'}">
                 <mediaitem-artwork
-                        :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
-                        :size="32"></mediaitem-artwork>
+                :url="item.attributes.artwork ? item.attributes.artwork.url : ''"
+                :size="32"
+                :style="{'position': 'relative', 'z-index': '-1'}"
+                ></mediaitem-artwork>
+                <button class="circular-play-button" @click.stop="playTrack(item)">
+                  <div class="_svg-icon" style="--icon:url(\.\/assets\/play\.svg); width: 15px;">
+                  </div>
+                </button>
             </div>
         </div>
         <div class="col queue-info" @contextmenu="$root.hintscontext = true;getContextMenu()">
@@ -92,7 +98,7 @@
             return this.contextMenu(event)
           }
         },{once: true})}
-          
+
         },
         async contextMenu(event) {
           let self = this
@@ -296,7 +302,7 @@
                 menus.normal.items.find(x => x.id == 'addToLibrary').disabled = false
               }
             })
-    
+
           } catch (e) {
             console.log(e)
           }
@@ -313,9 +319,9 @@
               menus.normal.headerItems.find(x => x.id == 'dislike').hidden = true
             }
           } catch (err) {
-    
+
           }
-    
+
           if (this.contextExt) {
             if (this.contextExt.normal) {
               menus.normal.items = menus.normal.items.concat(this.contextExt.normal)
@@ -373,7 +379,7 @@
                   window.open(app.getMediaItemArtwork(this.getArtworkUrl(), 1024, 1024))
                 }
               },
-              
+
             ]
           }, event)
         },
@@ -393,6 +399,87 @@
               return `url("${artwork}")`
         }
       },
+      playTrack(item) {
+        let parent = this.parent
+        let childIndex = this.index
+        let kind = (item.attributes.playParams ? (item.attributes.playParams?.kind ?? (item.type ?? '')) : (item.type ?? ''));
+        let id = (item.attributes.playParams ? (item.attributes.playParams?.id ?? (item.id ?? '')) : (item.id ?? ''));
+        ;
+        let isLibrary = item.attributes.playParams ? (item.attributes.playParams?.isLibrary ?? false) : false;
+        let truekind = (!kind.endsWith("s")) ? (kind + "s") : kind;
+        console.log(item, parent, childIndex, kind, id, isLibrary, kind == "playlists", id.startsWith("p.") || id.startsWith("pl.u"))
+        app.mk.stop().then(() => {
+          if (parent != null && childIndex != null) {
+            app.queueParentandplayChild(parent, childIndex, item);
+          } else if (kind.includes("playlist") && (id.startsWith("p.") || id.startsWith("pl."))) {
+            function shuffleArray(array) {
+              for (var i = array.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+              }
+            }
+
+            app.mk.setQueue({
+              [truekind]: [item.attributes.playParams?.id ?? item.id],
+              parameters: { l: this.app.mklang }
+            }).then(function() {
+              app.mk.play().then(function() {
+                var playlistId = id
+
+                function getPlaylist(id, isLibrary) {
+                  if (isLibrary) {
+                    return this.app.mk.api.v3.music(`/v1/me/library/playlists/${id}`)
+                  } else {
+                    return this.app.mk.api.v3.music(`/v1/catalog/${app.mk.storefrontId}/playlists/${id}`)
+                  }
+                }
+
+                try {
+                  getPlaylist(id, isLibrary).then(res => {
+                    //let query = res.relationships.tracks.data.map(item => new MusicKit.MediaItem(item));
+                    //if (app.mk.shuffleMode == 1){shuffleArray(query); }
+                    // console.log(query)
+                    // app.mk.queue.append(query)
+                    if (!res.data.relationships.tracks.next) {
+                      return
+                    } else {
+                      getPlaylistTracks(res.data.relationships.tracks.next)
+                    }
+
+                    function getPlaylistTracks(next) {
+                      app.apiCall(app.musicBaseUrl + next, res => {
+                        // if (res.id != playlistId || next.includes(playlistId)) {
+                        //     return
+                        // }
+                        console.log('nextres', res)
+                        let query = res.data.map(item => new MusicKit.MediaItem(item))
+                        if (app.mk.shuffleMode == 1) {
+                          shuffleArray(query);
+                          console.log('shf')
+                        }
+                        app.mk.queue.append(query)
+
+                        if (res.next) {
+                          getPlaylistTracks(res.next)
+                        }
+                      })
+                    }
+                  })
+                } catch (e) {
+                }
+
+
+              })
+            })
+
+
+          } else {
+            app.playMediaItemById(item.attributes.playParams?.id ?? item.id, item.attributes.playParams?.kind ?? item.type, item.attributes.playParams?.isLibrary ?? false, item.attributes.url)
+          }
+        })
+        },
       },
       beforeDestroy: function () {
         // this.item = null;
@@ -401,4 +488,3 @@
       }
     });
 </script>
-    

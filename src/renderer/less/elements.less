@@ -410,12 +410,32 @@
   &:hover {
     background: var(--selected);
     border-radius: 6px;
+
+    .circular-play-button {
+      opacity: 1;
+    }
   }
   &:active {
     background: var(--selected-click);
     color: #eee;
     border-radius: 6px;
   }
+}
+
+/* Circle Play Button */
+.circular-play-button {
+  position: relative;
+  opacity: 0;
+  top: -34px;
+  z-index: 5;
+  left: 8px;
+  align-items: center;
+  background: rgba(100, 100, 100, 0.5);
+  border: none;
+  cursor: pointer;
+  border-radius: 100%;
+  height: 26px;
+  box-shadow: var(--ciderShadow-Generic);
 }
 
 /* horizontal media scroller */
