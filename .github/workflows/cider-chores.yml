@@ -81,7 +81,7 @@ jobs:
         uses: crowdin/github-action@1.4.13
         with:
           upload_translations: true
-          download_translations: true
+          download_translations: false
           project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
           token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
           source: '/src/i18n/source/**.*'
