@@ -72,7 +72,6 @@ jobs:
 
   synchronize-with-crowdin:
     runs-on: ubuntu-latest
-    if: ${{ false }} # disable for now
 
     steps:
       - name: Checkout
