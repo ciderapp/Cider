@@ -29,9 +29,9 @@ jobs:
 
         - name: Install dependencies 👨🏻‍💻
           run: pnpm install
-          
+
         - name: Run linter 👀
           uses: wearerequired/lint-action@v2
           with:
             prettier: true
-            prettier_args: "'**/*.{js,json,ts,css,vue,less}'"
+            prettier_args: "'src/**/*.{js,json,ts,css,vue,less}'"

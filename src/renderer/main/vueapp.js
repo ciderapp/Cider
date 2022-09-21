@@ -195,7 +195,6 @@ const app = new Vue({
       type: "",
     },
     MVsource: null,
-    prevButtonBackIndicator: false,
     currentSongInfo: {},
     page: "",
     pageHistory: [],
@@ -2249,40 +2248,20 @@ const app = new Vue({
       }
     },
     prevButton() {
-      if (!app.prevButtonBackIndicator && app.mk.nowPlayingItem && app.mk.currentPlaybackTime > 2) {
-        app.prevButtonBackIndicator = true;
-        try {
-          clearTimeout(app.pauseButtonTimer);
-        } catch (e) {}
+      if (app.mk.nowPlayingItem && app.mk.currentPlaybackTime > 2) {
         app.mk.seekToTime(0);
-        app.pauseButtonTimer = setTimeout(() => {
-          app.prevButtonBackIndicator = false;
-        }, 3000);
       } else {
-        try {
-          clearTimeout(app.pauseButtonTimer);
-        } catch (e) {}
-        app.prevButtonBackIndicator = false;
         app.skipToPreviousItem();
       }
     },
     isDisabled() {
-      if (!app.mk.nowPlayingItem || app.mk.nowPlayingItem.attributes.playParams.kind == "radioStation") {
-        return true;
-      }
-      return false;
+      return !app.mk.nowPlayingItem || app.mk.nowPlayingItem.attributes.playParams.kind === "radioStation";
     },
     isPrevDisabled() {
-      if (this.isDisabled() || (app.mk.queue._position == 0 && app.mk.currentPlaybackTime <= 2)) {
-        return true;
-      }
-      return false;
+      return this.isDisabled() || (app.mk.queue._position === 0 && app.mk.currentPlaybackTime <= 2);
     },
     isNextDisabled() {
-      if (this.isDisabled() || app.mk.queue._position + 1 == app.mk.queue.length) {
-        return true;
-      }
-      return false;
+      return this.isDisabled() || app.mk.queue._position + 1 === app.mk.queue.length;
     },
 
     async getNowPlayingItemDetailed(target) {
@@ -5098,21 +5077,19 @@ const app = new Vue({
       }
     },
     skipToNextItem() {
-      app.prevButtonBackIndicator = false;
-      // app.mk.skipToNextItem() is buggy somehow so use this
-      if (this.mk.queue.nextPlayableItemIndex != -1 && this.mk.queue.nextPlayableItemIndex != null) this.mk.changeToMediaAtIndex(this.mk.queue.nextPlayableItemIndex);
+      if (this.mk.queue.nextPlayableItemIndex !== -1 && this.mk.queue.nextPlayableItemIndex != null) this.mk.changeToMediaAtIndex(this.mk.queue.nextPlayableItemIndex);
     },
     skipToPreviousItem() {
-      // app.mk.skipToPreviousItem() is buggy somehow so use this
-      if (this.mk.queue.previousPlayableItemIndex != -1 && this.mk.queue.previousPlayableItemIndex != null) this.mk.changeToMediaAtIndex(this.mk.queue.previousPlayableItemIndex);
+      if (this.mk.queue.previousPlayableItemIndex !== -1 && this.mk.queue.previousPlayableItemIndex != null) this.mk.changeToMediaAtIndex(this.mk.queue.previousPlayableItemIndex);
     },
     mediaKeyFixes() {
-      navigator.mediaSession.setActionHandler("previoustrack", function () {
-        app.prevButton();
-      });
-      navigator.mediaSession.setActionHandler("nexttrack", function () {
-        app.skipToNextItem();
-      });
+      MusicKitInterop.initMediaSession();
+      // navigator.mediaSession.setActionHandler("previoustrack", function () {
+      //   app.skipToPreviousItem();
+      // });
+      // navigator.mediaSession.setActionHandler("nexttrack", function () {
+      //   app.skipToNextItem();
+      // });
     },
     authCC() {
       ipcRenderer.send("cc-auth");
