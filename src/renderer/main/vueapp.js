@@ -292,6 +292,21 @@ const app = new Vue({
     setWindowHash(route = "") {
       window.location.hash = `#${route}`;
     },
+    monitorMusickit() {
+      if (!app.cfg.musickit) return;
+
+      for (const [attr, value] of Object.entries(app.cfg.musickit["stored-attributes"])) {
+        console.log(`Musickit value: ` + app.mk[attr]);
+        console.log(`Config value: ` + value);
+        if (value !== "" && app.mk[attr] !== value) {
+          app.mk[attr] = value;
+        }
+        this.$watch(`mk.${attr}`, (val) => {
+          console.log(`MK ${attr} changed to ${val}`);
+          app.cfg.musickit["stored-attributes"][attr] = val;
+        });
+      }
+    },
     async oobeInit() {
       this.appMode = "oobe";
       for (const [k, v] of Object.entries(ipcRenderer.sendSync("get-i18n-listing"))) {
@@ -826,6 +841,7 @@ const app = new Vue({
         };
       }
       MusicKitInterop.init();
+      this.monitorMusickit();
       // Set the volume
 
       // Check the value of this.cfg.audio.muted

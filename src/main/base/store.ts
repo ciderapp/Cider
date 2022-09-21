@@ -231,6 +231,11 @@ export class Store {
         settings: false,
       },
     },
+    musickit: {
+      "stored-attributes": {
+        autoplayEnabled: "",
+      },
+    },
   };
   private migrations: any = {};
   private schema: ElectronStore.Schema<any> = {
