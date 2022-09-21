@@ -36,13 +36,7 @@ const MusicKitInterop = {
       const attributes = MusicKitInterop.getAttributes();
       if (!attributes) return;
       ipcRenderer.send("playbackTimeDidChange", attributes);
-      if ("mediaSession" in navigator && attributes.currentPlaybackTime <= attributes.durationInMillis / 1000) {
-        navigator.mediaSession.setPositionState({
-          duration: attributes.durationInMillis / 1000,
-          playbackRate: app?.cfg?.audio?.playbackRate ?? 1,
-          position: attributes.currentPlaybackTime,
-        });
-      }
+      MusicKitInterop.updatePositionState(attributes);
     });
 
     /* MusicKit.Events.nowPlayingItemDidChange */
@@ -336,6 +330,16 @@ const MusicKitInterop = {
           navigator.mediaSession.playbackState = "playing";
           break;
       }
+    }
+  },
+
+  updatePositionState: (a) => {
+    if ("mediaSession" in navigator && a.currentPlaybackTime <= a.durationInMillis / 1000 && a.currentPlaybackTime >= 0) {
+      navigator.mediaSession.setPositionState({
+        duration: a.durationInMillis / 1000,
+        playbackRate: app?.cfg?.audio?.playbackRate ?? 1,
+        position: a.currentPlaybackTime,
+      });
     }
   },
 };
