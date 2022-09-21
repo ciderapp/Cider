@@ -6,10 +6,13 @@ let cache = { playParams: { id: 0 }, status: null, remainingTime: 0 },
 
 const MusicKitInterop = {
   init: function () {
+    this.initMediaSession();
+
     /* MusicKit.Events.playbackStateDidChange */
     MusicKit.getInstance().addEventListener(MusicKit.Events.playbackStateDidChange, () => {
       const attributes = MusicKitInterop.getAttributes();
       if (!attributes) return;
+      MusicKitInterop.updateMediaState(attributes);
       if (MusicKitInterop.filterTrack(attributes, true, false)) {
         global.ipcRenderer.send("playbackStateDidChange", attributes);
         global.ipcRenderer.send("wsapi-updatePlaybackState", attributes);
@@ -35,6 +38,13 @@ const MusicKitInterop = {
       const attributes = MusicKitInterop.getAttributes();
       if (!attributes) return;
       ipcRenderer.send("playbackTimeDidChange", attributes);
+      if ("mediaSession" in navigator) {
+        navigator.mediaSession.setPositionState({
+          duration: attributes.duration,
+          playbackRate: app?.cfg?.audio?.playbackRate ?? 1,
+          position: attributes.currentPlaybackTime,
+        });
+      }
     });
 
     /* MusicKit.Events.nowPlayingItemDidChange */
@@ -43,6 +53,7 @@ const MusicKitInterop = {
       if (!attributes) return;
       attributes.primaryArtist = app.cfg.connectivity.lastfm.remove_featured ? await this.fetchSongRelationships() : attributes.artistName;
 
+      MusicKitInterop.updateMediaSession(attributes);
       global.ipcRenderer.send("nowPlayingItemDidChange", attributes);
 
       if (MusicKitInterop.filterTrack(attributes, false, true)) {
@@ -142,7 +153,7 @@ const MusicKitInterop = {
 
     attributes.songId = attributes.songId ?? attributes.playParams?.catalogId ?? attributes.playParams?.id;
     attributes.type = nowPlayingItem?.type ?? "";
-    attributes.status = isPlayingExport ?? null;
+    attributes.status = nowPlayingItem == null ? null : !!isPlayingExport;
     attributes.name = attributes?.name ?? "no-title-found";
     attributes.artwork = attributes?.artwork ?? { url: "" };
     attributes.artwork.url = (attributes?.artwork?.url ?? "").replace(`{f}`, "png");
@@ -205,22 +216,124 @@ const MusicKitInterop = {
   },
 
   next: () => {
-    // try {
-    // 	app.prevButtonBackIndicator = false;
-    // } catch (e) { }
-    // if (MusicKit.getInstance().queue.nextPlayableItemIndex != -1 && MusicKit.getInstance().queue.nextPlayableItemIndex != null)
-    // MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.nextPlayableItemIndex);
-    MusicKit.getInstance()
-      .skipToNextItem()
-      .then((r) => console.debug(`[cider:preload] [next] Skipping to Next ${r}`));
+    if (app) {
+      app.skipToNextItem();
+    } else {
+      MusicKit.getInstance()
+        .skipToNextItem()
+        .then((r) => console.debug(`[cider:preload] [next] Skipping to Next ${r}`));
+    }
   },
 
   previous: () => {
-    // if (MusicKit.getInstance().queue.previousPlayableItemIndex != -1 && MusicKit.getInstance().queue.previousPlayableItemIndex != null)
-    // MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.previousPlayableItemIndex);
-    MusicKit.getInstance()
-      .skipToPreviousItem()
-      .then((r) => console.debug(`[cider:preload] [previous] Skipping to Previous ${r}`));
+    if (app) {
+      app.skipToPreviousItem();
+    } else {
+      MusicKit.getInstance()
+        .skipToPreviousItem()
+        .then((r) => console.debug(`[cider:preload] [previous] Skipping to Previous ${r}`));
+    }
+  },
+
+  initMediaSession: () => {
+    if ("mediaSession" in navigator) {
+      console.debug("[cider:preload] [initMediaSession] Media Session API supported");
+      navigator.mediaSession.setActionHandler("play", () => {
+        MusicKitInterop.play();
+        console.log("[cider:preload] [initMediaSession] Play");
+      });
+      navigator.mediaSession.setActionHandler("pause", () => {
+        MusicKitInterop.pause();
+        console.log("[cider:preload] [initMediaSession] Pause");
+      });
+      navigator.mediaSession.setActionHandler("stop", () => {
+        MusicKit.getInstance().stop();
+        console.log("[cider:preload] [initMediaSession] Stop");
+      });
+      navigator.mediaSession.setActionHandler("seekbackward", ({ seekOffset }) => {
+        MusicKit.getInstance().seekToTime(MusicKit.getInstance().currentPlaybackTime - seekOffset);
+        console.log(`[cider:preload] [initMediaSession] Seek Backward ${seekOffset}`);
+      });
+      navigator.mediaSession.setActionHandler("seekforward", ({ seekOffset }) => {
+        MusicKit.getInstance().seekToTime(MusicKit.getInstance().currentPlaybackTime + seekOffset);
+        console.log(`[cider:preload] [initMediaSession] Seek Forward ${seekOffset}`);
+      });
+      navigator.mediaSession.setActionHandler("seekto", ({ seekTime, fastSeek }) => {
+        MusicKit.getInstance().seekToTime(seekTime);
+        console.log(`[cider:preload] [initMediaSession] Seek To ${seekTime}`);
+      });
+      navigator.mediaSession.setActionHandler("previoustrack", () => {
+        MusicKitInterop.previous();
+        console.log("[cider:preload] [initMediaSession] Previous Track");
+      });
+      navigator.mediaSession.setActionHandler("nexttrack", () => {
+        MusicKitInterop.next();
+        console.log("[cider:preload] [initMediaSession] Next Track");
+      });
+    } else {
+      console.debug("[cider:preload] [initMediaSession] Media Session API not supported");
+    }
+  },
+
+  updateMediaSession: (a) => {
+    if ("mediaSession" in navigator) {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: a.name,
+        artist: a.artistName,
+        album: a.albumName,
+        artwork: [
+          {
+            src: a.artwork.url.replace("/{w}x{h}bb", "/96x96bb").replace("/2000x2000bb", "/35x35bb"),
+            sizes: "96x96",
+            type: "image/jpeg",
+          },
+          {
+            src: a.artwork.url.replace("/{w}x{h}bb", "/128x128bb").replace("/2000x2000bb", "/35x35bb"),
+            sizes: "128x128",
+            type: "image/jpeg",
+          },
+          {
+            src: a.artwork.url.replace("/{w}x{h}bb", "/192x192bb").replace("/2000x2000bb", "/35x35bb"),
+            sizes: "192x192",
+            type: "image/jpeg",
+          },
+          {
+            src: a.artwork.url.replace("/{w}x{h}bb", "/256x256bb").replace("/2000x2000bb", "/35x35bb"),
+            sizes: "256x256",
+            type: "image/jpeg",
+          },
+          {
+            src: a.artwork.url.replace("/{w}x{h}bb", "/384x384bb").replace("/2000x2000bb", "/35x35bb"),
+            sizes: "384x384",
+            type: "image/jpeg",
+          },
+          {
+            src: a.artwork.url.replace("/{w}x{h}bb", "/512x512bb").replace("/2000x2000bb", "/35x35bb"),
+            sizes: "512x512",
+            type: "image/jpeg",
+          },
+        ],
+      });
+    }
+  },
+
+  updateMediaState: (a) => {
+    if ("mediaSession" in navigator) {
+      switch (a.status) {
+        default:
+        case null:
+          navigator.mediaSession.playbackState = "none";
+          break;
+
+        case false:
+          navigator.mediaSession.playbackState = "paused";
+          break;
+
+        case true:
+          navigator.mediaSession.playbackState = "playing";
+          break;
+      }
+    }
   },
 };
 
