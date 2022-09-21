@@ -6,8 +6,6 @@ let cache = { playParams: { id: 0 }, status: null, remainingTime: 0 },
 
 const MusicKitInterop = {
   init: function () {
-    this.initMediaSession();
-
     /* MusicKit.Events.playbackStateDidChange */
     MusicKit.getInstance().addEventListener(MusicKit.Events.playbackStateDidChange, () => {
       const attributes = MusicKitInterop.getAttributes();
@@ -38,7 +36,7 @@ const MusicKitInterop = {
       const attributes = MusicKitInterop.getAttributes();
       if (!attributes) return;
       ipcRenderer.send("playbackTimeDidChange", attributes);
-      if ("mediaSession" in navigator) {
+      if ("mediaSession" in navigator && attributes.currentPlaybackTime <= attributes.durationInMillis / 1000) {
         navigator.mediaSession.setPositionState({
           duration: attributes.durationInMillis / 1000,
           playbackRate: app?.cfg?.audio?.playbackRate ?? 1,
@@ -237,6 +235,8 @@ const MusicKitInterop = {
 
   initMediaSession: () => {
     if ("mediaSession" in navigator) {
+      const defaultSkipTime = 10;
+
       console.debug("[cider:preload] [initMediaSession] Media Session API supported");
       navigator.mediaSession.setActionHandler("play", () => {
         MusicKitInterop.play();
@@ -250,13 +250,15 @@ const MusicKitInterop = {
         MusicKit.getInstance().stop();
         console.log("[cider:preload] [initMediaSession] Stop");
       });
-      navigator.mediaSession.setActionHandler("seekbackward", ({ seekOffset }) => {
-        MusicKit.getInstance().seekToTime(MusicKit.getInstance().currentPlaybackTime - seekOffset);
-        console.log(`[cider:preload] [initMediaSession] Seek Backward ${seekOffset}`);
+      navigator.mediaSession.setActionHandler("seekbackward", (details) => {
+        const skipTime = details.seekOffset || defaultSkipTime;
+        MusicKit.getInstance().seekToTime(Math.max(MusicKit.getInstance().currentPlaybackTime - skipTime, 0));
+        console.log(`[cider:preload] [initMediaSession] Seek Backward ${skipTime}`);
       });
-      navigator.mediaSession.setActionHandler("seekforward", ({ seekOffset }) => {
-        MusicKit.getInstance().seekToTime(MusicKit.getInstance().currentPlaybackTime + seekOffset);
-        console.log(`[cider:preload] [initMediaSession] Seek Forward ${seekOffset}`);
+      navigator.mediaSession.setActionHandler("seekforward", (details) => {
+        const skipTime = details.seekOffset || defaultSkipTime;
+        MusicKit.getInstance().seekToTime(Math.max(MusicKit.getInstance().currentPlaybackTime + skipTime, 0));
+        console.log(`[cider:preload] [initMediaSession] Seek Forward ${skipTime}`);
       });
       navigator.mediaSession.setActionHandler("seekto", ({ seekTime, fastSeek }) => {
         MusicKit.getInstance().seekToTime(seekTime);
@@ -319,6 +321,7 @@ const MusicKitInterop = {
 
   updateMediaState: (a) => {
     if ("mediaSession" in navigator) {
+      console.log("[cider:preload] [updateMediaState] Updating Media State to " + a.status);
       switch (a.status) {
         default:
         case null:
