@@ -5067,6 +5067,7 @@ const app = new Vue({
       if (this.mk.queue.previousPlayableItemIndex !== -1 && this.mk.queue.previousPlayableItemIndex != null) this.mk.changeToMediaAtIndex(this.mk.queue.previousPlayableItemIndex);
     },
     mediaKeyFixes() {
+      MusicKitInterop.initMediaSession();
       // navigator.mediaSession.setActionHandler("previoustrack", function () {
       //   app.skipToPreviousItem();
       // });
