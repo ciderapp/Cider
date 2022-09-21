@@ -263,8 +263,8 @@
                                          @click="trackSelect(song)">
                                         <div class="row">
                                             <div class="col-auto flex-center">
-                                                <div class="list-entry-image" v-if="song.attributes.artwork"
-                                                     :style="{'--artwork': getAlbumArtUrlList(song.attributes.artwork.url)}">
+                                                <div class="list-entry-image"
+                                                     :style="{'--artwork': getAlbumArtUrlList(song.attributes?.artwork?.url ?? './assets/MissingArtwork.svg')}">
                                                 </div>
                                             </div>
                                             <div class="col flex-center">
@@ -284,8 +284,8 @@
                                          @click="trackSelect(song)">
                                         <div class="row">
                                             <div class="col-auto flex-center">
-                                                <div class="list-entry-image" v-if="song.attributes.artwork"
-                                                     :style="{'--artwork': getAlbumArtUrlList(song.attributes.artwork.url)}">
+                                                <div class="list-entry-image"
+                                                     :style="{'--artwork': getAlbumArtUrlList(song.attributes.artwork?.url ?? './assets/MissingArtwork.svg' )}">
                                                 </div>
                                             </div>
                                             <div class="col flex-center">
@@ -307,8 +307,8 @@
                                          @click="showAlbum(album.id)">
                                         <div class="row">
                                             <div class="col-auto flex-center">
-                                                <div class="list-entry-image" v-if="album.attributes.artwork"
-                                                     :style="{'--artwork': getAlbumArtUrlList(album.attributes.artwork.url)}">
+                                                <div class="list-entry-image"
+                                                     :style="{'--artwork': getAlbumArtUrlList(album.attributes?.artwork?.url ?? './assets/MissingArtwork.svg')}">
                                                 </div>
                                             </div>
                                             <div class="col flex-center">
@@ -328,8 +328,8 @@
                                          @click="showAlbum(album.id, true)">
                                         <div class="row">
                                             <div class="col-auto flex-center">
-                                                <div class="list-entry-image" v-if="album.attributes.artwork"
-                                                     :style="{'--artwork': getAlbumArtUrlList(album.attributes.artwork.url)}">
+                                                <div class="list-entry-image"
+                                                     :style="{'--artwork': getAlbumArtUrlList(album.attributes?.artwork?.url ?? './assets/MissingArtwork.svg')}">
                                                 </div>
                                             </div>
                                             <div class="col flex-center">
@@ -352,8 +352,7 @@
                                         <div class="row">
                                             <div class="col-auto flex-center">
                                                 <div class="list-entry-image artist"
-                                                     v-if="artist.attributes.artwork"
-                                                     :style="{'--artwork': getAlbumArtUrlList(artist.attributes.artwork.url)}">
+                                                     :style="{'--artwork': getAlbumArtUrlList(artist?.attributes?.artwork?.url ?? './assets/MissingArtwork.svg')}">
                                                 </div>
                                             </div>
                                             <div class="col flex-center">
@@ -373,8 +372,7 @@
                                         <div class="row">
                                             <div class="col-auto flex-center">
                                                 <div class="list-entry-image artist"
-                                                     v-if="artist.attributes.artwork"
-                                                     :style="{'--artwork': getAlbumArtUrlList(artist.attributes.artwork.url)}">
+                                                     :style="{'--artwork': getAlbumArtUrlList(artist.attributes?.artwork?.url ?? './assets/MissingArtwork.svg')}">
                                                 </div>
                                             </div>
                                             <div class="col flex-center">
@@ -396,8 +394,8 @@
                                          @click="showPlaylist(playlist.attributes.playParams.id)">
                                         <div class="row">
                                             <div class="col-auto flex-center">
-                                                <div class="list-entry-image" v-if="playlist.attributes.artwork"
-                                                     :style="{'--artwork': getAlbumArtUrlList(playlist.attributes.artwork.url)}">
+                                                <div class="list-entry-image"
+                                                     :style="{'--artwork': getAlbumArtUrlList(playlist.attributes?.artwork?.url ?? './assets/MissingArtwork.svg')}">
                                                 </div>
                                             </div>
                                             <div class="col flex-center">
@@ -418,8 +416,8 @@
                                     >
                                         <div class="row">
                                             <div class="col-auto flex-center">
-                                                <div class="list-entry-image" v-if="playlist.attributes.artwork"
-                                                     :style="{'--artwork': getAlbumArtUrlList(playlist.attributes.artwork.url)}">
+                                                <div class="list-entry-image"
+                                                     :style="{'--artwork': getAlbumArtUrlList(playlist.attributes?.artwork?.url ?? './assets/MissingArtwork.svg')}">
                                                 </div>
                                             </div>
                                             <div class="col flex-center">
@@ -452,7 +450,7 @@
                             <div class="col-auto flex-center" v-if="search.selected.attributes.artwork"
                                  style="display:flex;align-items: center;">
                                 <div class="list-entry-image"
-                                     :style="{'--artwork': getAlbumArtUrlList(search.selected.attributes.artwork.url)}">
+                                     :style="{'--artwork': getAlbumArtUrlList(search.selected.attributes?.artwork?.url ?? './assets/MissingArtwork.svg')}">
                                 </div>
                             </div>
                             <div class="col flex-center" style="display:flex;align-items: center;">
@@ -625,17 +623,35 @@
                     <div class="artist-header" v-if="artistPage.data.attributes['artwork']"
                          :style="getMediaPalette(artistPage.data.attributes)">
                         <div class="artist-header-portrait"
-                             :style="{'--artwork': getAlbumArtUrlList(artistPage.data.attributes['artwork']['url'], 600)}">
+                             :style="{'--artwork': getAlbumArtUrlList(artistPage.data.attributes['artwork']['url'] ?? './assets/MissingArtwork.svg', 600)}">
                         </div>
                         <h2>{{ artistPage.data.attributes["name"] }}</h2>
                     </div>
                     <div class="md-body artist-body">
                         <h2>Songs</h2>
                         <div class="song-scroller-horizontal">
-                            <button v-for="song in artistPage.data.relationships['songs'].data"
+                            <div class="list-entry artist-song" v-for="song in artistPage.data.relationships['songs'].data"
+                                         @click="trackSelect(song)">
+                                        <div class="row">
+                                            <div class="col-auto flex-center">
+                                                <div class="list-entry-image" 
+                                                     :style="{'--artwork': getAlbumArtUrlList(song.attributes?.artwork?.url ?? './assets/MissingArtwork.svg', 45)}">
+                                                </div>
+                                            </div>
+                                            <div class="col flex-center">
+                                                <div class="list-entry-name">
+                                                    {{ song.attributes.name }}
+                                                </div>
+                                                <div class="list-entry-artist">
+                                                    {{ song.attributes.artistName }}
+                                                </div>
+                                            </div>
+                                        </div>
+                            </div>           
+                            <!-- <button v-for="song in artistPage.data.relationships['songs'].data"
                                     class="song-placeholder" @click="trackSelect(song)">
                                 {{ song.attributes.name }}
-                            </button>
+                            </button> -->
                         </div>
                         <h2>Albums</h2>
                         <div class="mediaitem-scroller-horizontal">
@@ -712,8 +728,8 @@
                                         </div>
                                     </div>
                                     <div class="col-auto flex-center">
-                                        <div class="list-entry-image" v-if="song.item.attributes.artwork"
-                                             :style="{'--artwork': getAlbumArtUrlList(song.item.attributes.artwork.url)}">
+                                        <div class="list-entry-image" 
+                                             :style="{'--artwork': getAlbumArtUrlList(song.item.attributes?.artwork?.url ?? './assets/MissingArtwork.svg')}">
                                         </div>
                                     </div>
                                     <div class="col flex-center">
@@ -807,7 +823,7 @@
                 <div class="album-body-container">
                     <div class="md-header">
                         <div class="albumpage-artwork"
-                             :style="{'--artwork': getAlbumArtUrlList(albumPage.data.attributes['artwork'] ? albumPage.data.attributes['artwork']['url'] : '', 300)}">
+                             :style="{'--artwork': getAlbumArtUrlList(albumPage.data.attributes['artwork'] ? albumPage.data.attributes['artwork']['url'] : './assets/MissingArtwork.svg', 300)}">
                         </div>
                         <div class="albumpage-album-name">
                             {{ albumPage.data.attributes["name"] }}
@@ -853,8 +869,8 @@
                              @click="trackSelect(song)">
                             <div class="row">
                                 <div class="col-auto flex-center">
-                                    <div class="list-entry-image" v-if="song.attributes.artwork"
-                                         :style="{'--artwork': getAlbumArtUrlList(song.attributes.artwork.url)}">
+                                    <div class="list-entry-image"
+                                         :style="{'--artwork': getAlbumArtUrlList(song.attributes?.artwork?.url ?? './assets/MissingArtwork.svg')}">
                                     </div>
                                 </div>
                                 <div class="col flex-center">

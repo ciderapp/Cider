@@ -1,5 +1,5 @@
 <script type="text/x-template" id="cider-menu-panel">
-    <div class="menu-panel" @click.self="menuPanel.visible = false" @contextmenu.self="menuPanel.visible = false">
+    <div class="menu-panel" @click.self="menuPanel.visible = false; if($root.hintscontext){$root.hintscontext = false;focusOther()}" @contextmenu.self="menuPanel.visible = false; if($root.hintscontext){$root.hintscontext = false;focusOther()}">
 
         <div class="menu-panel-body" ref="menubody" :style="elStyle" :class="getBodyClasses()">
             <div class="menu-header-text" v-if="content.name != ''">
@@ -56,12 +56,22 @@
     mounted() {
       if (this.event) {
         this.position = [this.event.clientX, this.event.clientY];
-      }
-      this.$nextTick(() => {
+        this.$nextTick(() => {
         // this.size = [document.querySelector(".menu-panel-body").offsetWidth, document.querySelector(".menu-panel-body").offsetHeight];
         // ugly hack
-        setTimeout(this.getStyle, 1)
+        setTimeout(this.getStyle, 0.8)
       });
+      }
+      else {
+        document.addEventListener('mouseover', event => {
+          this.event = event
+          this.position = [event.clientX, event.clientY] 
+          console.log("pos", this.position)
+          this.$nextTick(() => {
+          setTimeout(this.getStyle, 0.8)})
+        },{once: true})
+      }
+      
     },
     methods: {
       getBodyClasses() {
@@ -77,6 +87,9 @@
         if (item["active"]) {
           return "active";
         }
+      },
+      focusOther(){
+        document.querySelector('.search-input-container input').focus()
       },
       getStyle() {
         let style = {}
@@ -132,7 +145,7 @@
       action(item) {
         item.action()
         if (!item["keepOpen"]) {
-          this.menuPanel.visible = false
+          this.menuPanel.visible = false;if(app.hintscontext){ app.hintscontext = false; document.querySelector('.search-input-container input').focus(); app.search.showHints = false}
         }
       }
     }

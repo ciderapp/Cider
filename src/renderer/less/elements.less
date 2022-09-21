@@ -334,6 +334,15 @@
     width: 42px;
     height: 42px;
     flex: 0 0 auto;
+    &.circle {
+      border-radius: 50%;
+      .mediaitem-artwork {
+        border-radius: 50%;
+      }
+      img {
+        border-radius: 50%;
+      }
+    }
   }
 
   &:hover {
@@ -347,6 +356,11 @@
   &:active {
     background: var(--selected-click);
     color: #eee;
+  }
+
+  &.hintactive {
+    background: var(--keyColor);
+    border-radius: 6px;
   }
 
   .queue-info {
@@ -390,6 +404,38 @@
     filter: contrast(0);
     background-repeat: no-repeat;
   }
+}
+
+.search-hints .cd-queue-item {
+  &:hover {
+    background: var(--selected);
+    border-radius: 6px;
+
+    .circular-play-button {
+      opacity: 1;
+    }
+  }
+  &:active {
+    background: var(--selected-click);
+    color: #eee;
+    border-radius: 6px;
+  }
+}
+
+/* Circle Play Button */
+.circular-play-button {
+  position: relative;
+  opacity: 0;
+  top: -34px;
+  z-index: 5;
+  left: 8px;
+  align-items: center;
+  background: rgba(100, 100, 100, 0.5);
+  border: none;
+  cursor: pointer;
+  border-radius: 100%;
+  height: 26px;
+  box-shadow: var(--ciderShadow-Generic);
 }
 
 /* horizontal media scroller */
@@ -1838,6 +1884,12 @@ input[type="checkbox"][switch]:checked:active::before {
 
 .playback-button.pause {
   background-image: url("./assets/cider-icons/pause.svg");
+  background-size: 38px;
+  background-position: center;
+}
+
+.playback-button.stop {
+  background-image: url("./assets/cider-icons/stop.svg");
   background-size: 38px;
   background-position: center;
 }

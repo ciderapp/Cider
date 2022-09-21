@@ -27,7 +27,6 @@ export default class mpris {
    */
   constructor(utils: any) {
     mpris.utils = utils;
-
     console.debug(`[Plugin][${mpris.name}] Loading Complete.`);
   }
 
@@ -103,7 +102,7 @@ export default class mpris {
    */
   private static updateMetaData(attributes: any) {
     mpris.player.metadata = {
-      "mpris:trackid": mpris.player.objectPath(`track/${attributes.playParams.id.replace(/[.]+/g, "")}`),
+      "mpris:trackid": mpris.player.objectPath(`track/${attributes.playParams.id.replace(/[^a-zA-Z 0-9]+/g, "")}`),
       "mpris:length": attributes.durationInMillis * 1000, // In microseconds
       "mpris:artUrl": attributes.artwork.url.replace("/{w}x{h}bb", "/512x512bb").replace("/2000x2000bb", "/35x35bb"),
       "xesam:title": `${attributes.name}`,
@@ -170,7 +169,7 @@ export default class mpris {
    * @param attributes Music Attributes
    */
   @mpris.linuxOnly
-  onNowPlayingItemDidChange(attributes: object): void {
+  playbackTimeDidChange(attributes: object): void {
     mpris.updateMetaData(attributes);
   }
 }

@@ -81,7 +81,7 @@
                 </div>
             </div>
             <mediaitem-list-item v-if="prefs.viewAs == 'list'" :show-duration="false" :show-meta-data="true"
-                                 :show-library-status="false" :item="item" v-for="item in currentSlice">
+                                 :show-library-status="false" v-bind:key="item.id" :item="item" v-for="item in currentSlice">
             </mediaitem-list-item>
         </div>
     </div>

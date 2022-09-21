@@ -543,6 +543,7 @@
   "settings.option.connectivity.lastfmScrobble.filterLoop.description": "Pwevent wooped twacks fwom being scwobbwed ow dispwayed in the Nyow Pwaying wist on Wast.fm.",
   "settings.option.connectivity.lastfmScrobble.filterTypes": "Fiwtew Media Types (Wast.fm)",
   "settings.option.connectivity.lastfmScrobble.manualToken": "Entew Wast.fm Token Manyuawwy",
+  "settings.option.connectivity.lastfmScrobble.manualToken.link": "Cwick hewe to get a Wast.fm token",
   "settings.notyf.connectivity.lastfmScrobble.connectError": "Wast.fm Connyection Timed Out",
   "settings.notyf.connectivity.lastfmScrobble.connectSuccess": "Wast.fm Connyection Successfuw",
   "settings.notyf.connectivity.lastfmScrobble.connecting": "Connyecting to Wast.fm...",

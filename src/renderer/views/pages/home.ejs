@@ -17,7 +17,7 @@
                     <div class="well artistfeed-well">
                         <template v-if="isSectionReady('recentlyPlayed')">
                             <mediaitem-list-item v-for="item in recentlyPlayed.limit(6)"
-                                                 :item="item"></mediaitem-list-item>
+                                                 :item="item" v-bind:key="item.id"></mediaitem-list-item>
                         </template>
                         <div class="spinner" v-else></div>
                     </div>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="well artistfeed-well" style="margin-top:0;">
                         <template v-if="artistFeed.length > 0">
-                            <mediaitem-list-item v-for="item in artistFeed.limit(6)" :item="item"></mediaitem-list-item>
+                            <mediaitem-list-item v-for="item in artistFeed.limit(6)" :item="item" v-bind:key="item.id"></mediaitem-list-item>
                         </template>
                         <div class="spinner" v-else-if="followedArtists.length > 0"></div>
                         <div class="no-artist" v-else> {{app.getLz('home.artistsFeed.noArtist')}}</div>

@@ -1,5 +1,5 @@
 import { join } from "path";
-import { app, BrowserWindow as bw, ipcMain, ShareMenu, shell, screen, dialog } from "electron";
+import { app, BrowserWindow as bw, ipcMain, ShareMenu, shell, screen, dialog, nativeTheme } from "electron";
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
@@ -90,6 +90,7 @@ export class BrowserWindow {
         "components/equalizer",
         "components/add-to-playlist",
         "components/queue",
+        "components/smarthints",
         "components/mediaitem-scroller-horizontal",
         "components/mediaitem-scroller-horizontal-large",
         "components/mediaitem-scroller-horizontal-sp",
@@ -441,6 +442,8 @@ export class BrowserWindow {
         break;
     }
 
+    nativeTheme.themeSource = utils.getStoreValue("visual.overrideDisplayTheme");
+
     // Start the webserver for the browser window to load
     // LocalFiles.DB.init()
     this.startWebServer();
@@ -476,7 +479,7 @@ export class BrowserWindow {
       }
     }
     for (let i = 0; i < expectedFiles.length; i++) {
-      const file = join(utils.getPath("ciderCache"), expectedFiles[i]);
+      const file = join(join(app.getPath("userData"), "CiderCache"), expectedFiles[i]);
       if (!existsSync(file)) {
         writeFileSync(file, JSON.stringify([]));
       }
@@ -555,15 +558,11 @@ export class BrowserWindow {
           res.send("Stopped");
           break;
         case "next":
-          BrowserWindow.win.webContents.executeJavaScript(
-            "if (MusicKit.getInstance().queue.nextPlayableItemIndex != -1 && MusicKit.getInstance().queue.nextPlayableItemIndex != null) {MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.nextPlayableItemIndex);}"
-          );
+          BrowserWindow.win.webContents.executeJavaScript("if (MusicKit.getInstance().queue.nextPlayableItemIndex != -1 && MusicKit.getInstance().queue.nextPlayableItemIndex != null) {MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.nextPlayableItemIndex);}");
           res.send("Next");
           break;
         case "previous":
-          BrowserWindow.win.webContents.executeJavaScript(
-            "if (MusicKit.getInstance().queue.previousPlayableItemIndex != -1 && MusicKit.getInstance().queue.previousPlayableItemIndex != null) {MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.previousPlayableItemIndex);}"
-          );
+          BrowserWindow.win.webContents.executeJavaScript("if (MusicKit.getInstance().queue.previousPlayableItemIndex != -1 && MusicKit.getInstance().queue.previousPlayableItemIndex != null) {MusicKit.getInstance().changeToMediaAtIndex(MusicKit.getInstance().queue.previousPlayableItemIndex);}");
           res.send("Previous");
           break;
         default: {
@@ -619,6 +618,8 @@ export class BrowserWindow {
         const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
         if (!this.chromecastIP.includes(ip)) {
           this.headerSent = false;
+          this.audioStream._readableState.buffer.clear();
+          this.audioStream._readableState.length = 0;
           this.chromecastIP.push(ip);
         }
         req.socket.setTimeout(Number.MAX_SAFE_INTEGER);
@@ -730,18 +731,11 @@ export class BrowserWindow {
         details.requestHeaders["user-agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cider/1.0.0 Chrome/96.0.4664.45 Electron/16.0.0 Safari/537.36";
       }
       if (details.url.includes("https://qq.com")) {
-        (details.requestHeaders["Accept"] = "*/*"),
-          (details.requestHeaders["Accept-Encoding"] = "gzip, deflate, br"),
-          (details.requestHeaders["Accept-Language"] = "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6"),
-          (details.requestHeaders["Referer"] = "https://y.qq.com/"),
-          (details.requestHeaders["User-Agent"] = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X; zh-CN) AppleWebKit/537.51.1 (");
+        (details.requestHeaders["Accept"] = "*/*"), (details.requestHeaders["Accept-Encoding"] = "gzip, deflate, br"), (details.requestHeaders["Accept-Language"] = "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6"), (details.requestHeaders["Referer"] = "https://y.qq.com/"), (details.requestHeaders["User-Agent"] = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X; zh-CN) AppleWebKit/537.51.1 (");
         ("KHTML, like Gecko) Mobile/17D50 UCBrowser/12.8.2.1268 Mobile AliApp(TUnionSDK/0.1.20.3) ");
       }
       if (details.url.includes("https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg")) {
-        (details.requestHeaders["Accept"] = "*/*"),
-          (details.requestHeaders["Accept-Encoding"] = "gzip, deflate, br"),
-          (details.requestHeaders["Accept-Language"] = "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6"),
-          (details.requestHeaders["User-Agent"] = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X; zh-CN) AppleWebKit/537.51.1 (");
+        (details.requestHeaders["Accept"] = "*/*"), (details.requestHeaders["Accept-Encoding"] = "gzip, deflate, br"), (details.requestHeaders["Accept-Language"] = "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6"), (details.requestHeaders["User-Agent"] = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X; zh-CN) AppleWebKit/537.51.1 (");
         ("KHTML, like Gecko) Mobile/17D50 UCBrowser/12.8.2.1268 Mobile AliApp(TUnionSDK/0.1.20.3) ");
         details.requestHeaders["Referer"] = "https://y.qq.com/portal/player.html";
       }
@@ -1073,13 +1067,13 @@ export class BrowserWindow {
     });
 
     ipcMain.handle("put-cache", (_event, arg) => {
-      writeFileSync(join(utils.getPath("ciderCache"), `${arg.file}.json`), arg.data);
+      writeFileSync(join(join(app.getPath("userData"), "CiderCache"), `${arg.file}.json`), arg.data);
     });
 
     ipcMain.on("get-cache", (event, arg) => {
       let read = "";
-      if (existsSync(join(utils.getPath("ciderCache"), `${arg}.json`))) {
-        read = readFileSync(join(utils.getPath("ciderCache"), `${arg}.json`), "utf8");
+      if (existsSync(join(join(app.getPath("userData"), "CiderCache"), `${arg}.json`))) {
+        read = readFileSync(join(join(app.getPath("userData"), "CiderCache"), `${arg}.json`), "utf8");
       }
       event.returnValue = read;
     });
@@ -1133,6 +1127,11 @@ export class BrowserWindow {
     // Move window
     ipcMain.on("windowmove", (_event, x, y) => {
       BrowserWindow.win.setBounds({ x, y });
+    });
+
+    // Override light, dark
+    ipcMain.on("changeDisplayTheme", (event, theme) => {
+      nativeTheme.themeSource = theme;
     });
 
     //Fullscreen
@@ -1351,7 +1350,7 @@ export class BrowserWindow {
         .then(async (buffer) => {
           const metadata = await mm.parseBuffer(buffer, "audio/x-m4a");
           let SoundCheckTag = metadata.native.iTunes[1].value;
-          console.log("sc", SoundCheckTag);
+          console.debug("sc", SoundCheckTag);
           BrowserWindow.win.webContents.send("SoundCheckTag", SoundCheckTag);
         })
         .catch((err) => {
@@ -1476,7 +1475,7 @@ export class BrowserWindow {
 
     // Set window Handler
     BrowserWindow.win.webContents.setWindowOpenHandler((x: any) => {
-      if (x.url.includes("apple") || x.url.includes("localhost")) {
+      if (x.url.includes("apple.com") || x.url.includes("localhost")) {
         return { action: "allow" };
       }
       shell.openExternal(x.url).catch(console.error);
@@ -1498,11 +1497,7 @@ export class BrowserWindow {
         if (details.family === "IPv4" && !details.internal) {
           if (!/(loopback|vmware|internal|hamachi|vboxnet|virtualbox)/gi.test(dev + (alias ? ":" + alias : ""))) {
             if (details.address.substring(0, 8) === "192.168." || details.address.substring(0, 7) === "172.16." || details.address.substring(0, 3) === "10.") {
-              if (
-                !ip.startsWith("192.168.") ||
-                (String(ip2).startsWith("192.168.") && !ip.startsWith("192.168.") && String(ip2).startsWith("172.16.") && !ip.startsWith("192.168.") && !ip.startsWith("172.16.")) ||
-                (String(ip2).startsWith("10.") && !ip.startsWith("192.168.") && !ip.startsWith("172.16.") && !ip.startsWith("10."))
-              ) {
+              if (!ip.startsWith("192.168.") || (String(ip2).startsWith("192.168.") && !ip.startsWith("192.168.") && String(ip2).startsWith("172.16.") && !ip.startsWith("192.168.") && !ip.startsWith("172.16.")) || (String(ip2).startsWith("10.") && !ip.startsWith("192.168.") && !ip.startsWith("172.16.") && !ip.startsWith("10."))) {
                 ip = details.address;
               }
               ++alias;

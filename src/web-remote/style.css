@@ -507,6 +507,11 @@ input[type="range"].web-slider::-webkit-slider-runnable-track {
   cursor: pointer;
 }
 
+.list-entry.artist-song {
+  padding: 5px;
+  width: 100%;
+}
+
 .list-entry-image {
   --artwork: url("");
   width: 64px;
@@ -517,6 +522,11 @@ input[type="range"].web-slider::-webkit-slider-runnable-track {
   background-repeat: no-repeat;
   border-radius: 4px;
   box-shadow: var(--mediaItemShadow);
+}
+
+.artist-song .list-entry-image {
+  width: 45px;
+  height: 45px;
 }
 
 .list-entry-image.artist {
@@ -586,6 +596,10 @@ input[type="range"].web-slider::-webkit-slider-runnable-track {
   width: 100%;
 }
 
+.mediaitem-scroller-horizontal::-webkit-scrollbar {
+  display: none;
+}
+
 .album-placeholder {
   height: 180px;
   width: 180px;
@@ -641,6 +655,10 @@ input[type="range"].web-slider::-webkit-slider-runnable-track {
   overflow: auto;
   white-space: nowrap;
   overflow-y: hidden;
+}
+
+.search-tab-container::-webkit-scrollbar {
+  display: none;
 }
 
 .search-body-container {
@@ -704,7 +722,7 @@ input[type="range"].web-slider::-webkit-slider-runnable-track {
 }
 
 .albumpage-album-notes > .notes-preview {
-  height: 60px;
+  height: 48px;
   overflow: hidden;
   -webkit-mask-image: -webkit-gradient(linear, left 95%, left bottom, from(rgba(0, 0, 0, 1)), to(rgba(0, 0, 0, 0)));
 }
@@ -757,13 +775,13 @@ input[type="range"].web-slider::-webkit-slider-runnable-track {
 }
 
 .artist-header {
-  height: 400px;
+  /* height: 400px; */
   width: 100%;
-  margin: 12px auto;
+  /* margin: 12px auto; */
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 12px;
+  /* padding: 12px; */
   flex-direction: column;
   background: rgb(0 0 0 / 40%);
 }

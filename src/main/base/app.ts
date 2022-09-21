@@ -78,11 +78,15 @@ export class AppEvents {
       case "webgpu":
         console.info("WebGPU is enabled.");
         app.commandLine.appendSwitch("enable-unsafe-webgpu");
+        if (process.platform === "linux") {
+          app.commandLine.appendSwitch("enable-features", "Vulkan");
+        }
         break;
 
       case "disabled":
         console.info("Hardware acceleration is disabled.");
         app.commandLine.appendSwitch("disable-gpu");
+        app.disableHardwareAcceleration();
         break;
     }
 
@@ -232,7 +236,7 @@ export class AppEvents {
 
         startArgs.forEach((arg) => {
           console.log(arg);
-          if (arg.includes("cider://")) {
+          if (arg.includes("cider://") || arg.includes("itms://") || arg.includes("itmss://") || arg.includes("music://") || arg.includes("musics://")) {
             console.debug("[InstanceHandler] (second-instance) Link detected with " + arg);
             this.LinkHandler(arg);
           } else if (arg.includes("--force-quit")) {
@@ -328,10 +332,10 @@ export class AppEvents {
 
             {
                 visible: visible,
-                label: 'track info',  
-                enabled: false,          
+                label: 'track info',
+                enabled: false,
             },
-            
+
             {type: 'separator'},
             */
 

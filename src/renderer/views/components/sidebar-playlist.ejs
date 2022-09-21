@@ -19,7 +19,7 @@
         <div class="folder-body" v-if="item.type === 'library-playlist-folders' && folderOpened">
             <template v-if="children.length != 0">
                 <sidebar-playlist v-for="item in children" :relate-media-items="relateMediaItems"
-                                  :playlist-select="playlistSelect" :item="item" :key="item.id"></sidebar-playlist>
+                                  :playlist-select="playlistSelect" :item="item" v-bind:key="item.id"></sidebar-playlist>
             </template>
             <template v-else>
                 <div class="spinner"></div>

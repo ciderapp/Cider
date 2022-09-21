@@ -2,11 +2,11 @@
     <div class="content-inner">
         <h1 class="header-text">{{$root.getLz('term.recentlyAdded')}}</h1>
         <div class="well itemContainer collection-list-square" v-if="itemSize == 'normal'">
-            <mediaitem-square v-for="item in items" :item="item"></mediaitem-square>
+            <mediaitem-square v-for="item in items" :item="item" v-bind:key="item.id"></mediaitem-square>
         </div>
         <div class="well itemContainer collection-list-square" v-else="itemSize == 'compact'">
             <mediaitem-list-item :show-meta-data="true" :show-library-status="false" v-for="item in items"
-                                 :item="item"></mediaitem-list-item>
+                                 :item="item" v-bind:key="item.id"></mediaitem-list-item>
         </div>
         <div class="well itemContainer collection-list-square" v-show="loading">
             <div class="spinner"></div>

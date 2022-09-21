@@ -9,6 +9,7 @@ const MusicKitInterop = {
     /* MusicKit.Events.playbackStateDidChange */
     MusicKit.getInstance().addEventListener(MusicKit.Events.playbackStateDidChange, () => {
       const attributes = MusicKitInterop.getAttributes();
+      if (!attributes) return;
       if (MusicKitInterop.filterTrack(attributes, true, false)) {
         global.ipcRenderer.send("playbackStateDidChange", attributes);
         global.ipcRenderer.send("wsapi-updatePlaybackState", attributes);
@@ -18,11 +19,12 @@ const MusicKitInterop = {
     /* MusicKit.Events.playbackProgressDidChange */
     MusicKit.getInstance().addEventListener(MusicKit.Events.playbackProgressDidChange, async () => {
       const attributes = MusicKitInterop.getAttributes();
+      if (!attributes) return;
       // wsapi call
       ipcRenderer.send("wsapi-updatePlaybackState", attributes);
       // lastfm call
       if (app.mk.currentPlaybackProgress === app.cfg.connectivity.lastfm.scrobble_after / 100) {
-        attributes.primaryArtist = app.cfg.connectivity.lastfm.remove_featured ? await this.fetchPrimaryArtist() : attributes.artistName;
+        attributes.primaryArtist = app.cfg.connectivity.lastfm.remove_featured ? await this.fetchSongRelationships() : attributes.artistName;
         ipcRenderer.send("lastfm:scrobbleTrack", attributes);
       }
     });
@@ -30,16 +32,21 @@ const MusicKitInterop = {
     /* MusicKit.Events.playbackTimeDidChange */
     MusicKit.getInstance().addEventListener(MusicKit.Events.playbackTimeDidChange, () => {
       ipcRenderer.send("mpris:playbackTimeDidChange", MusicKit.getInstance()?.currentPlaybackTime * 1000 * 1000 ?? 0);
+      const attributes = MusicKitInterop.getAttributes();
+      if (!attributes) return;
+      ipcRenderer.send("playbackTimeDidChange", attributes);
     });
 
     /* MusicKit.Events.nowPlayingItemDidChange */
     MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, async () => {
-      console.debug("[cider:preload] nowPlayingItemDidChange");
       const attributes = MusicKitInterop.getAttributes();
-      attributes.primaryArtist = app.cfg.connectivity.lastfm.remove_featured ? await this.fetchPrimaryArtist() : attributes.artistName;
+      if (!attributes) return;
+      attributes.primaryArtist = app.cfg.connectivity.lastfm.remove_featured ? await this.fetchSongRelationships() : attributes.artistName;
+
+      global.ipcRenderer.send("nowPlayingItemDidChange", attributes);
 
       if (MusicKitInterop.filterTrack(attributes, false, true)) {
-        global.ipcRenderer.send("nowPlayingItemDidChange", attributes);
+        global.ipcRenderer.send("lastfm:FilteredNowPlayingItemDidChange", attributes);
       } else if (attributes.name !== "no-title-found" && attributes.playParams.id !== "no-id-found") {
         global.ipcRenderer.send("lastfm:nowPlayingChange", attributes);
       }
@@ -52,6 +59,7 @@ const MusicKitInterop = {
         await this.sleep(750);
         MusicKit.getInstance().playbackRate = app.cfg.audio.playbackRate;
       }
+      console.debug("[cider:preload] nowPlayingItemDidChange");
     });
 
     /* MusicKit.Events.authorizationStatusDidChange */
@@ -81,31 +89,47 @@ const MusicKitInterop = {
     });
   },
 
-  async fetchPrimaryArtist() {
-    const songID = app.mk.nowPlayingItem.attributes.playParams.catalogId || app.mk.nowPlayingItem.attributes.playParams.id;
-    const res = await MusicKit.getInstance().api.v3.music("/v1/catalog/" + MusicKit.getInstance().storefrontId + `/songs/${songID}`, {
+  async fetchSongRelationships({ id = this.getAttributes().songId, relationship = "primaryName" } = {}) {
+    if (!id) return null;
+    const res = await MusicKit.getInstance().api.v3.music("/v1/catalog/" + MusicKit.getInstance().storefrontId + `/songs/${id}`, {
       include: {
         songs: ["artists"],
       },
     });
+
     if (!res || !res.data) {
-      console.warn("[cider:preload] fetchPrimaryArtist: no response");
-      return app.mk.nowPlayingItem.attributes.artistName;
+      console.warn("[cider:preload] fetchSongRelationships: no response");
+      if (id === this.getAttributes().songId) {
+        return this.getAttributes().artistName;
+      }
+    }
+    if (!res.data.data.length) {
+      console.error(`[cider:preload] fetchSongRelationships: Unable to locate song with id of ${id}`);
+      if (id === this.getAttributes().songId) {
+        return this.getAttributes().artistName;
+      }
     }
 
-    if (!res.data.data.length) {
-      console.error(`[cider:preload] fetchPrimaryArtist: Unable to locate song with id of ${songID}`);
-      return app.mk.nowPlayingItem.attributes.artistName;
-    }
     const songData = res.data.data[0];
     const artistData = songData.relationships.artists.data;
-    if (artistData.length < 1) {
-      console.error(`[cider:preload] fetchPrimaryArtist: Unable to find artists related to the song with id of ${songID}`);
-      return app.mk.nowPlayingItem.attributes.artistName;
-    }
-
+    const albumData = songData.relationships.albums.data;
     const primaryArtist = artistData[0];
-    return primaryArtist.attributes.name;
+
+    switch (relationship) {
+      default:
+      case "primaryName":
+        if (artistData.length < 1) {
+          console.error(`[cider:preload] fetchSongRelationships: Unable to find artists related to the song with id of ${id}`);
+          return app.mk.nowPlayingItem.attributes.artistName;
+        }
+        return primaryArtist.attributes.name;
+
+      case "primaryArtist":
+        return primaryArtist;
+
+      case "album":
+        return albumData[0];
+    }
   },
 
   getAttributes: function () {
@@ -117,6 +141,7 @@ const MusicKitInterop = {
     const attributes = nowPlayingItem != null ? nowPlayingItem.attributes : {};
 
     attributes.songId = attributes.songId ?? attributes.playParams?.catalogId ?? attributes.playParams?.id;
+    attributes.type = nowPlayingItem?.type ?? "";
     attributes.status = isPlayingExport ?? null;
     attributes.name = attributes?.name ?? "no-title-found";
     attributes.artwork = attributes?.artwork ?? { url: "" };
@@ -126,6 +151,7 @@ const MusicKitInterop = {
     attributes.url = {
       cider: `https://cider.sh/link?play/s/${nowPlayingItem?._songId ?? nowPlayingItem?.songId ?? "no-id-found"}`,
       appleMusic: attributes.websiteUrl ? attributes.websiteUrl : `https://music.apple.com/${mk.storefrontId}/song/${nowPlayingItem?._songId ?? nowPlayingItem?.songId ?? "no-id-found"}`,
+      songLink: "https://song.link/i/" + attributes.songId,
     };
     if (attributes.playParams.id === "no-id-found") {
       attributes.playParams.id = nowPlayingItem?.id ?? "no-id-found";
@@ -139,6 +165,10 @@ const MusicKitInterop = {
     attributes.currentPlaybackProgress = currentPlaybackProgress ?? 0;
     attributes.startTime = Date.now();
     attributes.endTime = Math.round(attributes?.playParams?.id === cache.playParams.id ? Date.now() + attributes?.remainingTime : attributes?.startTime + attributes?.durationInMillis);
+
+    if (attributes.name === "no-title-found") {
+      return;
+    }
     return attributes;
   },
 

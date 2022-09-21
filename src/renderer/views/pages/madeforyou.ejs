@@ -5,7 +5,7 @@
         </div>
     </div>
     <div class="madeforyou-body">
-        <mediaitem-square :item="item" v-for="item in madeforyou.data">
+        <mediaitem-square :item="item" v-for="item in madeforyou.data" v-bind:key="item.id">
         </mediaitem-square>
     </div>
 </div>

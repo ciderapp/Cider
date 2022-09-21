@@ -1,0 +1,37 @@
+name: PR Chores
+
+on: [pull_request]
+
+jobs:
+    linter-check:
+      runs-on: ${{ matrix.os }}
+
+      strategy:
+        matrix:
+          os: [ubuntu-latest]
+          node: [14]
+
+      steps:
+        - name: Checkout 🛎
+          uses: actions/checkout@v2
+
+        - name: Setup pnpm 🚧F
+          uses: pnpm/action-setup@v2.2.2
+          with:
+            version: 7
+
+        - name: Setup node env 🏗
+          uses: actions/setup-node@v3.4.1
+          with:
+            node-version: ${{ matrix.node }}
+            check-latest: true
+            cache: 'pnpm'
+
+        - name: Install dependencies 👨🏻‍💻
+          run: pnpm install
+          
+        - name: Run linter 👀
+          uses: wearerequired/lint-action@v2
+          with:
+            prettier: true
+            prettier_args: "'**/*.{js,json,ts,css,vue,less}'"

@@ -72,11 +72,18 @@ export class Store {
       discord_rpc: {
         enabled: true,
         client: "Cider",
+        activity: {
+          state_format: "by {artist}",
+          details_format: "{title}",
+          hide_timestamp: false,
+          buttons: {
+            enabled: true,
+            first: "listenOnCider",
+            second: "viewOnAppleMusic",
+            options: ["listenOnCider", "viewOnAppleMusic", "viewOnOtherMusicServices"],
+          },
+        },
         clear_on_pause: true,
-        hide_buttons: false,
-        hide_timestamp: false,
-        state_format: "by {artist}",
-        details_format: "{title}",
       },
       lastfm: {
         enabled: false,
@@ -200,6 +207,7 @@ export class Store {
       accentColor: "#fc3c44",
       purplePodcastPlaybackBar: false,
       maxElementScale: -1, // -1 default, anything else is a custom scale
+      overrideDisplayTheme: "system", // system , dark, light
     },
     lyrics: {
       enable_mxm: true,
@@ -232,7 +240,6 @@ export class Store {
   };
 
   constructor() {
-    this.defaults.general.language = this.checkLocale(app.getLocale().replace("-", "_")) ?? "en_US";
     Store.cfg = new ElectronStore({
       name: "cider-config",
       defaults: this.defaults,

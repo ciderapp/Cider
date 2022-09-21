@@ -54,9 +54,13 @@
                                         <small>{{ device.host }}</small>
                                     </div>
                                     <div class="md-option-segment_auto"
-                                         style="display: flex;justify-content: center;align-items: center"
+                                         style="display: flex;justify-content: center;align-items: center" @click="disconnectAirPlayCast(device)"
                                          v-if="activeCasts.some(item => { return item.host == device.host && item.name == device.name && item.port == device.port})">
-                                        Connected
+                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewBox="0 0 20 20" version="1.1">
+                                          <g id="surface1">
+                                          <path style="stroke:none;fill-rule:evenodd;fill:#fff;fill-opacity:1;" d="M 10 0 C 15.523438 0 20 4.476562 20 10 C 20 15.523438 15.523438 20 10 20 C 4.476562 20 0 15.523438 0 10 C 0 4.476562 4.476562 0 10 0 Z M 12.136719 5.988281 C 12.421875 5.703125 12.597656 5.472656 12.953125 5.828125 L 14.089844 6.988281 C 14.464844 7.355469 14.445312 7.570312 14.089844 7.914062 L 11.933594 10.0625 L 14.011719 12.136719 C 14.296875 12.421875 14.527344 12.597656 14.171875 12.953125 L 13.011719 14.089844 C 12.644531 14.464844 12.429688 14.445312 12.089844 14.089844 L 10 12 L 7.914062 14.082031 C 7.574219 14.433594 7.359375 14.453125 6.992188 14.082031 L 5.828125 12.945312 C 5.472656 12.59375 5.703125 12.417969 5.992188 12.128906 L 8.066406 10.0625 L 5.917969 7.917969 C 5.566406 7.574219 5.546875 7.359375 5.917969 6.992188 L 7.054688 5.828125 C 7.40625 5.472656 7.582031 5.703125 7.871094 5.992188 L 10 8.128906 Z M 12.136719 5.988281 "/>
+                                          </g>
+                                          </svg>
                                     </div>
                                     <div class="md-option-segment_auto" v-else
                                          style="display: flex;justify-content: center;align-items: center">
@@ -135,8 +139,27 @@
         ipcRenderer.send('performGCCast', device, "Cider", "Playing ...", "Test build", '');
       },
       setAirPlayCast(device) {
+        if (!this.activeCasts.some(item => { return item.host == device.host && item.name == device.name && item.port == device.port})) {
         this.activeCasts.push(device);
-        ipcRenderer.send("performAirplayPCM", device.host, device.port, null, "", "", "", "", device.txt, device.airplay2)
+        ipcRenderer.send("performAirplayPCM", device.host, device.port, null, "", "", "", "", device.txt, device.airplay2, false)}
+      },
+      disconnectAirPlayCast(device) {
+        app.confirm("Do you want to disconnect this device?",(res) => {
+          if (res){ 
+            ipcRenderer.send('disconnectAirplay', device.host +":"+ device.port+"ap");
+            console.log('disconnectAirplay', device.host +":"+ device.port+"ap")
+            let idx = this.activeCasts.findIndex(((a) => {return a.host == device.host &&  a.port == device.port}))
+            console.log(idx)
+            if (idx != -1) {
+              delete this.activeCasts[idx]
+              delete this.$root.activeCasts[idx]
+              this.activeCasts = this.activeCasts.filter(a => {return !(a.host == device.host &&  a.port == device.port)})
+              console.log(this.activeCasts)
+              if (this.activeCasts.length == 0){
+                this.stopCasting()
+              }
+          }}
+        })
       },
       stopCasting() {
         CiderAudio.stopAudio();
