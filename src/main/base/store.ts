@@ -1,9 +1,6 @@
 import * as ElectronStore from "electron-store";
 import { app, ipcMain } from "electron";
 import fetch from "electron-fetch";
-import { existsSync } from "fs";
-import { join } from "path";
-import { utils } from "./utils";
 
 export class Store {
   static cfg: ElectronStore;
@@ -122,7 +119,7 @@ export class Store {
     },
     audio: {
       volume: 1,
-      volumeStep: 0.05,
+      volumeStep: 0.01,
       maxVolume: 1,
       lastVolume: 1,
       muted: false,
@@ -335,9 +332,5 @@ export class Store {
     ipcMain.on("setStore", (_event, store) => {
       Store.cfg.store = store;
     });
-  }
-
-  private checkLocale(language: string) {
-    return existsSync(join(utils.getPath("i18nPath"), `${language}.json`)) ? language : "en_US";
   }
 }
