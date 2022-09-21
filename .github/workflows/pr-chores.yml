@@ -30,12 +30,8 @@ jobs:
         - name: Install dependencies 👨🏻‍💻
           run: pnpm install
           
-        - name: Install ESLint 💼
-          run: npm init @eslint/config
-
         - name: Run linter 👀
           uses: wearerequired/lint-action@v2
           with:
-            eslint: true
             prettier: true
             prettier_args: "'**/*.{js,json,ts,css,vue,less}'"
