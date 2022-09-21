@@ -40,7 +40,7 @@ const MusicKitInterop = {
       ipcRenderer.send("playbackTimeDidChange", attributes);
       if ("mediaSession" in navigator) {
         navigator.mediaSession.setPositionState({
-          duration: attributes.duration,
+          duration: attributes.durationInMillis / 1000,
           playbackRate: app?.cfg?.audio?.playbackRate ?? 1,
           position: attributes.currentPlaybackTime,
         });
