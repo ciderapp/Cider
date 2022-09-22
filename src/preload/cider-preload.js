@@ -144,7 +144,7 @@ const MusicKitInterop = {
     const attributes = nowPlayingItem != null ? nowPlayingItem.attributes : {};
 
     attributes.songId = attributes.songId ?? attributes.playParams?.catalogId ?? attributes.playParams?.id;
-    attributes.kind = nowPlayingItem?.type ?? attributes.type ?? attributes.playParams.kind ?? "";
+    attributes.kind = nowPlayingItem?.type ?? attributes?.type ?? attributes.playParams?.kind ?? "";
     attributes.status = nowPlayingItem == null ? null : !!isPlayingExport;
     attributes.name = attributes?.name ?? "no-title-found";
     attributes.artwork = attributes?.artwork ?? { url: "" };
@@ -229,42 +229,38 @@ const MusicKitInterop = {
 
   initMediaSession: () => {
     if ("mediaSession" in navigator) {
-      const defaultSkipTime = 10;
-
       console.debug("[cider:preload] [initMediaSession] Media Session API supported");
       navigator.mediaSession.setActionHandler("play", () => {
         MusicKitInterop.play();
-        console.log("[cider:preload] [initMediaSession] Play");
       });
       navigator.mediaSession.setActionHandler("pause", () => {
         MusicKitInterop.pause();
-        console.log("[cider:preload] [initMediaSession] Pause");
       });
       navigator.mediaSession.setActionHandler("stop", () => {
         MusicKit.getInstance().stop();
-        console.log("[cider:preload] [initMediaSession] Stop");
       });
       navigator.mediaSession.setActionHandler("seekbackward", (details) => {
-        const skipTime = details.seekOffset || defaultSkipTime;
-        MusicKit.getInstance().seekToTime(Math.max(MusicKit.getInstance().currentPlaybackTime - skipTime, 0));
-        console.log(`[cider:preload] [initMediaSession] Seek Backward ${skipTime}`);
+        if (details.seekOffset) {
+          MusicKit.getInstance().seekToTime(Math.max(MusicKit.getInstance().currentPlaybackTime - details.seekOffset, 0));
+        } else {
+          MusicKit.getInstance().seekBackward();
+        }
       });
       navigator.mediaSession.setActionHandler("seekforward", (details) => {
-        const skipTime = details.seekOffset || defaultSkipTime;
-        MusicKit.getInstance().seekToTime(Math.max(MusicKit.getInstance().currentPlaybackTime + skipTime, 0));
-        console.log(`[cider:preload] [initMediaSession] Seek Forward ${skipTime}`);
+        if (details.seekOffset) {
+          MusicKit.getInstance().seekToTime(Math.max(MusicKit.getInstance().currentPlaybackTime + details.seekOffset, 0));
+        } else {
+          MusicKit.getInstance().seekForward();
+        }
       });
       navigator.mediaSession.setActionHandler("seekto", ({ seekTime, fastSeek }) => {
         MusicKit.getInstance().seekToTime(seekTime);
-        console.log(`[cider:preload] [initMediaSession] Seek To ${seekTime}`);
       });
       navigator.mediaSession.setActionHandler("previoustrack", () => {
         MusicKitInterop.previous();
-        console.log("[cider:preload] [initMediaSession] Previous Track");
       });
       navigator.mediaSession.setActionHandler("nexttrack", () => {
         MusicKitInterop.next();
-        console.log("[cider:preload] [initMediaSession] Next Track");
       });
     } else {
       console.debug("[cider:preload] [initMediaSession] Media Session API not supported");
