@@ -116,10 +116,10 @@ jobs:
           name: Move Build Files
           command: |
             mkdir ~/Cider/dist/artifacts/
-            mv ~/Cider/dist/*.exe ~/Cider/dist/artifacts
             mv ~/Cider/dist/*.deb ~/Cider/dist/artifacts
             mv ~/Cider/dist/*.AppImage ~/Cider/dist/artifacts
             mv ~/Cider/dist/*.snap ~/Cider/dist/artifacts
+            mv ~/Cider/dist/*.exe ~/Cider/dist/artifacts
             mv ~/Cider/dist/*.yml ~/Cider/dist/artifacts
             mv ~/Cider/dist/*.blockmap ~/Cider/dist/artifacts
       - store_artifacts:
@@ -153,6 +153,7 @@ workflows:
               only:
                 - main
                 - stable
+                - steam-deck
       - build-windows:
           requires:
             - prepare-build
@@ -161,6 +162,7 @@ workflows:
               only:
                 - main
                 - stable
+                - steam-deck
       - build-linux:
           requires:
             - prepare-build
@@ -169,6 +171,7 @@ workflows:
               only:
                 - main
                 - stable
+                - steam-deck
       - build-winget:
           requires:
             - prepare-build
@@ -177,6 +180,7 @@ workflows:
               only:
                 - main
                 - stable
+                - steam-deck
       - release:
           requires:
             - build-windows
@@ -187,3 +191,4 @@ workflows:
               only:
                 - main
                 - stable
+                - steam-deck

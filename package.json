@@ -36,6 +36,7 @@
     "winget": "npm run build && electron-builder --win -c winget.json",
     "msft": "npm run build && electron-builder -c msft-package.json",
     "mstest": "npm run build && electron-builder -c msft-test.json",
+    "steamdeck": "npm run build && electron-builder --linux -c steam-deck.json",
     "postinstall": "electron-builder install-app-deps",
     "format:check": "npx prettier --check \"src/**/*.{js,json,ts,less}\"",
     "format:write": "npx prettier --write \"src/**/*.{js,json,ts,less}\""
