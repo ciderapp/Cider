@@ -479,7 +479,7 @@ export class BrowserWindow {
       }
     }
     for (let i = 0; i < expectedFiles.length; i++) {
-      const file = join(utils.getPath("ciderCache"), expectedFiles[i]);
+      const file = join(join(app.getPath("userData"), "CiderCache"), expectedFiles[i]);
       if (!existsSync(file)) {
         writeFileSync(file, JSON.stringify([]));
       }
@@ -1067,13 +1067,13 @@ export class BrowserWindow {
     });
 
     ipcMain.handle("put-cache", (_event, arg) => {
-      writeFileSync(join(utils.getPath("ciderCache"), `${arg.file}.json`), arg.data);
+      writeFileSync(join(join(app.getPath("userData"), "CiderCache"), `${arg.file}.json`), arg.data);
     });
 
     ipcMain.on("get-cache", (event, arg) => {
       let read = "";
-      if (existsSync(join(utils.getPath("ciderCache"), `${arg}.json`))) {
-        read = readFileSync(join(utils.getPath("ciderCache"), `${arg}.json`), "utf8");
+      if (existsSync(join(join(app.getPath("userData"), "CiderCache"), `${arg}.json`))) {
+        read = readFileSync(join(join(app.getPath("userData"), "CiderCache"), `${arg}.json`), "utf8");
       }
       event.returnValue = read;
     });

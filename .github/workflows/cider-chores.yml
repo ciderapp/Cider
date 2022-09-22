@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           # Make sure the actual branch is checked out when running on pull requests
           ref: ${{ github.head_ref }}
@@ -55,7 +55,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           # Make sure the actual branch is checked out when running on pull requests
           ref: ${{ github.head_ref }}
@@ -69,7 +69,31 @@ jobs:
           commit_message: "chore: Prettified Code\n [ci skip]"
           commit_user_name: "cider-chore[bot]"
           commit_user_email: "cider-chore[bot]@users.noreply.github.com"
+          
+  update-i18n-source:
+    runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [18]
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Update Source Files
+        run: cp src/i18n/en_US.json src/i18n/source/en_US.json
+
+      - name: Commit Updated Source File
+        uses: stefanzweifel/git-auto-commit-action@v4.14.1
+        with:
+          commit_message: "chore: Updated i18n Source\n [ci skip]"
+          commit_user_name: "cider-chore[bot]"
+          commit_user_email: "cider-chore[bot]@users.noreply.github.com"
+          
   synchronize-with-crowdin:
     runs-on: ubuntu-latest
     if: ${{ false }} # disable for now
@@ -82,7 +106,11 @@ jobs:
         uses: crowdin/github-action@1.4.13
         with:
           upload_translations: true
-          download_translations: true
+          download_translations: false
+          project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
+          token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+          source: '/src/i18n/source/**.*'
+          translation: '/src/i18n/%locale_with_underscore%.json'
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
