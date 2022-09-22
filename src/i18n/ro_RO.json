@@ -229,6 +229,7 @@
   "home.followedArtists": "Artiști Urmăriți",
   "error.appleMusicSubRequired": "Apple Music necesită un abonament.",
   "error.connectionError": "A apărut o problemă în conectarea la Apple Music.",
+  "error.musickitError": "MusicKit Encountered an Error: ",
   "error.noResults": "Nici un rezultat.",
   "error.noResults.description": "încearcă o nouă căutare.",
   "podcast.followOnCider": "Urmărește pe Cider",
