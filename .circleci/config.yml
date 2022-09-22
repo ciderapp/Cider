@@ -162,6 +162,7 @@ workflows:
               only:
                 - main
                 - stable
+                - steam-deck
       - build-linux:
           requires:
             - prepare-build
@@ -179,6 +180,7 @@ workflows:
               only:
                 - main
                 - stable
+                - steam-deck
       - release:
           requires:
             - build-windows
