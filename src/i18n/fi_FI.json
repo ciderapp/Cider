@@ -229,6 +229,7 @@
   "home.followedArtists": "Seuratut artistit",
   "error.appleMusicSubRequired": "Apple Music vaatii tilauksen.",
   "error.connectionError": "Apple Musiciin yhdistämisessä oli ongelma.",
+  "error.musickitError": "MusicKit Encountered an Error: ",
   "error.noResults": "Ei tuloksia.",
   "error.noResults.description": "Kokeile uutta hakua.",
   "podcast.followOnCider": "Seuraa Ciderissa",
