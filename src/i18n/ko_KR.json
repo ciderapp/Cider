@@ -229,6 +229,7 @@
   "home.followedArtists": "팔로우한 아티스트",
   "error.appleMusicSubRequired": "Apple Music은 구독을 필요로 합니다.",
   "error.connectionError": "Apple Music에 연결하지 못했습니다.",
+  "error.musickitError": "MusicKit Encountered an Error: ",
   "error.noResults": "결과 없음",
   "error.noResults.description": "다시 시도해주세요.",
   "podcast.followOnCider": "Cider에서 팔로우하기",
