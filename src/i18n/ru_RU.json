@@ -229,6 +229,7 @@
   "home.followedArtists": "Отслеживаемые артисты",
   "error.appleMusicSubRequired": "Для прослушивания Apple Music требуется подписка.",
   "error.connectionError": "Возникла проблема с подключением к Apple Music.",
+  "error.musickitError": "MusicKit Encountered an Error: ",
   "error.noResults": "Нет результатов.",
   "error.noResults.description": "Попробуйте ещё раз.",
   "podcast.followOnCider": "Отслеживать в Cider",
