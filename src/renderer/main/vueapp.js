@@ -305,6 +305,20 @@ const app = new Vue({
           app.cfg.musickit["stored-attributes"][attr] = val;
         });
       }
+      const ERROR_CODES = ["drmUnsupported", "mediaPlaybackError"];
+      /* MusicKit.Events */
+      ERROR_CODES.forEach((code) => {
+        MusicKit.getInstance().addEventListener(MusicKit.Events[code], (e) => {
+          console.error(`[MusicKit] MusicKit Error ${code}`);
+          console.error({ e: e });
+          app.notyf.open({
+            duration: 20000,
+            type: "error",
+            className: "notyf-info",
+            message: `<small>${app.getLz("error.musickitError")} \n</small><code>${code.toUpperCase()}</code>`,
+          });
+        });
+      });
     },
     async oobeInit() {
       this.appMode = "oobe";
