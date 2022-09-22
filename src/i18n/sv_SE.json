@@ -229,6 +229,7 @@
   "home.followedArtists": "Följda artister",
   "error.appleMusicSubRequired": "Apple Music kräver en prenumeration.",
   "error.connectionError": "Ojdå. Det gick inte att ansluta till Apple Music.",
+  "error.musickitError": "MusicKit Encountered an Error: ",
   "error.noResults": "Inga träffar.",
   "error.noResults.description": "Prova en ny sökning.",
   "podcast.followOnCider": "Följ på Cider",
