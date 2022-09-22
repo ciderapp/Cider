@@ -229,6 +229,7 @@
   "home.followedArtists": "Artis Diikuti",
   "error.appleMusicSubRequired": "Apple Music memerlukan langganan.",
   "error.connectionError": "Terjadi masalah saat menyambungkan ke Apple Music.",
+  "error.musickitError": "MusicKit Encountered an Error: ",
   "error.noResults": "Tidak ada hasil.",
   "error.noResults.description": "Coba pencarian baru.",
   "podcast.followOnCider": "Ikuti di Cider",
