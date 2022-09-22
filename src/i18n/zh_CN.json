@@ -229,6 +229,7 @@
   "home.followedArtists": "关注的艺人",
   "error.appleMusicSubRequired": "需要订阅 Apple Music 以使用 Cider",
   "error.connectionError": "无法连接至 Apple Music。",
+  "error.musickitError": "MusicKit Encountered an Error: ",
   "error.noResults": "没有结果。",
   "error.noResults.description": "尝试更改搜索条件。",
   "podcast.followOnCider": "在 Cider 中关注",
