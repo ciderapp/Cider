@@ -229,6 +229,7 @@
   "home.followedArtists": "フォローしているアーティスト",
   "error.appleMusicSubRequired": "Apple Musicのサブスクリプションが必要です。",
   "error.connectionError": "Apple Musicに接続できません。",
+  "error.musickitError": "MusicKit Encountered an Error: ",
   "error.noResults": "見つかりませんでした",
   "error.noResults.description": "もう一度お試しください。",
   "podcast.followOnCider": "Ciderでフォロー",
