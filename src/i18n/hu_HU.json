@@ -229,6 +229,7 @@
   "home.followedArtists": "Követett előadók",
   "error.appleMusicSubRequired": "Apple Music előfizetés szükséges.",
   "error.connectionError": "Hiba történt az Apple Musichoz való csatlakozás közben.",
+  "error.musickitError": "MusicKit Encountered an Error: ",
   "error.noResults": "Nincs találat",
   "error.noResults.description": "Próbálkozzon új kereséssel",
   "podcast.followOnCider": "Követés a Cideren",
