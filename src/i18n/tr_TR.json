@@ -229,6 +229,7 @@
   "home.followedArtists": "Takip Edilen Sanatçılar",
   "error.appleMusicSubRequired": "Apple Müzik, aktif bir abonelik gerektirir.",
   "error.connectionError": "Apple Müzik ile bağlantı kurulamadı.",
+  "error.musickitError": "MusicKit Encountered an Error: ",
   "error.noResults": "Hiç sonuç yok",
   "error.noResults.description": "Tekrar deneyin.",
   "podcast.followOnCider": "Cider'de Takip Et",
