@@ -229,6 +229,7 @@
   "home.followedArtists": "Các nghệ sĩ đang theo dõi",
   "error.appleMusicSubRequired": "Apple Music yêu cầu bạn đăng kí.",
   "error.connectionError": "Có vấn đề kết nối tới Apple Music.",
+  "error.musickitError": "MusicKit Encountered an Error: ",
   "error.noResults": "Không có kết quả.",
   "error.noResults.description": "Hãy thử tìm kiếm bẳng từ khoá khác.",
   "podcast.followOnCider": "Theo dõi trên Cider",
