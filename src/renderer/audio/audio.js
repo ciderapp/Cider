@@ -972,14 +972,14 @@ const CiderAudio = {
       MusicKit.getInstance().pause(); // Pause first
     }
 
-    CiderAudioRenderer.off(); // Clean up IMMEDIATELY
-
     CiderAudio.audioNodes.optimizedNode = CiderAudio.context.createConvolver();
     CiderAudio.audioNodes.optimizedNode.normalize = false;
 
     const res = CiderAudioRenderer.hierarchical_optimizer().then((res) => {
       CiderAudio.audioNodes.optimizedNode.buffer = res;
     });
+
+    CiderAudioRenderer.off(); // Clean up IMMEDIATELY
 
     // Load the sucker up
 
