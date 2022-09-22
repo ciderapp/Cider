@@ -229,6 +229,7 @@
   "home.followedArtists": "Gevolgde artiesten",
   "error.appleMusicSubRequired": "Apple Music vereist een abonnement.",
   "error.connectionError": "Er is een probleem opgetreden bij het verbinden met Apple Music.",
+  "error.musickitError": "MusicKit Encountered an Error: ",
   "error.noResults": "Niets gevonden.",
   "error.noResults.description": "Probeer een nieuwe zoekopdracht.",
   "podcast.followOnCider": "Volg op Cider",
