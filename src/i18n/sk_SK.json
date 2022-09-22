@@ -229,6 +229,7 @@
   "home.followedArtists": "Sledovaný Tvorcovia",
   "error.appleMusicSubRequired": "Apple Music potrebuje subscription.",
   "error.connectionError": "Pri pripojovaní ku Apple Music sa vyskytol problém",
+  "error.musickitError": "MusicKit Encountered an Error: ",
   "error.noResults": "Žiadne výsledky",
   "error.noResults.description": "Skús nové vyhľádavanie",
   "podcast.followOnCider": "Sleduj na Cider",
