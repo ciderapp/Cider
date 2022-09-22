@@ -229,6 +229,7 @@
   "home.followedArtists": "Καλλιτέχνες που ακολουθείτε",
   "error.appleMusicSubRequired": "Το Apple Music απαιτεί μια συνδρομή.",
   "error.connectionError": "Δεν είναι δυνατή η σύνδεση με το Apple Music.",
+  "error.musickitError": "MusicKit Encountered an Error: ",
   "error.noResults": "Κανένα αποτέλεσμα.",
   "error.noResults.description": "Δοκιμάστε μια νέα αναζήτηση.",
   "podcast.followOnCider": "Ακολούθηση στο Cider",
