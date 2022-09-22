@@ -229,6 +229,7 @@
   "home.followedArtists": "追蹤的藝人",
   "error.appleMusicSubRequired": "你需要擁有 Apple Music 訂閱，才能使用 Cider 軟體。",
   "error.connectionError": "無法連線到 Apple Music。",
+  "error.musickitError": "MusicKit Encountered an Error: ",
   "error.noResults": "沒有結果",
   "error.noResults.description": "請嘗試透過搜尋功能尋找內容。",
   "podcast.followOnCider": "在 Cider 上追蹤",
