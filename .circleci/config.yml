@@ -153,6 +153,7 @@ workflows:
               only:
                 - main
                 - stable
+                - steam-deck
       - build-windows:
           requires:
             - prepare-build
@@ -169,6 +170,7 @@ workflows:
               only:
                 - main
                 - stable
+                - steam-deck
       - build-winget:
           requires:
             - prepare-build
@@ -187,3 +189,4 @@ workflows:
               only:
                 - main
                 - stable
+                - steam-deck
