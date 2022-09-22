@@ -10,11 +10,11 @@
   "notification.updatingLibrarySongs": "正在更新歌曲资料库……",
   "notification.updatingLibraryAlbums": "正在更新专辑资料库……",
   "notification.updatingLibraryArtists": "正在更新艺人资料库……",
-  "notification.buildingPlaylistCache": "Building Playlist Cache...",
+  "notification.buildingPlaylistCache": "正在构建播放列表缓存……",
   "term.variables": "变量",
   "term.appleInc": "Apple Inc.",
   "term.appleMusic": "Apple Music",
-  "term.applePodcasts": "Apple Podcasts",
+  "term.applePodcasts": "Apple 播客",
   "term.itunes": "iTunes",
   "term.github": "GitHub",
   "term.discord": "Discord",
@@ -116,23 +116,23 @@
   "term.time.updated": "更新于",
   "term.time.days": "天",
   "term.time.day": {
-    "one": "day",
-    "other": "days"
+    "one": "天",
+    "other": "天"
   },
   "term.time.hours": "小时",
   "term.time.hour": {
-    "one": "hour",
-    "other": "hours"
+    "one": "小时",
+    "other": "小时"
   },
   "term.time.minutes": "分钟",
   "term.time.minute": {
-    "one": "minute",
-    "other": "minutes"
+    "one": "分钟",
+    "other": "分钟"
   },
   "term.time.seconds": "秒",
   "term.time.second": {
-    "one": "second",
-    "other": "seconds"
+    "one": "秒",
+    "other": "秒"
   },
   "term.fullscreenView": "全屏显示",
   "term.defaultView": "默认显示",
@@ -157,8 +157,8 @@
   "term.reset": "重置",
   "term.tracks": "歌曲",
   "term.track": {
-    "one": "track",
-    "other": "tracks"
+    "one": "首歌曲",
+    "other": "首歌曲"
   },
   "term.videos": "音乐视频",
   "term.menu": "菜单",
@@ -261,7 +261,7 @@
   "action.removeFromQueue.success": "已从待播清单中移除",
   "action.removeFromQueue.error": "从待播清单中移除的过程中发生了错误",
   "action.createPlaylist": "新建播放列表",
-  "action.addToPlaylist.duplicate": "Item already exists in playlist. Do you want to continue?",
+  "action.addToPlaylist.duplicate": "播放列表中已存在相同歌曲。您确定要继续吗？",
   "action.addToPlaylist": "添加到播放列表",
   "action.removeFromPlaylist": "从播放列表中移除",
   "action.addToFavorites": "添加至收藏",
@@ -294,7 +294,7 @@
   "action.showAlbum": "显示完整专辑",
   "action.tray.minimize": "最小化",
   "action.tray.show": "显示 Cider",
-  "action.tray.listento": "Listen To:",
+  "action.tray.listento": "正在聆听：",
   "action.update": "更新",
   "action.install": "安装",
   "action.copy": "拷贝",
@@ -327,7 +327,7 @@
   "menubar.options.signout": "注销",
   "menubar.options.support": "支持",
   "menubar.options.report": "报告……",
-  "menubar.options.bug": "Bug",
+  "menubar.options.bug": "漏洞",
   "menubar.options.feature": "功能请求",
   "menubar.options.trans": "翻译报告/请求",
   "menubar.options.license": "查看授权",
@@ -496,7 +496,7 @@
   "settings.option.visual.theme.viewInfo": "查看信息",
   "settings.option.visual.theme.github.available": "可使用的主题",
   "settings.option.visual.theme.github.applied": "已应用",
-  "settings.notyf.visual.theme.updateAvailable": "[Themes] {{ theme }} has an update available",
+  "settings.notyf.visual.theme.updateAvailable": "[Themes] {{ theme }} 现有可用更新",
   "settings.notyf.visual.theme.install.success": "主题安装成功",
   "settings.notyf.visual.theme.install.error": "主题安装失败",
   "settings.header.visual.plugin": "插件",
@@ -551,7 +551,7 @@
   "settings.option.connectivity.lastfmScrobble.filterLoop": "不记录单曲循环（Last.fm）",
   "settings.option.connectivity.lastfmScrobble.filterLoop.description": "防止循环单曲被记录或展示在 Last.fm 的正在播放列表中。",
   "settings.option.connectivity.lastfmScrobble.filterTypes": "过滤媒体类型（Last.fm）",
-  "settings.option.connectivity.lastfmScrobble.filterTypes.description": "Prevent tracks of the selected media types from being scrobbled or displayed in the Now Playing list on Last.fm.",
+  "settings.option.connectivity.lastfmScrobble.filterTypes.description": "防止所选媒体类型的曲目被记录或展示在 Last.fm 的正在播放列表中。",
   "settings.option.connectivity.lastfmScrobble.manualToken": "手动输入 Last.fm 验证码",
   "settings.option.connectivity.lastfmScrobble.manualToken.link": "点击此处以获取 Last.fm 验证码",
   "settings.notyf.connectivity.lastfmScrobble.connectError": "Last.fm 连接超时",
