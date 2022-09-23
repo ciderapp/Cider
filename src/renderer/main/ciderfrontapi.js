@@ -3,8 +3,8 @@ const CiderFrontAPI = {
     MenuEntry: function () {
       this.id = "";
       this.name = "";
-      this.onClick = () => { };
-      this.top = false
+      this.onClick = () => {};
+      this.top = false;
     },
   },
   AddMenuEntry(entry) {
