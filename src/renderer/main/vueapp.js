@@ -1059,9 +1059,14 @@ const app = new Vue({
       });
 
       this.mk.addEventListener(MusicKit.Events.queueItemsDidChange, () => {
-        if (self.$refs.queue) {
+        if (self.$refs.queue || self.$refs.fsView?.$refs?.queue) {
           setTimeout(() => {
-            self.$refs.queue.updateQueue();
+            if (self.$refs.fsView?.$refs?.queue) {
+              self.$refs.fsView?.$refs?.queue.updateQueue();
+            }
+            if (self.$refs?.queue) {
+              self.$refs.queue.updateQueue();
+            }
           }, 100);
         }
       });
@@ -1083,7 +1088,10 @@ const app = new Vue({
       });
 
       this.mk.addEventListener(MusicKit.Events.nowPlayingItemDidChange, (a) => {
-        if (self.$refs.queue) {
+        if (self.$refs.fsView?.$refs?.queue) {
+          self.$refs.fsView?.$refs?.queue.updateQueue();
+        }
+        if (self.$refs?.queue) {
           self.$refs.queue.updateQueue();
         }
         this.currentSongInfo = a;

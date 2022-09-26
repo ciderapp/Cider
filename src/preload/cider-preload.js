@@ -41,6 +41,12 @@ const MusicKitInterop = {
 
     /* MusicKit.Events.nowPlayingItemDidChange */
     MusicKit.getInstance().addEventListener(MusicKit.Events.nowPlayingItemDidChange, async () => {
+      if (window?.localStorage) {
+        window.localStorage.setItem("currentTrack", JSON.stringify(MusicKit.getInstance().nowPlayingItem));
+        window.localStorage.setItem("currentTime", JSON.stringify(MusicKit.getInstance().currentPlaybackTime));
+        window.localStorage.setItem("currentQueue", JSON.stringify(MusicKit.getInstance().queue?._unplayedQueueItems));
+      }
+
       const attributes = MusicKitInterop.getAttributes();
       if (!attributes) return;
       attributes.primaryArtist = app.cfg.connectivity.lastfm.remove_featured ? await this.fetchSongRelationships() : attributes.artistName;
