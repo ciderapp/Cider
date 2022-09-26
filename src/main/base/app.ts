@@ -2,6 +2,7 @@ import { app, Menu, nativeImage, Tray, ipcMain, clipboard, shell } from "electro
 import { readFileSync } from "fs";
 import * as path from "path";
 import * as log from "electron-log";
+import * as os from "os";
 import { utils } from "./utils";
 
 /**
@@ -92,6 +93,11 @@ export class AppEvents {
 
     if (process.platform === "linux") {
       app.commandLine.appendSwitch("disable-features", "MediaSessionService");
+      
+      if (os.version().indexOf("SteamOS")) {
+        app.commandLine.appendSwitch("enable-features", "UseOzonePlatform");
+        app.commandLine.appendSwitch("ozone-platform", "x11");
+      }
     }
 
     /***********************************************************************************************************************
