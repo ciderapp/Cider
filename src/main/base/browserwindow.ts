@@ -1445,16 +1445,18 @@ export class BrowserWindow {
       }
     });
 
-    win.on("close", (e: any) => {
+    win.on("close", async (e: any) => {
       if ((process.platform === "darwin" || utils.getStoreValue("general.close_button_hide")) && !isQuitting) {
         e.preventDefault();
         win.hide();
       } else {
-        win.webContents.executeJavaScript(`
+        await win.webContents.executeJavaScript(`
             window.localStorage.setItem("currentTrack", JSON.stringify(app.mk.nowPlayingItem));
             window.localStorage.setItem("currentTime", JSON.stringify(app.mk.currentPlaybackTime));
             window.localStorage.setItem("currentQueue", JSON.stringify(app.mk.queue._unplayedQueueItems));
-            ipcRenderer.send('stopGCast','');`);
+            ipcRenderer.send('stopGCast','');
+            MusicKit.getInstance().stop();
+        `);
       }
     });
 
