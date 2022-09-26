@@ -209,7 +209,7 @@ export default class lastfm {
       });
       return;
     }
-    
+
     if (!this._authenticated || !attributes || this._utils.getStoreValue("connectivity.lastfm.filter_types")[attributes.playParams.kind] || this._utils.getStoreValue("connectivity.lastfm.filter_types")[attributes.kind] || (this._utils.getStoreValue("connectivity.lastfm.filter_loop") && this._nowPlayingCache.track === attributes.lfmTrack.name)) return;
     console.log(this._utils.getStoreValue("connectivity.lastfm.filter_types"));
 
