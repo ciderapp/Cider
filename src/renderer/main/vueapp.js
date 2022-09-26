@@ -500,6 +500,7 @@ const app = new Vue({
         name: app.getLz("term.sortBy.name"),
         genre: app.getLz("term.sortBy.genre"),
         releaseDate: app.getLz("term.sortBy.releaseDate"),
+        dateAdded: app.getLz("term.sortBy.dateAdded"),
       };
 
       app.$data.library.artists.sortingOptions = {
@@ -2574,6 +2575,9 @@ const app = new Vue({
           if (self.library.albums.sorting[index] == "genre") {
             aa = a.attributes.genreNames[0];
             bb = b.attributes.genreNames[0];
+          } else if (self.library.albums.sorting[index] === "dateAdded") {
+            aa = a.attributes?.dateAdded;
+            bb = b.attributes?.dateAdded;
           }
           if (aa == null) {
             aa = "";
