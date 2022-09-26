@@ -21,11 +21,12 @@
         <div class="queue-body" v-if="page == 'queue'">
             <draggable v-model="queueItems" @start="drag=true" @end="drag=false;move()">
                 <template v-for="(queueItem, position) in displayQueueItems">
-                    <div class="cd-queue-item"
-                         :class="{selected: selectedItems.includes(position)}"
-                         @click="select($event, position)"
-                         @dblclick="playQueueItem(queueItem.item.id)" :key="position"
-                         @contextmenu="selected = position;queueContext($event, queueItem.item, position)">
+                    <div v-if="position === 0" :key="queueItem.item.id"></div>
+                    <div class="cd-queue-item" v-else
+                         :class="{selected: selectedItems.includes(queueItem.item.id)}"
+                         @click="select($event, queueItem.item.id)"
+                         @dblclick="playQueueItem(queueItem.item.id)" :key="queueItem.item.id"
+                         @contextmenu="queueContext($event, queueItem.item)">
                         <div class="row">
                             <div class="col-auto cider-flex-center">
                                 <div class="artwork">
@@ -47,7 +48,7 @@
                             </div>
                             <div class="col queue-duration-info">
                                 <div class="queue-duration cider-flex-center">
-                                    {{convertTimeToString(queueItem.item.attributes.durationInMillis)}}
+                                    {{app.convertTime(queueItem.item.attributes.durationInMillis / 1000)}}
                                 </div>
                             </div>
                         </div>
@@ -102,29 +103,26 @@
         let history = await app.mk.api.v3.music(`/v1/me/recent/played/tracks`, { l: this.$root.mklang })
         this.history = history.data.data
       },
-      select(e, position) {
+      select(e, id) {
         if (e.ctrlKey || e.shiftKey) {
-          if (this.selectedItems.indexOf(position) == -1) {
-            this.selectedItems.push(position)
+          if (this.selectedItems.indexOf(id) === -1) {
+            this.selectedItems.push(id)
           } else {
-            this.selectedItems.splice(this.selectedItems.indexOf(position), 1)
+            this.selectedItems.splice(this.selectedItems.indexOf(id), 1)
           }
         } else {
-          this.selectedItems = [position]
+          this.selectedItems = [id]
         }
       },
-      queueContext(event, item, position) {
-        let self = this
-        let useMenu = "single"
-        if (this.selectedItems.length > 1) {
-          useMenu = "multiple"
-        }
-        let menus = {
+      queueContext(event, item) {
+        const self = this
+        const useMenu = this.selectedItems.length > 1 ? "multiple" : "single"
+        const menus = {
           single: {
             items: [{
               "name": app.getLz('action.removeFromQueue'),
               "action": function() {
-                self.queueItems.splice(position, 1)
+                self.queueItems.splice(self.queueItems.findIndex(queueItem => queueItem.item.id === item.id), 1)
                 app.mk.queue._queueItems = self.queueItems;
                 app.mk.queue._reindex()
               }
@@ -159,12 +157,13 @@
               "action": function() {
                 // add property to items to be removed
                 self.selectedItems.forEach(function(item) {
-                  self.queueItems[item].remove = true
+                  self.queueItems.find(x => x.item.id === item).remove = true;
                 })
                 // remove items
                 self.queueItems = self.queueItems.filter(function(item) {
                   return !item.remove
                 })
+                app.mk.queue._queueItems = self.queueItems;
                 app.mk.queue._reindex()
                 self.selectedItems = []
               }
@@ -190,10 +189,6 @@
         this.selected = -1
         app.mk.queue._queueItems = this.queueItems;
         app.mk.queue._reindex()
-      },
-      convertTimeToString(timeInMilliseconds) {
-        var seconds = ((timeInMilliseconds % 60000) / 1000).toFixed(0);
-        return Math.floor(timeInMilliseconds / 60000) + ":" + (seconds < 10 ? '0' : '') + seconds;
       }
     }
   });
