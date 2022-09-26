@@ -93,7 +93,7 @@ export class AppEvents {
 
     if (process.platform === "linux") {
       app.commandLine.appendSwitch("disable-features", "MediaSessionService");
-      
+
       if (os.version().indexOf("SteamOS")) {
         app.commandLine.appendSwitch("enable-features", "UseOzonePlatform");
         app.commandLine.appendSwitch("ozone-platform", "x11");
