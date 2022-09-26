@@ -311,7 +311,7 @@ const MusicKitInterop = {
 
   updateMediaState: (a) => {
     if ("mediaSession" in navigator) {
-      console.log("[cider:preload] [updateMediaState] Updating Media State to " + a.status);
+      console.debug("[cider:preload] [updateMediaState] Updating Media State to " + a.status);
       switch (a.status) {
         default:
         case null:
