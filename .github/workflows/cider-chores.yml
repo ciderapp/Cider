@@ -34,7 +34,7 @@ jobs:
           cache: "pnpm"
 
       - name: Update lockfile
-        run: pnpm i --lockfile-only
+        run: pnpm update
 
       - name: Commit Updated Lockfile
         uses: stefanzweifel/git-auto-commit-action@v4.14.1
