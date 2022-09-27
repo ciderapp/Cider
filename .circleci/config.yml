@@ -16,6 +16,7 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install and Configure PNPM
           command: |
             sudo npm i -g pnpm
             pnpm config set store-dir ~/.pnpm-store
@@ -23,7 +24,7 @@ jobs:
           name: Fetch Application Version
           command: ./resources/version.sh || true
       - restore_cache:
-          key: dependency-cache-{{ checksum "pnpm-lock.yaml" }}
+          key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: Clear node_airtunes2 cache
           command: rm -rf ~/.pnpm-store/tmp/_tmp_1469292_a6751613e03842bf2a6fa9a4b21c3e28 || true
