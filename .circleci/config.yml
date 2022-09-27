@@ -26,7 +26,7 @@ jobs:
           key: dependency-cache-{{ checksum "pnpm-lock.yaml" }}
       - run:
           name: Clear node_airtunes2 cache
-          command: rm -rf ~/.pnpm-store/tmp/cf5bc2de2629636ca224995234b8eaa1 || true
+          command: rm -rf ~/.pnpm-store/tmp/_tmp_1469292_a6751613e03842bf2a6fa9a4b21c3e28 || true
       - run:
           name: Install Node Dependencies
           command: pnpm install --frozen-lockfile
