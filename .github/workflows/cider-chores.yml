@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  update-lockfile:
+  update-packages:
     runs-on: ubuntu-latest
 
     strategy:
