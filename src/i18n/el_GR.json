@@ -31,7 +31,7 @@
   "term.lyrics": "Στίχοι",
   "term.miniplayer": "MiniPlayer",
   "term.history": "Ιστορικό",
-  "term.search": "Εύρεση",
+  "term.search": "Αναζήτηση",
   "term.scroll": "Λειτουργία κύλισης",
   "term.scroll.infinite": "Απεριόριστη",
   "term.scroll.paged": "${songsPerPage} ανά σελίδα",
