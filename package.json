@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@sentry/electron": "^4.0.2",
-    "@sentry/integrations": "^7.13.0",
+    "@sentry/integrations": "^7.14.0",
     "adm-zip": "0.4.10",
     "airtunes2": "github:ciderapp/node_airtunes2",
     "castv2-client": "^1.2.0",
@@ -51,7 +51,7 @@
     "discord-auto-rpc": "^1.0.17",
     "dns-js": "github:ciderapp/node-dns-js",
     "ejs": "^3.1.8",
-    "electron-fetch": "^1.7.4",
+    "electron-fetch": "^1.9.1",
     "electron-log": "^4.4.8",
     "electron-notarize": "^1.2.1",
     "electron-store": "^8.1.0",
@@ -92,7 +92,7 @@
     "less": "^4.1.3",
     "musickit-typescript": "^1.2.4",
     "prettier": "2.7.1",
-    "typescript": "^4.8.3",
+    "typescript": "^4.8.4",
     "vue-devtools": "^5.1.4",
     "webpack": "~5.74.0"
   },
