@@ -53,20 +53,7 @@ export default class Thumbar {
     {
       label: utils.getLocale(utils.getStoreValue("general.language"), "menubar.options.view"),
       submenu: [
-        ...(this.isMac
-          ? [
-              { role: "reload" },
-              { role: "forceReload" },
-              { role: "toggleDevTools" },
-              { type: "separator" },
-              { role: "resetZoom" },
-              { role: "zoomIn" },
-              { role: "zoomOut" },
-              { type: "separator" },
-              { role: "togglefullscreen" },
-              { type: "separator" },
-            ]
-          : []),
+        ...(this.isMac ? [{ role: "reload" }, { role: "forceReload" }, { role: "toggleDevTools" }, { type: "separator" }, { role: "resetZoom" }, { role: "zoomIn" }, { role: "zoomOut" }, { type: "separator" }, { role: "togglefullscreen" }, { type: "separator" }] : []),
         {
           label: utils.getLocale(utils.getStoreValue("general.language"), "term.search"),
           accelerator: utils.getStoreValue("general.keybindings.search").join("+"),

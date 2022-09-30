@@ -171,9 +171,7 @@ const CiderAudioRenderer = {
       maxGain = maxGain * spatialProfile.gainComp;
     }
     maxGain = Math.pow(10, (-1 * (20 * Math.log10(maxGain))) / 20).toFixed(4);
-    maxGain > 1.0
-      ? CiderAudioRenderer.audioNodes.intelliGainComp.gain.exponentialRampToValueAtTime(1.0, CiderAudioRenderer.context.currentTime + 0.3)
-      : CiderAudioRenderer.audioNodes.intelliGainComp.gain.exponentialRampToValueAtTime(maxGain, CiderAudioRenderer.context.currentTime + 0.3);
+    maxGain > 1.0 ? CiderAudioRenderer.audioNodes.intelliGainComp.gain.exponentialRampToValueAtTime(1.0, CiderAudioRenderer.context.currentTime + 0.3) : CiderAudioRenderer.audioNodes.intelliGainComp.gain.exponentialRampToValueAtTime(maxGain, CiderAudioRenderer.context.currentTime + 0.3);
     console.debug(`[Cider][Audio] IntelliGainComp: ${maxGain > 1.0 ? 0 : (20 * Math.log10(maxGain)).toFixed(2)} dB (${maxGain > 1.0 ? 1 : maxGain})`);
   },
   atmosphereRealizer2_n6: function (status, destination) {

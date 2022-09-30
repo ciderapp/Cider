@@ -134,7 +134,7 @@
                     </b-popover>
                     <div class="playback-info">
                         <div class="chrome-icon-container">
-                            <div class="audio-type private-icon" v-if="cfg.general.privateEnabled === true"></div>
+                            <div class="audio-type private-icon" v-if="cfg.general.privateEnabled === true" :title="$root.getLz('term.privateSession')" v-b-tooltip.hover></div>
                             <div class="audio-type spatial-icon" v-if="cfg.audio.maikiwiAudio.spatial === true"
                                  :title="$root.getLz('settings.option.audio.enableAdvancedFunctionality.tunedAudioSpatialization') + ' (' + getProfileLz('CTS', cfg.audio.maikiwiAudio.spatialProfile) + ')'"
                                  v-b-tooltip.hover
@@ -149,6 +149,7 @@
                                  :title="$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE')"
                                  v-b-tooltip.hover
                             ></div>
+                            <svg class="audio-type live-icon" v-if="mk.nowPlayingItem?.attributes?.isLive === true" :title="$root.getLz('term.live')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--keyColor)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" v-b-tooltip.hover><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
                         </div>
                         <div class="info-rect">
                             <div class="song-name"
@@ -185,7 +186,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="song-progress">
+                        <div class="song-progress" v-if="mk.nowPlayingItem?.attributes?.isLive !== true">
                             <div class="song-duration" style="justify-content: space-between; height: 1px"
                                  :style="[chrome.progresshover ? {'display': 'flex'} : {'display' : 'none'} ]">
                                 <p style="width: auto">{{ convertTime(getSongProgress()) }}</p>
@@ -277,10 +278,10 @@
             <div class="app-chrome-item search">
                 <div class="search-input-container">
                     <div class="search-input--icon"></div>
-                    <input type="search" spellcheck="false" @click="$root.appRoute('search');"
+                    <input type="search" spellcheck="false" @click="$root.appRoute('search');search.showHints = true"
                            @focus="search.showHints = true"
-                           @blur="setTimeout(()=>{search.showHints = false}, 300)"
-                           v-on:keyup.enter="searchQuery();search.showHints = false;search.cursor = -1" @change="$root.appRoute('search');"
+                           @blur="setTimeout(()=>{if(hintscontext != true){search.showHints = false} }, 300)"
+                           v-on:keyup.enter="searchQuery(search.hints[search.cursor]?.content ?? search.hints[search.cursor]?.searchTerm ?? search.term);search.showHints = false;search.showSearchView = true;search.cursor = -1" @change="$root.appRoute('search');"
                            v-on:keyup="searchCursor"
                            @input="getSearchHints()"
                            :placeholder="$root.getLz('term.search') + '...'" v-model="search.term" ref="searchInput"
@@ -288,10 +289,13 @@
 
                     <div class="search-hints-container" v-if="search.showHints && search.hints.length != 0">
                         <div class="search-hints">
-                            <button class="search-hint text-overflow-elipsis" :class="{active: (search.cursor == index)}" v-for="(hint, index) in search.hints"
-                                    @click="search.term = hint;search.showHints = false;searchQuery(hint);search.cursor = -1">
-                                {{ hint }}
+                            <button class="search-hint text-overflow-elipsis" :class="{active: (search.cursor == index)}" v-for="(hint, index) in search.hints.filter((a) => {return a.content == null})"
+                                    @click="search.term = hint.searchTerm;search.showHints = false;searchQuery(hint.searchTerm);search.cursor = -1">
+                                {{ hint.displayTerm }}
                             </button>
+                            <template v-for="(item, position) in search.hints.filter((a) => {return a.content != null})">
+                                <mediaitem-smarthints :item="item.content" :position="position"> </mediaitem-smarthints>
+                            </template>
                         </div>
                     </div>
                 </div>

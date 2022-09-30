@@ -42,6 +42,7 @@
   "components/moreinfo-modal",
   "components/equalizer",
   "components/add-to-playlist",
+  "components/smarthints",
   "components/queue",
   "components/mediaitem-scroller-horizontal",
   "components/mediaitem-scroller-horizontal-large",

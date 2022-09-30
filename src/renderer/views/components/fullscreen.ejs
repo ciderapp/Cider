@@ -39,7 +39,7 @@
         </div>
         <div class="row fs-row" v-if="tabMode != 'catalog'">
             <div class="col artwork-col">
-                <div class="artwork" @click="app.fullscreen(false)">
+                <div class="artwork" :class="$root.mk.isPlaying && 'playing'" @click="app.fullscreen(false)">
                     <mediaitem-artwork
                             :size="600"
                             :video="video"
@@ -47,18 +47,16 @@
                             :url="(image ?? '').replace('{w}','600').replace('{h}','600')"
                     ></mediaitem-artwork>
                 </div>
-                <div class="controls-parents">
-                    <template v-if="app.mkReady()">
+                <div class="controls-parents" v-if="app.mkReady()">
                         <div class="app-playback-controls" @mouseover="app.chrome.progresshover = true"
                              @mouseleave="app.chrome.progresshover = false" @contextmenu="app.nowPlayingContextMenu">
                             <div class="playback-info">
                                 <div class="song-name">
                                     {{ app.mk.nowPlayingItem["attributes"]["name"] }}
                                 </div>
-                                <div
-                                        style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap; margin-top: 0.25vh; overflow: hidden;">
+                                <div style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap; margin-top: 0.25vh; overflow: hidden;">
                                     <div class="item-navigate song-artist" style="display: inline-block;"
-                                         @click="app.getNowPlayingItemDetailed(`artist`) && app.fullscreen(false)">
+                                         @click="app.getNowPlasssyingItemDetailed(`artist`) && app.fullscreen(false)">
                                         {{ app.mk.nowPlayingItem["attributes"]["artistName"] }}
                                     </div>
                                     <div class="song-artist" style="display: inline-block;">
@@ -70,14 +68,12 @@
                                         (app.mk.nowPlayingItem["attributes"]["albumName"]) : "" }}
                                     </div>
                                 </div>
-
                                 <div class="song-progress">
                                     <div class="song-duration" style="justify-content: space-between; height: 1px;"
                                          :style="[app.chrome.progresshover ? {'display': 'flex'} : {'display' : 'none'} ]">
                                         <p style="width: auto">{{ app.convertTime(app.getSongProgress()) }}</p>
                                         <p style="width: auto">{{ app.convertTime(app.mk.currentPlaybackDuration) }}</p>
                                     </div>
-
                                     <input type="range" step="0.01" min="0" :style="app.progressBarStyle()"
                                            @input="app.playerLCD.desiredDuration = $event.target.value;app.playerLCD.userInteraction = true"
                                            @mouseup="app.mk.seekToTime($event.target.value);app.playerLCD.desiredDuration = 0;app.playerLCD.userInteraction = false"
@@ -148,20 +144,14 @@
                             </div>
                         </div>
                 </div>
-                </template>
             </div>
-            <div class="col right-col" v-if="tabMode != ''">
-                <!-- <div class="fs-info">
-                    <div>Name</div>
-                    <div>Name</div>
-                    <div>Name</div>
-                </div> -->
+            <div class="col right-col" v-if="tabMode !== ''">
                 <div class="lyrics-col" v-if="tabMode == 'lyrics'">
                     <lyrics-view :yoffset="120" :time="time" :lyrics="lyrics"
                                  :richlyrics="richlyrics"></lyrics-view>
                 </div>
-                <div class="queue-col" v-if="tabMode == 'queue'">
-                    <cider-queue v-if="tabMode == 'queue'" ref="queue"></cider-queue>
+                <div class="queue-col" v-else>
+                    <cider-queue ref="queue"></cider-queue>
                 </div>
             </div>
         </div>
@@ -178,8 +168,6 @@
                  @click="tabMode =  (tabMode == 'catalog') ? '' :'catalog'"></div>
         </div>
     </div>
-
-
 </script>
 
 <script>

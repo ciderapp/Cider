@@ -1,18 +1,17 @@
 require("v8-compile-cache");
 
+import { app, components, ipcMain } from "electron";
 import { join } from "path";
-import { app } from "electron";
-if (!app.isPackaged) {
-  app.setPath("userData", join(app.getPath("appData"), "Cider"));
-}
-
 import { Store } from "./base/store";
 import { AppEvents } from "./base/app";
 import { Plugins } from "./base/plugins";
 import { BrowserWindow } from "./base/browserwindow";
 import { init as Sentry } from "@sentry/electron";
 import { RewriteFrames } from "@sentry/integrations";
-import { components, ipcMain } from "electron";
+
+if (!app.isPackaged) {
+  app.setPath("userData", join(app.getPath("appData"), "Cider"));
+}
 
 // Analytics for debugging fun yeah.
 Sentry({
@@ -54,7 +53,9 @@ app.on("ready", () => {
     win.on("ready-to-show", () => {
       console.debug("[Cider] Window is Ready.");
       CiderPlug.callPlugins("onReady", win);
-      win.show();
+      if (!app.commandLine.hasSwitch("hidden")) {
+        win.show();
+      }
     });
   });
 });
@@ -62,9 +63,11 @@ app.on("ready", () => {
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Renderer Event Handlers
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
+let rendererInitialized = false;
 ipcMain.handle("renderer-ready", (event) => {
+  if (rendererInitialized) return;
   CiderPlug.callPlugins("onRendererReady", event);
+  rendererInitialized = true;
 });
 
 ipcMain.on("playbackStateDidChange", (_event, attributes) => {
@@ -73,6 +76,10 @@ ipcMain.on("playbackStateDidChange", (_event, attributes) => {
 
 ipcMain.on("nowPlayingItemDidChange", (_event, attributes) => {
   CiderPlug.callPlugins("onNowPlayingItemDidChange", attributes);
+});
+
+ipcMain.on("playbackTimeDidChange", (_event, attributes) => {
+  CiderPlug.callPlugins("playbackTimeDidChange", attributes);
 });
 
 app.on("before-quit", () => {

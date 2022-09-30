@@ -1,7 +1,7 @@
 <script type="text/x-template" id="mediaitem-artwork">
     <div class="mediaitem-artwork" :class="[{'rounded': (type == 'artists')}, classes]" :key="url"
          v-observe-visibility="{callback: visibilityChanged}">
-        <img :src="getMediaItemArtwork(url, size, width)"
+        <img :src="getMediaItemArtwork(url, size, width)"  :style="{ width: size + 'px'}"
              decoding="async" loading="lazy"
              class="mediaitem-artwork--img">
         <!-- <div v-if="video && isVisible && getVideoPriority()" class="animatedartwork-view-box">
@@ -86,6 +86,7 @@
         this.isVisible = isVisible
       },
       getMediaItemArtwork(url, height = 64, width) {
+        try{
         if (typeof url == "undefined" || url == "") {
           return "./assets/MissingArtwork.svg"
         }
@@ -98,7 +99,9 @@
         if (newurl.includes("900x516")) {
           newurl = newurl.replace("900x516cc", "900x516sr").replace("900x516bb", "900x516sr");
         }
-        return newurl
+        return newurl} catch (e){
+          return "./assets/MissingArtwork.svg"
+        }
       },
     }
   });

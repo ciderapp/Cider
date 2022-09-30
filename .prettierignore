@@ -1,4 +1,5 @@
-src/renderer/apple-hls*
+src/renderer/*hls*.js
 build/*
 src/renderer/lib/*
 *.min.*
+.pnpm-store

@@ -2,6 +2,7 @@ import { app, Menu, nativeImage, Tray, ipcMain, clipboard, shell } from "electro
 import { readFileSync } from "fs";
 import * as path from "path";
 import * as log from "electron-log";
+import * as os from "os";
 import { utils } from "./utils";
 
 /**
@@ -76,18 +77,27 @@ export class AppEvents {
         break;
 
       case "webgpu":
-        console.info("WebGPU is enabled.");
+        console.info("[AppEvents] WebGPU is enabled.");
         app.commandLine.appendSwitch("enable-unsafe-webgpu");
+        if (process.platform === "linux") {
+          app.commandLine.appendSwitch("enable-features", "Vulkan");
+        }
         break;
 
       case "disabled":
-        console.info("Hardware acceleration is disabled.");
+        console.info("[AppEvents] Hardware acceleration is disabled.");
         app.commandLine.appendSwitch("disable-gpu");
+        app.disableHardwareAcceleration();
         break;
     }
 
     if (process.platform === "linux") {
       app.commandLine.appendSwitch("disable-features", "MediaSessionService");
+
+      if (os.version().indexOf("SteamOS")) {
+        app.commandLine.appendSwitch("enable-features", "UseOzonePlatform");
+        app.commandLine.appendSwitch("ozone-platform", "x11");
+      }
     }
 
     /***********************************************************************************************************************
@@ -232,7 +242,7 @@ export class AppEvents {
 
         startArgs.forEach((arg) => {
           console.log(arg);
-          if (arg.includes("cider://")) {
+          if (arg.includes("cider://") || arg.includes("itms://") || arg.includes("itmss://") || arg.includes("music://") || arg.includes("musics://")) {
             console.debug("[InstanceHandler] (second-instance) Link detected with " + arg);
             this.LinkHandler(arg);
           } else if (arg.includes("--force-quit")) {
@@ -328,10 +338,10 @@ export class AppEvents {
 
             {
                 visible: visible,
-                label: 'track info',  
-                enabled: false,          
+                label: 'track info',
+                enabled: false,
             },
-            
+
             {type: 'separator'},
             */
 

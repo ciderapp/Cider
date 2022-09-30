@@ -4,6 +4,7 @@
             <div v-for="items in itemPages">
                 <mediaitem-list-item
                         v-for="(song, index) in items" :show-library-status="showLibraryStatus"
+                        v-bind:key="song.id"
                         :parent="'listitem-hr' + simplifiedParent"
                         :index="song.index"
                         :item="song"></mediaitem-list-item>

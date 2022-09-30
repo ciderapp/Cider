@@ -3,18 +3,22 @@
         <div class="search-input-container fs-search" v-if="$root.appMode == 'fullscreen'">
             <div class="search-input--icon"></div>
             <input type="search" spellcheck="false" @focus="$root.search.showHints = true"
-                   @blur="$root.setTimeout(()=>{$root.search.showHints = false}, 300)"
-                   v-on:keyup.enter="$root.searchQuery();$root.search.showHints = false" @input="$root.getSearchHints()"
+                    @blur="$root.setTimeout(()=>{if($root.hintscontext != true){$root.search.showHints = false} }, 300)"
+                   v-on:keyup.enter="$root.searchQuery($root.search.hints[$root.search.cursor]?.content ?? $root.search.hints[$root.search.cursor]?.searchTerm ?? $root.search.term);$root.search.showHints = false; $root.search.showSearchView = true" @input="$root.getSearchHints()"
                    :placeholder="$root.getLz('term.search') + '...'" v-model="$root.search.term"
                    class="search-input" />
 
             <div class="search-hints-container" v-if="$root.search.showHints && $root.search.hints.length != 0">
                 <div class="search-hints">
-                    <button class="search-hint text-overflow-elipsis" v-for="hint in $root.search.hints"
-                            @click="$root.search.term = hint;$root.search.showHints = false;$root.searchQuery(hint)">
-                        {{ hint }}
+                    <button class="search-hint text-overflow-elipsis" v-for="(hint, index) in $root.search.hints.filter((a) => {return a.content == null})" :class="{active: ($root.search.cursor == index)}"
+                            @click="$root.search.term = hint.searchTerm;$root.search.showHints = false;$root.searchQuery(hint.searchTerm)">
+                        {{ hint.displayTerm }}
                     </button>
+                    <template v-for="(item, position) in $root.search.hints.filter((a) => {return a.content != null})">
+                        <mediaitem-smarthints :item="item.content" :position="position"> </mediaitem-smarthints>
+                    </template>
                 </div>
+
             </div>
         </div>
         <div class="btn-group searchToggle">
@@ -29,16 +33,12 @@
                 $root.getLz("term.library") }}
             </button>
         </div>
-        <div v-if="search != null && search != [] && search.term != ''">
+        <div v-if="search != null && search != [] && search.term != '' && $root.search.showSearchView">
             <template v-if="searchType == 'catalog'">
                 <h3>{{app.getLz('term.topResult')}}</h3>
                 <mediaitem-scroller-horizontal
-                        :items="search.results[search.results.meta.results.order[0]]['data']"></mediaitem-scroller-horizontal>
+                        :items="search?.results[search?.results?.meta?.results?.order[0]]?.data"></mediaitem-scroller-horizontal>
                 <div class="row">
-                    <div v-else style="text-align: center">
-                        <h3>{{app.getLz('error.noResults')}}</h3>
-                        <p>{{app.getLz('error.noResults.description')}}</p>
-                    </div>
                     <div class="col" v-if="search.results.song">
                         <div class="row">
                             <div class="col">
@@ -54,6 +54,10 @@
                             <listitem-horizontal :items="search.results.song.data.limit(12)">
                             </listitem-horizontal>
                         </div>
+                    </div>
+                    <div v-else style="text-align: center">
+                        <h3>{{app.getLz('error.noResults')}}</h3>
+                        <p>{{app.getLz('error.noResults.description')}}</p>
                     </div>
                 </div>
 
@@ -131,21 +135,21 @@
             <div v-if="categoriesReady || getCategories()">
                 <div>
                     <div class="col"
-                         v-if="categoriesView != null && categoriesView != [] && categoriesView[0].attributes != null && categoriesView[0].attributes.title != null">
+                         v-if="categoriesView != null && categoriesView != [] && categoriesView[0]?.attributes != null && categoriesView[0]?.attributes.title != null">
                         <h3>{{$root.getLz('home.recentlyPlayed')}}</h3>
                         <div class="mediaitem-list-item__grid">
                             <listitem-horizontal :items="recentlyPlayed.limit(10)">
                             </listitem-horizontal>
                         </div>
                         <!-- <mediaitem-square :kind="'385'" size="600" v-for="item in recentlyPlayed.limit(10)" :item="item" :imagesize="800"></mediaitem-square>-->
-                        <h3>{{categoriesView[0].attributes.title.stringForDisplay ?? ""}}</h3>
+                        <h3>{{categoriesView[0]?.attributes?.title?.stringForDisplay ?? ""}}</h3>
                     </div>
                 </div>
                 <div class="categories">
-                    <mediaitem-square :kind="'385'" :imageformat="'bb'" size="600"
+                    <mediaitem-square :kind="'385'" :imageformat="'bb'" size="600" :removeamtext="true"
                                       :item="item ? (item.attributes.kind ? item : ((item.relationships && item.relationships.contents ) ? item.relationships.contents.data[0] : item)) : []"
                                       :imagesize="800"
-                                      v-for="item of getFlattenedCategories()">
+                                      v-for="item of getFlattenedCategories()"/>
                 </div>
             </div>
         </div>

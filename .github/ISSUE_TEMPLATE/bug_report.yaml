@@ -25,7 +25,7 @@ body:
       placeholder: Tell us how you did it
       value: "1. Clicked on..."
     validations:
-      required: true
+      required: true  
   - type: textarea
     id: environment
     attributes:
@@ -33,12 +33,30 @@ body:
       description: |
         Examples:
           - **OS**: Ubuntu 20.04
-          - **App Version** and/or **Commit ID**: 1.0.0 c9d43be
+          - **Desktop Environment (if applicable)**: i3wm
+          - **App Version**: 1.5.5-beta.22
+          - **Commit ID (if available)**: c9d43be
         
-        To find app version, Cider Menu -> About
+        *To find the app version, Cider Menu -> About*
       value: |
         - OS:
-        - App Version and/or Commit ID:
+        - Desktop Environment: 
+        - App Version:
+        - Commit ID:
+    validations:
+      required: true
+  - type: dropdown
+    id: download
+    attributes:
+      label: How did you download the software?
+      options:
+        - Microsoft Store
+        - GitHub
+        - Winget
+        - Winget (Nightly)
+        - Chocolatey
+        - Flathub
+        - AUR
     validations:
       required: true
   - type: textarea

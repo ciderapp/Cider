@@ -7,10 +7,10 @@
                     <input
                             type="search"
                             spellcheck="false"
-                            @click="$root.appRoute('search');"
+                            @click="$root.appRoute('search');$root.search.showHints = true"
                             @focus="$root.search.showHints = true"
-                            @blur="$root.setTimeout(()=>{$root.search.showHints = false}, 300)"
-                            v-on:keyup.enter="$root.searchQuery();$root.search.showHints = false;$root.search.cursor = -1"
+                            @blur="$root.setTimeout(()=>{if($root.hintscontext != true){$root.search.showHints = false} }, 300)"
+                            v-on:keyup.enter="$root.searchQuery($root.search.hints[$root.search.cursor]?.content ?? $root.search.hints[$root.search.cursor]?.searchTerm ?? $root.search.term);$root.search.showHints = false;$root.search.showSearchView = true;$root.search.cursor = -1"
                             v-on:keyup="$root.searchCursor"
                             @change="$root.appRoute('search');"
                             @input="$root.getSearchHints()"
@@ -27,11 +27,14 @@
                         <div class="search-hints">
                             <button
                                     class="search-hint text-overflow-elipsis"
-                                    v-for="hint in $root.search.hints"
-                                    @click="$root.search.term = hint;$root.search.showHints = false;$root.searchQuery(hint);$root.search.cursor = -1"
+                                    v-for="(hint, index) in $root.search.hints.filter((a) => {return a.content == null})" :class="{active: ($root.search.cursor == index)}"
+                                    @click="$root.search.term = hint.searchTerm;$root.search.showHints = false;$root.searchQuery(hint.searchTerm);$root.search.cursor = -1"
                             >
-                                {{ hint }}
+                                {{ hint.displayTerm }}
                             </button>
+                            <template v-for="(item, position) in $root.search.hints.filter((a) => {return a.content != null})">
+                                <mediaitem-smarthints :item="item.content" :position="position"> </mediaitem-smarthints>
+                            </template>
                         </div>
                     </div>
                 </div>
@@ -162,6 +165,7 @@
                 <template v-if="!$root.cfg.general.sidebarCollapsed.amplaylists">
                     <sidebar-playlist
                             v-for="item in $root.getPlaylistFolderChildren('p.applemusic')"
+                            v-bind:key="item.id"
                             :item="item"
                     >
                     </sidebar-playlist>
@@ -184,6 +188,7 @@
                 </button>
                 <sidebar-playlist
                         v-for="item in $root.getPlaylistFolderChildren('p.playlistsroot')"
+                        v-bind:key="item.id"madeforyou
                         :item="item"
                 >
                 </sidebar-playlist>

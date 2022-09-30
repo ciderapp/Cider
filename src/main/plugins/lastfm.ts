@@ -29,7 +29,9 @@ export default class lastfm {
 
   onReady(_win: Electron.BrowserWindow): void {
     this.initializeLastFM("", this._apiCredentials);
+  }
 
+  onRendererReady(): void {
     // Register the ipcMain handlers
     this._utils.getIPCMain().handle("lastfm:url", (event: any) => {
       console.debug(`[${lastfm.name}:url] Called.`);
@@ -48,30 +50,19 @@ export default class lastfm {
     });
 
     this._utils.getIPCMain().on("lastfm:nowPlayingChange", (event: any, attributes: any) => {
-      if (this._utils.getStoreValue("connectivity.lastfm.filter_loop") || this._utils.getStoreValue("general.privateEnabled")) return;
+      if (this._utils.getStoreValue("connectivity.lastfm.filter_loop") || this._utils.getStoreValue("general.privateEnabled") || attributes.kind === "radioStation") return;
+      this.updateNowPlayingTrack(attributes);
+    });
+
+    this._utils.getIPCMain().on("lastfm:FilteredNowPlayingItemDidChange", (event: any, attributes: any) => {
+      if (this._utils.getStoreValue("general.privateEnabled") || attributes.kind === "radioStation") return;
       this.updateNowPlayingTrack(attributes);
     });
 
     this._utils.getIPCMain().on("lastfm:scrobbleTrack", (event: any, attributes: any) => {
-      if (this._utils.getStoreValue("general.privateEnabled")) return;
+      if (this._utils.getStoreValue("general.privateEnabled") || attributes.kind === "radioStation") return;
       this.scrobbleTrack(attributes);
     });
-  }
-
-  /**
-   * Runs on playback State Change
-   * @param attributes Music Attributes (attributes.status = current state)
-   */
-  onPlaybackStateDidChange(attributes: object): void {}
-
-  /**
-   * Runs on song change
-   * @param attributes Music Attributes
-   * @param scrobble
-   */
-  onNowPlayingItemDidChange(attributes: any, scrobble = false): void {
-    if (this._utils.getStoreValue("general.privateEnabled")) return;
-    this.updateNowPlayingTrack(attributes);
   }
 
   /**
@@ -179,13 +170,7 @@ export default class lastfm {
       return;
     }
 
-    if (
-      !this._authenticated ||
-      !attributes ||
-      this._utils.getStoreValue("connectivity.lastfm.filter_types")[attributes.playParams.kind] ||
-      (this._utils.getStoreValue("connectivity.lastfm.filter_loop") && this._scrobbleCache.track === attributes.lfmTrack.name)
-    )
-      return;
+    if (!this._authenticated || !attributes || this._utils.getStoreValue("connectivity.lastfm.filter_types")[attributes.playParams.kind] || this._utils.getStoreValue("connectivity.lastfm.filter_types")[attributes.kind] || (this._utils.getStoreValue("connectivity.lastfm.filter_loop") && this._scrobbleCache.track === attributes.lfmTrack.name)) return;
 
     // Scrobble
     const scrobble = {
@@ -225,13 +210,8 @@ export default class lastfm {
       return;
     }
 
-    if (
-      !this._authenticated ||
-      !attributes ||
-      this._utils.getStoreValue("connectivity.lastfm.filter_types")[attributes.playParams.kind] ||
-      (this._utils.getStoreValue("connectivity.lastfm.filter_loop") && this._nowPlayingCache.track === attributes.lfmTrack.name)
-    )
-      return;
+    if (!this._authenticated || !attributes || this._utils.getStoreValue("connectivity.lastfm.filter_types")[attributes.playParams.kind] || this._utils.getStoreValue("connectivity.lastfm.filter_types")[attributes.kind] || (this._utils.getStoreValue("connectivity.lastfm.filter_loop") && this._nowPlayingCache.track === attributes.lfmTrack.name)) return;
+    console.log(this._utils.getStoreValue("connectivity.lastfm.filter_types"));
 
     const nowPlaying = {
       artist: attributes.lfmTrack.artist.name,

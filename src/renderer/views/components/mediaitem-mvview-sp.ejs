@@ -1,5 +1,5 @@
 <script type="text/x-template" id="mediaitem-mvview-sp">
-    <div style="position: relative; display: inline-flex;">
+    <div v-if="(item.attributes?.editorialArtwork?.subscriptionHero?.url ?? item.attributes?.artwork?.url ?? '') !='' " style="position: relative; display: inline-flex;">
         <div @click.self='log(item);app.routeView(item)'
              class="cd-mediaitem-mvview">
             <div style="height: 70px; min-height: 70px; max-height: 70px; width: 100%; margin-left: 5px;">
@@ -15,7 +15,7 @@
             </div>
             <div class="artwork">
                 <mediaitem-artwork
-                        :url="item.attributes?.editorialArtwork.subscriptionHero.url ?? item.attributes?.artwork"
+                        :url="item.attributes?.editorialArtwork?.subscriptionHero?.url ?? item.attributes?.artwork?.url"
                         :video="(item.attributes != null && item.attributes?.editorialVideo != null) ? (item.attributes?.editorialVideo?.motionDetailSquare ? item.attributes?.editorialVideo?.motionDetailSquare?.video : (item.attributes?.editorialVideo?.motionSquareVideo1x1 ? item?.attributes?.editorialVideo?.motionSquareVideo1x1?.video : '')) : '' "
                         :size="516" :width="900"
                 ></mediaitem-artwork>

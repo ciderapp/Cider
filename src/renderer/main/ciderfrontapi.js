@@ -4,10 +4,15 @@ const CiderFrontAPI = {
       this.id = "";
       this.name = "";
       this.onClick = () => {};
+      this.top = false;
     },
   },
   AddMenuEntry(entry) {
-    app.pluginMenuEntries.push(entry);
+    if (entry?.top) {
+      app.pluginMenuTopEntries.push(entry);
+    } else {
+      app.pluginMenuEntries.push(entry);
+    }
     app.pluginInstalled = true;
   },
   StyleSheets: {

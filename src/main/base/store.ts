@@ -1,9 +1,6 @@
 import * as ElectronStore from "electron-store";
 import { app, ipcMain } from "electron";
 import fetch from "electron-fetch";
-import { existsSync } from "fs";
-import { join } from "path";
-import { utils } from "./utils";
 
 export class Store {
   static cfg: ElectronStore;
@@ -72,11 +69,18 @@ export class Store {
       discord_rpc: {
         enabled: true,
         client: "Cider",
+        activity: {
+          state_format: "by {artist}",
+          details_format: "{title}",
+          hide_timestamp: false,
+          buttons: {
+            enabled: true,
+            first: "listenOnCider",
+            second: "viewOnAppleMusic",
+            options: ["listenOnCider", "viewOnAppleMusic", "viewOnOtherMusicServices"],
+          },
+        },
         clear_on_pause: true,
-        hide_buttons: false,
-        hide_timestamp: false,
-        state_format: "by {artist}",
-        details_format: "{title}",
       },
       lastfm: {
         enabled: false,
@@ -115,7 +119,7 @@ export class Store {
     },
     audio: {
       volume: 1,
-      volumeStep: 0.05,
+      volumeStep: 0.01,
       maxVolume: 1,
       lastVolume: 1,
       muted: false,
@@ -200,6 +204,7 @@ export class Store {
       accentColor: "#fc3c44",
       purplePodcastPlaybackBar: false,
       maxElementScale: -1, // -1 default, anything else is a custom scale
+      overrideDisplayTheme: "system", // system , dark, light
     },
     lyrics: {
       enable_mxm: true,
@@ -223,6 +228,11 @@ export class Store {
         settings: false,
       },
     },
+    musickit: {
+      "stored-attributes": {
+        autoplayEnabled: "",
+      },
+    },
   };
   private migrations: any = {};
   private schema: ElectronStore.Schema<any> = {
@@ -232,7 +242,6 @@ export class Store {
   };
 
   constructor() {
-    this.defaults.general.language = this.checkLocale(app.getLocale().replace("-", "_")) ?? "en_US";
     Store.cfg = new ElectronStore({
       name: "cider-config",
       defaults: this.defaults,
@@ -323,9 +332,5 @@ export class Store {
     ipcMain.on("setStore", (_event, store) => {
       Store.cfg.store = store;
     });
-  }
-
-  private checkLocale(language: string) {
-    return existsSync(join(utils.getPath("i18nPath"), `${language}.json`)) ? language : "en_US";
   }
 }

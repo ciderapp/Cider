@@ -48,15 +48,21 @@ export default class DiscordRPC {
    * Runs on app ready
    */
   onReady(_win: any): void {
-    const self = this;
     this.connect();
     console.debug(`[Plugin][${this.name}] Ready.`);
-    ipcMain.on("updateRPCImage", async (_event, imageurl) => {
+  }
+
+  /**
+   * Set up ipc listeners for the plugin
+   */
+  onRendererReady() {
+    const self = this;
+    ipcMain.on("discordrpc:updateImage", async (_event, imageurl) => {
       if (!this._utils.getStoreValue("general.privateEnabled")) {
         let b64data = "";
         let postbody = "";
         if (imageurl.startsWith("/ciderlocalart")) {
-          let port = await _win.webContents.executeJavaScript(`app.clientPort`);
+          let port = await this._utils.getWindow().webContents.executeJavaScript(`app.clientPort`);
           console.log("http://localhost:" + port + imageurl);
           const response = await fetch("http://localhost:" + port + imageurl);
           b64data = (await response.buffer()).toString("base64");
@@ -66,7 +72,7 @@ export default class DiscordRPC {
             body: postbody,
             headers: {
               "Content-Type": "application/json",
-              "User-Agent": _win.webContents.getUserAgent(),
+              "User-Agent": this._utils.getWindow().webContents.getUserAgent(),
             },
           })
             .then((res) => res.json())
@@ -81,7 +87,7 @@ export default class DiscordRPC {
             body: postbody,
             headers: {
               "Content-Type": "application/json",
-              "User-Agent": _win.webContents.getUserAgent(),
+              "User-Agent": this._utils.getWindow().webContents.getUserAgent(),
             },
           })
             .then((res) => res.json())
@@ -92,17 +98,22 @@ export default class DiscordRPC {
         }
       }
     });
-    ipcMain.on("reloadRPC", () => {
+    ipcMain.on("discordrpc:reload", (_event, configUpdate = null) => {
       console.log(`[DiscordRPC][reload] Reloading DiscordRPC.`);
-      this._client.destroy();
 
+      if (this._client) {
+        this._client.destroy();
+      }
+
+      if (!this._utils.getStoreValue("connectivity.discord_rpc.enabled")) return;
       this._client
         .endlessLogin({
           clientId: this._utils.getStoreValue("connectivity.discord_rpc.client") === "Cider" ? "911790844204437504" : "886578863147192350",
         })
         .then(() => {
+          console.log(`[DiscordRPC][reload] DiscordRPC Reloaded.`);
           this.ready = true;
-          this._utils.getWindow().webContents.send("rpcReloaded", this._client.user);
+          if (configUpdate == null) this._utils.getWindow().webContents.send("rpcReloaded", this._client.user);
           if (this._activityCache && this._activityCache.details && this._activityCache.state) {
             console.info(`[DiscordRPC][reload] Restoring activity cache.`);
             this._client.setActivity(this._activityCache);
@@ -110,6 +121,13 @@ export default class DiscordRPC {
         })
         .catch((e: any) => console.error(`[DiscordRPC][reload] ${e}`));
       // this.connect(true)
+    });
+    ipcMain.on("onPrivacyModeChange", (_event, enabled) => {
+      if (enabled && this._client) {
+        this._client.clearActivity();
+      } else if (!enabled && this._activityCache && this._activityCache.details && this._activityCache.state) {
+        this._client.setActivity(this._activityCache);
+      }
     });
   }
 
@@ -133,7 +151,7 @@ export default class DiscordRPC {
    * Runs on song change
    * @param attributes Music Attributes
    */
-  onNowPlayingItemDidChange(attributes: object): void {
+  playbackTimeDidChange(attributes: object): void {
     this._attributes = attributes;
     this.setActivity(attributes);
   }
@@ -158,7 +176,7 @@ export default class DiscordRPC {
     this._client.once("ready", () => {
       console.info(`[DiscordRPC][connect] Successfully Connected to Discord. Authed for user: ${this._client.user.id}.`);
 
-      if (this._activityCache && this._activityCache.details && this._activityCache.state) {
+      if (this._activityCache && this._activityCache.details && this._activityCache.state && !this._utils.getStoreValue("general.privateEnabled")) {
         console.info(`[DiscordRPC][connect] Restoring activity cache.`);
         this._client.setActivity(this._activityCache);
       }
@@ -180,14 +198,14 @@ export default class DiscordRPC {
    * @param attributes Music Attributes
    */
   private setActivity(attributes: any) {
-    if (!this._client) {
+    if (!this._client || !attributes) {
       return;
     }
 
     // Check if show buttons is (true) or (false)
     let activity: Object = {
-      details: this._utils.getStoreValue("connectivity.discord_rpc.details_format"),
-      state: this._utils.getStoreValue("connectivity.discord_rpc.state_format"),
+      details: this._utils.getStoreValue("connectivity.discord_rpc.activity.details_format"),
+      state: this._utils.getStoreValue("connectivity.discord_rpc.activity.state_format"),
       largeImageKey: attributes?.artwork?.url?.replace("{w}", "1024").replace("{h}", "1024"),
       largeImageText: attributes.albumName,
       instance: false, // Whether the activity is in a game session
@@ -201,10 +219,14 @@ export default class DiscordRPC {
       return;
     }
 
-    // Set the activity
+    if (!activity) {
+      return;
+    }
+
     if (!attributes.status && this._utils.getStoreValue("connectivity.discord_rpc.clear_on_pause")) {
       this._client.clearActivity();
     } else if (activity && this._activityCache !== activity) {
+      if (this._utils.getStoreValue("general.privateEnabled")) return;
       this._client.setActivity(activity);
     }
     this._activityCache = activity;
@@ -214,16 +236,29 @@ export default class DiscordRPC {
    * Filter the Discord activity object
    */
   private filterActivity(activity: any, attributes: any): Object {
-    // Add the buttons if people want them
-    if (!this._utils.getStoreValue("connectivity.discord_rpc.hide_buttons")) {
-      activity.buttons = [
-        { label: "Listen on Cider", url: attributes.url.cider },
-        { label: "View on Apple Music", url: attributes.url.appleMusic },
-      ]; //To change attributes.url => preload/cider-preload.js
+    // Handling Activity Buttons
+    if (this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.enabled") && this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.first") != "disabled") {
+      const activityUrls: { [key: string]: any } = {
+        listenOnCider: "cider",
+        viewOnAppleMusic: "appleMusic",
+        viewOnOtherMusicServices: "songLink",
+      };
+
+      const firstActivity = this._utils.getLocale(this._utils.getStoreValue("general.language"), `settings.option.connectivity.discordRPC.buttons.${this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.first")}`);
+      const secondActivity = this._utils.getLocale(this._utils.getStoreValue("general.language"), `settings.option.connectivity.discordRPC.buttons.${this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.second")}`);
+
+      if (this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.second") != "disabled") {
+        activity.buttons = [
+          { label: firstActivity, url: attributes.url[activityUrls[this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.first")]] },
+          { label: secondActivity, url: attributes.url[activityUrls[this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.second")]] },
+        ];
+      } else {
+        activity.buttons = [{ label: firstActivity, url: attributes.url[activityUrls[this._utils.getStoreValue("connectivity.discord_rpc.activity.buttons.first")]] }];
+      }
     }
 
     // Add the timestamp if its playing and people want them
-    if (!this._utils.getStoreValue("connectivity.discord_rpc.hide_timestamp") && attributes.status) {
+    if (!this._utils.getStoreValue("connectivity.discord_rpc.hide_timestamp") && attributes.status && new Date(attributes.endTime).getTime() > 0 && isFinite(attributes.endTime) && isFinite(attributes.startTime)) {
       activity.startTimestamp = Date.now() - (attributes?.durationInMillis - attributes?.remainingTime);
       activity.endTimestamp = attributes.endTime;
     }
@@ -280,12 +315,6 @@ export default class DiscordRPC {
       activity.largeImageKey = "cider";
     }
 
-    // Timestamp
-    if (new Date(attributes.endTime).getTime() < 0) {
-      delete activity.startTime;
-      delete activity.endTime;
-    }
-
     // not sure
     if (!attributes.artistName) {
       delete activity.state;
@@ -293,6 +322,10 @@ export default class DiscordRPC {
 
     if (!activity.largeImageText || activity.largeImageText.length < 2) {
       delete activity.largeImageText;
+    }
+
+    if (activity.status === "" || activity.details === "") {
+      return false;
     }
     return activity;
   }

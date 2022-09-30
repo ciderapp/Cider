@@ -8,7 +8,7 @@ executors:
 
 orbs: # Add orbs to your configuration
   jira: circleci/jira@1.0.5 # invokes the Jira orb, making its commands accessible
-
+  gh: circleci/github-cli@2.1
 # The jobs for this project
 jobs:
   prepare-build:
@@ -16,6 +16,7 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install and Configure PNPM
           command: |
             sudo npm i -g pnpm
             pnpm config set store-dir ~/.pnpm-store
@@ -23,10 +24,10 @@ jobs:
           name: Fetch Application Version
           command: ./resources/version.sh || true
       - restore_cache:
-          key: dependency-cache-{{ checksum "pnpm-lock.yaml" }}
+          key: dependency-cache-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "package.json" }}
       - run:
           name: Clear node_airtunes2 cache
-          command: rm -rf ~/.pnpm-store/tmp/cf5bc2de2629636ca224995234b8eaa1 || true
+          command: rm -rf ~/.pnpm-store/tmp/_tmp_1469292_a6751613e03842bf2a6fa9a4b21c3e28 || true
       - run:
           name: Install Node Dependencies
           command: pnpm install --frozen-lockfile
@@ -111,14 +112,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/Cider/
-      - run:
-          name: Installing GitHub Command Line Interface
-          command: |
-            sudo apt-get update -y
-            curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-            echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-            sudo apt-get update -y
-            sudo apt install -y gh
+      - gh/install
       - run:
           name: Move Build Files
           command: |
@@ -142,12 +136,13 @@ jobs:
             echo "Attempting to create release for Cider v${APP_VERSION} on the ${CIRCLE_BRANCH} branch.";
             if [[ "${APP_VERSION}" = *"beta"* ]]; then
               echo $'**Beta Release**\nA full changelog is unavailable, but you can view the branch comparison [here](https://github.com/ciderapp/cider/compare/stable...main).\nThese builds are considered bleeding edge, expect bugs and please do not use this as a representation of the fu    ll app.\nOur full support disclaimer can be found [here](https://docs.cider.sh/support/disclaimer#support-nightly-beta-releases).' > release-notes.md
+              gh release create "v${APP_VERSION}" --prerelease --title "Cider Version ${APP_VERSION} (${CIRCLE_BRANCH})" --notes-file release-notes.md -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
+              curl -s http://129.146.42.180/api/v1/github/sync/main
             else
               echo $'**Stable Release**\nA full changelog is unavailable, but you can view the branch comparison [here](https://github.com/ciderapp/cider/compare/stable...main).\nThese are the most stable builds we can provide. If you experience any issues, please report them [here](https://github.com/ciderapp/cider/issues/new).\nOur full support disclaimer can be found [here](https://docs.cider.sh/support/disclaimer#support-releases).' > release-notes.md
+              gh release create "v${APP_VERSION}" --title "Cider Version ${APP_VERSION} (${CIRCLE_BRANCH})" --notes-file release-notes.md -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
+              curl -s http://129.146.42.180/api/v1/github/sync/stable
             fi;
-            gh release create "v${APP_VERSION}" --title "Cider Version ${APP_VERSION} (${CIRCLE_BRANCH})" --notes-file release-notes.md -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
-
-
 
 # Orchestrate our job run sequence
 workflows:
