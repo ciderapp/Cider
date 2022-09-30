@@ -20,8 +20,8 @@ const store = new Vuex.Store({
       },
       scrollPos: {
         limit: 10,
-        pos: []
-      }
+        pos: [],
+      },
     },
     artwork: {
       playerLCD: "",
@@ -39,24 +39,24 @@ const store = new Vuex.Store({
     setPagePos(state, pageState = {}) {
       let cached = state.pageState.scrollPos.pos.find((page) => {
         return page.href === pageState.href;
-      })
-      if(cached) {
+      });
+      if (cached) {
         state.pageState.scrollPos.pos.find((page) => {
-          if(page.href === pageState.href) {
-            page.position = pageState.position
+          if (page.href === pageState.href) {
+            page.position = pageState.position;
           }
-        })
-        return
+        });
+        return;
       }
       state.pageState.scrollPos.pos.push({
-        "href": pageState.href,
-        "position": pageState.position
-      })
+        href: pageState.href,
+        position: pageState.position,
+      });
       if (state.pageState.scrollPos.pos.length > state.pageState.scrollPos.limit) {
-        pages.value.shift()
+        pages.value.shift();
       }
-      return
-    }
+      return;
+    },
   },
 });
 

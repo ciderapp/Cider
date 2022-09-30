@@ -290,7 +290,7 @@ const app = new Vue({
   },
   methods: {
     setWindowHash(route = "") {
-      this.setPagePos()
+      this.setPagePos();
       window.location.hash = `#${route}`;
     },
     monitorMusickit() {
@@ -600,8 +600,8 @@ const app = new Vue({
       }
     },
     navigateBack() {
-      this.setPagePos()
-      this.resumePagePos()
+      this.setPagePos();
+      this.resumePagePos();
       this.chrome.desiredPageTransition = "wpfade_transform_backwards";
       return new Promise((resolve, reject) => {
         history.back();
@@ -611,8 +611,8 @@ const app = new Vue({
       });
     },
     goToGrouping(url = "https://music.apple.com/WebObjects/MZStore.woa/wa/viewGrouping?cc=us&id=34") {
-      this.setPagePos()
-      this.resumePagePos()
+      this.setPagePos();
+      this.resumePagePos();
       if (url.includes("viewTop")) {
         window.location.hash = `#charts/top`;
       } else {
@@ -638,8 +638,8 @@ const app = new Vue({
       }
     },
     navigateForward() {
-      this.setPagePos()
-      this.resumePagePos()
+      this.setPagePos();
+      this.resumePagePos();
       history.forward();
     },
     resetState() {
@@ -2089,11 +2089,13 @@ const app = new Vue({
     getPagePos(href = "") {
       let state = this.$store.state.pageState.scrollPos.pos.find((page) => {
         return page.href === href;
-      })
-      return state ?? {
-        page: href,
-        position: 0
-      }
+      });
+      return (
+        state ?? {
+          page: href,
+          position: 0,
+        }
+      );
     },
     appRoute(route) {
       if (route == "" || route == "#" || route == "/") {
@@ -2112,7 +2114,7 @@ const app = new Vue({
       if (route.indexOf("/") == -1) {
         this.page = route;
         window.location.hash = this.page;
-        this.resumePagePos()
+        this.resumePagePos();
         // if (this.page == "settings") {
         //     this.version
         // }
@@ -2136,22 +2138,22 @@ const app = new Vue({
       });
     },
     resumePagePos() {
-      setTimeout(()=>{
-        $("#app-content").scrollTop(app.getPagePos(window.location.hash).position)
-      }, 100)
+      setTimeout(() => {
+        $("#app-content").scrollTop(app.getPagePos(window.location.hash).position);
+      }, 100);
     },
     setPagePos() {
       console.debug({
         href: window.location.hash,
-        position: $("#app-content").scrollTop()
-      })
+        position: $("#app-content").scrollTop(),
+      });
       this.$store.commit("setPagePos", {
         href: window.location.hash,
-        position: $("#app-content").scrollTop()
-      })
+        position: $("#app-content").scrollTop(),
+      });
     },
     routeView(item) {
-      this.setPagePos()
+      this.setPagePos();
       let kind = item.attributes?.playParams ? item.attributes?.playParams?.kind ?? item.type ?? "" : item.type ?? "";
       let id = item.attributes?.playParams ? item.attributes?.playParams?.id ?? item.id ?? "" : item.id ?? "";
       let isLibrary = item.attributes?.playParams ? item.attributes?.playParams?.isLibrary ?? false : false;
@@ -2228,7 +2230,7 @@ const app = new Vue({
             window.location.hash = `${kind}/${id}`;
             // document.querySelector("#app-content").scrollTop = 0;
           });
-          this.resumePagePos()
+        this.resumePagePos();
       } else if (kind.toString().includes("artist")) {
         app.getArtistInfo(id, isLibrary);
         window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ""}`;
@@ -2247,7 +2249,7 @@ const app = new Vue({
         });
         window.location.hash = `${kind}/${id}`;
         document.querySelector("#app-content").scrollTop = 0;
-        this.resumePagePos()
+        this.resumePagePos();
       } else if (kind.toString().includes("social-profiles")) {
         app.page = kind + "_" + id;
         app.mk.api.v3
@@ -2288,7 +2290,7 @@ const app = new Vue({
           app.page = kind;
           window.location.hash = `${kind}/${id}${isLibrary ? "/" + isLibrary : ""}`;
         }
-        this.resumePagePos()
+        this.resumePagePos();
         // app.getTypeFromID((kind), (id), (isLibrary), params);
       } else if (kind.toString().includes("song")) {
         const albumUrl = new Promise(async (resolve, reject) => {
