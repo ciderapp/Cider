@@ -1022,7 +1022,7 @@
                                             </div>
                                             <div class="md-option-segment md-option-segment_auto">
                                                 <label>
-                                                    <select class="md-select" v-model="app.cfg.connectivity.discord_rpc.activity.buttons.first" @change="if ($event.target.value == 'disabled') app.cfg.connectivity.discord_rpc.activity.buttons.second = 'disabled';">
+                                                    <select class="md-select" v-model="app.cfg.connectivity.discord_rpc.activity.buttons.first" @change="$event.target.value == 'disabled' ? app.cfg.connectivity.discord_rpc.activity.buttons.second = 'disabled' : ''">
                                                         <option v-for="option in app.cfg.connectivity.discord_rpc.activity.buttons.options" v-bind:value="option" v-show="app.cfg.connectivity.discord_rpc.activity.buttons.second != option">{{ $root.getLz(`settings.option.connectivity.discordRPC.buttons.${option}`) }}</option>
                                                         <option value="disabled">{{$root.getLz('term.disabled')}}</option>
                                                     </select>

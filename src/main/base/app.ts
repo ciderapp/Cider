@@ -77,7 +77,7 @@ export class AppEvents {
         break;
 
       case "webgpu":
-        console.info("WebGPU is enabled.");
+        console.info("[AppEvents] WebGPU is enabled.");
         app.commandLine.appendSwitch("enable-unsafe-webgpu");
         if (process.platform === "linux") {
           app.commandLine.appendSwitch("enable-features", "Vulkan");
@@ -85,7 +85,7 @@ export class AppEvents {
         break;
 
       case "disabled":
-        console.info("Hardware acceleration is disabled.");
+        console.info("[AppEvents] Hardware acceleration is disabled.");
         app.commandLine.appendSwitch("disable-gpu");
         app.disableHardwareAcceleration();
         break;
