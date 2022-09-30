@@ -486,7 +486,7 @@
   "settings.option.visual.uiscale": "介面顯示大小",
   "settings.header.visual.theme": "主題",
   "settings.option.visual.theme.github.download": "從 GitHub 網址安裝",
-  "settings.option.visual.theme.github.openfolder": "開啟主題儲存路徑",
+  "settings.option.visual.theme.github.openfolder": "開啟主題儲存位置",
   "settings.option.visual.theme.github.explore": "探索 GitHub 上的主題",
   "settings.header.visual.theme.github.page": "來自 GitHub 的主題",
   "settings.option.visual.theme.github.install.confirm": "你確定要安裝 {{ repo }}？",
