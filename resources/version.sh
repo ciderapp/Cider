@@ -11,7 +11,7 @@ fi
 
 
 SHA_DATE=$(git show -s --format=%ci $STABLE_SHA)
-COMMIT_SINCE_STABLE=$(printf "%03d\n" $(git rev-list $STABLE_SHA..HEAD --count --since="$SHA_DATE"))
+COMMIT_SINCE_STABLE=$(git rev-list $STABLE_SHA..HEAD --count --since="$SHA_DATE")
 CURRENT_VERSION=$(node -p -e "require('./package.json').version")
 
 # Set the version number for commits on main branch
