@@ -229,7 +229,7 @@ export default class RAOP {
             password: sepassword,
             txt: txt,
             airplay2: airplay2dv,
-            debug: null,
+            debug: true,
             forceAlac: false,
           }),
         });
@@ -442,22 +442,26 @@ export default class RAOP {
    */
   onBeforeQuit(): void {}
 
-  // /**
-  //  * Runs on song change
-  //  * @param attributes Music Attributes
-  //  */
-  // onNowPlayingItemDidChange(attributes: any): void {
-  //     if (this.airtunes && this.device) {
-  //         let title = attributes.name ? attributes.name : '';
-  //         let artist = attributes.artistName ? attributes.artistName : '';
-  //         let album = attributes.albumName ? attributes.albumName : '';
-  //         let artworkURL = attributes?.artwork?.url?.replace('{w}', '1024').replace('{h}', '1024') ?? null;
-  //         console.log(this.device.key, title, artist, album);
-  //         this.airtunes.setTrackInfo(this.device.key, title, artist, album);
-  //         if (artworkURL)
-  //             this.uploadImageAirplay(artworkURL)
-  //     }
-  // }
+  /**
+   * Runs on song change
+   * @param attributes Music Attributes
+   */
+  onNowPlayingItemDidChange(attributes: any): void {
+    if (this.airtunes && this.devices.length > 0) {
+      let title = attributes?.name ?? "";
+      let artist = attributes?.artistName ?? "";
+      let album = attributes?.albumName ?? "";
+      for (let i in this.devices) {
+        console.log(this.devices[i].controller.key, title, artist, album);
+        this.airtunes.setTrackInfo(this.devices[i].controller.key, title, artist, album);
+      }
+      let artworkURL = attributes?.artwork?.url ?? null;
+
+      if (artworkURL != null) {
+        this.uploadImageAirplay(artworkURL.replace("{w}", "1024").replace("{h}", "1024"));
+      }
+    }
+  }
 
   /**
    * Runs on playback State Change
