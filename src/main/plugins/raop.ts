@@ -349,7 +349,7 @@ export default class RAOP {
           this.worker.postMessage({ buffer: [leftbuffer, rightbuffer] });
         }
       }
-    }); 
+    });
 
     electron.ipcMain.on("disconnectAirplay", (event, identifier = "") => {
       console.log("iden", identifier);
