@@ -57,7 +57,7 @@ dependencies:
   '@sentry/electron': 4.0.2
   '@sentry/integrations': 7.14.0
   adm-zip: 0.4.10
-  airtunes2: github.com/ciderapp/node_airtunes2/78304e7afced78fdff8bb3e8678c024b5f292782
+  airtunes2: github.com/ciderapp/node_airtunes2/fe55f44bfb018bbf5415779ed220682e9fb1f829
   castv2-client: 1.2.0
   chokidar: 3.5.3
   discord-auto-rpc: 1.0.17
@@ -2953,7 +2953,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001414
-      electron-to-chromium: 1.4.269
+      electron-to-chromium: 1.4.270
       node-releases: 2.0.6
       update-browserslist-db: 1.0.9_browserslist@4.21.4
     dev: true
@@ -3326,8 +3326,9 @@ packages:
       strip-ansi: 6.0.1
       wrap-ansi: 6.2.0
 
-  /cliui/7.0.4:
-    resolution: {integrity: sha512-OcRE68cOsVMXp1Yvonl/fzkQOyjLSu/8bhPDfQt0e0/Eb283TKP20Fs2MqoPsr9SwA595rRCA+QMzYc9nBP+JQ==}
+  /cliui/8.0.1:
+    resolution: {integrity: sha512-BSeNnyus75C4//NQ9gQt1/csTXyo/8Sb+afLAkzAptFuMsod9HFokGNudZpi/oQV73hnVK+sR+5PVRMd+Dr7YQ==}
+    engines: {node: '>=12'}
     dependencies:
       string-width: 4.2.3
       strip-ansi: 6.0.1
@@ -4123,7 +4124,7 @@ packages:
       lazy-val: 1.0.5
       read-config-file: 6.2.0
       update-notifier: 5.1.0
-      yargs: 17.5.1
+      yargs: 17.6.0
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4195,8 +4196,8 @@ packages:
       type-fest: 2.19.0
     dev: false
 
-  /electron-to-chromium/1.4.269:
-    resolution: {integrity: sha512-7mHFONwp7MNvdyto1v70fCwk28NJMFgsK79op+iYHzz1BLE8T66a1B2qW5alb8XgE0yi3FL3ZQjSYZpJpF6snw==}
+  /electron-to-chromium/1.4.270:
+    resolution: {integrity: sha512-KNhIzgLiJmDDC444dj9vEOpZEgsV96ult9Iff98Vanumn+ShJHd5se8aX6KeVxdc0YQeqdrezBZv89rleDbvSg==}
     dev: true
 
   /electron-updater/5.2.1:
@@ -9807,11 +9808,11 @@ packages:
       y18n: 4.0.3
       yargs-parser: 18.1.3
 
-  /yargs/17.5.1:
-    resolution: {integrity: sha512-t6YAJcxDkNX7NFYiVtKvWUz8l+PaKTLiL63mJYWR2GnHq2gjEWISzsLp9wg3aY36dY1j+gfIEL3pIF+XlJJfbA==}
+  /yargs/17.6.0:
+    resolution: {integrity: sha512-8H/wTDqlSwoSnScvV2N/JHfLWOKuh5MVla9hqLjK3nsfyy6Y4kDSYSvkU5YCUEPOSnRXfIyx3Sq+B/IWudTo4g==}
     engines: {node: '>=12'}
     dependencies:
-      cliui: 7.0.4
+      cliui: 8.0.1
       escalade: 3.1.1
       get-caller-file: 2.0.5
       require-directory: 2.1.1
@@ -9891,10 +9892,10 @@ packages:
       - supports-color
     dev: false
 
-  github.com/ciderapp/node_airtunes2/78304e7afced78fdff8bb3e8678c024b5f292782:
-    resolution: {tarball: https://codeload.github.com/ciderapp/node_airtunes2/tar.gz/78304e7afced78fdff8bb3e8678c024b5f292782}
+  github.com/ciderapp/node_airtunes2/fe55f44bfb018bbf5415779ed220682e9fb1f829:
+    resolution: {tarball: https://codeload.github.com/ciderapp/node_airtunes2/tar.gz/fe55f44bfb018bbf5415779ed220682e9fb1f829}
     name: airtunes2
-    version: 2.3.3
+    version: 2.3.4
     hasBin: true
     requiresBuild: true
     dependencies:
