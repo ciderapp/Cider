@@ -25,11 +25,11 @@ jobs:
           command: ./resources/version.sh || true
       - restore_cache:
           key: dependency-cache-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "package.json" }}
-      - run:
-          name: Clear node_airtunes2 cache
-          command: |
-              rm -rf ~/.pnpm-store || true
-              rm -rf node_modules || true      
+      # - run:
+      #     name: Clear cache (only if CI fails uncomment this)
+      #     command: |
+      #         rm -rf ~/.pnpm-store || true
+      #         rm -rf node_modules || true      
       - run:
           name: Clear node_airtunes2 cache
           command: rm -rf ~/.pnpm-store/tmp/_tmp_1469292_a6751613e03842bf2a6fa9a4b21c3e28 || true
