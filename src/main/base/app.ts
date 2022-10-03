@@ -6,7 +6,7 @@ import * as os from "os";
 import { utils } from "./utils";
 
 //@ts-ignore
-import { EFFECT, PARAMS, MicaBrowserwindow } from "mica-electron";
+import { EFFECT, PARAMS, MicaBrowserWindow } from "mica-electron";
 // sorry Core. - cryptofyre
 
 /**
