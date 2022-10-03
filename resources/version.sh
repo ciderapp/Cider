@@ -32,7 +32,6 @@ else
 fi
 
 echo $NEW_VERSION
-echo $NEW_VERSION_NUMBERED
 
 
 # Add the version to the environment for CI usage
