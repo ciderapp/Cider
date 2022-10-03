@@ -90,7 +90,7 @@ jobs:
           repo_name: ciderapp/cider-releases
           repo_token: ${{ secrets.RELEASE_TOKEN }}
           file: dist/latest-mac.yml
-          tag: v${{ env.RELEASE_VERSION }}
+          tag: v${{ env.APP_VERSION }}
 
       - name: Import
         uses: apple-actions/import-codesign-certs@v1
@@ -125,7 +125,7 @@ jobs:
           repo_name: ciderapp/cider-releases
           repo_token: ${{ secrets.RELEASE_TOKEN }}
           file: dist/Cider*.dmg
-          tag: v${{ env.RELEASE_VERSION }}
+          tag: v${{ env.APP_VERSION }}
 
       - name: Upload Files (PKG)
         uses: svenstaro/upload-release-action@v2
@@ -133,7 +133,7 @@ jobs:
           repo_name: ciderapp/cider-releases
           repo_token: ${{ secrets.RELEASE_TOKEN }}
           file: dist/Cider*.pkg
-          tag: v${{ env.RELEASE_VERSION }}
+          tag: v${{ env.APP_VERSION }}
       - name: Trigger Bot Sync (main)
         uses: indiesdev/curl@v1.1
         with:
