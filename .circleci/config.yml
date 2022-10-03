@@ -50,6 +50,7 @@ jobs:
           root: .
           # Must be relative path from root
           paths:
+            - .git
             - src
             - node_modules
             - build
