@@ -18,6 +18,10 @@ import wallpaper from "wallpaper";
 import * as AdmZip from "adm-zip";
 import { LocalFiles } from "../providers/local/";
 
+//@ts-ignore
+import { EFFECT, PARAMS, MicaBrowserWindow } from "mica-electron";
+// sorry Core. - cryptofyre
+
 /**
  * @file Creates the BrowserWindow
  * @author CiderCollective
