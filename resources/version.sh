@@ -9,25 +9,37 @@ else
 	STABLE_SHA=$(curl -s https://api.github.com/repos/ciderapp/Cider/branches/stable | grep '"sha"' | head -1 | cut -d '"' -f 4)
 fi
 
-
 SHA_DATE=$(git show -s --format=%ci $STABLE_SHA)
-if [[ $GH_RELEASE_REQUEST != "" ]]; then
-  COMMIT_SINCE_STABLE=$(printf "%03d\n" $(git rev-list $STABLE_SHA..HEAD --count --since="$SHA_DATE"))
-else
-  COMMIT_SINCE_STABLE=$(git rev-list $STABLE_SHA..HEAD --count --since="$SHA_DATE")
-fi
+VERSION_POSTFIX=$(git rev-list $STABLE_SHA..HEAD --count --since="$SHA_DATE")
+VERSION_POSTFIX_NUMBERED=$(printf "%03d\n" $VERSION_POSTFIX)
 CURRENT_VERSION=$(node -p -e "require('./package.json').version")
 
 # Set the version number for commits on main branch
-if [[ ($CIRCLE_BRANCH == "main" || $GITHUB_REF_NAME == "main") && $COMMIT_SINCE_STABLE -gt 0 && $(node -p -e "require('./package.json').version" | cut -d '.' -f 4) != $COMMIT_SINCE_STABLE ]]; then
-	NEW_VERSION="${CURRENT_VERSION}-beta.${COMMIT_SINCE_STABLE}"
+if [[ ($CIRCLE_BRANCH == "main" || $GITHUB_REF_NAME == "main") && $VERSION_POSTFIX -gt 0 && $(node -p -e "require('./package.json').version" | cut -d '.' -f 4) != $VERSION_POSTFIX ]]; then
+  APP_VERSION_NUMBERED="$CURRENT_VERSION.$VERSION_POSTFIX_NUMBERED"
+	NEW_VERSION="${CURRENT_VERSION}-beta.${VERSION_POSTFIX}"
+
 	# Update the version in package.json
-	if [[ $RUNNER_OS == "macOS" ]]; then
-		sed -i "" -e "s/$CURRENT_VERSION/$NEW_VERSION/" package.json
-	else
-		sed -i "0,/$CURRENT_VERSION/s//$NEW_VERSION/" package.json
-	fi
-	echo $NEW_VERSION
+  if [[ $NO_WRITE_VER == "" ]]; then
+    if [[ $RUNNER_OS == "macOS" ]]; then
+      sed -i "" -e "s/$CURRENT_VERSION/$NEW_VERSION/" package.json
+    else
+      sed -i "0,/$CURRENT_VERSION/s//$NEW_VERSION/" package.json
+    fi
+  fi
 else
-	echo $CURRENT_VERSION
+  APP_VERSION_NUMBERED=$CURRENT_VERSION
+	NEW_VERSION=$CURRENT_VERSION
+fi
+
+echo $NEW_VERSION
+
+
+# Add the version to the environment for CI usage
+if [[ $GITHUB_REF_NAME != "" ]]; then
+  echo "APP_VERSION=$NEW_VERSION" >>$GITHUB_ENV
+  echo "RELEASE_VERSION=$APP_VERSION_NUMBERED" >>$GITHUB_ENV
+else
+  echo "export APP_VERSION=$NEW_VERSION" >>$BASH_ENV
+  echo "export RELEASE_VERSION=$APP_VERSION_NUMBERED" >>$BASH_ENV
 fi
