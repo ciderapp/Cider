@@ -11,12 +11,11 @@ fi
 
 SHA_DATE=$(git show -s --format=%ci $STABLE_SHA)
 VERSION_POSTFIX=$(git rev-list $STABLE_SHA..HEAD --count --since="$SHA_DATE")
-VERSION_POSTFIX_NUMBERED=$(printf "%03d\n" $VERSION_POSTFIX)
 CURRENT_VERSION=$(node -p -e "require('./package.json').version")
 
 # Set the version number for commits on main branch
 if [[ ($CIRCLE_BRANCH == "main" || $GITHUB_REF_NAME == "main") && $VERSION_POSTFIX -gt 0 && $(node -p -e "require('./package.json').version" | cut -d '.' -f 4) != $VERSION_POSTFIX ]]; then
-  APP_VERSION_NUMBERED="$CURRENT_VERSION.$VERSION_POSTFIX_NUMBERED"
+  NEW_VERSION_NUMBERED="$CURRENT_VERSION-beta.$(printf "%03d\n" $VERSION_POSTFIX)"
 	NEW_VERSION="${CURRENT_VERSION}-beta.${VERSION_POSTFIX}"
 
 	# Update the version in package.json
@@ -28,18 +27,19 @@ if [[ ($CIRCLE_BRANCH == "main" || $GITHUB_REF_NAME == "main") && $VERSION_POSTF
     fi
   fi
 else
-  APP_VERSION_NUMBERED=$CURRENT_VERSION
+  NEW_VERSION_NUMBERED=$CURRENT_VERSION
 	NEW_VERSION=$CURRENT_VERSION
 fi
 
 echo $NEW_VERSION
+echo $NEW_VERSION_NUMBERED
 
 
 # Add the version to the environment for CI usage
 if [[ $GITHUB_REF_NAME != "" ]]; then
   echo "APP_VERSION=$NEW_VERSION" >>$GITHUB_ENV
-  echo "RELEASE_VERSION=$APP_VERSION_NUMBERED" >>$GITHUB_ENV
+  echo "RELEASE_VERSION=$NEW_VERSION_NUMBERED" >>$GITHUB_ENV
 else
   echo "export APP_VERSION=$NEW_VERSION" >>$BASH_ENV
-  echo "export RELEASE_VERSION=$APP_VERSION_NUMBERED" >>$BASH_ENV
+  echo "export RELEASE_VERSION=$NEW_VERSION_NUMBERED" >>$BASH_ENV
 fi
