@@ -5,6 +5,10 @@ import * as log from "electron-log";
 import * as os from "os";
 import { utils } from "./utils";
 
+//@ts-ignore
+import { EFFECT, PARAMS, MicaBrowserwindow } from "mica-electron";
+// sorry Core. - cryptofyre
+
 /**
  * @file Creates App instance
  * @author CiderCollective
