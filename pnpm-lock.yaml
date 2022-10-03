@@ -2,11 +2,11 @@ lockfileVersion: 5.4
 
 specifiers:
   '@sentry/electron': ^4.0.2
-  '@sentry/integrations': ^7.14.0
+  '@sentry/integrations': ^7.14.1
   '@types/adm-zip': ^0.5.0
   '@types/discord-rpc': 4.0.3
   '@types/express': ^4.17.14
-  '@types/node': ^18.7.23
+  '@types/node': ^18.8.0
   '@types/qrcode-terminal': ^0.12.0
   '@types/ws': ^8.5.3
   adm-zip: 0.4.10
@@ -55,7 +55,7 @@ specifiers:
 
 dependencies:
   '@sentry/electron': 4.0.2
-  '@sentry/integrations': 7.14.0
+  '@sentry/integrations': 7.14.1
   adm-zip: 0.4.10
   airtunes2: github.com/ciderapp/node_airtunes2/04b9129d853f1baacff9d69cbff1d9f7198a7223
   castv2-client: 1.2.0
@@ -94,7 +94,7 @@ devDependencies:
   '@types/adm-zip': 0.5.0
   '@types/discord-rpc': 4.0.3
   '@types/express': 4.17.14
-  '@types/node': 18.7.23
+  '@types/node': 18.8.0
   '@types/qrcode-terminal': 0.12.0
   '@types/ws': 8.5.3
   electron: github.com/castlabs/electron-releases/cc5e2588f96875758f022c2a50426d34e7988ced
@@ -1212,7 +1212,7 @@ packages:
       babel-plugin-polyfill-corejs2: 0.3.3_@babel+core@7.19.3
       babel-plugin-polyfill-corejs3: 0.6.0_@babel+core@7.19.3
       babel-plugin-polyfill-regenerator: 0.4.1_@babel+core@7.19.3
-      core-js-compat: 3.25.3
+      core-js-compat: 3.25.4
       semver: 6.3.0
     transitivePeerDependencies:
       - supports-color
@@ -1877,12 +1877,12 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@sentry/integrations/7.14.0:
-    resolution: {integrity: sha512-ZZwTurYD7+9nRHS92T6ZUGuLq/AtHPb0arw0eHn7Q6u+PNkt8RpMj+fwuBntaAsabHdf1a0XZrdqAw6XJmZz0w==}
+  /@sentry/integrations/7.14.1:
+    resolution: {integrity: sha512-viQkOOLa6YkXV8OV98BGqFY80emEDmfxOsLKc+AJe87nrb9j5ruobovFPwlJi0DlIMHdTtsoldBb/05bbVDKwg==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.14.0
-      '@sentry/utils': 7.14.0
+      '@sentry/types': 7.14.1
+      '@sentry/utils': 7.14.1
       localforage: 1.10.0
       tslib: 1.14.1
     dev: false
@@ -1908,8 +1908,8 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
-  /@sentry/types/7.14.0:
-    resolution: {integrity: sha512-9iFZS9Hr5hAoL+M9oUH2dY9burOaQh+CHGH66fortuTp++YDWKdbPEeKcz8hRJaUyBBn53rdxiBmAyHsrlE6KA==}
+  /@sentry/types/7.14.1:
+    resolution: {integrity: sha512-PxAfrIwBci6ouHOuRsfVq1B16i92nQNV5IvlqfJIYciazVhDWJvbF52caJAPOFS1WnuQZ4zqBDMYvtnwld3JCA==}
     engines: {node: '>=8'}
     dev: false
 
@@ -1921,11 +1921,11 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@sentry/utils/7.14.0:
-    resolution: {integrity: sha512-q9em4ZBcaUk7J1WULiltZVEcbyCE0wwAIjqRaoNmHVe4FeK++uAPo2ULZM1kQgN8syZnQ1jcfLktIKkWfnE2cg==}
+  /@sentry/utils/7.14.1:
+    resolution: {integrity: sha512-CErQFbJMuhnHFKGkfIazQj5ETKoS7hG8PkoQEBt19F5QMh4+sbrJgnpIrIW8fVGtp0qKWKuIxQwD3b+1cFBozA==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.14.0
+      '@sentry/types': 7.14.1
       tslib: 1.14.1
     dev: false
 
@@ -1962,14 +1962,14 @@ packages:
   /@types/adm-zip/0.5.0:
     resolution: {integrity: sha512-FCJBJq9ODsQZUNURo5ILAQueuA8WJhRvuihS3ke2iI25mJlfV2LK8jG2Qj2z2AWg8U0FtWWqBHVRetceLskSaw==}
     dependencies:
-      '@types/node': 18.7.23
+      '@types/node': 18.8.0
     dev: true
 
   /@types/body-parser/1.19.2:
     resolution: {integrity: sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==}
     dependencies:
       '@types/connect': 3.4.35
-      '@types/node': 18.7.23
+      '@types/node': 18.8.0
     dev: true
 
   /@types/cacheable-request/6.0.2:
@@ -1977,13 +1977,13 @@ packages:
     dependencies:
       '@types/http-cache-semantics': 4.0.1
       '@types/keyv': 3.1.4
-      '@types/node': 18.7.23
+      '@types/node': 18.8.0
       '@types/responselike': 1.0.0
 
   /@types/connect/3.4.35:
     resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
     dependencies:
-      '@types/node': 18.7.23
+      '@types/node': 18.8.0
     dev: true
 
   /@types/debug/4.1.7:
@@ -2016,7 +2016,7 @@ packages:
   /@types/express-serve-static-core/4.17.31:
     resolution: {integrity: sha512-DxMhY+NAsTwMMFHBTtJFNp5qiHKJ7TeqOo23zVEM9alT1Ml27Q3xcTH0xwxn7Q0BbMcVEJOs/7aQtUWupUQN3Q==}
     dependencies:
-      '@types/node': 18.7.23
+      '@types/node': 18.8.0
       '@types/qs': 6.9.7
       '@types/range-parser': 1.2.4
     dev: true
@@ -2033,14 +2033,14 @@ packages:
   /@types/fs-extra/9.0.13:
     resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==}
     dependencies:
-      '@types/node': 18.7.23
+      '@types/node': 18.8.0
     dev: true
 
   /@types/glob/7.2.0:
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
     dependencies:
       '@types/minimatch': 5.1.2
-      '@types/node': 18.7.23
+      '@types/node': 18.8.0
     dev: true
 
   /@types/html-minifier-terser/5.1.2:
@@ -2057,7 +2057,7 @@ packages:
   /@types/keyv/3.1.4:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
-      '@types/node': 18.7.23
+      '@types/node': 18.8.0
 
   /@types/long/4.0.2:
     resolution: {integrity: sha512-MqTGEo5bj5t157U6fA/BiDynNkn0YknVdh48CMPkTSpFTVmvao5UQmm7uEF6xBEo7qIMAlY/JSleYaE6VOdpaA==}
@@ -2075,22 +2075,22 @@ packages:
     resolution: {integrity: sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==}
     dev: true
 
-  /@types/node/16.11.62:
-    resolution: {integrity: sha512-K/ggecSdwAAy2NUW4WKmF4Rc03GKbsfP+k326UWgckoS+Rzd2PaWbjk76dSmqdLQvLTJAO9axiTUJ6488mFsYQ==}
+  /@types/node/16.11.63:
+    resolution: {integrity: sha512-3OxnrEQLBz8EIIaHpg3CibmTAEGkDBcHY4fL5cnBwg2vd2yvHrUDGWxK+MlYPeXWWIoJJW79dGtU+oeBr6166Q==}
     dev: true
 
   /@types/node/16.9.1:
     resolution: {integrity: sha512-QpLcX9ZSsq3YYUUnD3nFDY8H7wctAhQj/TFKL8Ya8v5fMm3CFXxo8zStsLAl780ltoYoo1WvKUVGBQK+1ifr7g==}
     dev: false
 
-  /@types/node/18.7.23:
-    resolution: {integrity: sha512-DWNcCHolDq0ZKGizjx2DZjR/PqsYwAcYUJmfMWqtVU2MBMG5Mo+xFZrhGId5r/O5HOuMPyQEcM6KUBp5lBZZBg==}
+  /@types/node/18.8.0:
+    resolution: {integrity: sha512-u+h43R6U8xXDt2vzUaVP3VwjjLyOJk6uEciZS8OSyziUQGOwmk+l+4drxcsDboHXwyTaqS1INebghmWMRxq3LA==}
 
   /@types/plist/3.0.2:
     resolution: {integrity: sha512-ULqvZNGMv0zRFvqn8/4LSPtnmN4MfhlPNtJCTpKuIIxGVGZ2rYWzFXrvEBoh9CVyqSE7D6YFRJ1hydLHI6kbWw==}
     requiresBuild: true
     dependencies:
-      '@types/node': 18.7.23
+      '@types/node': 18.8.0
       xmlbuilder: 15.1.1
     dev: true
     optional: true
@@ -2110,7 +2110,7 @@ packages:
   /@types/responselike/1.0.0:
     resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
     dependencies:
-      '@types/node': 18.7.23
+      '@types/node': 18.8.0
 
   /@types/semver/7.3.12:
     resolution: {integrity: sha512-WwA1MW0++RfXmCr12xeYOOC5baSC9mSb0ZqCquFzKhcoF4TvHu5MKOuXsncgZcpVFhB1pXd5hZmM0ryAoCp12A==}
@@ -2120,7 +2120,7 @@ packages:
     resolution: {integrity: sha512-z5xyF6uh8CbjAu9760KDKsH2FcDxZ2tFCsA4HIMWE6IkiYMXfVoa+4f9KX+FN0ZLsaMw1WNG2ETLA6N+/YA+cg==}
     dependencies:
       '@types/mime': 3.0.1
-      '@types/node': 18.7.23
+      '@types/node': 18.8.0
     dev: true
 
   /@types/source-list-map/0.1.2:
@@ -2150,7 +2150,7 @@ packages:
   /@types/webpack-sources/3.2.0:
     resolution: {integrity: sha512-Ft7YH3lEVRQ6ls8k4Ff1oB4jN6oy/XmU6tQISKdhfh+1mR+viZFphS6WL0IrtDOzvefmJg5a0s7ZQoRXwqTEFg==}
     dependencies:
-      '@types/node': 18.7.23
+      '@types/node': 18.8.0
       '@types/source-list-map': 0.1.2
       source-map: 0.7.4
     dev: true
@@ -2158,7 +2158,7 @@ packages:
   /@types/webpack/4.41.32:
     resolution: {integrity: sha512-cb+0ioil/7oz5//7tZUSwbrSAN/NWHrQylz5cW8G0dWTcF/g+/dSdMlKVZspBYuMAN1+WnwHrkxiRrLcwd0Heg==}
     dependencies:
-      '@types/node': 18.7.23
+      '@types/node': 18.8.0
       '@types/tapable': 1.0.8
       '@types/uglify-js': 3.17.0
       '@types/webpack-sources': 3.2.0
@@ -2169,7 +2169,7 @@ packages:
   /@types/ws/8.5.3:
     resolution: {integrity: sha512-6YOoWjruKj1uLf3INHH7D3qTXwFfEsg1kf3c0uDdSBJwfa/llkwIjrAGV7j7mVgGNbzTQ3HiHKKDXl6bJPD97w==}
     dependencies:
-      '@types/node': 18.7.23
+      '@types/node': 18.8.0
     dev: true
 
   /@types/yargs-parser/21.0.0:
@@ -2186,7 +2186,7 @@ packages:
     resolution: {integrity: sha512-Cn6WYCm0tXv8p6k+A8PvbDG763EDpBoTzHdA+Q/MF6H3sapGjCm9NzoaJncJS9tUKSuCoDs9XHxYYsQDgxR6kw==}
     requiresBuild: true
     dependencies:
-      '@types/node': 18.7.23
+      '@types/node': 18.8.0
     dev: true
     optional: true
 
@@ -2725,7 +2725,7 @@ packages:
     dependencies:
       '@babel/core': 7.19.3
       '@babel/helper-define-polyfill-provider': 0.3.3_@babel+core@7.19.3
-      core-js-compat: 3.25.3
+      core-js-compat: 3.25.4
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -3552,8 +3552,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /core-js-compat/3.25.3:
-    resolution: {integrity: sha512-xVtYpJQ5grszDHEUU9O7XbjjcZ0ccX3LgQsyqSvTnjX97ZqEgn9F5srmrwwwMtbKzDllyFPL+O+2OFMl1lU4TQ==}
+  /core-js-compat/3.25.4:
+    resolution: {integrity: sha512-gCEcIEEqCR6230WroNunK/653CWKhqyCKJ9b+uESqOt/WFJA8B4lTnnQFdpYY5vmBcwJAA90Bo5vXs+CVsf6iA==}
     dependencies:
       browserslist: 4.21.4
     dev: true
@@ -6117,7 +6117,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 18.7.23
+      '@types/node': 18.8.0
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: true
@@ -7620,7 +7620,7 @@ packages:
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
       '@types/long': 4.0.2
-      '@types/node': 18.7.23
+      '@types/node': 18.8.0
       long: 4.0.0
     dev: false
 
@@ -9861,7 +9861,7 @@ packages:
     requiresBuild: true
     dependencies:
       '@electron/get': 2.0.1
-      '@types/node': 16.11.62
+      '@types/node': 16.11.63
       extract-zip: 2.0.1
     transitivePeerDependencies:
       - supports-color
