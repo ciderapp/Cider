@@ -11,15 +11,15 @@ fi
 
 SHA_DATE=$(git show -s --format=%ci $STABLE_SHA)
 VERSION_POSTFIX=$(git rev-list $STABLE_SHA..HEAD --count --since="$SHA_DATE")
-CURRENT_VERSION=$(node -p -e "require('./package.json').version")
+CURRENT_VERSION=$(node -p -e "require('./package.json').version" | cut -d '-' -f 1)
 
 # Set the version number for commits on main branch
-if [[ ($CIRCLE_BRANCH == "main" || $GITHUB_REF_NAME == "main") && $VERSION_POSTFIX -gt 0 && $(node -p -e "require('./package.json').version" | cut -d '.' -f 4) != $VERSION_POSTFIX ]]; then
+if [[ ($CIRCLE_BRANCH == "main" || $GITHUB_REF_NAME == "main") && $VERSION_POSTFIX -gt 0 ]]; then
   NEW_VERSION_NUMBERED="$CURRENT_VERSION-beta.$(printf "%03d\n" $VERSION_POSTFIX)"
 	NEW_VERSION="${CURRENT_VERSION}-beta.${VERSION_POSTFIX}"
 
 	# Update the version in package.json
-  if [[ $NO_WRITE_VER == "" ]]; then
+  if [[ $NO_WRITE_VER == "" && $(node -p -e "require('./package.json').version" | cut -d '.' -f 4) != $VERSION_POSTFIX ]]; then
     if [[ $RUNNER_OS == "macOS" ]]; then
       sed -i "" -e "s/$CURRENT_VERSION/$NEW_VERSION/" package.json
     else
