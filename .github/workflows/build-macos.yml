@@ -113,7 +113,7 @@ jobs:
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.3
         with:
-          name: Cider-macOS-${{ env.RELEASE_VERSION }}
+          name: Cider-macOS-${{ env.APP_VERSION }}
           path: |
             dist/*.dmg
             dist/*.pkg
@@ -124,7 +124,7 @@ jobs:
         with:
           repo_name: ciderapp/cider-releases
           repo_token: ${{ secrets.RELEASE_TOKEN }}
-          file: dist/Cider-*-universal.dmg
+          file: dist/Cider*.dmg
           tag: v${{ env.RELEASE_VERSION }}
 
       - name: Upload Files (PKG)
@@ -132,7 +132,7 @@ jobs:
         with:
           repo_name: ciderapp/cider-releases
           repo_token: ${{ secrets.RELEASE_TOKEN }}
-          file: dist/Cider-*-universal.pkg
+          file: dist/Cider*.pkg
           tag: v${{ env.RELEASE_VERSION }}
       - name: Trigger Bot Sync (main)
         uses: indiesdev/curl@v1.1
