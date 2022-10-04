@@ -582,7 +582,7 @@
   "settings.option.visual.accentColor": "強調色",
   "settings.option.visual.purplePodcastPlaybackBar": "播放 Podcasts 時使用紫色進度條",
   "settings.option.visual.compactArtistHeader": "緊密型藝人主頁封面",
-  "settings.option.visual.windowColor": "視窗色調顏色",
+  "settings.option.visual.windowColor": "視窗色調",
   "settings.header.visual.windowBackgroundStyle.color": "色調",
   "settings.header.advanced": "進階",
   "settings.header.connect": "同步",
