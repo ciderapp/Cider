@@ -62,7 +62,6 @@
     "jimp": "^0.16.2",
     "lastfmapi": "^0.1.1",
     "mdns-js": "github:ciderapp/node-mdns-js",
-    "mica-electron": "^1.0.7",
     "mpris-service": "^2.1.2",
     "music-metadata": "7.12.6",
     "node-gyp": "^9.1.0",
