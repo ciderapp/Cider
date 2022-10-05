@@ -163,6 +163,15 @@ export class wsapi {
           case "repeat":
             this._win.webContents.executeJavaScript(`wsapi.toggleRepeat()`);
             break;
+          case "set-repeat":
+            if (data.repeat === 0 || data.repeat === 1 || data.repeat === 2) {
+              this._win.webContents.executeJavaScript(`MusicKit.getInstance().repeatMode = ${data.repeat}`);
+              response.message = "Repeat " + data.repeat;
+            } else {
+              this._win.webContents.executeJavaScript(`wsapi.toggleRepeat()`);
+              response.message = "Invalid Repeat, toggling";
+            }
+            break;
           case "seek":
             this._win.webContents.executeJavaScript(`MusicKit.getInstance().seekToTime(${parseFloat(data.time)})`);
             response.message = "Seek";

@@ -2,7 +2,7 @@
   "name": "cider",
   "applicationId": "Cider",
   "productName": "Cider",
-  "version": "1.5.7",
+  "version": "1.5.8",
   "description": "A new cross-platform Apple Music experience based on Electron and Vue.js written from scratch with performance in mind.",
   "license": "AGPL-3.0",
   "main": "./build/index.js",
@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@sentry/electron": "^4.0.2",
-    "@sentry/integrations": "^7.14.0",
+    "@sentry/integrations": "^7.14.1",
     "adm-zip": "0.4.10",
     "airtunes2": "github:ciderapp/node_airtunes2",
     "castv2-client": "^1.2.0",
@@ -64,7 +64,7 @@
     "mdns-js": "github:ciderapp/node-mdns-js",
     "mpris-service": "^2.1.2",
     "music-metadata": "7.12.6",
-    "node-gyp": "^9.1.0",
+    "node-gyp": "^9.2.0",
     "node-ssdp": "^4.0.1",
     "qrcode": "^1.5.1",
     "request": "^2.88.2",
@@ -82,7 +82,7 @@
     "@types/adm-zip": "^0.5.0",
     "@types/discord-rpc": "4.0.3",
     "@types/express": "^4.17.14",
-    "@types/node": "^18.7.23",
+    "@types/node": "^18.8.2",
     "@types/qrcode-terminal": "^0.12.0",
     "@types/ws": "^8.5.3",
     "electron": "github:castlabs/electron-releases",
@@ -119,9 +119,9 @@
     }
   ],
   "build": {
-    "electronVersion": "21.0.0",
+    "electronVersion": "20.3.0",
     "electronDownload": {
-      "version": "21.0.0+wvcus",
+      "version": "20.3.0+wvcus",
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
     "appId": "cider",

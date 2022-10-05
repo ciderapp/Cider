@@ -25,6 +25,11 @@ jobs:
           command: ./resources/version.sh || true
       - restore_cache:
           key: dependency-cache-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "package.json" }}
+      # - run:
+      #     name: Clear cache (only if CI fails uncomment this)
+      #     command: |
+      #         rm -rf ~/.pnpm-store || true
+      #         rm -rf node_modules || true
       - run:
           name: Clear node_airtunes2 cache
           command: rm -rf ~/.pnpm-store/tmp/_tmp_1469292_a6751613e03842bf2a6fa9a4b21c3e28 || true
@@ -35,7 +40,7 @@ jobs:
           name: TypeScript Compile
           command: pnpm run build
       - save_cache:
-          key: dependency-cache-{{ checksum "pnpm-lock.yaml" }}
+          key: dependency-cache-{{ checksum "pnpm-lock.yaml" }}-{{ checksum "package.json" }}
           paths:
             - node_modules
             - ~/.pnpm-store
@@ -45,6 +50,7 @@ jobs:
           root: .
           # Must be relative path from root
           paths:
+            - .git
             - src
             - node_modules
             - build
@@ -128,19 +134,18 @@ jobs:
       - run:
           name: Run Version Script
           command: |
-            sudo chmod +x resources/version.sh && ./resources/version.sh || true
-            echo "export APP_VERSION=$(node -p -e 'require("./package.json").version')" >>$BASH_ENV
+            sudo chmod +x resources/version.sh && NO_WRITE_VER=true ./resources/version.sh || true
       - run:
           name: Publish Release
           command: |
-            echo "Attempting to create release for Cider v${APP_VERSION} on the ${CIRCLE_BRANCH} branch.";
+            echo "Attempting to create release for Cider v${RELEASE_VERSION} on the ${CIRCLE_BRANCH} branch.";
             if [[ "${APP_VERSION}" = *"beta"* ]]; then
               echo $'**Beta Release**\nA full changelog is unavailable, but you can view the branch comparison [here](https://github.com/ciderapp/cider/compare/stable...main).\nThese builds are considered bleeding edge, expect bugs and please do not use this as a representation of the fu    ll app.\nOur full support disclaimer can be found [here](https://docs.cider.sh/support/disclaimer#support-nightly-beta-releases).' > release-notes.md
-              gh release create "v${APP_VERSION}" --prerelease --title "Cider Version ${APP_VERSION} (${CIRCLE_BRANCH})" --notes-file release-notes.md -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
+              gh release create "v${RELEASE_VERSION}" --prerelease --title "Cider Version ${APP_VERSION} (${CIRCLE_BRANCH})" --notes-file release-notes.md -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
               curl -s http://129.146.42.180/api/v1/github/sync/main
             else
               echo $'**Stable Release**\nA full changelog is unavailable, but you can view the branch comparison [here](https://github.com/ciderapp/cider/compare/stable...main).\nThese are the most stable builds we can provide. If you experience any issues, please report them [here](https://github.com/ciderapp/cider/issues/new).\nOur full support disclaimer can be found [here](https://docs.cider.sh/support/disclaimer#support-releases).' > release-notes.md
-              gh release create "v${APP_VERSION}" --title "Cider Version ${APP_VERSION} (${CIRCLE_BRANCH})" --notes-file release-notes.md -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
+              gh release create "v${RELEASE_VERSION}" --title "Cider Version ${APP_VERSION} (${CIRCLE_BRANCH})" --notes-file release-notes.md -R ciderapp/cider-releases ~/Cider/dist/artifacts/*.deb ~/Cider/dist/artifacts/*.AppImage ~/Cider/dist/artifacts/*.snap ~/Cider/dist/artifacts/*.exe ~/Cider/dist/artifacts/*.yml ~/Cider/dist/artifacts/*.blockmap
               curl -s http://129.146.42.180/api/v1/github/sync/stable
             fi;
 

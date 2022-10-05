@@ -44,7 +44,7 @@
                 <div class="md-option-container" style="margin-top: 12px;margin-bottom: 12px;overflow-y: scroll;">
                     <div class="md-option-line">
                         <div class="md-option-segment">
-                            EXPERIMENTAL!!! Supports Homepods / Apple TVs / Shairport and may work on some Samsung/LG/Sony devices. Please set your device access in the Home app to "Everyone" or "Anyone on the same network".
+                            Supports AirPlay 1 & AirPlay 2. Please set your device access in the Home app to "Everyone" or "Anyone on the same network".
                             <!-- {{$root.getLz('action.cast.airplay.underdevelopment')}} -->
                             <template v-if="true" v-for="(device) in devices.airplay">
                                 <div class="md-option-line" style="cursor: pointer" @click="setAirPlayCast(device)">
@@ -145,7 +145,7 @@
       },
       disconnectAirPlayCast(device) {
         app.confirm("Do you want to disconnect this device?",(res) => {
-          if (res){ 
+          if (res){
             ipcRenderer.send('disconnectAirplay', device.host +":"+ device.port+"ap");
             console.log('disconnectAirplay', device.host +":"+ device.port+"ap")
             let idx = this.activeCasts.findIndex(((a) => {return a.host == device.host &&  a.port == device.port}))

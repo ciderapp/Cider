@@ -49,7 +49,6 @@ jobs:
           GH_REQUEST_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         run: |
           sudo chmod +x resources/version.sh && ./resources/version.sh || true
-          echo "APP_VERSION=$(node -p -e 'require("./package.json").version')" >>$GITHUB_ENV
 
       - name: Clear node_airtunes2 cache
         run: rm -rf ~/Library/pnpm/store/v3/tmp/cf5bc2de2629636ca224995234b8eaa1 || true
@@ -91,7 +90,7 @@ jobs:
           repo_name: ciderapp/cider-releases
           repo_token: ${{ secrets.RELEASE_TOKEN }}
           file: dist/latest-mac.yml
-          tag: v${{ env.APP_VERSION }}
+          tag: v${{ env.RELEASE_VERSION }}
 
       - name: Import
         uses: apple-actions/import-codesign-certs@v1
@@ -109,7 +108,7 @@ jobs:
           pkgbuild --component dist/mac-universal/Cider.app --install-location /Applications dist/Cider-${{ env.APP_VERSION }}-universal.pkg --sign ${{ secrets.PSC_NAME }}
           xcrun altool --notarize-app --primary-bundle-id com.ciderapp.cider -f dist/Cider*.pkg  --username ${{ secrets.APPLEID }} --password ${{ secrets.APPLEIDPASS }}
           sleep 5m
-          xcrun stapler staple dist/Cider*.pkg || true
+          xcrun stapler staple dist/*.pkg || true
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.3
@@ -125,16 +124,16 @@ jobs:
         with:
           repo_name: ciderapp/cider-releases
           repo_token: ${{ secrets.RELEASE_TOKEN }}
-          file: dist/Cider-${{ env.APP_VERSION }}-universal.dmg
-          tag: v${{ env.APP_VERSION }}
+          file: dist/*.dmg
+          tag: v${{ env.RELEASE_VERSION }}
 
       - name: Upload Files (PKG)
         uses: svenstaro/upload-release-action@v2
         with:
           repo_name: ciderapp/cider-releases
           repo_token: ${{ secrets.RELEASE_TOKEN }}
-          file: dist/Cider-${{ env.APP_VERSION }}-universal.pkg
-          tag: v${{ env.APP_VERSION }}
+          file: dist/*.pkg
+          tag: v${{ env.RELEASE_VERSION }}
       - name: Trigger Bot Sync (main)
         uses: indiesdev/curl@v1.1
         with:
