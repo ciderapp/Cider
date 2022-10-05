@@ -544,7 +544,7 @@
   "settings.option.connectivity.discordRPC.clearOnPause": "暫停時清除 Discord 動態",
   "settings.option.connectivity.discordRPC.showActivityButtons": "顯示動態按鈕",
   "settings.option.connectivity.discordRPC.firstButton": "第一個動態按鈕",
-  "settings.option.connectivity.discordRPC.secondButton": "第二個顯示的動態按鈕",
+  "settings.option.connectivity.discordRPC.secondButton": "第二個動態按鈕",
   "settings.option.connectivity.discordRPC.buttons.listenOnCider": "使用 Cider 聆聽",
   "settings.option.connectivity.discordRPC.buttons.viewOnAppleMusic": "使用 Apple Music 聆聽",
   "settings.option.connectivity.discordRPC.buttons.viewOnOtherMusicServices": "使用其他音樂服務聆聽",
