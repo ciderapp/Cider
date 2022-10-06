@@ -3271,12 +3271,13 @@ const app = new Vue({
       const songID = this.mk.nowPlayingItem != null ? this.mk.nowPlayingItem["_songId"] ?? this.mk.nowPlayingItem["songId"] ?? -1 : -1;
       // this.getMXM( trackName, artistName, 'en', duration);
       if (songID != -1) {
-        try{
-            let response =  await this.mk.api.v3.music(`v1/catalog/${this.mk.storefrontId}/songs/${songID}/lyrics`)
-            this.lyricsMediaItem = response.data?.data[0]?.attributes["ttml"];
-            this.parseTTML();
-        } catch (_)
-        {this.loadMXM();};
+        try {
+          let response = await this.mk.api.v3.music(`v1/catalog/${this.mk.storefrontId}/songs/${songID}/lyrics`);
+          this.lyricsMediaItem = response.data?.data[0]?.attributes["ttml"];
+          this.parseTTML();
+        } catch (_) {
+          this.loadMXM();
+        }
       } else {
         this.loadMXM();
       }
