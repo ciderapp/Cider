@@ -3263,21 +3263,22 @@ const app = new Vue({
       if (musicType === "musicVideo") {
         this.loadYTLyrics();
       } else {
-        // if (app.cfg.lyrics.enable_mxm) {
-        this.loadMXM();
-        // } else {
-        //     this.loadAMLyrics();
-        // }
+        // only load MXM lyrics if AM lyrics failed to load
+        this.loadAMLyrics();
       }
     },
-    loadAMLyrics() {
+    async loadAMLyrics() {
       const songID = this.mk.nowPlayingItem != null ? this.mk.nowPlayingItem["_songId"] ?? this.mk.nowPlayingItem["songId"] ?? -1 : -1;
       // this.getMXM( trackName, artistName, 'en', duration);
       if (songID != -1) {
-        this.mk.api.v3.music(`v1/catalog/${this.mk.storefrontId}/songs/${songID}/lyrics`).then((response) => {
-          this.lyricsMediaItem = response.data?.data[0]?.attributes["ttml"];
-          this.parseTTML();
-        });
+        try{
+            let response =  await this.mk.api.v3.music(`v1/catalog/${this.mk.storefrontId}/songs/${songID}/lyrics`)
+            this.lyricsMediaItem = response.data?.data[0]?.attributes["ttml"];
+            this.parseTTML();
+        } catch (_)
+        {this.loadMXM();};
+      } else {
+        this.loadMXM();
       }
     },
     addToLibrary(id) {
