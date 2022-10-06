@@ -42,10 +42,10 @@
     "format:write": "npx prettier --write \"src/**/*.{js,json,ts,less}\""
   },
   "dependencies": {
-    "@sentry/electron": "^4.0.2",
-    "@sentry/integrations": "^7.14.1",
+    "@sentry/electron": "^4.0.3",
+    "@sentry/integrations": "^7.14.2",
     "adm-zip": "0.4.10",
-    "airtunes2": "git+https://github.com/ciderapp/node_airtunes2.git",
+    "airtunes2": "github:ciderapp/node_airtunes2",
     "castv2-client": "^1.2.0",
     "chokidar": "^3.5.3",
     "discord-auto-rpc": "^1.0.17",
