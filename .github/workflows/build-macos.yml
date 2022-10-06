@@ -124,7 +124,7 @@ jobs:
         with:
           repo_name: ciderapp/cider-releases
           repo_token: ${{ secrets.RELEASE_TOKEN }}
-          file: dist/*.dmg
+          file: dist/Cider-${{ env.APP_VERSION }}-universal.dmg
           tag: v${{ env.RELEASE_VERSION }}
 
       - name: Upload Files (PKG)
@@ -132,7 +132,7 @@ jobs:
         with:
           repo_name: ciderapp/cider-releases
           repo_token: ${{ secrets.RELEASE_TOKEN }}
-          file: dist/*.pkg
+          file: Cider-${{ env.APP_VERSION }}-universal.pkg
           tag: v${{ env.RELEASE_VERSION }}
       - name: Trigger Bot Sync (main)
         uses: indiesdev/curl@v1.1
