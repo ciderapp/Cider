@@ -2143,6 +2143,7 @@ const app = new Vue({
       }, 100);
     },
     setPagePos() {
+      try{
       console.debug({
         href: window.location.hash,
         position: $("#app-content").scrollTop(),
@@ -2151,6 +2152,8 @@ const app = new Vue({
         href: window.location.hash,
         position: $("#app-content").scrollTop(),
       });
+      } catch(e){
+      }
     },
     routeView(item) {
       this.setPagePos();

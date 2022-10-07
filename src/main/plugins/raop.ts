@@ -271,7 +271,7 @@ export default class RAOP {
                 console.log(this.devices[idx].controller.key, title ?? "", artist ?? "", album ?? "");
                 this.airtunes.setTrackInfo(this.devices[idx].controller.key, title ?? "", artist ?? "", album ?? "");
                 this.uploadImageAirplay(artworkURL);
-                console.log("done");
+                console.log("done", status);
                 this.ok == 2;
               }
             }, 1000);
@@ -384,6 +384,12 @@ export default class RAOP {
               console.log("endAll");
               this.airtunes = null;
               this.devices = [];
+              this.airtunes = null;
+
+              this.ipairplay = "";
+              this.portairplay = "";
+              this.ok = 1;
+              this.i = false;
             });
           } else {
             this.devices = [];
@@ -411,6 +417,7 @@ export default class RAOP {
           this.portairplay = "";
           this.ok = 1;
           this.i = false;
+          this.devices = [];
         }
       })
       .catch((err: any) => console.error("lsdsd", err));
