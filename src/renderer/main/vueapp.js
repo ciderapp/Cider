@@ -2143,17 +2143,16 @@ const app = new Vue({
       }, 100);
     },
     setPagePos() {
-      try{
-      console.debug({
-        href: window.location.hash,
-        position: $("#app-content").scrollTop(),
-      });
-      this.$store.commit("setPagePos", {
-        href: window.location.hash,
-        position: $("#app-content").scrollTop(),
-      });
-      } catch(e){
-      }
+      try {
+        console.debug({
+          href: window.location.hash,
+          position: $("#app-content").scrollTop(),
+        });
+        this.$store.commit("setPagePos", {
+          href: window.location.hash,
+          position: $("#app-content").scrollTop(),
+        });
+      } catch (e) {}
     },
     routeView(item) {
       this.setPagePos();
