@@ -634,7 +634,7 @@
   "oobe.previous": "上一步",
   "oobe.done": "完成",
   "oobe.amupsell.title": "在我們開始之前",
-  "oobe.amupsell.text": "使用 Cider 需要付費的 Apple Music 訂閱。 \nCider 不能在「Apple Music 聲控」計劃或某些促銷試用訂閱狀態下使用。如果你已經訂閱 Apple Music，請點擊下一步繼續。",
+  "oobe.amupsell.text": "使用 Cider 需要付費訂閱 Apple Music 服務。 \nCider 不能在「Apple Music 聲控」方案或部分優惠試用訂閱狀態下使用。如果你已經訂閱 Apple Music，請點擊下一步繼續。",
   "oobe.amupsell.subscribeBtn": "訂閱 Apple Music",
   "oobe.amupsell.explainBtn": "這是什麼？",
   "oobe.amupsell.subscribeUrl": "https://apple.co/3MdqJVQ",
@@ -642,7 +642,7 @@
   "oobe.amupsell.promoExplained": "Cider 可能無法取得部分促銷活動與非美區 Apple Muisc 試用狀態下的網路播放器API，要驗證您的試用訂閱是否能夠在 Cider 內使用，點擊<a href='{{ amWebUrl }}'>{{ amWebUrl }}</a>，登入後試試播放音樂。如果能够播放，你就可以使用 Cider 了！否則請考慮訂閱 Apple Music 服務: <a href='{{ subscribeUrl }}'>{{ subscribeUrl }}</a>。",
   "oobe.intro.title": "歡迎使用 Cider",
   "oobe.intro.subtitle": "",
-  "oobe.intro.text": "為了按照你喜歡的方式使用 Cider ，請先完成一些設定。您之後可以隨時改變這些設定。",
+  "oobe.intro.text": "為了按照你喜愛的方式來使用 Cider App，請先完成一些設定。您之後可以隨時改變這些設定。",
   "oobe.general.title": "一般設定",
   "oobe.general.subtitle": "",
   "oobe.general.text": "",
@@ -653,6 +653,6 @@
   "oobe.visual.title": "風格設定",
   "oobe.visual.subtitle": "",
   "oobe.visual.text": "",
-  "oobe.visual.layout.text": "Cider 擁有兩種不同的視窗佈局。 Maverick 是一個類似 iTunes 的佈局，播放器在視窗的頂部。 Mojave 是由 Cider 團隊設計的一種新的佈局。您可以在設定中隨時改變佈局。",
+  "oobe.visual.layout.text": "Cider 提供了兩種不同的視窗風格。\n「Maverick」是一個類似 iTunes 的風格，播放器在視窗的頂部。\n 「Mojave」是由 Cider 團隊設計的一種新布局風格。\n\n您可以在設定中隨時改變風格。",
   "oobe.amsignin.title": ""
 }
