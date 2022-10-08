@@ -133,6 +133,7 @@ const app = new Vue({
     animateBackground: false,
     currentArtUrl: "",
     currentArtUrlRaw: "",
+    mvViewMode: "full",
     lyricon: false,
     currentTrackID: "",
     lyrics: [],
@@ -4879,11 +4880,13 @@ const app = new Vue({
       }
       app.modals.settings = true;
     },
-    fullscreen(flag) {
+    fullscreen(flag, mv = false) {
       this.fullscreenState = flag;
       if (flag) {
         ipcRenderer.send("setFullScreen", true);
-        app.appMode = "fullscreen";
+        if (!mv) {app.appMode = "fullscreen";} else {
+          app.mvViewMode = "full"
+        }
 
         document.addEventListener("keydown", (event) => {
           if (event.key === "Escape" && app.appMode === "fullscreen") {
@@ -4896,12 +4899,13 @@ const app = new Vue({
       }
     },
     pip() {
-      document.querySelector("video#apple-music-video-player").requestPictureInPicture();
-      // .then(pictureInPictureWindow => {
-      //     pictureInPictureWindow.addEventListener("resize", () => {
-      //         console.log("[PIP] Resized")
-      //     }, false);
-      //   })
+      // document.querySelector("video#apple-music-video-player").requestPictureInPicture();
+      // // .then(pictureInPictureWindow => {
+      // //     pictureInPictureWindow.addEventListener("resize", () => {
+      // //         console.log("[PIP] Resized")
+      // //     }, false);
+      // //   })
+      this.mvViewMode = (this.mvViewMode ==  "mini") ? "full": "mini"
     },
     miniPlayer(flag) {
       if (flag) {

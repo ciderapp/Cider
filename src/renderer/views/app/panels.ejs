@@ -46,7 +46,7 @@
 <transition name="modal">
     <moreinfo-modal v-if="modals.moreInfo" :data="moreinfodata"></moreinfo-modal>
 </transition>
-<div id="apple-music-video-container">
+<div id="apple-music-video-container" :class="{'mini': mvViewMode == 'mini'}">
     <div id="apple-music-video-player-controls">
         <div id="player-exit" title="Close" @click="exitMV();fullscreen(false);">
             <svg fill="white" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"
@@ -56,7 +56,7 @@
                         fill-rule="nonzero" />
             </svg>
         </div>
-        <div id="captions" v-if="lyricon">{{((lyricon) ? ((lyrics.length > 0 && lyrics[currentLyricsLine] &&
+        <div id="captions" v-if="lyricon && mvViewMode == 'full'">{{((lyricon) ? ((lyrics.length > 0 && lyrics[currentLyricsLine] &&
             lyrics[currentLyricsLine].line ) ?
             lyrics[currentLyricsLine].line.replace('lrcInstrumental','') : "") : '') + ((lyricon) ?
             ((lyrics.length
@@ -66,19 +66,19 @@
             '')}}
         </div>
         <div class="playback-info music-player-info">
-            <div class="song-artist-album-content"
+            <div class="song-artist-album-content" v-if="mvViewMode == 'full'"
                  style="display: inline-block; -webkit-box-orient: horizontal; white-space: nowrap;">
                 <div class="song-artist" style="display: inline-block">
                     {{ mk.nowPlayingItem?.attributes?.artistName ?? '' }}
                 </div>
             </div>
-            <div class="song-name">
+            <div class="song-name" v-if="mvViewMode == 'full'">
                 {{ mk.nowPlayingItem?.attributes?.name ?? '' }}
                 <div class="explicit-icon"
                      v-if="mk.nowPlayingItem?.attributes?.contentRating == 'explicit'"
                      style="display: inline-block"></div>
             </div>
-            <div class="song-progress">
+            <div class="song-progress" v-if="mvViewMode == 'full'">
                 <p style="width: auto">{{ convertTime(getSongProgress()) }}</p>
                 <input type="range" step="0.01" min="0" :style="progressBarStyle()" style="width: 95%"
                        @input="playerLCD.desiredDuration = $event.target.value;playerLCD.userInteraction = true"
@@ -88,7 +88,7 @@
                 <p style="width: auto">{{ convertTime(mk.currentPlaybackDuration) }}
             </div>
             <div class="app-chrome-item display--large">
-                <div class="app-chrome-item volume display--large">
+                <div class="app-chrome-item volume display--large" v-if="mvViewMode == 'full'">
                     <button class="volume-button--small volume" @click="muteButtonPressed()"
                             :class="{'active': this.cfg.audio.volume == 0}"
                             :title="cfg.audio.muted ? $root.getLz('term.unmute') : $root.getLz('term.mute')"
@@ -98,11 +98,13 @@
                            v-model="mk.volume" v-if="typeof mk.volume != 'undefined'" @change="checkMuteChange()"
                            v-b-tooltip.hover :title="formatVolumeTooltip()">
                 </div>
+                <template v-if="mvViewMode == 'full'">
                 <button class="playback-button pause" @click="mk.pause()" v-if="mk.isPlaying"
                         :title="$root.getLz('term.pause')" v-b-tooltip.hover></button>
                 <button class="playback-button play" @click="mk.play()" v-else
                         :title="$root.getLz('term.play')" v-b-tooltip.hover></button>
-                <div class="app-chrome-item generic">
+                </template>
+                <div class="app-chrome-item generic" v-if="mvViewMode == 'full'">
                     <template v-if="lyrics && lyrics != [] && lyrics.length > 0">
                         <button class="playback-button--small lyrics"
                                 :title="$root.getLz('term.lyrics')"
@@ -122,7 +124,7 @@
                     <%- include("../svg/pip.svg") %>
                 </div>
                 <div id="player-fullscreen"
-                     @click="fullscreen(!fullscreenState)"
+                     @click="fullscreen(!fullscreenState, true)"
                      title="Fullscreen"
                      v-b-tooltip.hover>
                     <%- include("../svg/fullscreen.svg") %>
