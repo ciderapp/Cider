@@ -4884,8 +4884,10 @@ const app = new Vue({
       this.fullscreenState = flag;
       if (flag) {
         ipcRenderer.send("setFullScreen", true);
-        if (!mv) {app.appMode = "fullscreen";} else {
-          app.mvViewMode = "full"
+        if (!mv) {
+          app.appMode = "fullscreen";
+        } else {
+          app.mvViewMode = "full";
         }
 
         document.addEventListener("keydown", (event) => {
@@ -4905,7 +4907,7 @@ const app = new Vue({
       // //         console.log("[PIP] Resized")
       // //     }, false);
       // //   })
-      this.mvViewMode = (this.mvViewMode ==  "mini") ? "full": "mini"
+      this.mvViewMode = this.mvViewMode == "mini" ? "full" : "mini";
     },
     miniPlayer(flag) {
       if (flag) {
