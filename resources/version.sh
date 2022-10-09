@@ -35,10 +35,10 @@ echo $NEW_VERSION
 
 
 # Add the version to the environment for CI usage
-if [[ $GITHUB_REF_NAME != "" ]]; then
+if [[ $GITHUB_REF_NAME != "" ]] && [[ "$GITHUB_ENV" ]]; then
   echo "APP_VERSION=$NEW_VERSION" >>$GITHUB_ENV
   echo "RELEASE_VERSION=$NEW_VERSION_NUMBERED" >>$GITHUB_ENV
-elif [[ $CIRCLE_BRANCH != "" ]]; then
+elif [[ $CIRCLE_BRANCH != "" ]] && [[ "$BASH_ENV" ]]; then
   echo "export APP_VERSION=$NEW_VERSION" >>$BASH_ENV
   echo "export RELEASE_VERSION=$NEW_VERSION_NUMBERED" >>$BASH_ENV
 fi
