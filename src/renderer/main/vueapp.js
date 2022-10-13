@@ -3268,8 +3268,10 @@ const app = new Vue({
       } else {
         // only load MXM lyrics if AM lyrics failed to load
         if (app.cfg.lyrics.enable_mxm) {
-        this.loadMXM();} else {
-        this.loadAMLyrics();}
+          this.loadMXM();
+        } else {
+          this.loadAMLyrics();
+        }
       }
     },
     async loadAMLyrics() {
@@ -3282,15 +3284,17 @@ const app = new Vue({
           this.parseTTML();
         } catch (_) {
           if (app.cfg.lyrics.enable_mxm) {
-            this.loadQQLyrics()
+            this.loadQQLyrics();
           } else {
-          this.loadMXM();}
+            this.loadMXM();
+          }
         }
       } else {
         if (app.cfg.lyrics.enable_mxm) {
-          this.loadQQLyrics() // since mxm is already prioritized, we can just load qq lyrics if am fails
+          this.loadQQLyrics(); // since mxm is already prioritized, we can just load qq lyrics if am fails
         } else {
-          this.loadMXM();}
+          this.loadMXM();
+        }
       }
     },
     addToLibrary(id) {
@@ -3423,7 +3427,7 @@ const app = new Vue({
                 }
 
                 if (lrcfile === "") {
-                  app.loadAMLyrics()
+                  app.loadAMLyrics();
                 } else {
                   if (richsync == [] || richsync.length == 0) {
                     console.log("musixmatch worki");
@@ -3475,12 +3479,12 @@ const app = new Vue({
                 }
               } catch (e) {
                 console.log(e);
-                app.loadAMLyrics()
+                app.loadAMLyrics();
               }
             }
           } catch (e) {
             console.error(e);
-            app.loadAMLyrics()
+            app.loadAMLyrics();
           }
         };
         req.onerror = function () {
