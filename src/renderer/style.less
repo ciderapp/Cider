@@ -2399,7 +2399,7 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
   &.mini {
     width: 20%;
     height: 20%;
-    right: 1vw;
+    right: 2vw;
     bottom: 5vh;
   }
 }
@@ -2430,6 +2430,10 @@ input[type="range"].web-slider.display--small::-webkit-slider-thumb {
     bottom: 0;
     filter: opacity(0.6);
     transition: 0.2s ease-in-out filter;
+
+    &.mini {
+      right: 0px;
+    }
 
     &:hover {
       filter: opacity(1);
