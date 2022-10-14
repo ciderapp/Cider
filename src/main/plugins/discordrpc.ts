@@ -59,18 +59,18 @@ export default class DiscordRPC {
     const self = this;
     ipcMain.on("discordrpc:updateImage", async (_event, imageurl) => {
       if (!this._utils.getStoreValue("general.privateEnabled")) {
-          fetch("https://api-test.cider.sh/v1/images", {
-            method: "POST",
-            headers: {
-              "User-Agent": this._utils.getWindow().webContents.getUserAgent(),
-              "url": imageurl
-            },
-          })
-        .then((res) => res.json())
-        .then(function (json) {
-          self._attributes["artwork"]["url"] = json.imageUrl;
-          self.setActivity(self._attributes);
-        });
+        fetch("https://api-test.cider.sh/v1/images", {
+          method: "POST",
+          headers: {
+            "User-Agent": this._utils.getWindow().webContents.getUserAgent(),
+            url: imageurl,
+          },
+        })
+          .then((res) => res.json())
+          .then(function (json) {
+            self._attributes["artwork"]["url"] = json.imageUrl;
+            self.setActivity(self._attributes);
+          });
       }
     });
     ipcMain.on("discordrpc:reload", (_event, configUpdate = null) => {
