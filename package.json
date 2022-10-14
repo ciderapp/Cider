@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@achingbrain/ssdp": "^4.0.1",
-    "@sentry/electron": "^4.0.3",
+    "@sentry/electron": "^4.1.0",
     "@sentry/integrations": "^7.15.0",
     "adm-zip": "0.4.10",
     "airtunes2": "github:ciderapp/node_airtunes2",
@@ -86,7 +86,7 @@
     "@types/adm-zip": "^0.5.0",
     "@types/discord-rpc": "4.0.3",
     "@types/express": "^4.17.14",
-    "@types/node": "^18.8.5",
+    "@types/node": "^18.11.0",
     "@types/qrcode-terminal": "^0.12.0",
     "@types/ws": "^8.5.3",
     "electron": "github:castlabs/electron-releases",
