@@ -66,12 +66,11 @@ export default class DiscordRPC {
               "url": imageurl
             },
           })
-            .then((res) => res.json())
-            .then(function (json) {
-              self._attributes["artwork"]["url"] = json.imageUrl;
-              self.setActivity(self._attributes);
-            });
-        }
+        .then((res) => res.json())
+        .then(function (json) {
+          self._attributes["artwork"]["url"] = json.imageUrl;
+          self.setActivity(self._attributes);
+        });
       }
     });
     ipcMain.on("discordrpc:reload", (_event, configUpdate = null) => {
