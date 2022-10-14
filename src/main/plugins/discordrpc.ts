@@ -9,7 +9,7 @@ export default class DiscordRPC {
   public name: string = "Discord Rich Presence";
   public description: string = "Discord RPC plugin for Cider";
   public version: string = "1.1.0";
-  public author: string = "vapormusic/Core (Cider Collective)";
+  public author: string = "vapormusic/Core/cryptofyre (Cider Collective)";
 
   /**
    * Private variables for interaction in plugins
