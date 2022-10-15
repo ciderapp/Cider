@@ -59,7 +59,7 @@ export default class DiscordRPC {
     const self = this;
     ipcMain.on("discordrpc:updateImage", async (_event, imageurl) => {
       if (!this._utils.getStoreValue("general.privateEnabled")) {
-        fetch("https://api-test.cider.sh/v1/images", {
+        fetch("https://api.cider.sh/v1/images", {
           method: "POST",
           headers: {
             "User-Agent": this._utils.getWindow().webContents.getUserAgent(),
