@@ -90,17 +90,18 @@ export default class RAOP {
   private ondeviceup(name: any, host: any, port: any, addresses: any, text: any, airplay2: any = null) {
     // console.log(this.castDevices.findIndex((item: any) => {return (item.name == host.replace(".local","") && item.port == port )}))
 
-    let d = ""
-    let audiook = true
-    try{
-    d = text.filter((u: any) => String(u).startsWith('features='))
-    if(d.length == 0) d = text.filter((u: any) => String(u).startsWith('ft='))
-    let features_set = d.length > 0 ? d[0].substring(d[0].indexOf("=")+1).split(',') : []
-    let features = [... features_set.length > 0 ? parseInt(features_set[0]).toString(2).split('') : [], ... features_set.length > 1 ? parseInt(features_set[1]).toString(2).split('') : []]
-    if (features.length > 0){
-      audiook = (features[features.length - 1 - 9] == '1')
-    }} catch (_){}
-    if (audiook){
+    let d = "";
+    let audiook = true;
+    try {
+      d = text.filter((u: any) => String(u).startsWith("features="));
+      if (d.length == 0) d = text.filter((u: any) => String(u).startsWith("ft="));
+      let features_set = d.length > 0 ? d[0].substring(d[0].indexOf("=") + 1).split(",") : [];
+      let features = [...(features_set.length > 0 ? parseInt(features_set[0]).toString(2).split("") : []), ...(features_set.length > 1 ? parseInt(features_set[1]).toString(2).split("") : [])];
+      if (features.length > 0) {
+        audiook = features[features.length - 1 - 9] == "1";
+      }
+    } catch (_) {}
+    if (audiook) {
       let shown_name = name;
       try {
         let model = text.filter((u: any) => String(u).startsWith("model="));
@@ -138,7 +139,8 @@ export default class RAOP {
       } else {
         this._win.webContents.executeJavaScript(`console.log('deviceFound (added)','ip: ${host_name} name:${shown_name}')`).catch((err: any) => console.error(err));
         console.log("deviceFound (added)", host_name, shown_name);
-    }}
+      }
+    }
   }
 
   /**
@@ -507,11 +509,8 @@ export default class RAOP {
     // console.log(attributes)
     if (this.airtunes && this.devices.length > 0 && attributes?.currentPlaybackTime != null && attributes?.durationInMillis != null) {
       for (let i in this.devices) {
-        this.airtunes.setProgress(this.devices[i].controller.key, Math.round(attributes.currentPlaybackTime ), Math.floor(attributes.durationInMillis/ 1000));
+        this.airtunes.setProgress(this.devices[i].controller.key, Math.round(attributes.currentPlaybackTime), Math.floor(attributes.durationInMillis / 1000));
       }
     }
   }
-
-
-
 }
