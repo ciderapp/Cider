@@ -62,7 +62,7 @@ dependencies:
   '@sentry/electron': 4.1.0
   '@sentry/integrations': 7.15.0
   adm-zip: 0.4.10
-  airtunes2: github.com/ciderapp/node_airtunes2/f999b6c7b7b92472b103fa9be036ea0d7a99fae4
+  airtunes2: github.com/ciderapp/node_airtunes2/d7b40b91ad9f11b201f6c792b4185b997ecf6b1c
   castv2-client: 1.2.0
   chokidar: 3.5.3
   discord-auto-rpc: 1.0.17
@@ -9616,10 +9616,10 @@ packages:
       - supports-color
     dev: false
 
-  github.com/ciderapp/node_airtunes2/f999b6c7b7b92472b103fa9be036ea0d7a99fae4:
-    resolution: {tarball: https://codeload.github.com/ciderapp/node_airtunes2/tar.gz/f999b6c7b7b92472b103fa9be036ea0d7a99fae4}
+  github.com/ciderapp/node_airtunes2/d7b40b91ad9f11b201f6c792b4185b997ecf6b1c:
+    resolution: {tarball: https://codeload.github.com/ciderapp/node_airtunes2/tar.gz/d7b40b91ad9f11b201f6c792b4185b997ecf6b1c}
     name: airtunes2
-    version: 2.3.6
+    version: 2.3.7
     hasBin: true
     requiresBuild: true
     dependencies:
