@@ -437,7 +437,7 @@
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE": "Cider Adrenaline Processor™️",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPE.description": "Esalta la qualità audio percepita dall'encoding AAC utilizzando un algoritmo in tempo reale che tiene vantaggio di entrambi i modelli psicoacustici dell'ascolto umano e delle caratteristiche dell'encoding AAC.",
   "settings.warn.audio.enableAdvancedFunctionality.ciderPPE.compatibility": "Cider Adrenaline Processor non è compatibile con la Spazializzazione. Disabilità la Spazializzazione per continuare.",
-  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "CAP Strength",
+  "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength": "Potenza CAP",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.description": "Cambia la potenza dell'elaborazione effettuata all'audio. Nota: la modalità Aggressive potrebbe portare risultati indesiderati.",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard": "Standard",
   "settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.adaptive": "Adaptive",
