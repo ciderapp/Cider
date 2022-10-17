@@ -2544,6 +2544,11 @@ const app = new Vue({
           } else if (prefs.sort === "dateAdded") {
             aa = a.relationships?.albums?.data[0]?.attributes?.dateAdded;
             bb = b.relationships?.albums?.data[0]?.attributes?.dateAdded;
+            // if dateAdded is equal, an entire album was added at once, so sorting by track number (in reverse order because lower track number should be above in descending mode)
+            if (aa === bb) {
+              aa = b.attributes.trackNumber;
+              bb = a.attributes.trackNumber;
+            }
           } else if (prefs.sort === "artistName") {
             if (a.relationships?.artists?.data[0]?.id === b.relationships?.artists?.data[0]?.id) {
               aa = a.attributes.albumName;
