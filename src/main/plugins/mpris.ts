@@ -95,7 +95,7 @@ export default class mpris {
 
     mpris.utils.getIPCMain().on("mpris:volumeChange", (_e: any, volume: number) => {
       player.volume = volume;
-    })
+    });
 
     mpris.utils.getIPCMain().on("shuffleModeDidChange", (_e: any, mode: number) => {
       player.shuffle = mode === 1;
