@@ -85,9 +85,11 @@ export class utils {
    * @param opts {object} Other options
    */
   static async fetch(url: string, opts = {}) {
-    Object.assign(opts, { headers: {
-      "User-Agent": utils.getWindow().webContents.getUserAgent()}
-    })
+    Object.assign(opts, {
+      headers: {
+        "User-Agent": utils.getWindow().webContents.getUserAgent(),
+      },
+    });
     if (this.getStoreValue("advanced.experiments").includes("cider_mirror") === true) {
       if (url.includes("api.github.com/")) {
         return await fetch(url.replace("api.github.com/", "mirror.api.cider.sh/v2/api/"), opts);
