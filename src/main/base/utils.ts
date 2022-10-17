@@ -84,20 +84,17 @@ export class utils {
    * @param url {string} URL param
    * @param opts {object} Other options
    */
-  static readonly _mirror: boolean = this.getStoreValue("advanced.experiments").includes('cider_mirror') ? true : false;
+  static readonly _mirror: boolean = this.getStoreValue("advanced.experiments").includes("cider_mirror") ? true : false;
   static fetch(url: string, opts = {}) {
     if (this._mirror === true) {
       if (url.includes("api.github.com/")) {
         return fetch(url.replace("api.github.com/", "mirror.api.cider.sh/v2/api/"), opts);
-      }
-      else if (url.includes("raw.githubusercontent.com/")) {
+      } else if (url.includes("raw.githubusercontent.com/")) {
         return fetch(url.replace("raw.githubusercontent.com/", "mirror.api.cider.sh/v2/raw/"), opts);
-      }
-      else {
+      } else {
         return fetch(url, opts);
       }
-    }
-    else {
+    } else {
       return fetch(url, opts);
     }
   }
