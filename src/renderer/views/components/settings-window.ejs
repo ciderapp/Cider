@@ -1241,14 +1241,14 @@
 
                                 <div class="md-option-line">
                                     <div class="md-option-segment">
-                                        Load MusicKit from Apple
-                                        <small>Requires relaunch</small>
+                                        Theme & Plugin Mirror to Cider
+                                        <small>Only works in region where GitHub is blacklisted. Requires relaunch.</small>
                                     </div>
                                     <div class="md-option-segment md-option-segment_auto">
                                         <label>
                                             <input type="checkbox"
-                                                   v-model="app.cfg.advanced.experiments.includes('ampv3')"
-                                                   @click="app.cfg.advanced.experiments.includes('ampv3') ? removeExperiment('ampv3') : addExperiment('ampv3')"
+                                                   v-model="app.cfg.advanced.experiments.includes('cider_mirror')"
+                                                   @click="app.cfg.advanced.experiments.includes('cider_mirror') ? removeExperiment('cider_mirror') : addExperiment('cider_mirror')"
                                                    switch />
                                         </label>
                                     </div>
