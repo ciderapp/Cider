@@ -770,7 +770,7 @@ export class BrowserWindow {
       };
       Object.assign(options, args);
 
-      let res = await utils.fetch(
+      let res = await fetch(
         `https://amp-api.music.apple.com/${options.route}?${new URLSearchParams({
           ...options.GETBody,
         }).toString()}`,
@@ -921,7 +921,9 @@ export class BrowserWindow {
         if (url.endsWith("/")) url = url.slice(0, -1);
         let response = await utils.fetch(`${url}/archive/refs/heads/main.zip`);
         let repo = url.split("/").slice(-2).join("/");
-        let apiRepo = await utils.fetch(`https://api.github.com/repos/${repo}`).then((res) => res.json());
+        let apiRepo = await utils.fetch(`https://api.github.com/repos/${repo}`, { headers: {
+          "User-Agent": utils.getWindow().webContents.getUserAgent()}}).then((res) => res.json());
+        console.error(apiRepo)
         console.debug(`REPO ID: ${apiRepo.id}`);
         // extract the files from the first folder in the zip response
         let zip = new AdmZip(await response.buffer());
@@ -938,6 +940,7 @@ export class BrowserWindow {
         theme.commit = commit[0].sha;
         writeFileSync(join(utils.getPath("themes"), "gh_" + apiRepo.id, "theme.json"), JSON.stringify(theme, null, 4), "utf8");
       } catch (e) {
+        console.error(e)
         returnVal.success = false;
       }
       BrowserWindow.win.webContents.send("theme-installed", returnVal);

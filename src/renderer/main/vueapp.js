@@ -1303,17 +1303,19 @@ const app = new Vue({
       const themes = ipcRenderer.sendSync("get-themes");
       await asyncForEach(themes, async (theme) => {
         if (theme.commit != "") {
-          await app._fetch(`https://api.github.com/repos/${theme.github_repo}/commits`).then((res) => res.json());
-          if (res[0].sha != theme.commit) {
-            const notify = notyf.open({
-              className: "notyf-info",
-              type: "info",
-              message: app.stringTemplateParser(app.getLz("settings.notyf.visual.theme.updateAvailable"), { theme: theme.name }),
-            });
-            notify.on("click", () => {
-              app.openSettingsPage("github-themes");
-              notyf.dismiss(notify);
-            });
+          if (theme.commit != "") {
+            app._fetch(`https://api.github.com/repos/${theme.github_repo}/commits`).then((res) => res.json());
+            if (res[0].sha != theme.commit) {
+              const notify = notyf.open({
+                className: "notyf-info",
+                type: "info",
+                message: app.stringTemplateParser(app.getLz("settings.notyf.visual.theme.updateAvailable"), { theme: theme.name }),
+              });
+              notify.on("click", () => {
+                app.openSettingsPage("github-themes");
+                notyf.dismiss(notify);
+              });
+            }
           }
         }
       });
