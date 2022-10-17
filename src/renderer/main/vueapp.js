@@ -1246,6 +1246,7 @@ const app = new Vue({
 
       this.mk.addEventListener(MusicKit.Events.playbackVolumeDidChange, (_a) => {
         this.cfg.audio.volume = this.mk.volume;
+        ipcRenderer.send("mpris:volumeChange", this.mk.volume);
       });
 
       this.refreshPlaylists(this.isDev);
