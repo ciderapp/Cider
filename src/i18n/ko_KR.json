@@ -3,7 +3,7 @@
   "i18n.languageNameEnglish": "Korean (KR)",
   "i18n.category": "main",
   "i18n.authors": "@Hazealign @iodes",
-  "app.name": "싸이더",
+  "app.name": "Cider",
   "date.format": "${y}. ${m}. ${d}",
   "dialog.cancel": "취소",
   "dialog.ok": "확인",
