@@ -356,7 +356,7 @@
                     redirect: 'follow'
                 };
 
-                fetch("https://api.github.com/search/repositories?q=topic:cidermusictheme fork:true", requestOptions)
+                app._fetch("https://api.github.com/search/repositories?q=topic:cidermusictheme fork:true", requestOptions)
                     .then(response => response.text())
                     .then(result => {
                         let items = JSON.parse(result).items

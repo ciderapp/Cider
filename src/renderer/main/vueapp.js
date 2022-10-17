@@ -290,6 +290,20 @@ const app = new Vue({
     );
   },
   methods: {
+    _fetch(url, opts = {}) {
+      if (app.cfg.advanced.experiments.includes("cider_mirror") === true) {
+        if (url.includes("api.github.com/")) {
+          return fetch(url.replace("api.github.com/", "mirror.api.cider.sh/v2/api/"), opts);
+        } else if (url.includes("raw.githubusercontent.com/")) {
+          return fetch(url.replace("raw.githubusercontent.com/", "mirror.api.cider.sh/v2/raw/"), opts);
+        } else {
+          return fetch(url, opts);
+        }
+      } else {
+        return fetch(url, opts);
+      }
+    }
+    ,
     setWindowHash(route = "") {
       this.setPagePos();
       window.location.hash = `#${route}`;
@@ -1290,9 +1304,8 @@ const app = new Vue({
       const themes = ipcRenderer.sendSync("get-themes");
       await asyncForEach(themes, async (theme) => {
         if (theme.commit != "") {
-          await fetch(`https://api.github.com/repos/${theme.github_repo}/commits`)
+          await app._fetch(`https://api.github.com/repos/${theme.github_repo}/commits`)
             .then((res) => res.json())
-            .then((res) => {
               if (res[0].sha != theme.commit) {
                 const notify = notyf.open({
                   className: "notyf-info",
@@ -1304,8 +1317,7 @@ const app = new Vue({
                   notyf.dismiss(notify);
                 });
               }
-            });
-        }
+          };
       });
     },
     async setTheme(theme = "", onlyPrefs = false) {

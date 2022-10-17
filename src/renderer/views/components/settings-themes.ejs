@@ -297,7 +297,7 @@
           redirect: 'follow'
         };
 
-        fetch(readmeUrl, requestOptions)
+        app._fetch(readmeUrl, requestOptions)
           .then(response => response.text())
           .then(result => {
             self.openRepo = repo
