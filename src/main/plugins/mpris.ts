@@ -71,6 +71,9 @@ export default class mpris {
     player.on("position", (args: { position: any }) => mpris.utils.playback.seek(args.position / 1000 / 1000));
     player.on("loopStatus", (status: string) => renderer.executeJavaScript(`app.mk.repeatMode = ${loopType[status.toLowerCase()]}`));
     player.on("shuffle", () => renderer.executeJavaScript("app.mk.shuffleMode = (app.mk.shuffleMode === 0) ? 1 : 0"));
+    player.on("volume", (volume: string) => {
+      renderer.executeJavaScript(`app.mk.volume = ${parseFloat(volume)}`);
+    });
 
     mpris.utils.getIPCMain().on("mpris:playbackTimeDidChange", (event: any, time: number) => {
       player.getPosition = () => time;
@@ -89,6 +92,10 @@ export default class mpris {
           break;
       }
     });
+
+    mpris.utils.getIPCMain().on("mpris:volumeChange", (_e: any, volume: number) => {
+      player.volume = volume;
+    })
 
     mpris.utils.getIPCMain().on("shuffleModeDidChange", (_e: any, mode: number) => {
       player.shuffle = mode === 1;
