@@ -1,5 +1,5 @@
-name: PR Chores
-
+name: Developer Chores
+      
 on: [pull_request]
 
 jobs:
@@ -31,7 +31,9 @@ jobs:
           run: pnpm install
 
         - name: Run linter 👀
-          uses: wearerequired/lint-action@v2
+          run: pnpm format-write
+            
+        - name: Comment Suggestions 🗒️
+          uses: getsentry/action-git-diff-suggestions@main
           with:
-            prettier: true
-            prettier_args: "'src/**/*.{js,json,ts,css,vue,less}'"
+            message: Prettier Suggestion
