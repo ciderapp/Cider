@@ -640,7 +640,7 @@
   "oobe.amupsell.subscribeUrl": "https://apple.co/3MdqJVQ",
   "oobe.amupsell.amWebUrl": "https://beta.music.apple.com/",
   "oobe.amupsell.promoExplained": "Ορισμένες προωθητικές δοκιμαστικές συνδρομές και δοκιμαστικές συνδρομές Apple Music εκτός των ΗΠΑ δεν έχουν πρόσβαση στα απαιτούμενα API του Apple Music Web Player που απαιτούνται για τη λειτουργία του Cider.  Για να επιβεβαιώσετε ότι η ενεργή δοκιμαστική σας συνδομή λειτουργεί με τον Cider, πηγαίνετε στο <a href='{{ amWebUrl }}'>, συνδεθείτε και δοκιμάστε να αναπαράγετε μουσική.  Αν λειτουργεί, τέλεια! Είστε έτοιμοι να χρησιμοποιήσετε τον Cider. Διαφορετικά, εγγραφτείτε στο Apple Music εδώ: <a href='{{ subscribeUrl }}'>",
-  "oobe.intro.title": "Καλωσήρθες στο Cider",
+  "oobe.intro.title": "Καλωσήρθατε στον Cider",
   "oobe.intro.subtitle": "",
   "oobe.intro.text": "Ας ρυθμίσουμε μερικά πράγματα για να μπορείτε να χρησιμοποιείτε τον Cider όπως σας αρέσει. Μπορείτε να αλλάξετε αυτές τις ρυθμίσεις όποτε θελήσετε αργότερα.",
   "oobe.general.title": "Γενικά",
