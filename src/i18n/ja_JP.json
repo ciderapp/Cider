@@ -83,7 +83,7 @@
   "term.sortBy.artist": "アーティスト",
   "term.sortBy.name": "曲名",
   "term.sortBy.genre": "ジャンル",
-  "term.sortBy.releaseDate": "配信開始日",
+  "term.sortBy.releaseDate": "リリース日",
   "term.sortBy.duration": "時間",
   "term.sortBy.dateAdded": "追加日",
   "term.sortOrder": "並べ替え",
