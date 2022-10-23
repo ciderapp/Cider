@@ -266,7 +266,7 @@
   "action.removeFromQueue.success": "「次はこちら」から項目を削除されました",
   "action.removeFromQueue.error": "操作を完了できませんでした",
   "action.createPlaylist": "新しいプレイリストを作成する",
-  "action.addToPlaylist": "プレイリストに追加する",
+  "action.addToPlaylist": "プレイリストに追加",
   "action.addToPlaylist.duplicate": "既にプレイリストに入っていますが、続けますか？",
   "action.removeFromPlaylist": "プレイリストから削除する",
   "action.addToFavorites": "ラブに追加",
