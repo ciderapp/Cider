@@ -78,7 +78,7 @@
     "upnp-mediarenderer-client": "github:vapormusic/node-upnp-mediarenderer-client",
     "v8-compile-cache": "^2.3.0",
     "wallpaper": "5.0.1",
-    "ws": "^8.9.0",
+    "ws": "^8.10.0",
     "xml2js": "^0.4.23",
     "youtube-search-without-api-key": "^1.0.7"
   },
@@ -86,7 +86,7 @@
     "@types/adm-zip": "^0.5.0",
     "@types/discord-rpc": "4.0.3",
     "@types/express": "^4.17.14",
-    "@types/node": "^18.11.4",
+    "@types/node": "^18.11.6",
     "@types/qrcode-terminal": "^0.12.0",
     "@types/ws": "^8.5.3",
     "electron": "github:castlabs/electron-releases",
