@@ -4342,7 +4342,7 @@ const app = new Vue({
         artworkSize = 110;
       }
       const mediaItem = (app?.mk?.nowPlayingItem?.attributes?.artwork?.url ? app?.mk?.nowPlayingItem : null) ?? (await this.mk.api.v3.music(`/v1/me/library/songs/${this.mk?.nowPlayingItem?.id}`)?.data?.data?.data[0]) ?? {};
-      return { currentArtUrlRaw: mediaItem.attributes?.artwork?.url ?? "", currentArtUrl: mediaItem._assets[0]?.artworkURL ?? mediaItem.attributes.artwork.url.replace("{w}", artworkSize).replace("{h}", artworkSize) };
+      return { currentArtUrlRaw: mediaItem?.attributes?.artwork?.url ?? "", currentArtUrl: mediaItem?._assets[0]?.artworkURL ?? mediaItem?.attributes?.artwork?.url?.replace("{w}", artworkSize).replace("{h}", artworkSize) };
     },
     async setLibraryArt() {
       if (typeof this.mk.nowPlayingItem === "undefined") return;
