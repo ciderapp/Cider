@@ -68,7 +68,7 @@ export default class DiscordRPC {
         })
           .then((res) => res.json())
           .then(function (json) {
-            self._attributes["artwork"]["url"] = "https://images.weserv.nl/?url="+json.imageUrl+"&w=600&h=600&output=jpg"; // Image Caching Proxy to prevent Discord from going haha no.
+            self._attributes["artwork"]["url"] = "https://images.weserv.nl/?url=" + json.imageUrl + "&w=600&h=600&output=jpg"; // Image Caching Proxy to prevent Discord from going haha no.
             self.setActivity(self._attributes);
           });
       }
