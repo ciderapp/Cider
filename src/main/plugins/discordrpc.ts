@@ -57,21 +57,21 @@ export default class DiscordRPC {
    */
   onRendererReady() {
     const self = this;
-    ipcMain.on("discordrpc:updateImage", async (_event, imageurl) => {
-      if (!this._utils.getStoreValue("general.privateEnabled")) {
-        fetch("https://api.cider.sh/v1/images", {
-          method: "POST",
-          headers: {
-            "User-Agent": this._utils.getWindow().webContents.getUserAgent(),
-            url: imageurl,
-          },
-        })
-          .then((res) => res.json())
-          .then(function (json) {
-            self._attributes["artwork"]["url"] = "https://images.weserv.nl/?url=" + json.imageUrl + "&w=600&h=600&output=jpg"; // Image Caching Proxy to prevent Discord from going haha no.
-            self.setActivity(self._attributes);
-          });
-      }
+    ipcMain.on("discordrpc:updateImage", async (_event, artworkUrl) => {
+      if (this._utils.getStoreValue("general.privateEnabled")) return;
+
+      fetch("https://api.cider.sh/v1/images", {
+        method: "POST",
+        headers: {
+          "User-Agent": this._utils.getWindow().webContents.getUserAgent(),
+          url: artworkUrl,
+        },
+      })
+        .then((res) => res.json())
+        .then(function (json) {
+          self._activityCache.largeImageKey = "https://images.weserv.nl/?url=" + json.imageUrl + "&w=600&h=600&output=jpg";
+          self._client.setActivity(self._activityCache);
+        });
     });
     ipcMain.on("discordrpc:reload", (_event, configUpdate = null) => {
       console.log(`[DiscordRPC][reload] Reloading DiscordRPC.`);
