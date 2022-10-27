@@ -69,7 +69,7 @@ export default class DiscordRPC {
       })
         .then((res) => res.json())
         .then(function (json) {
-          self._activityCache.largeImageKey = "https://images.weserv.nl/?url=" + json.imageUrl + "&w=600&h=600&output=jpg";
+          self._activityCache.largeImageKey = "https://images.weserv.nl/?url=" + json.imageUrl + "&w=1024&h=1024&output=jpg";
           self._client.setActivity(self._activityCache);
         });
     });
