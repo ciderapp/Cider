@@ -59,7 +59,7 @@ export default class DiscordRPC {
     const self = this;
     ipcMain.on("discordrpc:updateImage", async (_event, imageurl) => {
       if (!this._utils.getStoreValue("general.privateEnabled")) {
-        console.log("[DEBUG] "+imageurl)
+        console.log("[DEBUG] " + imageurl);
         fetch("https://api.cider.sh/v1/images", {
           method: "POST",
           headers: {
@@ -69,7 +69,7 @@ export default class DiscordRPC {
         })
           .then((res) => res.json())
           .then(function (json) {
-            self._attributes["artwork"]["url"] = "https://images.weserv.nl/?url="+json.imageUrl+"&w=600&h=600&output=jpg"; // Image Caching Proxy to prevent Discord from going haha no.
+            self._attributes["artwork"]["url"] = "https://images.weserv.nl/?url=" + json.imageUrl + "&w=600&h=600&output=jpg"; // Image Caching Proxy to prevent Discord from going haha no.
             self.setActivity(self._attributes);
           });
       }
