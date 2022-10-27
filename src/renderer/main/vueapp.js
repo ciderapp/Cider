@@ -1231,7 +1231,11 @@ const app = new Vue({
         self.chrome.artworkReady = false;
         self.lyrics = [];
         self.richlyrics = [];
-        app.getCurrentArtURL();
+        app.getCurrentArtURL().then((urls) => {
+          app.currentArtUrl = urls?.currentArtUrl ?? "";
+          app.currentArtUrlRaw = urls?.currentArtUrlRaw ?? "";
+          ipcRenderer.send("discordrpc:updateImage", app.currentArtUrl);
+        });
         // app.getNowPlayingArtwork(42);
         app.getNowPlayingArtworkBG(32);
         app.loadLyrics();
@@ -4331,46 +4335,14 @@ const app = new Vue({
       }, 200);
     },
     async getCurrentArtURL() {
-      try {
-        let artworkSize = 50;
-        if (app.getThemeDirective("lcdArtworkSize") != "") {
-          artworkSize = app.getThemeDirective("lcdArtworkSize");
-        } else if (this.cfg.visual.directives.windowLayout == "twopanel") {
-          artworkSize = 110;
-        }
-        this.currentArtUrl = "";
-        this.currentArtUrlRaw = "";
-        if (app.mk.nowPlayingItem != null && app.mk.nowPlayingItem.attributes != null && app.mk.nowPlayingItem.attributes.artwork != null && app.mk.nowPlayingItem.attributes.artwork.url != null && app.mk.nowPlayingItem.attributes.artwork.url != "") {
-          this.currentArtUrlRaw = this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"] ?? "";
-          this.currentArtUrl = (this.mk["nowPlayingItem"]["attributes"]["artwork"]["url"] ?? "").replace("{w}", artworkSize).replace("{h}", artworkSize);
-          if (this.mk.nowPlayingItem._assets[0].artworkURL) {
-            this.currentArtUrl = this.mk.nowPlayingItem._assets[0].artworkURL;
-          }
-          try {
-            // document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
-          } catch (e) {}
-        } else {
-          let data = await this.mk.api.v3.music(`/v1/me/library/songs/${this.mk.nowPlayingItem.id}`);
-          data = data.data.data[0];
-          if (data != null && data !== "" && data.attributes != null && data.attributes.artwork != null) {
-            this.currentArtUrlRaw = data["attributes"]["artwork"]["url"] ?? "";
-            this.currentArtUrl = (data["attributes"]["artwork"]["url"] ?? "").replace("{w}", artworkSize).replace("{h}", artworkSize);
-            if (this.mk.nowPlayingItem._assets[0].artworkURL) {
-              this.currentArtUrl = this.mk.nowPlayingItem._assets[0].artworkURL;
-            }
-            ipcRenderer.send("discordrpc:updateImage", this.currentArtUrl ?? "");
-            try {
-              // document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
-            } catch (e) {}
-          } else {
-            this.currentArtUrlRaw = "";
-            this.currentArtUrl = "";
-            try {
-              // document.querySelector('.app-playback-controls .artwork').style.setProperty('--artwork', `url("${this.currentArtUrl}")`);
-            } catch (e) {}
-          }
-        }
-      } catch (e) {}
+      let artworkSize = 50;
+      if (app.getThemeDirective("lcdArtworkSize") !== "") {
+        artworkSize = app.getThemeDirective("lcdArtworkSize");
+      } else if (this.cfg.visual.directives.windowLayout === "twopanel") {
+        artworkSize = 110;
+      }
+      const mediaItem = (app?.mk?.nowPlayingItem?.attributes?.artwork?.url ? app?.mk?.nowPlayingItem : null) ?? (await this.mk.api.v3.music(`/v1/me/library/songs/${this.mk?.nowPlayingItem?.id}`)?.data?.data?.data[0]) ?? {};
+      return { currentArtUrlRaw: mediaItem.attributes?.artwork?.url ?? "", currentArtUrl: mediaItem._assets[0]?.artworkURL ?? mediaItem.attributes.artwork.url.replace("{w}", artworkSize).replace("{h}", artworkSize) };
     },
     async setLibraryArt() {
       if (typeof this.mk.nowPlayingItem === "undefined") return;
