@@ -147,7 +147,7 @@
             <div class="app-chrome-item">
                 <button class="playback-button--small repeat" :class="mk.repeatMode == 1 ? 'repeatOne' : mk.repeatMode == 2 ? 'active' : ''"
                         :class="isDisabled() && 'disabled'"
-                        @click="repeatIncrement()" :title="mk.repeatMode == 1 ? $root.getLz('term.disableRepeat') : mk.repeatMode == 2 ? $root.getLz('term.enableRepeatOne') : $root.getLz('term.repeat')"
+                        @click="repeatIncrement()" :title="$root.lz.repeat[mk.repeatMode]"
                         v-b-tooltip.hover></button>
             </div>
         </div>
