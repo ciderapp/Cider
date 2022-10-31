@@ -4515,6 +4515,22 @@ const app = new Vue({
         this.cfg.audio.muted = false;
       }
     },
+    repeatIncrement() {
+      switch (app.mk.repeatMode) {
+        default:
+        case MusicKit.PlayerRepeatMode.none:
+          app.mk.repeatMode = MusicKit.PlayerRepeatMode.all;
+          break;
+
+        case MusicKit.PlayerRepeatMode.all:
+          app.mk.repeatMode = MusicKit.PlayerRepeatMode.one;
+          break;
+
+        case MusicKit.PlayerRepeatMode.one:
+          app.mk.repeatMode = MusicKit.PlayerRepeatMode.none;
+          break;
+      }
+    },
     async apiCall(url, callback) {
       const xmlHttp = new XMLHttpRequest();
 
