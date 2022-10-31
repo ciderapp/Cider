@@ -75,16 +75,9 @@
                             :title="$root.getLz('term.next')" v-b-tooltip.hover></button>
                 </div>
                 <div class="app-chrome-item display--large">
-                    <button class="playback-button--small repeat" v-if="mk.repeatMode == 0"
+                    <button class="playback-button--small repeat" :class="mk.repeatMode == 1 ? 'repeatOne' : mk.repeatMode == 2 ? 'active' : ''"
                             :class="isDisabled() && 'disabled'"
-                            @click="mk.repeatMode = 1" :title="$root.getLz('term.enableRepeatOne')"
-                            v-b-tooltip.hover></button>
-                    <button class="playback-button--small repeat repeatOne" @click="mk.repeatMode = 2"
-                            :class="isDisabled() && 'disabled'" v-else-if="mk.repeatMode == 1"
-                            :title="$root.getLz('term.disableRepeatOne')" v-b-tooltip.hover></button>
-                    <button class="playback-button--small repeat active" @click="mk.repeatMode = 0"
-                            :class="isDisabled() && 'disabled'" v-else-if="mk.repeatMode == 2"
-                            :title="$root.getLz('term.disableRepeat')"
+                            @click="repeatIncrement()" :title="mk.repeatMode == 1 ? $root.getLz('term.disableRepeat') : mk.repeatMode == 2 ? $root.getLz('term.enableRepeatOne') : $root.getLz('term.repeat')"
                             v-b-tooltip.hover></button>
                 </div>
             </div>
