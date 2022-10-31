@@ -524,6 +524,12 @@ const app = new Vue({
         genre: app.getLz("term.sortBy.genre"),
         releaseDate: app.getLz("term.sortBy.releaseDate"),
       };
+
+      this.lz.repeat = {
+        0: this.lz["term.repeat.all"] ?? this.lz["term.repeat"],
+        1: this.lz["term.repeat.none"] ?? this.lz["term.disableRepeat"],
+        2: this.lz["term.repeat.one"] ?? this.lz["term.enableRepeatOne"],
+      };
     },
     async showSocialListeningTo() {
       let contentIds = Object.keys(app.socialBadges.badgeMap);
