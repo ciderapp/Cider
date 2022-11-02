@@ -62,7 +62,7 @@ dependencies:
   '@sentry/electron': 4.1.0
   '@sentry/integrations': 7.17.3
   adm-zip: 0.4.10
-  airtunes2: github.com/ciderapp/node_airtunes2/0f0a87252b5d887ee636f0f8c123e84eafa151b4
+  airtunes2: github.com/ciderapp/node_airtunes2/8bd11f5c450b772597bd1ca30caaeea27fe57464
   castv2-client: 1.2.0
   chokidar: 3.5.3
   discord-auto-rpc: 1.0.17
@@ -2501,7 +2501,7 @@ packages:
       read-config-file: 6.2.0
       sanitize-filename: 1.6.3
       semver: 7.3.8
-      tar: 6.1.11
+      tar: 6.1.12
       temp-file: 3.4.0
     transitivePeerDependencies:
       - supports-color
@@ -3055,7 +3055,7 @@ packages:
       promise-inflight: 1.0.1
       rimraf: 3.0.2
       ssri: 9.0.1
-      tar: 6.1.11
+      tar: 6.1.12
       unique-filename: 2.0.1
     transitivePeerDependencies:
       - bluebird
@@ -6753,7 +6753,7 @@ packages:
       npmlog: 6.0.2
       rimraf: 3.0.2
       semver: 7.3.8
-      tar: 6.1.11
+      tar: 6.1.12
       which: 2.0.2
     transitivePeerDependencies:
       - bluebird
@@ -8598,9 +8598,9 @@ packages:
       readable-stream: 3.6.0
     dev: false
 
-  /tar/6.1.11:
-    resolution: {integrity: sha512-an/KZQzQUkZCkuoAA64hM92X0Urb6VpRhAFllDzz44U2mcD5scmT3zBc4VgVpkugF580+DQn8eAFSyoQt0tznA==}
-    engines: {node: '>= 10'}
+  /tar/6.1.12:
+    resolution: {integrity: sha512-jU4TdemS31uABHd+Lt5WEYJuzn+TJTCBLljvIAHZOz6M9Os5pJ4dD+vRFLxPa/n3T0iEFzpi+0x1UfuDZYbRMw==}
+    engines: {node: '>=10'}
     dependencies:
       chownr: 2.0.0
       fs-minipass: 2.1.0
@@ -9576,8 +9576,8 @@ packages:
       - supports-color
     dev: false
 
-  github.com/ciderapp/node_airtunes2/0f0a87252b5d887ee636f0f8c123e84eafa151b4:
-    resolution: {tarball: https://codeload.github.com/ciderapp/node_airtunes2/tar.gz/0f0a87252b5d887ee636f0f8c123e84eafa151b4}
+  github.com/ciderapp/node_airtunes2/8bd11f5c450b772597bd1ca30caaeea27fe57464:
+    resolution: {tarball: https://codeload.github.com/ciderapp/node_airtunes2/tar.gz/8bd11f5c450b772597bd1ca30caaeea27fe57464}
     name: airtunes2
     version: 2.3.7
     hasBin: true
