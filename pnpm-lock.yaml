@@ -62,7 +62,7 @@ dependencies:
   '@sentry/electron': 4.1.0
   '@sentry/integrations': 7.17.3
   adm-zip: 0.4.10
-  airtunes2: github.com/ciderapp/node_airtunes2/0f0a87252b5d887ee636f0f8c123e84eafa151b4
+  airtunes2: github.com/ciderapp/node_airtunes2/3c35eb6b54b4ec66106a193c8a4ce7668c02ec6e
   castv2-client: 1.2.0
   chokidar: 3.5.3
   discord-auto-rpc: 1.0.17
@@ -2501,7 +2501,7 @@ packages:
       read-config-file: 6.2.0
       sanitize-filename: 1.6.3
       semver: 7.3.8
-      tar: 6.1.11
+      tar: 6.1.12
       temp-file: 3.4.0
     transitivePeerDependencies:
       - supports-color
@@ -3045,7 +3045,7 @@ packages:
       fs-minipass: 2.1.0
       glob: 8.0.3
       infer-owner: 1.0.4
-      lru-cache: 7.14.0
+      lru-cache: 7.14.1
       minipass: 3.3.4
       minipass-collect: 1.0.2
       minipass-flush: 1.0.5
@@ -3055,7 +3055,7 @@ packages:
       promise-inflight: 1.0.1
       rimraf: 3.0.2
       ssri: 9.0.1
-      tar: 6.1.11
+      tar: 6.1.12
       unique-filename: 2.0.1
     transitivePeerDependencies:
       - bluebird
@@ -4016,7 +4016,7 @@ packages:
       lazy-val: 1.0.5
       read-config-file: 6.2.0
       simple-update-notifier: 1.0.7
-      yargs: 17.6.0
+      yargs: 17.6.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -6280,8 +6280,8 @@ packages:
     dependencies:
       yallist: 4.0.0
 
-  /lru-cache/7.14.0:
-    resolution: {integrity: sha512-EIRtP1GrSJny0dqb50QXRUNBxHJhcpxHC++M5tD7RYbvLLn5KVWKsbyswSSqDuU15UFi3bgTQIY8nhDMeF6aDQ==}
+  /lru-cache/7.14.1:
+    resolution: {integrity: sha512-ysxwsnTKdAx96aTRdhDOCQfDgbHnt8SK0KY8SEjO0wHinhWOFTESbjVCMPbU1uGXg/ch4lifqx0wfjOawU2+WA==}
     engines: {node: '>=12'}
     dev: false
 
@@ -6316,7 +6316,7 @@ packages:
       http-proxy-agent: 5.0.0
       https-proxy-agent: 5.0.1
       is-lambda: 1.0.1
-      lru-cache: 7.14.0
+      lru-cache: 7.14.1
       minipass: 3.3.4
       minipass-collect: 1.0.2
       minipass-fetch: 2.1.2
@@ -6753,7 +6753,7 @@ packages:
       npmlog: 6.0.2
       rimraf: 3.0.2
       semver: 7.3.8
-      tar: 6.1.11
+      tar: 6.1.12
       which: 2.0.2
     transitivePeerDependencies:
       - bluebird
@@ -8598,9 +8598,9 @@ packages:
       readable-stream: 3.6.0
     dev: false
 
-  /tar/6.1.11:
-    resolution: {integrity: sha512-an/KZQzQUkZCkuoAA64hM92X0Urb6VpRhAFllDzz44U2mcD5scmT3zBc4VgVpkugF580+DQn8eAFSyoQt0tznA==}
-    engines: {node: '>= 10'}
+  /tar/6.1.12:
+    resolution: {integrity: sha512-jU4TdemS31uABHd+Lt5WEYJuzn+TJTCBLljvIAHZOz6M9Os5pJ4dD+vRFLxPa/n3T0iEFzpi+0x1UfuDZYbRMw==}
+    engines: {node: '>=10'}
     dependencies:
       chownr: 2.0.0
       fs-minipass: 2.1.0
@@ -9492,8 +9492,8 @@ packages:
       y18n: 4.0.3
       yargs-parser: 18.1.3
 
-  /yargs/17.6.0:
-    resolution: {integrity: sha512-8H/wTDqlSwoSnScvV2N/JHfLWOKuh5MVla9hqLjK3nsfyy6Y4kDSYSvkU5YCUEPOSnRXfIyx3Sq+B/IWudTo4g==}
+  /yargs/17.6.1:
+    resolution: {integrity: sha512-leBuCGrL4dAd6ispNOGsJlhd0uZ6Qehkbu/B9KCR+Pxa/NVdNwi+i31lo0buCm6XxhJQFshXCD0/evfV4xfoUg==}
     engines: {node: '>=12'}
     dependencies:
       cliui: 8.0.1
@@ -9576,8 +9576,8 @@ packages:
       - supports-color
     dev: false
 
-  github.com/ciderapp/node_airtunes2/0f0a87252b5d887ee636f0f8c123e84eafa151b4:
-    resolution: {tarball: https://codeload.github.com/ciderapp/node_airtunes2/tar.gz/0f0a87252b5d887ee636f0f8c123e84eafa151b4}
+  github.com/ciderapp/node_airtunes2/3c35eb6b54b4ec66106a193c8a4ce7668c02ec6e:
+    resolution: {tarball: https://codeload.github.com/ciderapp/node_airtunes2/tar.gz/3c35eb6b54b4ec66106a193c8a4ce7668c02ec6e}
     name: airtunes2
     version: 2.3.7
     hasBin: true
