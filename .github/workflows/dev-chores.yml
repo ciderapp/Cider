@@ -15,13 +15,6 @@ jobs:
         - name: Checkout 🛎
           uses: actions/checkout@v3
 
-        - name: Setup node env 🏗
-          uses: actions/setup-node@v3
-          with:
-            node-version: ${{ matrix.node }}
-            check-latest: true
-            cache: 'pnpm'
-
         - uses: pnpm/action-setup@v2
           name: Setup pnpm 🚧
           id: pnpm-install
@@ -29,19 +22,12 @@ jobs:
             version: 7
             run_install: false
 
-        - name: Get pnpm store directory ⌨️
-          id: pnpm-cache
-          shell: bash
-          run: |
-            echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-        - uses: actions/cache@v3
-          name: Setup cache 🔒
+        - name: Setup node env 🏗
+          uses: actions/setup-node@v3
           with:
-            path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-            key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-            restore-keys: |
-              ${{ runner.os }}-pnpm-store-
+            node-version: ${{ matrix.node }}
+            check-latest: true
+            cache: 'pnpm'
 
         - name: Install dependencies 👨🏻‍💻
           run: pnpm install

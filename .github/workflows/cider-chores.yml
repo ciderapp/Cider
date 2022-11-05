@@ -23,12 +23,6 @@ jobs:
           # Make sure the actual branch is checked out when running on pull requests
           ref: ${{ github.head_ref }}
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
-
       - uses: pnpm/action-setup@v2
         name: Setup pnpm 🚧
         id: pnpm-install
@@ -36,20 +30,11 @@ jobs:
           version: 7
           run_install: false
 
-      - name: Get pnpm store directory ⌨️
-        id: pnpm-cache
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      - uses: actions/cache@v3
-        name: Setup cache 🔒
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
 
       - name: Update lockfile
         run: pnpm update
