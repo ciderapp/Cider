@@ -47,7 +47,7 @@ jobs:
           run: pnpm install
 
         - name: Run linter 👀
-          run: pnpm format-write
+          run: pnpm format:write
 
         - name: Comment Suggestions 🗒️
           uses: getsentry/action-git-diff-suggestions@main
