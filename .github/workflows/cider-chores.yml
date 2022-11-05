@@ -23,21 +23,39 @@ jobs:
           # Make sure the actual branch is checked out when running on pull requests
           ref: ${{ github.head_ref }}
 
-      - uses: pnpm/action-setup@v2.2.2
-        with:
-          version: 7
-
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
+
+      - uses: pnpm/action-setup@v2
+        name: Setup pnpm 🚧
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
+      - name: Get pnpm store directory ⌨️
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup cache 🔒
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
 
       - name: Update lockfile
         run: pnpm update
 
       - name: Commit Updated Lockfile
-        uses: stefanzweifel/git-auto-commit-action@v4.14.1
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "chore: Updated Lockfile"
           commit_user_name: "cider-chore[bot]"
@@ -64,7 +82,7 @@ jobs:
         run: npm run format:write
 
       - name: Commit Prettier Code
-        uses: stefanzweifel/git-auto-commit-action@v4.14.1
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "chore: Prettified Code\n [ci skip]"
           commit_user_name: "cider-chore[bot]"
@@ -88,31 +106,8 @@ jobs:
         run: cp src/i18n/en_US.json src/i18n/source/en_US.json
 
       - name: Commit Updated Source File
-        uses: stefanzweifel/git-auto-commit-action@v4.14.1
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "chore: Updated i18n Source\n [ci skip]"
           commit_user_name: "cider-chore[bot]"
           commit_user_email: "cider-chore[bot]@users.noreply.github.com"
-
-
-  synchronize-with-crowdin:
-    runs-on: ubuntu-latest
-    if: ${{ false }} # disable for now
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: crowdin action
-        uses: crowdin/github-action@1.4.13
-        with:
-          upload_translations: true
-          download_translations: false
-          project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
-          token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
-          source: '/src/i18n/source/**.*'
-          translation: '/src/i18n/%locale_with_underscore%.json'
-        env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
-          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
