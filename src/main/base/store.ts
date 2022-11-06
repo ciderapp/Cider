@@ -205,6 +205,7 @@ export class Store {
       purplePodcastPlaybackBar: false,
       maxElementScale: -1, // -1 default, anything else is a custom scale
       overrideDisplayTheme: "system", // system , dark, light
+      artworkDisplayLayout: "default",
     },
     lyrics: {
       enable_mxm: true,
