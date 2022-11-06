@@ -53,7 +53,7 @@ specifiers:
   vue-devtools: ^5.1.4
   wallpaper: 5.0.1
   webpack: ~5.74.0
-  ws: ^8.10.0
+  ws: ^8.11.0
   xml2js: ^0.4.23
   youtube-search-without-api-key: ^1.1.0
 
@@ -94,7 +94,7 @@ dependencies:
   upnp-mediarenderer-client: github.com/vapormusic/node-upnp-mediarenderer-client/d4856931500026eb6c4c67b3eb12c1c34755627e
   v8-compile-cache: 2.3.0
   wallpaper: 5.0.1
-  ws: 8.10.0
+  ws: 8.11.0
   xml2js: 0.4.23
   youtube-search-without-api-key: 1.1.0
 
@@ -9361,8 +9361,8 @@ packages:
         optional: true
     dev: false
 
-  /ws/8.10.0:
-    resolution: {integrity: sha512-+s49uSmZpvtAsd2h37vIPy1RBusaLawVe8of+GyEPsaJTCMpj/2v8NpeK1SHXjBlQ95lQTmQofOJnFiLoaN3yw==}
+  /ws/8.11.0:
+    resolution: {integrity: sha512-HPG3wQd9sNQoT9xHyNCXoDUa+Xw/VevmY9FoHyQ+g+rrMn4j6FB4np7Z0OhdTgjx6MgQLK7jwSy1YecU1+4Asg==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
