@@ -193,6 +193,9 @@
                 >
                 </sidebar-playlist>
             </template>
+            <div v-if="app.cfg.visual.artworkDisplayLayout == 'sidebar'" @click.stop="switchArtworkDisplayLayout()" class="artwork" id="artworkLCD" style="position:absolute;bottom:0px">
+              <mediaitem-artwork :url="$root.currentArtUrl"></mediaitem-artwork>
+            </div>
         </div>
         <div class="app-sidebar-footer display--small app-sidebar-footer--controls">
             <div class="app-playback-controls" @contextmenu="$root.nowPlayingContextMenu">
@@ -308,5 +311,20 @@
 <script>
   Vue.component("cider-app-sidebar", {
     template: "#cider-app-sidebar",
+    methods: {
+      switchArtworkDisplayLayout: function() {
+      switch (app.cfg.visual.artworkDisplayLayout) {
+        case "default":
+          app.cfg.visual.artworkDisplayLayout = "sidebar";
+          break;
+        case "sidebar":
+          app.cfg.visual.artworkDisplayLayout = "default";
+          break;
+        default:
+          app.cfg.visual.artworkDisplayLayout = "default";
+          break;
+      }
+    },
+    }
   })
 </script>

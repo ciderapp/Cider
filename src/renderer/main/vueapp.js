@@ -2350,6 +2350,20 @@ const app = new Vue({
       return this.isDisabled() || app.mk.queue._position + 1 === app.mk.queue.length;
     },
 
+    switchArtworkDisplayLayout() {
+      switch (app.cfg.visual.artworkDisplayLayout) {
+        case "default":
+          app.cfg.visual.artworkDisplayLayout = "sidebar";
+          break;
+        case "sidebar":
+          app.cfg.visual.artworkDisplayLayout = "default";
+          break;
+        default:
+          app.cfg.visual.artworkDisplayLayout = "default";
+          break;
+      }
+    },
+
     async getNowPlayingItemDetailed(target) {
       let nowPlayingItem = JSON.parse(JSON.stringify(this.mk.nowPlayingItem));
       if (nowPlayingItem.type === "radioStation" && app.mk.nowPlayingItem.id !== -1) {
