@@ -2050,7 +2050,7 @@ packages:
     resolution: {integrity: sha512-xoBtGl5R9jeKUhc8ZqeYaRDx04qqJ10yhhXYGmJ4Jr8qKpvMsDQQrNUvF/wUJ4klOtmJeJM+p2Xo3zp9uaC3tw==}
     deprecated: This is a stub types definition. keyv provides its own type definitions, so you do not need this installed.
     dependencies:
-      keyv: 4.5.0
+      keyv: 4.5.1
 
   /@types/long/4.0.2:
     resolution: {integrity: sha512-MqTGEo5bj5t157U6fA/BiDynNkn0YknVdh48CMPkTSpFTVmvao5UQmm7uEF6xBEo7qIMAlY/JSleYaE6VOdpaA==}
@@ -2920,7 +2920,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001430
+      caniuse-lite: 1.0.30001431
       electron-to-chromium: 1.4.284
       node-releases: 2.0.6
       update-browserslist-db: 1.0.10_browserslist@4.21.4
@@ -3088,7 +3088,7 @@ packages:
       clone-response: 1.0.3
       get-stream: 5.2.0
       http-cache-semantics: 4.1.0
-      keyv: 4.5.0
+      keyv: 4.5.1
       lowercase-keys: 2.0.0
       normalize-url: 6.1.0
       responselike: 2.0.1
@@ -3115,8 +3115,8 @@ packages:
     resolution: {integrity: sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==}
     engines: {node: '>=6'}
 
-  /caniuse-lite/1.0.30001430:
-    resolution: {integrity: sha512-IB1BXTZKPDVPM7cnV4iaKaHxckvdr/3xtctB3f7Hmenx3qYBhGtTZ//7EllK66aKXW98Lx0+7Yr0kxBtIt3tzg==}
+  /caniuse-lite/1.0.30001431:
+    resolution: {integrity: sha512-zBUoFU0ZcxpvSt9IU66dXVT/3ctO1cy4y9cscs1szkPlcWb6pasYM144GqrUygUbT+k7cmUCW61cvskjcv0enQ==}
     dev: true
 
   /caseless/0.12.0:
@@ -6073,8 +6073,8 @@ packages:
       verror: 1.10.0
     dev: false
 
-  /keyv/4.5.0:
-    resolution: {integrity: sha512-2YvuMsA+jnFGtBareKqgANOEKe1mk3HKiXu2fRmAfyxG0MJAywNhi5ttWA3PMjl4NmpyjZNbFifR2vNjW1znfA==}
+  /keyv/4.5.1:
+    resolution: {integrity: sha512-DONNzZ8b9FLIRIX8kF+JByejgBoGUD4msUvRlHnPMqTb49MwW3thKgB6yGsshzOLW0Bol6SGu5TysvSsM6apdA==}
     dependencies:
       json-buffer: 3.0.1
 
@@ -6914,8 +6914,8 @@ packages:
       object-keys: 1.1.1
     dev: true
 
-  /object.getownpropertydescriptors/2.1.4:
-    resolution: {integrity: sha512-sccv3L/pMModT6dJAYF3fzGMVcb38ysQ0tEE6ixv2yXJDtEIPph268OlAdJj5/qZMZDq2g/jqvwppt36uS/uQQ==}
+  /object.getownpropertydescriptors/2.1.5:
+    resolution: {integrity: sha512-yDNzckpM6ntyQiGTik1fKV1DcVDRS+w8bvpWNCBanvH5LfRX9O8WTHqQzG4RZwRAM4I0oU7TV11Lj5v0g20ibw==}
     engines: {node: '>= 0.8'}
     dependencies:
       array.prototype.reduce: 1.0.5
@@ -9006,7 +9006,7 @@ packages:
     resolution: {integrity: sha512-i+6qA2MPhvoKLuxnJNpXAGhg7HphQOSUq2LKMZD0m15EiskXUkMvKdF4Uui0WYeCUGea+o2cw/ZuwehtfsrNkA==}
     dependencies:
       define-properties: 1.1.4
-      object.getownpropertydescriptors: 2.1.4
+      object.getownpropertydescriptors: 2.1.5
     dev: true
 
   /utila/0.4.0:
