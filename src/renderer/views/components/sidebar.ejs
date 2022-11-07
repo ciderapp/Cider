@@ -193,7 +193,7 @@
                 >
                 </sidebar-playlist>
             </template>
-            <div v-if="app.cfg.visual.artworkDisplayLayout == 'sidebar'" @click.stop="switchArtworkDisplayLayout()" class="artwork" id="artworkLCD" style="position:absolute;bottom:0px">
+            <div v-if="app.cfg.visual.artworkDisplayLayout == 'sidebar'" @click.stop="switchArtworkDisplayLayout()" class="artwork" id="artworkLCD" style="position:sticky;bottom:0px">
               <mediaitem-artwork :url="$root.currentArtUrl"></mediaitem-artwork>
             </div>
         </div>
