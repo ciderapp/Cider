@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@achingbrain/ssdp': ^4.0.1
   '@sentry/electron': ^4.1.0
-  '@sentry/integrations': ^7.17.4
+  '@sentry/integrations': ^7.18.0
   '@types/adm-zip': ^0.5.0
   '@types/discord-rpc': 4.0.3
   '@types/express': ^4.17.14
@@ -60,7 +60,7 @@ specifiers:
 dependencies:
   '@achingbrain/ssdp': 4.0.1
   '@sentry/electron': 4.1.0
-  '@sentry/integrations': 7.17.4
+  '@sentry/integrations': 7.18.0
   adm-zip: 0.4.10
   airtunes2: github.com/ciderapp/node_airtunes2/3c35eb6b54b4ec66106a193c8a4ce7668c02ec6e
   castv2-client: 1.2.0
@@ -1882,12 +1882,12 @@ packages:
       - supports-color
     dev: false
 
-  /@sentry/integrations/7.17.4:
-    resolution: {integrity: sha512-9vL0RRLuMnj0mj61THgRhDUCgTGYbRoCT6HmLGrErHjyTG3d7lUgUwTBQPgw9qYLss1uLKoEtRvcxgtW7ef0BA==}
+  /@sentry/integrations/7.18.0:
+    resolution: {integrity: sha512-vmJWfybbanfHoy47U8IU50FuEN3GwywP/jFvh7Owll9GuPP9B6spmndZwK+raTisDoDOp3201uC1Bfx0cjl4MQ==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.17.4
-      '@sentry/utils': 7.17.4
+      '@sentry/types': 7.18.0
+      '@sentry/utils': 7.18.0
       localforage: 1.10.0
       tslib: 1.14.1
     dev: false
@@ -1912,8 +1912,8 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
-  /@sentry/types/7.17.4:
-    resolution: {integrity: sha512-QJj8vO4AtxuzQfJIzDnECSmoxwnS+WJsm1Ta2Cwdy+TUCBJyWpW7aIJJGta76zb9gNPGb3UcAbeEjhMJBJeRMQ==}
+  /@sentry/types/7.18.0:
+    resolution: {integrity: sha512-bOnyoK1S1chPJ+dAeWJo0srxZ9U48WE5dZFtvKeXoog6JNHY3nqAR/P/uxh9djB4bbwQRMdnGk1zm0bxhOOC6w==}
     engines: {node: '>=8'}
     dev: false
 
@@ -1925,11 +1925,11 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@sentry/utils/7.17.4:
-    resolution: {integrity: sha512-ioG0ANy8uiWzig82/e7cc+6C9UOxkyBzJDi1luoQVDH6P0/PvM8GzVU+1iUVUipf8+OL1Jh09GrWnd5wLm3XNQ==}
+  /@sentry/utils/7.18.0:
+    resolution: {integrity: sha512-nIIIF9FZ2rrw9OFIAfnSEK6TbHLii3ZtahVdcw6Jk9LscL2HMkgdmgroiNfFxhGYNqfWsaxVgMW+IdnkrHsqXQ==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.17.4
+      '@sentry/types': 7.18.0
       tslib: 1.14.1
     dev: false
 
