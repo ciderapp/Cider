@@ -489,7 +489,7 @@
   "settings.option.visual.hardwareAcceleration.description": "再起動してください",
   "settings.header.visual.hardwareAcceleration.default": "既定",
   "settings.header.visual.hardwareAcceleration.webGPU": "WebGPU",
-  "settings.option.visual.uiscale": "UI Scale",
+  "settings.option.visual.uiscale": "UIの大きさ",
   "settings.option.visual.useAdaptiveColors": "アダプティブカラーを使用する",
   "settings.option.visual.useAdaptiveColors.description": "現在の曲に合わせてアクセントカラーを変更する",
   "settings.option.visual.useAdaptiveColors.popup": "Adaptive colors will take effect on the next track.",
