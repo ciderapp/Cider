@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@achingbrain/ssdp': ^4.0.1
-  '@sentry/electron': ^4.1.0
+  '@sentry/electron': ^4.1.1
   '@sentry/integrations': ^7.19.0
   '@types/adm-zip': ^0.5.0
   '@types/discord-rpc': 4.0.3
@@ -47,7 +47,7 @@ specifiers:
   source-map-support: ^0.5.21
   ssdp-js: ^1.0.1
   ts-md5: 1.2.11
-  typescript: ^4.8.4
+  typescript: ^4.9.3
   upnp-mediarenderer-client: github:vapormusic/node-upnp-mediarenderer-client
   v8-compile-cache: ^2.3.0
   vue-devtools: ^5.1.4
@@ -59,7 +59,7 @@ specifiers:
 
 dependencies:
   '@achingbrain/ssdp': 4.0.1
-  '@sentry/electron': 4.1.0
+  '@sentry/electron': 4.1.1
   '@sentry/integrations': 7.19.0
   adm-zip: 0.4.10
   airtunes2: github.com/ciderapp/node_airtunes2/22e967bd9650c8754cf5d85bdcdd9eec28af1b68
@@ -78,7 +78,7 @@ dependencies:
   get-port: 5.1.1
   jimp: 0.16.2
   lastfmapi: 0.1.1
-  mdns-js: github.com/ciderapp/node-mdns-js/d8f658b623233c3cf58be229332f3342f553cde2
+  mdns-js: github.com/ciderapp/node-mdns-js/a34c514981c4dded54ae47e49660a4497dfedf0c
   mpris-service: 2.1.2
   music-metadata: 7.12.6
   node-gyp: 9.3.0
@@ -112,7 +112,7 @@ devDependencies:
   less: 4.1.3
   musickit-typescript: 1.2.4
   prettier: 2.7.1
-  typescript: 4.8.4
+  typescript: 4.9.3
   vue-devtools: 5.1.4
   webpack: 5.74.0
 
@@ -1849,33 +1849,33 @@ packages:
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
     dev: false
 
-  /@sentry/browser/7.15.0:
-    resolution: {integrity: sha512-vZYr8L2JmniV8cns4yGOpX32moazz6tsllB1uv7XmmELW98sIuuugVFX0k6cBi89R8pyhdqULFCf9CL8CRguRg==}
+  /@sentry/browser/7.16.0:
+    resolution: {integrity: sha512-tJ063zvoF8Raw7mzQEXupOFPSN6v36WIbsDVGeFdToPCwViaBuATaxvWCrudGzsnBkMyItmTLJkzn9SEIXUOiw==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/core': 7.15.0
-      '@sentry/types': 7.15.0
-      '@sentry/utils': 7.15.0
+      '@sentry/core': 7.16.0
+      '@sentry/types': 7.16.0
+      '@sentry/utils': 7.16.0
       tslib: 1.14.1
     dev: false
 
-  /@sentry/core/7.15.0:
-    resolution: {integrity: sha512-W8d44g04GShBn4Z9VBTUhf1T9LTMfzUnETEx237zzUucv0kkyj3LsWQsJapWchMbmwr1V/CdnNDN+lGDm8iXQA==}
+  /@sentry/core/7.16.0:
+    resolution: {integrity: sha512-vq6H1b/IPTvzDD9coQ3wIudvSjkAYuUlXb1dv69dRlq4v3st9dcKBps1Zf0lQ1i4TVlDLoe1iGMmNFglMF1Q5w==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.15.0
-      '@sentry/utils': 7.15.0
+      '@sentry/types': 7.16.0
+      '@sentry/utils': 7.16.0
       tslib: 1.14.1
     dev: false
 
-  /@sentry/electron/4.1.0:
-    resolution: {integrity: sha512-ITjfzB0cOpiKVvoXrDEw4uvqbmrARJXRzcJV0KU0KQH5oL6lGGKS+6GPA8JH+6NdeHALx9h9yVx9yg047ew6/Q==}
+  /@sentry/electron/4.1.1:
+    resolution: {integrity: sha512-3eD6OiW7Gk/YUdV7E5l/P+nvqn3sgJr/fdTPymga6WwOZFWnUJ7CvVSr3DZ6o0sBjo8gaPM6kAe0y3BNzXVQwQ==}
     dependencies:
-      '@sentry/browser': 7.15.0
-      '@sentry/core': 7.15.0
-      '@sentry/node': 7.15.0
-      '@sentry/types': 7.15.0
-      '@sentry/utils': 7.15.0
+      '@sentry/browser': 7.16.0
+      '@sentry/core': 7.16.0
+      '@sentry/node': 7.16.0
+      '@sentry/types': 7.16.0
+      '@sentry/utils': 7.16.0
       deepmerge: 4.2.2
       tslib: 2.4.1
     transitivePeerDependencies:
@@ -1892,13 +1892,13 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@sentry/node/7.15.0:
-    resolution: {integrity: sha512-gfyo6YTo4Sw5pdKWCzs7trqZpBm5D/ArR4vylQrQayfImiYyNY6yaOK1R7g4rM34MXUu91pfVJLUpXvjk/NsHw==}
+  /@sentry/node/7.16.0:
+    resolution: {integrity: sha512-OC0TO6UTetv8IsX3zNhdeui7YVIQCnhkbfi+CMrB6YsHaMP2A9qH5gNyu/hKbaY9+4xci7e4rxyRmI65aKS9ow==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/core': 7.15.0
-      '@sentry/types': 7.15.0
-      '@sentry/utils': 7.15.0
+      '@sentry/core': 7.16.0
+      '@sentry/types': 7.16.0
+      '@sentry/utils': 7.16.0
       cookie: 0.4.2
       https-proxy-agent: 5.0.1
       lru_map: 0.3.3
@@ -1907,8 +1907,8 @@ packages:
       - supports-color
     dev: false
 
-  /@sentry/types/7.15.0:
-    resolution: {integrity: sha512-MN9haDRh9ZOsTotoDTHu2BT3sT8Vs1F0alhizUpDyjN2YgBCqR6JV+AbAE1XNHwS2+5zbppch1PwJUVeE58URQ==}
+  /@sentry/types/7.16.0:
+    resolution: {integrity: sha512-i6D+OK6d0l/k+VQvRp/Pt21WkDEgVBUIZq+sOkEZJczbcfexVdXKeXXoYTD2vYuFq8Yy28fzlsZaKI+NoH94yQ==}
     engines: {node: '>=8'}
     dev: false
 
@@ -1917,11 +1917,11 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
-  /@sentry/utils/7.15.0:
-    resolution: {integrity: sha512-akic22/6xa/RG5Mj7UN6pLc23VnX9zQlKM53L/q3yIr0juckSVthJiiFNdgdqrX03S1tHYlBgPeShKFFTHpkjA==}
+  /@sentry/utils/7.16.0:
+    resolution: {integrity: sha512-3Zh1txg7IRp4kZAdG27YF7K6lD1IZyuAo9KjoPg1Xzqa4DOZyASJuEkbf+rK2a9T4HrtVHHXJUsNbKg8WM3VHg==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.15.0
+      '@sentry/types': 7.16.0
       tslib: 1.14.1
     dev: false
 
@@ -8828,8 +8828,8 @@ packages:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
     dev: false
 
-  /typescript/4.8.4:
-    resolution: {integrity: sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==}
+  /typescript/4.9.3:
+    resolution: {integrity: sha512-CIfGzTelbKNEnLpLdGFgdyKhG23CKdKgQPOBc+OUNrkJ2vr+KSzsSV5kq5iWhEQbok+quxgGzrAtGWCyU7tHnA==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
@@ -9564,8 +9564,8 @@ packages:
       - supports-color
     dev: false
 
-  github.com/ciderapp/node-mdns-js/d8f658b623233c3cf58be229332f3342f553cde2:
-    resolution: {tarball: https://codeload.github.com/ciderapp/node-mdns-js/tar.gz/d8f658b623233c3cf58be229332f3342f553cde2}
+  github.com/ciderapp/node-mdns-js/a34c514981c4dded54ae47e49660a4497dfedf0c:
+    resolution: {tarball: https://codeload.github.com/ciderapp/node-mdns-js/tar.gz/a34c514981c4dded54ae47e49660a4497dfedf0c}
     name: mdns-js
     version: 1.0.7
     engines: {node: '>= 6.0.0'}
