@@ -5,7 +5,7 @@
             <template v-if="mkReady()">
                 <div class="app-playback-controls" @mouseover="chrome.progresshover = true"
                      @mouseleave="chrome.progresshover = false" @contextmenu="nowPlayingContextMenu">
-                    <div v-if="app.cfg.visual.artworkDisplayLayout == 'default'" @click.stop="switchArtworkDisplayLayout()" class="artwork" id="artworkLCD">
+                    <div v-if="cfg.visual.artworkDisplayLayout == 'default'" @click.stop="switchArtworkDisplayLayout()" class="artwork" id="artworkLCD">
                         <mediaitem-artwork :url="$root.currentArtUrl"></mediaitem-artwork>
                         <b-popover custom-class="mediainfo-popover" target="artworkLCD" triggers="hover" placement="right">
                           <div class="content">
@@ -86,7 +86,7 @@
 
             <template v-else>
                 <div class="app-playback-controls">
-                    <div v-if="app.cfg.visual.artworkDisplayLayout == 'default'" class="artwork" id="artworkLCD" style="pointer-events: none;">
+                    <div v-if="cfg.visual.artworkDisplayLayout == 'default'" class="artwork" id="artworkLCD" style="pointer-events: none;">
                         <mediaitem-artwork :url="currentArtUrl"></mediaitem-artwork>
                     </div>
                     <div class="playback-info">

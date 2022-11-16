@@ -193,7 +193,7 @@
                 >
                 </sidebar-playlist>
             </template>
-            <div v-if="app.cfg.visual.artworkDisplayLayout == 'sidebar'" @click.stop="switchArtworkDisplayLayout()" class="artwork" id="artworkLCD" style="position:sticky;bottom:0px">
+            <div v-if="$root.cfg.visual.artworkDisplayLayout == 'sidebar'" @click.stop="switchArtworkDisplayLayout()" class="artwork" id="artworkLCD" style="position:sticky;bottom:0px">
               <mediaitem-artwork :url="$root.currentArtUrl"></mediaitem-artwork>
             </div>
         </div>
@@ -313,15 +313,15 @@
     template: "#cider-app-sidebar",
     methods: {
       switchArtworkDisplayLayout: function() {
-      switch (app.cfg.visual.artworkDisplayLayout) {
+      switch ($root.cfg.visual.artworkDisplayLayout) {
         case "default":
-          app.cfg.visual.artworkDisplayLayout = "sidebar";
+          $root.cfg.visual.artworkDisplayLayout = "sidebar";
           break;
         case "sidebar":
-          app.cfg.visual.artworkDisplayLayout = "default";
+          $root.cfg.visual.artworkDisplayLayout = "default";
           break;
         default:
-          app.cfg.visual.artworkDisplayLayout = "default";
+          $root.cfg.visual.artworkDisplayLayout = "default";
           break;
       }
     },
