@@ -3424,227 +3424,229 @@ const app = new Vue({
     },
     loadMXM() {
       let attempt = 0;
-      const track = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.title ?? '' : '');
-      const artist = encodeURIComponent((this.mk.nowPlayingItem != null) ? this.mk.nowPlayingItem.artistName ?? '' : '');
-      const time = encodeURIComponent((this.mk.nowPlayingItem != null) ? (Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1) : -1);
-      const id = encodeURIComponent((this.mk.nowPlayingItem != null) ? app.mk.nowPlayingItem._songId ?? (app.mk.nowPlayingItem["songId"] ?? '') : '');
+      const track = encodeURIComponent(this.mk.nowPlayingItem != null ? this.mk.nowPlayingItem.title ?? "" : "");
+      const artist = encodeURIComponent(this.mk.nowPlayingItem != null ? this.mk.nowPlayingItem.artistName ?? "" : "");
+      const time = encodeURIComponent(this.mk.nowPlayingItem != null ? Math.round((this.mk.nowPlayingItem.attributes["durationInMillis"] ?? -1000) / 1000) ?? -1 : -1);
+      const id = encodeURIComponent(this.mk.nowPlayingItem != null ? app.mk.nowPlayingItem._songId ?? app.mk.nowPlayingItem["songId"] ?? "" : "");
       let lrcfile = "";
       let richsync = [];
-      const lang = app.cfg.lyrics.mxm_language //  translation language
+      const lang = app.cfg.lyrics.mxm_language; //  translation language
       function revisedRandId() {
-          return Math.random().toString(36).replace(/[^a-z]+/g, '').slice(2, 10);
+        return Math.random()
+          .toString(36)
+          .replace(/[^a-z]+/g, "")
+          .slice(2, 10);
       }
 
       /* get token */
       function getToken(mode, track, artist, songid, lang, time, id) {
-          if (attempt > 2) {
-              app.loadNeteaseLyrics();
-              // app.loadAMLyrics();
-          } else {
-              attempt = attempt + 1;
-              let url = "https://apic-desktop.musixmatch.com/ws/1.1/token.get?app_id=web-desktop-app-v1.0&t=" + revisedRandId();
-              let req = new XMLHttpRequest();
-              req.overrideMimeType("application/json");
-              req.open('GET', url, true);
-              req.setRequestHeader("authority", "apic-desktop.musixmatch.com");
-              req.onload = function () {
-                  try {
-                      let jsonResponse = JSON.parse(this.responseText);
-                      let status2 = jsonResponse["message"]["header"]["status_code"];
-                      if (status2 == 200) {
-                          let token = jsonResponse["message"]["body"]["user_token"] ?? '';
-                          if (token != "" && token != "UpgradeOnlyUpgradeOnlyUpgradeOnlyUpgradeOnly") {
-                              console.debug('200 token', mode);
-                              // token good
-                              app.mxmtoken = token;
+        if (attempt > 2) {
+          app.loadNeteaseLyrics();
+          // app.loadAMLyrics();
+        } else {
+          attempt = attempt + 1;
+          let url = "https://apic-desktop.musixmatch.com/ws/1.1/token.get?app_id=web-desktop-app-v1.0&t=" + revisedRandId();
+          let req = new XMLHttpRequest();
+          req.overrideMimeType("application/json");
+          req.open("GET", url, true);
+          req.setRequestHeader("authority", "apic-desktop.musixmatch.com");
+          req.onload = function () {
+            try {
+              let jsonResponse = JSON.parse(this.responseText);
+              let status2 = jsonResponse["message"]["header"]["status_code"];
+              if (status2 == 200) {
+                let token = jsonResponse["message"]["body"]["user_token"] ?? "";
+                if (token != "" && token != "UpgradeOnlyUpgradeOnlyUpgradeOnlyUpgradeOnly") {
+                  console.debug("200 token", mode);
+                  // token good
+                  app.mxmtoken = token;
 
-                              if (mode == 1) {
-                                  getMXMSubs(track, artist, app.mxmtoken, lang, time, id);
-                              } else {
-                                  getMXMTrans(songid, lang, app.mxmtoken);
-                              }
-                          } else {
-                              console.debug('fake 200 token');
-                              getToken(mode, track, artist, songid, lang, time)
-                          }
-                      } else {
-                          // console.log('token 4xx');
-                          getToken(mode, track, artist, songid, lang, time)
-                      }
-                  } catch (e) {
-                      console.log('error');
-                      app.loadQQLyrics();
-                      //app.loadAMLyrics();
+                  if (mode == 1) {
+                    getMXMSubs(track, artist, app.mxmtoken, lang, time, id);
+                  } else {
+                    getMXMTrans(songid, lang, app.mxmtoken);
                   }
-              };
-              req.onerror = function () {
-                  console.log('error');
-                  app.loadQQLyrics();
-                  // app.loadAMLyrics();
-              };
-              req.send();
-          }
+                } else {
+                  console.debug("fake 200 token");
+                  getToken(mode, track, artist, songid, lang, time);
+                }
+              } else {
+                // console.log('token 4xx');
+                getToken(mode, track, artist, songid, lang, time);
+              }
+            } catch (e) {
+              console.log("error");
+              app.loadQQLyrics();
+              //app.loadAMLyrics();
+            }
+          };
+          req.onerror = function () {
+            console.log("error");
+            app.loadQQLyrics();
+            // app.loadAMLyrics();
+          };
+          req.send();
+        }
       }
 
       function getMXMSubs(track, artist, token, lang, time, id) {
-          let usertoken = encodeURIComponent(token);
-          let richsyncQuery = (app.cfg.lyrics.mxm_karaoke) ? "&optional_calls=track.richsync" : ""
-          let timecustom = (!time || (time && time < 0)) ? '' : `&f_subtitle_length=${time}&q_duration=${time}&f_subtitle_length_max_deviation=40`;
-          let itunesid = (id && id != "") ? `&track_itunes_id=${id}` : '';
-          let url = "https://apic-desktop.musixmatch.com/ws/1.1/macro.subtitles.get?format=json&namespace=lyrics_richsynched" + richsyncQuery + "&subtitle_format=lrc&q_artist=" + artist + "&q_track=" + track + itunesid + "&usertoken=" + usertoken + timecustom + "&app_id=web-desktop-app-v1.0&t=" + revisedRandId();
-          let req = new XMLHttpRequest();
-          req.overrideMimeType("application/json");
-          req.open('GET', url, true);
-          req.setRequestHeader("authority", "apic-desktop.musixmatch.com");
-          req.onload = function () {
+        let usertoken = encodeURIComponent(token);
+        let richsyncQuery = app.cfg.lyrics.mxm_karaoke ? "&optional_calls=track.richsync" : "";
+        let timecustom = !time || (time && time < 0) ? "" : `&f_subtitle_length=${time}&q_duration=${time}&f_subtitle_length_max_deviation=40`;
+        let itunesid = id && id != "" ? `&track_itunes_id=${id}` : "";
+        let url = "https://apic-desktop.musixmatch.com/ws/1.1/macro.subtitles.get?format=json&namespace=lyrics_richsynched" + richsyncQuery + "&subtitle_format=lrc&q_artist=" + artist + "&q_track=" + track + itunesid + "&usertoken=" + usertoken + timecustom + "&app_id=web-desktop-app-v1.0&t=" + revisedRandId();
+        let req = new XMLHttpRequest();
+        req.overrideMimeType("application/json");
+        req.open("GET", url, true);
+        req.setRequestHeader("authority", "apic-desktop.musixmatch.com");
+        req.onload = function () {
+          try {
+            let jsonResponse = JSON.parse(this.responseText);
+            console.debug(jsonResponse);
+            let status1 = jsonResponse["message"]["header"]["status_code"];
+
+            if (status1 == 200) {
+              let id = "";
               try {
-                  let jsonResponse = JSON.parse(this.responseText);
-                  console.debug(jsonResponse);
-                  let status1 = jsonResponse["message"]["header"]["status_code"];
+                if (jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["header"]["status_code"] == 200 && jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["header"]["status_code"] == 200) {
+                  id = jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["body"]["track"]["track_id"] ?? "";
+                  lrcfile = jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["body"]["subtitle_list"][0]["subtitle"]["subtitle_body"];
 
-                  if (status1 == 200) {
-                      let id = '';
-                      try {
-                          if (jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["header"]["status_code"] == 200 && jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["header"]["status_code"] == 200) {
-                              id = jsonResponse["message"]["body"]["macro_calls"]["matcher.track.get"]["message"]["body"]["track"]["track_id"] ?? '';
-                              lrcfile = jsonResponse["message"]["body"]["macro_calls"]["track.subtitles.get"]["message"]["body"]["subtitle_list"][0]["subtitle"]["subtitle_body"];
+                  try {
+                    let lrcrich = jsonResponse["message"]["body"]["macro_calls"]["track.richsync.get"]["message"]["body"]["richsync"]["richsync_body"];
+                    richsync = JSON.parse(lrcrich);
+                    app.richlyrics = richsync;
+                  } catch (_) {}
+                }
 
-                              try {
-                                  let lrcrich = jsonResponse["message"]["body"]["macro_calls"]["track.richsync.get"]["message"]["body"]["richsync"]["richsync_body"];
-                                  richsync = JSON.parse(lrcrich);
-                                  app.richlyrics = richsync;
-                              } catch (_) {
-                              }
-                          }
-
-                          if (lrcfile == "") {
-                              app.loadQQLyrics();
-                              // app.loadAMLyrics()
-                          } else {
-                              if (richsync == [] || richsync.length == 0) {
-                                  console.log("ok");
-                                  // process lrcfile to json here
-                                  app.lyricsMediaItem = lrcfile
-                                  let u = app.lyricsMediaItem.split(/[\r\n]/);
-                                  let preLrc = []
-                                  for (var i = u.length - 1; i >= 0; i--) {
-                                      let xline = (/(\[[0-9.:\[\]]*\])+(.*)/).exec(u[i])
-                                      let end = (preLrc.length > 0) ? ((preLrc[preLrc.length - 1].startTime) ?? 99999) : 99999
-                                      preLrc.push({
-                                          startTime: app.toMS(xline[1].substring(1, xline[1].length - 2)) ?? 0,
-                                          endTime: end,
-                                          line: xline[2],
-                                          translation: ''
-                                      })
-                                  }
-                                  if (preLrc.length > 0)
-                                      preLrc.push({
-                                          startTime: 0,
-                                          endTime: preLrc[preLrc.length - 1].startTime,
-                                          line: "lrcInstrumental",
-                                          translation: ''
-                                      });
-                                  app.lyrics = preLrc.reverse();
-                              } else {
-                                  let preLrc = richsync.map(function (item) {
-                                      return {
-                                          startTime: item.ts,
-                                          endTime: item.te,
-                                          line: item.x,
-                                          translation: ''
-                                      }
-                                  })
-                                  if (preLrc.length > 0)
-                                      preLrc.unshift({
-                                          startTime: 0,
-                                          endTime: preLrc[0].startTime,
-                                          line: "lrcInstrumental",
-                                          translation: ''
-                                      });
-                                  app.lyrics = preLrc;
-                              }
-                              if (lrcfile != null && lrcfile != '') {
-                                  // load translation
-                                  getMXMTrans(id, lang, token);
-                              } else {
-                                  // app.loadAMLyrics()
-                                  app.loadQQLyrics();
-                              }
-                          }
-                      } catch (e) {
-                          console.log(e);
-                          app.loadQQLyrics();
-                          //  app.loadAMLyrics()
-                      }
-                  } else { //4xx rejected
-                      getToken(1, track, artist, '', lang, time);
-                  }
-              } catch (e) {
-                  console.log(e);
+                if (lrcfile == "") {
                   app.loadQQLyrics();
-                  //app.loadAMLyrics()
+                  // app.loadAMLyrics()
+                } else {
+                  if (richsync == [] || richsync.length == 0) {
+                    console.log("ok");
+                    // process lrcfile to json here
+                    app.lyricsMediaItem = lrcfile;
+                    let u = app.lyricsMediaItem.split(/[\r\n]/);
+                    let preLrc = [];
+                    for (var i = u.length - 1; i >= 0; i--) {
+                      let xline = /(\[[0-9.:\[\]]*\])+(.*)/.exec(u[i]);
+                      let end = preLrc.length > 0 ? preLrc[preLrc.length - 1].startTime ?? 99999 : 99999;
+                      preLrc.push({
+                        startTime: app.toMS(xline[1].substring(1, xline[1].length - 2)) ?? 0,
+                        endTime: end,
+                        line: xline[2],
+                        translation: "",
+                      });
+                    }
+                    if (preLrc.length > 0)
+                      preLrc.push({
+                        startTime: 0,
+                        endTime: preLrc[preLrc.length - 1].startTime,
+                        line: "lrcInstrumental",
+                        translation: "",
+                      });
+                    app.lyrics = preLrc.reverse();
+                  } else {
+                    let preLrc = richsync.map(function (item) {
+                      return {
+                        startTime: item.ts,
+                        endTime: item.te,
+                        line: item.x,
+                        translation: "",
+                      };
+                    });
+                    if (preLrc.length > 0)
+                      preLrc.unshift({
+                        startTime: 0,
+                        endTime: preLrc[0].startTime,
+                        line: "lrcInstrumental",
+                        translation: "",
+                      });
+                    app.lyrics = preLrc;
+                  }
+                  if (lrcfile != null && lrcfile != "") {
+                    // load translation
+                    getMXMTrans(id, lang, token);
+                  } else {
+                    // app.loadAMLyrics()
+                    app.loadQQLyrics();
+                  }
+                }
+              } catch (e) {
+                console.log(e);
+                app.loadQQLyrics();
+                //  app.loadAMLyrics()
               }
+            } else {
+              //4xx rejected
+              getToken(1, track, artist, "", lang, time);
+            }
+          } catch (e) {
+            console.log(e);
+            app.loadQQLyrics();
+            //app.loadAMLyrics()
           }
-          req.onerror = function () {
-              app.loadQQLyrics();
-              console.log('error');
-              // app.loadAMLyrics();
-          };
-          req.send();
+        };
+        req.onerror = function () {
+          app.loadQQLyrics();
+          console.log("error");
+          // app.loadAMLyrics();
+        };
+        req.send();
       }
 
       function getMXMTrans(id, lang, token) {
-          if (lang != "disabled" && id != '') {
-              let usertoken = encodeURIComponent(token);
-              let url2 = "https://apic-desktop.musixmatch.com/ws/1.1/crowd.track.translations.get?translation_fields_set=minimal&selected_language=" + lang + "&track_id=" + id + "&comment_format=text&part=user&format=json&usertoken=" + usertoken + "&app_id=web-desktop-app-v1.0&t=" + revisedRandId();
-              let req2 = new XMLHttpRequest();
-              req2.overrideMimeType("application/json");
-              req2.open('GET', url2, true);
-              req2.setRequestHeader("authority", "apic-desktop.musixmatch.com");
-              req2.onload = function () {
-                  try {
-                      let jsonResponse2 = JSON.parse(this.responseText);
-                      console.log(jsonResponse2);
-                      let status2 = jsonResponse2["message"]["header"]["status_code"];
-                      if (status2 == 200) {
-                          try {
-                              let preTrans = []
-                              let u = app.lyrics;
-                              let translation_list = jsonResponse2["message"]["body"]["translations_list"];
-                              if (translation_list.length > 0) {
-                                  for (var i = 0; i < u.length - 1; i++) {
-                                      preTrans[i] = ""
-                                      for (var trans_line of translation_list) {
-                                          if (u[i].line == " " + trans_line["translation"]["matched_line"] || u[i].line == trans_line["translation"]["matched_line"]) {
-                                              u[i].translation = trans_line["translation"]["description"];
-                                              break;
-                                          }
-                                      }
-                                  }
-                                  app.lyrics = u;
-                              }
-                          } catch (e) {
-                              /// not found trans -> ignore
-                          }
-                      } else { //4xx rejected
-                          getToken(2, '', '', id, lang, '');
+        if (lang != "disabled" && id != "") {
+          let usertoken = encodeURIComponent(token);
+          let url2 = "https://apic-desktop.musixmatch.com/ws/1.1/crowd.track.translations.get?translation_fields_set=minimal&selected_language=" + lang + "&track_id=" + id + "&comment_format=text&part=user&format=json&usertoken=" + usertoken + "&app_id=web-desktop-app-v1.0&t=" + revisedRandId();
+          let req2 = new XMLHttpRequest();
+          req2.overrideMimeType("application/json");
+          req2.open("GET", url2, true);
+          req2.setRequestHeader("authority", "apic-desktop.musixmatch.com");
+          req2.onload = function () {
+            try {
+              let jsonResponse2 = JSON.parse(this.responseText);
+              console.log(jsonResponse2);
+              let status2 = jsonResponse2["message"]["header"]["status_code"];
+              if (status2 == 200) {
+                try {
+                  let preTrans = [];
+                  let u = app.lyrics;
+                  let translation_list = jsonResponse2["message"]["body"]["translations_list"];
+                  if (translation_list.length > 0) {
+                    for (var i = 0; i < u.length - 1; i++) {
+                      preTrans[i] = "";
+                      for (var trans_line of translation_list) {
+                        if (u[i].line == " " + trans_line["translation"]["matched_line"] || u[i].line == trans_line["translation"]["matched_line"]) {
+                          u[i].translation = trans_line["translation"]["description"];
+                          break;
+                        }
                       }
-                  } catch (e) {
+                    }
+                    app.lyrics = u;
                   }
+                } catch (e) {
+                  /// not found trans -> ignore
+                }
+              } else {
+                //4xx rejected
+                getToken(2, "", "", id, lang, "");
               }
-              req2.send();
-          }
-
+            } catch (e) {}
+          };
+          req2.send();
+        }
       }
 
-      if (track != "" & track != "No Title Found") {
-          if (app.mxmtoken != null && app.mxmtoken != '') {
-              getMXMSubs(track, artist, app.mxmtoken, lang, time, id)
-          } else {
-              getToken(1, track, artist, '', lang, time);
-          }
+      if ((track != "") & (track != "No Title Found")) {
+        if (app.mxmtoken != null && app.mxmtoken != "") {
+          getMXMSubs(track, artist, app.mxmtoken, lang, time, id);
+        } else {
+          getToken(1, track, artist, "", lang, time);
+        }
       }
-  },
+    },
     loadNeteaseLyrics() {
       const track = encodeURIComponent(this.mk.nowPlayingItem != null ? this.mk.nowPlayingItem.title ?? "" : "");
       const artist = encodeURIComponent(this.mk.nowPlayingItem != null ? this.mk.nowPlayingItem.artistName ?? "" : "");
