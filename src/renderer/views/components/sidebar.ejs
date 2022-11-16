@@ -313,15 +313,15 @@
     template: "#cider-app-sidebar",
     methods: {
       switchArtworkDisplayLayout: function() {
-      switch ($root.cfg.visual.artworkDisplayLayout) {
+      switch (app.cfg.visual.artworkDisplayLayout) {
         case "default":
-          $root.cfg.visual.artworkDisplayLayout = "sidebar";
+        app.cfg.visual.artworkDisplayLayout = "sidebar";
           break;
         case "sidebar":
-          $root.cfg.visual.artworkDisplayLayout = "default";
+        app.cfg.visual.artworkDisplayLayout = "default";
           break;
         default:
-          $root.cfg.visual.artworkDisplayLayout = "default";
+        app.cfg.visual.artworkDisplayLayout = "default";
           break;
       }
     },
