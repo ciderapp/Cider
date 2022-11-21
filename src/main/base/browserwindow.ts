@@ -514,7 +514,12 @@ export class BrowserWindow {
 
     app.get("/audio/cideraudio.js", (_req, res) => {
       if (existsSync(join(utils.getPath("externals"), "/audio.js"))) {
-        res.sendFile(join(utils.getPath("externals"), "/audio.js"));
+        if (utils.getStoreValue("audio.maikiwiAudio.cloud") == true) {
+          res.sendFile(join(utils.getPath("externals"), "/cloud/audio.js"));
+        }
+        else {
+          res.sendFile(join(utils.getPath("externals"), "/audio.js"));
+        }
       } else {
         res.sendFile(join(utils.getPath("srcPath"), "./renderer/audio/audio.js"));
       }
