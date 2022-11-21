@@ -2,8 +2,8 @@ lockfileVersion: 5.4
 
 specifiers:
   '@achingbrain/ssdp': ^4.0.1
-  '@sentry/electron': ^4.1.1
-  '@sentry/integrations': ^7.19.0
+  '@sentry/electron': ^4.1.2
+  '@sentry/integrations': ^7.20.1
   '@types/adm-zip': ^0.5.0
   '@types/discord-rpc': 4.0.3
   '@types/express': ^4.17.14
@@ -59,8 +59,8 @@ specifiers:
 
 dependencies:
   '@achingbrain/ssdp': 4.0.1
-  '@sentry/electron': 4.1.1
-  '@sentry/integrations': 7.19.0
+  '@sentry/electron': 4.1.2
+  '@sentry/integrations': 7.20.1
   adm-zip: 0.4.10
   airtunes2: github.com/ciderapp/node_airtunes2/22e967bd9650c8754cf5d85bdcdd9eec28af1b68
   castv2-client: 1.2.0
@@ -105,7 +105,7 @@ devDependencies:
   '@types/node': 18.11.9
   '@types/qrcode-terminal': 0.12.0
   '@types/ws': 8.5.3
-  electron: github.com/castlabs/electron-releases/80726d953900b4501bf9b3e2f5639a1e28f523b0
+  electron: github.com/castlabs/electron-releases/205ab1187123daa8d8d191370c007714a350c596
   electron-builder: 23.6.0
   electron-builder-notarize-pkg: 1.2.0
   electron-webpack: 2.8.2_webpack@5.74.0
@@ -1063,7 +1063,7 @@ packages:
     dependencies:
       '@babel/core': 7.20.2
       '@babel/helper-plugin-utils': 7.20.2
-      regenerator-transform: 0.15.0
+      regenerator-transform: 0.15.1
     dev: true
 
   /@babel/plugin-transform-reserved-words/7.18.6_@babel+core@7.20.2:
@@ -1251,7 +1251,7 @@ packages:
     resolution: {integrity: sha512-mrzLkl6U9YLF8qpqI7TB82PESyEGjm/0Ly91jG575eVxMMlb8fYfOXFZIJ8XfLrJZQbm7dlKry2bJmXBUEkdFg==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      regenerator-runtime: 0.13.10
+      regenerator-runtime: 0.13.11
 
   /@babel/template/7.18.10:
     resolution: {integrity: sha512-TI+rCtooWHr3QJ27kJxfjutghu44DLnasDMwpDqCXVTal9RLp3RSYNh4NdBrRP2cQAoG9A8juOQl6P6oZG4JxA==}
@@ -1713,7 +1713,7 @@ packages:
     resolution: {integrity: sha512-XENrPvmigiXZQ8E2nxJqO6UVvWBLzbNwyYi3Y8Q1IECoYhYI3kgOQ0fmy4G269Vz1V0omh1bNmC42r4OfXg1Jg==}
     dependencies:
       '@babel/runtime': 7.20.1
-      regenerator-runtime: 0.13.10
+      regenerator-runtime: 0.13.11
     dev: false
 
   /@jridgewell/gen-mapping/0.1.1:
@@ -1868,8 +1868,8 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@sentry/electron/4.1.1:
-    resolution: {integrity: sha512-3eD6OiW7Gk/YUdV7E5l/P+nvqn3sgJr/fdTPymga6WwOZFWnUJ7CvVSr3DZ6o0sBjo8gaPM6kAe0y3BNzXVQwQ==}
+  /@sentry/electron/4.1.2:
+    resolution: {integrity: sha512-4U1PKjNBXv6kml4HPdhIc5HkOH1+2AfrpvHP36AnD+XHFEa6FS7xWAwEraC5YcFBIVkEE8iSsR5PhSNa5rtLZA==}
     dependencies:
       '@sentry/browser': 7.16.0
       '@sentry/core': 7.16.0
@@ -1882,12 +1882,12 @@ packages:
       - supports-color
     dev: false
 
-  /@sentry/integrations/7.19.0:
-    resolution: {integrity: sha512-0x5AGU7EBIzOTSqD7TFvD4S5eX6hbqbvb4YCzJt3SIZC3bO4FiBu2t0y+PIZUSsupnqafBIIWsCcGWeKrNHAyA==}
+  /@sentry/integrations/7.20.1:
+    resolution: {integrity: sha512-vFhn+KBE71k8T08Ra162+suUsYN0U/a0oTTbKIx4SJE9Q5w/7aFHF/nuNqGIxatnxI0VkA83zqCPexOweDqlsA==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.19.0
-      '@sentry/utils': 7.19.0
+      '@sentry/types': 7.20.1
+      '@sentry/utils': 7.20.1
       localforage: 1.10.0
       tslib: 1.14.1
     dev: false
@@ -1912,8 +1912,8 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
-  /@sentry/types/7.19.0:
-    resolution: {integrity: sha512-oGRAT6lfzoKrxO1mvxiSj0XHxWPd6Gd1wpPGuu6iJo03xgWDS+MIlD1h2unqL4N5fAzLjzmbC2D2lUw50Kn2pA==}
+  /@sentry/types/7.20.1:
+    resolution: {integrity: sha512-bI4t5IXGLIQYH5MegKRl4x2LDSlPVbQJ5eE6NJCMrCm8PcFUo3WgkwP6toG9ThQwpTx/DhUo1sVNKrr0oW4cpA==}
     engines: {node: '>=8'}
     dev: false
 
@@ -1925,11 +1925,11 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@sentry/utils/7.19.0:
-    resolution: {integrity: sha512-2L6lq+c9Ol2uiRxQDdcgoapmHJp24MhMN0gIkn2alSfMJ+ls6bGXzQHx6JAIdoOiwFQXRZHKL9ecfAc8O+vItA==}
+  /@sentry/utils/7.20.1:
+    resolution: {integrity: sha512-wToW0710OijQLUZnbbOx1pxwJ4mXUZ5ZFl4/x7ubNftkOz5NwJ+F3ylRqHXpZJaR9pUfR5CNdInTFZn05h/KeQ==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.19.0
+      '@sentry/types': 7.20.1
       tslib: 1.14.1
     dev: false
 
@@ -2154,7 +2154,7 @@ packages:
       '@types/tapable': 1.0.8
       '@types/uglify-js': 3.17.1
       '@types/webpack-sources': 3.2.0
-      anymatch: 3.1.2
+      anymatch: 3.1.3
       source-map: 0.6.1
     dev: true
 
@@ -2462,8 +2462,8 @@ packages:
       - supports-color
     dev: true
 
-  /anymatch/3.1.2:
-    resolution: {integrity: sha512-P43ePfOAIupkguHUycrc4qJ9kz8ZiuOUijaETwX7THt0Y/GNK7v0aa8rY816xWjZ7rJdA5XdMcpVFTKMq+RvWg==}
+  /anymatch/3.1.3:
+    resolution: {integrity: sha512-KMReFUr0B4t+D+OBkjR3KYqvocp2XaSzO55UcB6mgQMd3KbcE+mWTyvVV7D/zsdEbNnV6acZUutkiHQXvTr1Rw==}
     engines: {node: '>= 8'}
     dependencies:
       normalize-path: 3.0.0
@@ -2919,7 +2919,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001431
+      caniuse-lite: 1.0.30001434
       electron-to-chromium: 1.4.284
       node-releases: 2.0.6
       update-browserslist-db: 1.0.10_browserslist@4.21.4
@@ -3114,8 +3114,8 @@ packages:
     resolution: {integrity: sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==}
     engines: {node: '>=6'}
 
-  /caniuse-lite/1.0.30001431:
-    resolution: {integrity: sha512-zBUoFU0ZcxpvSt9IU66dXVT/3ctO1cy4y9cscs1szkPlcWb6pasYM144GqrUygUbT+k7cmUCW61cvskjcv0enQ==}
+  /caniuse-lite/1.0.30001434:
+    resolution: {integrity: sha512-aOBHrLmTQw//WFa2rcF1If9fa3ypkC1wzqqiKHgfdrXTWcU8C4gKVZT77eQAPWN1APys3+uQ0Df07rKauXGEYA==}
     dev: true
 
   /caseless/0.12.0:
@@ -3181,7 +3181,7 @@ packages:
     resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
     engines: {node: '>= 8.10.0'}
     dependencies:
-      anymatch: 3.1.2
+      anymatch: 3.1.3
       braces: 3.0.2
       glob-parent: 5.1.2
       is-binary-path: 2.1.0
@@ -5954,7 +5954,7 @@ packages:
       '@jimp/custom': 0.16.2
       '@jimp/plugins': 0.16.2_@jimp+custom@0.16.2
       '@jimp/types': 0.16.2_@jimp+custom@0.16.2
-      regenerator-runtime: 0.13.10
+      regenerator-runtime: 0.13.11
     dev: false
 
   /jpeg-js/0.4.4:
@@ -6143,7 +6143,7 @@ packages:
       image-size: 0.5.5
       make-dir: 2.1.0
       mime: 1.6.0
-      needle: 3.1.0
+      needle: 3.2.0
       source-map: 0.6.1
     transitivePeerDependencies:
       - supports-color
@@ -6673,8 +6673,8 @@ packages:
     resolution: {integrity: sha512-ONmRUqK7zj7DWX0D9ADe03wbwOBZxNAfF20PlGfCWQcD3+/MakShIHrMqx9YwPTfxDdF1zLeL+RGZiR9kGMLdg==}
     dev: false
 
-  /needle/3.1.0:
-    resolution: {integrity: sha512-gCE9weDhjVGCRqS8dwDR/D3GTAeyXLXuqp7I8EzH6DllZGXSUyxuqqLh+YX9rMAWaaTFyVAg6rHGL25dqvczKw==}
+  /needle/3.2.0:
+    resolution: {integrity: sha512-oUvzXnyLiVyVGoianLijF9O/RecZUf7TkBfimjGrLM4eQhXyeJwM6GeAWccwfQ9aa4gMCZKqhAOuLaMIcQxajQ==}
     engines: {node: '>= 4.4.x'}
     hasBin: true
     requiresBuild: true
@@ -7291,7 +7291,7 @@ packages:
     dependencies:
       icss-utils: 4.1.1
       postcss: 7.0.39
-      postcss-selector-parser: 6.0.10
+      postcss-selector-parser: 6.0.11
       postcss-value-parser: 4.2.0
     dev: true
 
@@ -7300,7 +7300,7 @@ packages:
     engines: {node: '>= 6'}
     dependencies:
       postcss: 7.0.39
-      postcss-selector-parser: 6.0.10
+      postcss-selector-parser: 6.0.11
     dev: true
 
   /postcss-modules-values/3.0.0:
@@ -7310,8 +7310,8 @@ packages:
       postcss: 7.0.39
     dev: true
 
-  /postcss-selector-parser/6.0.10:
-    resolution: {integrity: sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w==}
+  /postcss-selector-parser/6.0.11:
+    resolution: {integrity: sha512-zbARubNdogI9j7WY4nQJBiNqQf3sLS3wCP4WfOidu+p28LofJqDH1tcXypGrcmMHhDk2t9wGhCsYe/+szLTy1g==}
     engines: {node: '>=4'}
     dependencies:
       cssesc: 3.0.0
@@ -7620,11 +7620,11 @@ packages:
     resolution: {integrity: sha512-zrceR/XhGYU/d/opr2EKO7aRHUeiBI8qjtfHqADTwZd6Szfy16la6kqD0MIUs5z5hx6AaKa+PixpPrR289+I0A==}
     dev: true
 
-  /regenerator-runtime/0.13.10:
-    resolution: {integrity: sha512-KepLsg4dU12hryUO7bp/axHAKvwGOCV0sGloQtpagJ12ai+ojVDqkeGSiRX1zlq+kjIMZ1t7gpze+26QqtdGqw==}
+  /regenerator-runtime/0.13.11:
+    resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
 
-  /regenerator-transform/0.15.0:
-    resolution: {integrity: sha512-LsrGtPmbYg19bcPHwdtmXwbW+TqNvtY4riE3P83foeHRroMbH6/2ddFBfab3t7kbzc7v7p4wbkIecHImqt0QNg==}
+  /regenerator-transform/0.15.1:
+    resolution: {integrity: sha512-knzmNAcuyxV+gQCufkYcvOqX/qIIfHLv0u5x79kRxuGojfYVky1f15TzZEu2Avte8QGepvUNTnLskf8E6X6Vyg==}
     dependencies:
       '@babel/runtime': 7.20.1
     dev: true
@@ -9537,10 +9537,10 @@ packages:
       got: 11.8.5
     dev: false
 
-  github.com/castlabs/electron-releases/80726d953900b4501bf9b3e2f5639a1e28f523b0:
-    resolution: {tarball: https://codeload.github.com/castlabs/electron-releases/tar.gz/80726d953900b4501bf9b3e2f5639a1e28f523b0}
+  github.com/castlabs/electron-releases/205ab1187123daa8d8d191370c007714a350c596:
+    resolution: {tarball: https://codeload.github.com/castlabs/electron-releases/tar.gz/205ab1187123daa8d8d191370c007714a350c596}
     name: electron
-    version: 22.0.0-beta.5
+    version: 22.0.0-beta.6
     engines: {node: '>= 12.20.55'}
     hasBin: true
     requiresBuild: true
