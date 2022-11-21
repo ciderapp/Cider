@@ -524,14 +524,6 @@ export class BrowserWindow {
       }
     });
 
-    app.get("/audio/cideraudiorenderer.js", (_req, res) => {
-      if (existsSync(join(utils.getPath("externals"), "/renderer.js"))) {
-        res.sendFile(join(utils.getPath("externals"), "/renderer.js"));
-      } else {
-        res.sendFile(join(utils.getPath("srcPath"), "./renderer/audio/renderer.js"));
-      }
-    });
-
     app.get("/cideraudio/impulses/:file", (req, res) => {
       const impulseExternals = join(utils.getPath("externals"), "/impulses/");
       const impulseFile = join(impulseExternals, req.params.file);
