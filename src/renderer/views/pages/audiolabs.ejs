@@ -8,31 +8,6 @@
                 </div>
                 <div class="md-option-line">
                     <div class="md-option-segment">
-                        Static Compilation Mode
-                        <br>
-                        <small>
-                            Like a compiler, this compiles multiple Audio Lab setting into one singular processor that significantly reduces CPU usage.
-                            <br>
-                            Which allows for practically infinite amount of settings to be turned on without hampering performance for users with low-end hardware.
-                            <br>
-                            However, there are caveats to this mode:
-                            <br>
-                            1 - All further audio tuning changes such as the use of equalizer will be ignored.
-                            <br>
-                            2 - Adrenaline Processor's Adaptive Option will freeze on whatever mode it was left on before compilation.
-                            <br>
-                            (A fixed mode for either 64k or 256k AAC.)
-                            <br>
-                            3 - Adrenaline Processor and whatever mode I decided wasn't good for local files will work on local files if those options were enabled before compilation.
-                        </small>
-                    </div>
-                    <div class="md-option-segment md-option-segment_auto">
-                        <input type="checkbox" v-model="app.cfg.audio.maikiwiAudio.staticOptimizer.state"
-                            v-on:change="CiderOptimizer()" :disabled="app.cfg.advanced.experiments.includes('staticOptimizer') === false" switch/>
-                    </div>
-                </div>
-                <div class="md-option-line">
-                    <div class="md-option-segment">
                         {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE')}}
                         <br>
                         <small>{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPE.description')}}</small>
@@ -52,12 +27,11 @@
                         <select class="md-select" style="width:180px;"
                                 v-model="app.cfg.audio.maikiwiAudio.ciderPPE_value"
                                 v-on:change="CiderAudio.hierarchical_loading()">
-                            <option value="MAIKIWI">Maikiwi ({{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.adaptive')}})</option>
-                            <option value="MAIKIWI_LEGACY">Maikiwi ({{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy')}})</option>
-                            <option value="NATURAL">
-                                {{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard')}}
+                            <option v-for="(item, index) in ciderPPE"
+                            :value="item.displayName"
+                            :key="index.name">
+                              {{item}}
                             </option>
-                            <option value="LEGACY">{{$root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy')}}</option>
                         </select>
                     </div>
                 </div>
@@ -165,7 +139,11 @@
             return {
                 app: this.$root,
                 arprofiles: CiderAudio.atmosphereRealizerProfiles,
-                spprofiles: CiderAudio.spatialProfiles
+                spprofiles: CiderAudio.spatialProfiles,
+                ciderPPE: [{name: "MAIKIWI", displayName: "Maikiwi " + $root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.adaptive')},
+                {name: "MAIKIWI_LEGACY", displayName: "Maikiwi " + $root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy')},
+                {name: "NATURAL", displayName: $root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard')},
+                {name: "LEGACY", displayName: $root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy')}]
             }
         },
         mounted: function () {
