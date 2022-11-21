@@ -516,8 +516,7 @@ export class BrowserWindow {
       if (existsSync(join(utils.getPath("externals"), "/audio.js"))) {
         if (utils.getStoreValue("audio.maikiwiAudio.cloud") == true) {
           res.sendFile(join(utils.getPath("externals"), "/cloud/audio.js"));
-        }
-        else {
+        } else {
           res.sendFile(join(utils.getPath("externals"), "/audio.js"));
         }
       } else {

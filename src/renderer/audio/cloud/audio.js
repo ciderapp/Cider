@@ -257,7 +257,7 @@ const CiderAudio = {
     if (!filters || filters.length === 0) {
       let filterlessGain = 1;
 
-      CiderAudio.audioNodes.intelliGainComp.gain.exponentialRampToValueAtTime(1.0, CiderAudio.context.currentTime + 0.3)
+      CiderAudio.audioNodes.intelliGainComp.gain.exponentialRampToValueAtTime(1.0, CiderAudio.context.currentTime + 0.3);
       console.debug(`[Cider][Audio] IntelliGainComp: 0 dB (1.0)`);
       return;
     }
