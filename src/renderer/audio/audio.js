@@ -997,7 +997,6 @@ const CiderAudio = {
     console.debug("[Cider][Audio] Finished hierarchical unloading");
   },
   hierarchical_loading: async function () {
-
     const configMap = new Map([
       ["spatial", app.cfg.audio.maikiwiAudio.spatial === true],
       ["n6", app.cfg.audio.maikiwiAudio.atmosphereRealizer2 === true],
