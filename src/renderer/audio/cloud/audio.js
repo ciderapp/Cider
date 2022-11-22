@@ -901,7 +901,7 @@ const CiderAudio = {
       return;
     } // do nothing if there's no processing lmao
 
-    CiderAudio.init(() => console.log("CARenderer Called back"));
+    CiderAudio.init(() => console.log("CAudio Called back"));
 
     app.cfg.audio.maikiwiAudio.staticOptimizer.lock = true; // Lock CiderAudio from performing hierarchical loading.
 
