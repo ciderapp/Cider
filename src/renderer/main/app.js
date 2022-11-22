@@ -15,7 +15,6 @@ import { i18nEditor } from "./components/i18n-editor.js";
 window.app = app;
 window.MusicKitTools = MusicKitTools;
 window.CiderAudio = CiderAudio;
-window.CiderAudioRenderer = CiderAudioRenderer;
 window.CiderCache = CiderCache;
 window.CiderFrontAPI = CiderFrontAPI;
 window.wsapi = wsapi;

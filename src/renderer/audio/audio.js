@@ -964,7 +964,7 @@ const CiderAudio = {
       return;
     } // do nothing if there's no processing lmao
 
-    CiderAudioRenderer.init(() => console.log("CARenderer Called back"));
+    CiderAudio.init(() => console.log("CAudio Called back"));
 
     app.cfg.audio.maikiwiAudio.staticOptimizer.lock = true; // Lock CiderAudio from performing hierarchical loading.
 
@@ -975,11 +975,11 @@ const CiderAudio = {
     CiderAudio.audioNodes.optimizedNode = CiderAudio.context.createConvolver();
     CiderAudio.audioNodes.optimizedNode.normalize = false;
 
-    const res = CiderAudioRenderer.hierarchical_optimizer().then((res) => {
+    const res = CiderAudio.hierarchical_optimizer().then((res) => {
       CiderAudio.audioNodes.optimizedNode.buffer = res;
     });
 
-    CiderAudioRenderer.off(); // Clean up IMMEDIATELY
+    CiderAudio.off(); // Clean up IMMEDIATELY
 
     // Load the sucker up
 
