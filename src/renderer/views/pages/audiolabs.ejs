@@ -150,16 +150,6 @@
 
         },
         methods: {
-            CiderOptimizer: function () {
-                if (app.cfg.audio.maikiwiAudio.staticOptimizer.state === true) {
-                    CiderAudio.hierarchical_optimizer();
-                }
-                else {
-                    app.cfg.audio.maikiwiAudio.staticOptimizer.lock = false;
-                    try {CiderAudio.audioNodes.optimizedNode.disconnect(); CiderAudio.audioNodes.optimizedNode = null;} catch (e) {}
-                    CiderAudio.hierarchical_loading()
-                }
-            }
         }
     })
 </script>

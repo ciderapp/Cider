@@ -293,7 +293,6 @@
                 app.modals.equalizer = false
             },
             changeVibrantBass() {
-                if (app.cfg.audio.maikiwiAudio.staticOptimizer.lock === true) { return notyf.error("Static Compilation Mode is enabled.")}
                 if (app.cfg.audio.equalizer.vibrantBass !== '0') {
                     try {
                         for (var i = 0; i < 21; i++) {
@@ -310,7 +309,6 @@
                 }
             },
             changeMix() {
-                if (app.cfg.audio.maikiwiAudio.staticOptimizer.lock === true) { return notyf.error("Static Compilation Mode is enabled.")}
                 if (Math.max(...app.cfg.audio.equalizer.gain) != 0) {
                     try {
                         for (var i = 0; i < 10; i++) {
@@ -321,7 +319,6 @@
                 }
             },
             changeGain(i) {
-                if (app.cfg.audio.maikiwiAudio.staticOptimizer.lock === true) { return notyf.error("Static Compilation Mode is enabled.")}
                 if (Math.max(...app.cfg.audio.equalizer.gain) != 0) {
                     try {
                         CiderAudio.audioNodes.audioBands[i].gain.value = app.cfg.audio.equalizer.gain[i] * app.cfg.audio.equalizer.mix
@@ -334,11 +331,9 @@
                 }
             },
             changeFreq(i) {
-                if (app.cfg.audio.maikiwiAudio.staticOptimizer.lock === true) { return notyf.error("Static Compilation Mode is enabled.")}
                 CiderAudio.audioNodes.audioBands[i].frequency.value = app.cfg.audio.equalizer.frequencies[i]
             },
             changeQ(i) {
-                if (app.cfg.audio.maikiwiAudio.staticOptimizer.lock === true) { return notyf.error("Static Compilation Mode is enabled.")}
                 CiderAudio.audioNodes.audioBands[i].Q.value = app.cfg.audio.equalizer.Q[i]
             },
             resetGain() {
@@ -405,7 +400,6 @@
                 })
             },
             applyPreset(preset) {
-                if (app.cfg.audio.maikiwiAudio.staticOptimizer.lock === true) { return notyf.error("Static Compilation Mode is enabled.")}
                 Object.assign(this.$root.cfg.audio.equalizer, preset)
                 this.changeVibrantBass()
                 for (var i = 0; i < 10; i++) {

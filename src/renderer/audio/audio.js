@@ -956,44 +956,6 @@ const CiderAudio = {
       }
     }
   },
-  hierarchical_optimizer: function () {
-    const lastNode = app.cfg.audio.maikiwiAudio.lastNode; // Load from cfg
-    const firstNode = app.cfg.audio.maikiwiAudio.firstNode;
-
-    if (lastNode === "n0") {
-      return;
-    } // do nothing if there's no processing lmao
-
-    CiderAudio.init(() => console.log("CAudio Called back"));
-
-    app.cfg.audio.maikiwiAudio.staticOptimizer.lock = true; // Lock CiderAudio from performing hierarchical loading.
-
-    if (MusicKit.getInstance().isPlaying) {
-      MusicKit.getInstance().pause(); // Pause first
-    }
-
-    CiderAudio.audioNodes.optimizedNode = CiderAudio.context.createConvolver();
-    CiderAudio.audioNodes.optimizedNode.normalize = false;
-
-    const res = CiderAudio.hierarchical_optimizer().then((res) => {
-      CiderAudio.audioNodes.optimizedNode.buffer = res;
-    });
-
-    CiderAudio.off(); // Clean up IMMEDIATELY
-
-    // Load the sucker up
-
-    CiderAudio.hierarchical_unloading();
-    CiderAudio.audioNodes.gainNode.connect(CiderAudio.audioNodes.optimizedNode);
-    CiderAudio.audioNodes.optimizedNode.connect(CiderAudio.context.destination);
-
-    console.debug("[Cider][Audio] Finished hierarchical loading + Optimizing");
-
-    if (MusicKit.getInstance().nowPlayingItem != null) {
-      // Restore playback
-      MusicKit.getInstance().play().catch(console.error);
-    }
-  },
   hierarchical_unloading: function () {
     try {
       CiderAudio.audioNodes.spatialNode.disconnect();
@@ -1035,9 +997,6 @@ const CiderAudio = {
     console.debug("[Cider][Audio] Finished hierarchical unloading");
   },
   hierarchical_loading: async function () {
-    if (app.cfg.audio.maikiwiAudio.staticOptimizer.lock === true) {
-      return;
-    } // Do nothing if locked by optimizer.
 
     const configMap = new Map([
       ["spatial", app.cfg.audio.maikiwiAudio.spatial === true],
