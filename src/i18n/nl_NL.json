@@ -238,7 +238,7 @@
   "error.connectionError": "Er is een probleem opgetreden bij het verbinden met Apple Music.",
   "error.noResults": "Niets gevonden.",
   "error.noResults.description": "Probeer een nieuwe zoekopdracht.",
-  "error.musickitError": "Er heeft zich een fout voortgedaan bij MusicKit:",
+  "error.musickitError": "MusicKit heeft een fout ondervonden:",
   "podcast.followOnCider": "Volg op Cider",
   "podcast.followedOnCider": "Gevolgd op Cider",
   "podcast.subscribeOnItunes": "Abonneer op iTunes",
