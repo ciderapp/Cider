@@ -238,7 +238,7 @@
   "error.connectionError": "Es gab ein Problem beim Verbinden mit Apple Music.",
   "error.noResults": "Keine Ergebnisse.",
   "error.noResults.description": "Versuche einen anderen Suchbegriff.",
-  "error.musickitError": "Bei MusicKit ist ein Fehelr unterlaufen:",
+  "error.musickitError": "Bei MusicKit ist ein Fehler unterlaufen:",
   "podcast.followOnCider": "Folge auf Cider",
   "podcast.followedOnCider": "Gefolgt auf Cider",
   "podcast.subscribeOnItunes": "Folge auf iTunes",
