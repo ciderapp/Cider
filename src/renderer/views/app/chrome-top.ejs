@@ -280,7 +280,7 @@
                            :placeholder="$root.getLz('term.search') + '...'" v-model="search.term" ref="searchInput"
                            class="search-input" />
 
-                    <div class="search-hints-container" v-if="search.showHints && search.hints.length != 0" style="right:-13px;left:unset;">
+                    <div class="search-hints-container" v-if="search.showHints && search.hints.length != 0" style="right:-13px;left:unset;padding-top:0;">
                         <div class="search-hints">
                             <button class="search-hint text-overflow-elipsis" :class="{active: (search.cursor == index)}" v-for="(hint, index) in search.hints.filter((a) => {return a.content == null})"
                                     @click="search.term = hint.searchTerm;search.showHints = false;searchQuery(hint.searchTerm);search.cursor = -1">
