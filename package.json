@@ -44,7 +44,7 @@
   "dependencies": {
     "@achingbrain/ssdp": "^4.0.1",
     "@sentry/electron": "^4.1.2",
-    "@sentry/integrations": "^7.20.1",
+    "@sentry/integrations": "^7.21.1",
     "adm-zip": "0.4.10",
     "airtunes2": "github:ciderapp/node_airtunes2",
     "castv2-client": "^1.2.0",
