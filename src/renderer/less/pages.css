@@ -6,6 +6,9 @@
   width: 100%;
   transition: zoom 1s;
   zoom: 1;
+  max-width: 1680px;
+  right: 0;
+  margin: 0 auto;
 }
 .content-inner.centered {
   height: 100%;
