@@ -3,10 +3,10 @@ lockfileVersion: 5.4
 specifiers:
   '@achingbrain/ssdp': ^4.0.1
   '@sentry/electron': ^4.1.2
-  '@sentry/integrations': ^7.26.0
+  '@sentry/integrations': ^7.27.0
   '@types/adm-zip': ^0.5.0
   '@types/discord-rpc': 4.0.3
-  '@types/express': ^4.17.14
+  '@types/express': ^4.17.15
   '@types/node': ^18.11.15
   '@types/qrcode-terminal': ^0.12.0
   '@types/ws': ^8.5.3
@@ -60,7 +60,7 @@ specifiers:
 dependencies:
   '@achingbrain/ssdp': 4.0.1
   '@sentry/electron': 4.1.2
-  '@sentry/integrations': 7.26.0
+  '@sentry/integrations': 7.27.0
   adm-zip: 0.4.10
   airtunes2: github.com/ciderapp/node_airtunes2/ee2837bdc04135be9c6f881cfb696e6b41f83f40
   castv2-client: 1.2.0
@@ -101,11 +101,11 @@ dependencies:
 devDependencies:
   '@types/adm-zip': 0.5.0
   '@types/discord-rpc': 4.0.3
-  '@types/express': 4.17.14
+  '@types/express': 4.17.15
   '@types/node': 18.11.15
   '@types/qrcode-terminal': 0.12.0
   '@types/ws': 8.5.3
-  electron: github.com/castlabs/electron-releases/79f768fbadd8f3538c9b0a579dda214c896655cc
+  electron: github.com/castlabs/electron-releases/c4bbf72c1ad3fbc6e443d03fa6addaf853a5c237
   electron-builder: 23.6.0
   electron-builder-notarize-pkg: 1.2.0
   electron-webpack: 2.8.2_webpack@5.74.0
@@ -175,7 +175,7 @@ packages:
       convert-source-map: 1.9.0
       debug: 4.3.4
       gensync: 1.0.0-beta.2
-      json5: 2.2.1
+      json5: 2.2.2
       semver: 6.3.0
     transitivePeerDependencies:
       - supports-color
@@ -1882,12 +1882,12 @@ packages:
       - supports-color
     dev: false
 
-  /@sentry/integrations/7.26.0:
-    resolution: {integrity: sha512-5tyBA5BnZEuosSIvBP7mJz66xJaZTb/k1EzHEc0hR2Mw8QpLgMneDZBfi4vdbhxtGpJKC/gURoUGZf9hpwW+DA==}
+  /@sentry/integrations/7.27.0:
+    resolution: {integrity: sha512-2vrFKSV3YQkA6K5+v8sTh4gVi0FnqEEmSiZN8Isoj2AhIZYsOznD6DVz3UxfflObGlSZX1NJpeHG2m1HNxGSSQ==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.26.0
-      '@sentry/utils': 7.26.0
+      '@sentry/types': 7.27.0
+      '@sentry/utils': 7.27.0
       localforage: 1.10.0
       tslib: 1.14.1
     dev: false
@@ -1912,8 +1912,8 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
-  /@sentry/types/7.26.0:
-    resolution: {integrity: sha512-U2s0q3ALwWFdHJBgn8nrG9bCTJZ3hAqL/I2Si4Mf0ZWnJ/KTJKbtyrputHr8wMbHvX0NZTJGTxFVUO46J+GBRA==}
+  /@sentry/types/7.27.0:
+    resolution: {integrity: sha512-vapN3jchu3/WEMWQkrCOy2XDlOLj0l7IewYXKMr15Q21dlfM1QZMigU/r5rtYj5L8a2ISIHx+cRECxX5UIKH7w==}
     engines: {node: '>=8'}
     dev: false
 
@@ -1925,11 +1925,11 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@sentry/utils/7.26.0:
-    resolution: {integrity: sha512-nIC1PRyoMBi4QB7XNCWaPDqaQbPayMwAvUm6W3MC5bHPfVZmmFt+3sLZQKUD/E0NeQnJ3vTyPewPF/LfxLOE5A==}
+  /@sentry/utils/7.27.0:
+    resolution: {integrity: sha512-8e5cmjbeuxETPxPEymyyGEYlBbJO1IMveTlcxkTFySPU6nNz2oAIiqPVHv2QgFJJvRv79/i/4Tyl5gFMOW0+AA==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.26.0
+      '@sentry/types': 7.27.0
       tslib: 1.14.1
     dev: false
 
@@ -2013,8 +2013,8 @@ packages:
       '@types/range-parser': 1.2.4
     dev: true
 
-  /@types/express/4.17.14:
-    resolution: {integrity: sha512-TEbt+vaPFQ+xpxFLFssxUDXj5cWCxZJjIcB7Yg0k0GMHGtgtQgpvx/MUQUeAkNbA9AAGrwkAsoeItdTgS7FMyg==}
+  /@types/express/4.17.15:
+    resolution: {integrity: sha512-Yv0k4bXGOH+8a+7bELd2PqHQsuiANB+A8a4gnQrkRWzrkKlb6KHaVvyXhqs04sVW/OWlbPyYxRgYlIXLfrufMQ==}
     dependencies:
       '@types/body-parser': 1.19.2
       '@types/express-serve-static-core': 4.17.31
@@ -6052,8 +6052,8 @@ packages:
       minimist: 1.2.7
     dev: true
 
-  /json5/2.2.1:
-    resolution: {integrity: sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==}
+  /json5/2.2.2:
+    resolution: {integrity: sha512-46Tk9JiOL2z7ytNQWFLpj99RZkVgeHf87yGQKsIkaPz1qSH9UczKH1rO7K3wgRselo0tYMUNfecYpm/p1vC7tQ==}
     engines: {node: '>=6'}
     hasBin: true
     dev: true
@@ -6205,7 +6205,7 @@ packages:
     dependencies:
       big.js: 5.2.2
       emojis-list: 3.0.0
-      json5: 2.2.1
+      json5: 2.2.2
     dev: true
 
   /localforage/1.10.0:
@@ -7537,7 +7537,7 @@ packages:
       dotenv-expand: 5.1.0
       fs-extra: 8.1.0
       js-yaml: 3.14.1
-      json5: 2.2.1
+      json5: 2.2.2
       lazy-val: 1.0.5
     dev: true
 
@@ -7548,7 +7548,7 @@ packages:
       dotenv: 9.0.2
       dotenv-expand: 5.1.0
       js-yaml: 4.1.0
-      json5: 2.2.1
+      json5: 2.2.2
       lazy-val: 1.0.5
     dev: true
 
@@ -7844,8 +7844,8 @@ packages:
     hasBin: true
     dev: false
 
-  /rxjs/7.6.0:
-    resolution: {integrity: sha512-DDa7d8TFNUalGC9VqXvQ1euWNN7sc63TrUCuM9J998+ViviahMIjKSOU7rfcgFOF+FCD71BhDRv4hrFz+ImDLQ==}
+  /rxjs/7.8.0:
+    resolution: {integrity: sha512-F2+gxDshqmIub1KdvZkaEfGDwLNpPvk9Fs6LD/MyQxNgMds/WH9OdDDXOmxUZpME+iSK3rQCctkL0DYyytUqMg==}
     requiresBuild: true
     dependencies:
       tslib: 2.4.1
@@ -8834,7 +8834,7 @@ packages:
   /typed-emitter/2.1.0:
     resolution: {integrity: sha512-g/KzbYKbH5C2vPkaXGu8DJlHrGKHLsM25Zg9WuC9pMGfuvT+X25tZQWo5fK1BjBm8+UrVE9LDCvaY0CQk+fXDA==}
     optionalDependencies:
-      rxjs: 7.6.0
+      rxjs: 7.8.0
     dev: false
 
   /typedarray/0.0.6:
@@ -9550,10 +9550,10 @@ packages:
       got: 11.8.6
     dev: false
 
-  github.com/castlabs/electron-releases/79f768fbadd8f3538c9b0a579dda214c896655cc:
-    resolution: {tarball: https://codeload.github.com/castlabs/electron-releases/tar.gz/79f768fbadd8f3538c9b0a579dda214c896655cc}
+  github.com/castlabs/electron-releases/c4bbf72c1ad3fbc6e443d03fa6addaf853a5c237:
+    resolution: {tarball: https://codeload.github.com/castlabs/electron-releases/tar.gz/c4bbf72c1ad3fbc6e443d03fa6addaf853a5c237}
     name: electron
-    version: 23.0.0-alpha.2
+    version: 23.0.0-alpha.3
     engines: {node: '>= 12.20.55'}
     hasBin: true
     requiresBuild: true
