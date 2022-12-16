@@ -38,7 +38,7 @@ export class utils {
     rendererPath: path.join(__dirname, "../../src/renderer"),
     mainPath: path.join(__dirname, "../../src/main"),
     resourcePath: path.join(__dirname, "../../resources"),
-    i18nPath: path.join(__dirname, "../../src/i18n"),
+    i18nPath: path.join(__dirname, "../../src/cider-i18n"),
     i18nPathSrc: path.join(__dirname, "../../src/il8n/source"),
     ciderCache: path.resolve(app.getPath("userData"), "CiderCache"),
     themes: path.resolve(app.getPath("userData"), "Themes"),
