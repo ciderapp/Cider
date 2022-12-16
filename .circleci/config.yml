@@ -34,6 +34,9 @@ jobs:
           name: Clear node_airtunes2 cache
           command: rm -rf ~/.pnpm-store/tmp/_tmp_1469292_a6751613e03842bf2a6fa9a4b21c3e28 || true
       - run:
+          name: Initialize Submodules
+          command: git submodule update --init --recursive
+      - run:
           name: Install Node Dependencies
           command: pnpm install --frozen-lockfile
       - run:
