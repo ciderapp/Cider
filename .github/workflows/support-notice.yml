@@ -1,0 +1,18 @@
+name: Support Notice
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  post-notice:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: derekprior/add-autoresponse@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          respondableId: ${{ github.event.issue.node_id }}
+          response: "Support for Cider 1.0 is in a reduced state. Do not expect replies or acknowledgement for issues that do not break full functionality of the app (Media playback, plugin functionality etc.).\n\nIf you are interested in joining the Cider 2 open alpha, you can join our Discord [here](https://discord.gg/AppleMusic)."
+          author: ${{ github.event.issue.user.login }}
