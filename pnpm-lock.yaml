@@ -53,7 +53,7 @@ specifiers:
   vue-devtools: ^5.1.4
   wallpaper: 5.0.1
   webpack: ~5.74.0
-  ws: ^8.11.0
+  ws: ^8.12.0
   xml2js: ^0.4.23
   youtube-search-without-api-key: ^1.1.0
 
@@ -62,7 +62,7 @@ dependencies:
   '@sentry/electron': 4.1.2
   '@sentry/integrations': 7.29.0
   adm-zip: 0.4.10
-  airtunes2: github.com/ciderapp/node_airtunes2/ee2837bdc04135be9c6f881cfb696e6b41f83f40
+  airtunes2: github.com/ciderapp/node_airtunes2/670cf1598e9a84e64515912f409b357076f4d50e
   castv2-client: 1.2.0
   chokidar: 3.5.3
   discord-auto-rpc: 1.0.17
@@ -94,7 +94,7 @@ dependencies:
   upnp-mediarenderer-client: github.com/vapormusic/node-upnp-mediarenderer-client/d4856931500026eb6c4c67b3eb12c1c34755627e
   v8-compile-cache: 2.3.0
   wallpaper: 5.0.1
-  ws: 8.11.0
+  ws: 8.12.0
   xml2js: 0.4.23
   youtube-search-without-api-key: 1.1.0
 
@@ -2670,8 +2670,8 @@ packages:
     resolution: {integrity: sha512-08kcGqnYf/YmjoRhfxyu+CLxBjUtHLXLXX/vUfx9l2LYzG3c1m61nrpyFUZI6zeS+Li/wWMMidD9KgrqtGq3mA==}
     dev: false
 
-  /aws4/1.11.0:
-    resolution: {integrity: sha512-xh1Rl34h6Fi1DC2WWKfxUTVqRsNnr6LsKz2+hfwDxQJWmrx8+c7ylaqBMcHfl1U1r2dsifOvKX3LQuLNZ+XSvA==}
+  /aws4/1.12.0:
+    resolution: {integrity: sha512-NmWvPnx0F1SfrQbYwOi7OeaNGokp9XhzNioJ/CSBs8Qa4vxug81mhJEAVZwxXuBmYB5KDRfMq/F3RR0BIU7sWg==}
     dev: false
 
   /babel-loader/8.3.0_fzlwazi7nboub3int6sfk7gbca:
@@ -6808,6 +6808,11 @@ packages:
     engines: {node: '>= 6.0.0'}
     dev: true
 
+  /node-gyp-build/4.6.0:
+    resolution: {integrity: sha512-NTZVKn9IylLwUzaKjkas1e4u2DLNcV4rdYagA4PWdPwW87Bi7z+BznyKSRwS/761tV/lzCGXplWsiaMjLqP2zQ==}
+    hasBin: true
+    dev: false
+
   /node-gyp/9.3.1:
     resolution: {integrity: sha512-4Q16ZCqq3g8awk6UplT7AuxQ35XN4R/yf/+wSAwcBUAjg7l58RTactWaP8fIDTi0FzI7YcVLujwExakZlfWkXg==}
     engines: {node: ^12.13 || ^14.13 || >=16}
@@ -7770,7 +7775,7 @@ packages:
     deprecated: request has been deprecated, see https://github.com/request/request/issues/3142
     dependencies:
       aws-sign2: 0.7.0
-      aws4: 1.11.0
+      aws4: 1.12.0
       caseless: 0.12.0
       combined-stream: 1.0.8
       extend: 3.0.2
@@ -9064,6 +9069,14 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /utf-8-validate/6.0.0:
+    resolution: {integrity: sha512-OCJuwxQsnG51swYmNloViggxNOFO/leOZpnb/vVeoastJbrzrZZU7lGsYlUcdkCl9nsBu2nkKLjpljb3Ckvb/Q==}
+    engines: {node: '>=6.14.2'}
+    requiresBuild: true
+    dependencies:
+      node-gyp-build: 4.6.0
+    dev: false
+
   /utf8-byte-length/1.0.4:
     resolution: {integrity: sha512-4+wkEYLBbWxqTahEsWrhxepcoVOJ+1z5PGIjPZxRkytcdSUaNjIjBM7Xn8E+pdSuV7SzvWovBFA54FO0JSoqhA==}
     dev: true
@@ -9448,17 +9461,32 @@ packages:
         optional: true
     dev: false
 
-  /ws/8.11.0:
-    resolution: {integrity: sha512-HPG3wQd9sNQoT9xHyNCXoDUa+Xw/VevmY9FoHyQ+g+rrMn4j6FB4np7Z0OhdTgjx6MgQLK7jwSy1YecU1+4Asg==}
+  /ws/8.12.0:
+    resolution: {integrity: sha512-kU62emKIdKVeEIOIKVegvqpXMSTAMLJozpHZaJNDYqBjzlSYXQGviYwN1osDLJ9av68qHd4a2oSjd7yD4pacig==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
-      utf-8-validate: ^5.0.2
+      utf-8-validate: '>=5.0.2'
     peerDependenciesMeta:
       bufferutil:
         optional: true
       utf-8-validate:
         optional: true
+    dev: false
+
+  /ws/8.12.0_utf-8-validate@6.0.0:
+    resolution: {integrity: sha512-kU62emKIdKVeEIOIKVegvqpXMSTAMLJozpHZaJNDYqBjzlSYXQGviYwN1osDLJ9av68qHd4a2oSjd7yD4pacig==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: '>=5.0.2'
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+    dependencies:
+      utf-8-validate: 6.0.0
     dev: false
 
   /xhr/2.6.0:
@@ -9664,8 +9692,8 @@ packages:
       - supports-color
     dev: false
 
-  github.com/ciderapp/node_airtunes2/ee2837bdc04135be9c6f881cfb696e6b41f83f40:
-    resolution: {tarball: https://codeload.github.com/ciderapp/node_airtunes2/tar.gz/ee2837bdc04135be9c6f881cfb696e6b41f83f40}
+  github.com/ciderapp/node_airtunes2/670cf1598e9a84e64515912f409b357076f4d50e:
+    resolution: {tarball: https://codeload.github.com/ciderapp/node_airtunes2/tar.gz/670cf1598e9a84e64515912f409b357076f4d50e}
     name: airtunes2
     version: 2.3.8
     hasBin: true
@@ -9688,8 +9716,12 @@ packages:
       prebuild-install: github.com/ciderapp/prebuild-install/876e1490036566c8b396789fa2069a2eaacb25bf
       python-struct: 1.1.3
       simple-plist: 1.3.1
+      utf-8-validate: 6.0.0
       varint: 6.0.0
+      ws: 8.12.0_utf-8-validate@6.0.0
       yargs: 9.0.1
+    transitivePeerDependencies:
+      - bufferutil
     dev: false
 
   github.com/ciderapp/prebuild-install/876e1490036566c8b396789fa2069a2eaacb25bf:
