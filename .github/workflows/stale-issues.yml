@@ -19,4 +19,4 @@ jobs:
           stale-issue-label: "stale"
           stale-pr-label: "stale"
           exempt-all-assignees: true
-          exempt-issue-labels: 'more-info,work-in-progress,accessibility-feature,help-wanted,persist'
+          exempt-issue-labels: 'more-info,work-in-progress,accessibility-feature,help-wanted,persist/priority'
