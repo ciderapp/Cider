@@ -1490,7 +1490,7 @@
                                     </div>
                                 </div>
 
-                                <div class="md-option-line update-check" v-if="app.platform === 'win32'">
+                                <div class="md-option-line update-check" v-if="app.platform === 'win32' || app.platform === 'linux'">
                                     <div class="md-option-segment">
                                         {{$root.getLz('settings.option.visual.transparent')}}<br>
                                         <small>({{$root.getLz('settings.option.visual.transparent.description')}})</small>
