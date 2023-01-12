@@ -2,8 +2,8 @@ lockfileVersion: 5.4
 
 specifiers:
   '@achingbrain/ssdp': ^4.0.1
-  '@sentry/electron': ^4.1.2
-  '@sentry/integrations': ^7.29.0
+  '@sentry/electron': ^4.2.0
+  '@sentry/integrations': ^7.30.0
   '@types/adm-zip': ^0.5.0
   '@types/discord-rpc': 4.0.3
   '@types/express': ^4.17.15
@@ -59,8 +59,8 @@ specifiers:
 
 dependencies:
   '@achingbrain/ssdp': 4.0.1
-  '@sentry/electron': 4.1.2
-  '@sentry/integrations': 7.29.0
+  '@sentry/electron': 4.2.0
+  '@sentry/integrations': 7.30.0
   adm-zip: 0.4.10
   airtunes2: github.com/ciderapp/node_airtunes2/670cf1598e9a84e64515912f409b357076f4d50e
   castv2-client: 1.2.0
@@ -105,7 +105,7 @@ devDependencies:
   '@types/node': 18.11.18
   '@types/qrcode-terminal': 0.12.0
   '@types/ws': 8.5.4
-  electron: github.com/castlabs/electron-releases/c4bbf72c1ad3fbc6e443d03fa6addaf853a5c237
+  electron: github.com/castlabs/electron-releases/a3183743ee1990f40ff462c0cd863962635d6210
   electron-builder: 23.6.0
   electron-builder-notarize-pkg: 1.2.0
   electron-webpack: 2.8.2_webpack@5.74.0
@@ -1853,56 +1853,57 @@ packages:
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
     dev: false
 
-  /@sentry/browser/7.16.0:
-    resolution: {integrity: sha512-tJ063zvoF8Raw7mzQEXupOFPSN6v36WIbsDVGeFdToPCwViaBuATaxvWCrudGzsnBkMyItmTLJkzn9SEIXUOiw==}
+  /@sentry/browser/7.30.0:
+    resolution: {integrity: sha512-9hpaNAqIBDLdnrZ51iWkqenRotqqweE1f2AlHO56nyT/UE+u+GdmAiBrgRNqdFQQM13JtTG/gu4HGOyLWb9HEA==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/core': 7.16.0
-      '@sentry/types': 7.16.0
-      '@sentry/utils': 7.16.0
+      '@sentry/core': 7.30.0
+      '@sentry/replay': 7.30.0_@sentry+browser@7.30.0
+      '@sentry/types': 7.30.0
+      '@sentry/utils': 7.30.0
       tslib: 1.14.1
     dev: false
 
-  /@sentry/core/7.16.0:
-    resolution: {integrity: sha512-vq6H1b/IPTvzDD9coQ3wIudvSjkAYuUlXb1dv69dRlq4v3st9dcKBps1Zf0lQ1i4TVlDLoe1iGMmNFglMF1Q5w==}
+  /@sentry/core/7.30.0:
+    resolution: {integrity: sha512-NeLigkBlpcK63ymM63GoIHurml6V3BUe1Vi+trwm4/qqOTzT7PQhvdJCX+o3+atzRBH+zdb6kd4VWx44Oye3KA==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.16.0
-      '@sentry/utils': 7.16.0
+      '@sentry/types': 7.30.0
+      '@sentry/utils': 7.30.0
       tslib: 1.14.1
     dev: false
 
-  /@sentry/electron/4.1.2:
-    resolution: {integrity: sha512-4U1PKjNBXv6kml4HPdhIc5HkOH1+2AfrpvHP36AnD+XHFEa6FS7xWAwEraC5YcFBIVkEE8iSsR5PhSNa5rtLZA==}
+  /@sentry/electron/4.2.0:
+    resolution: {integrity: sha512-9r7Kb4BOPXNClsYvzWJ1Nppf5cL8sck9Li4KIAgCq/ofogPiE54fbUdJtx5Fkagon5sBSjy0gu74xuhnPexhoA==}
     dependencies:
-      '@sentry/browser': 7.16.0
-      '@sentry/core': 7.16.0
-      '@sentry/node': 7.16.0
-      '@sentry/types': 7.16.0
-      '@sentry/utils': 7.16.0
+      '@sentry/browser': 7.30.0
+      '@sentry/core': 7.30.0
+      '@sentry/node': 7.30.0
+      '@sentry/types': 7.30.0
+      '@sentry/utils': 7.30.0
       deepmerge: 4.2.2
       tslib: 2.4.1
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /@sentry/integrations/7.29.0:
-    resolution: {integrity: sha512-BkZe3ALij320VtC5bNkeSz3OUhT9oxZsj2lf5rCuRFqcqw4tvVNADF/Y98mf0L4VCy582M9MlNXmwfewJjxGOA==}
+  /@sentry/integrations/7.30.0:
+    resolution: {integrity: sha512-KU8TnJm1Yldxnhdu/EZcIGXU9ptGQPk6ot4smcNx/mKsy575VrDdyVDx8uIYURWyfsg7eOayt6VdC7ISSODp8A==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.29.0
-      '@sentry/utils': 7.29.0
+      '@sentry/types': 7.30.0
+      '@sentry/utils': 7.30.0
       localforage: 1.10.0
       tslib: 1.14.1
     dev: false
 
-  /@sentry/node/7.16.0:
-    resolution: {integrity: sha512-OC0TO6UTetv8IsX3zNhdeui7YVIQCnhkbfi+CMrB6YsHaMP2A9qH5gNyu/hKbaY9+4xci7e4rxyRmI65aKS9ow==}
+  /@sentry/node/7.30.0:
+    resolution: {integrity: sha512-YYasu6C3I0HBP4N1oc/ed2nunxhGJgtAWaKwq3lo8uk3uF6cB1A8+2e0CpjzU5ejhbaFPUBxHyj4th39Bvku/w==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/core': 7.16.0
-      '@sentry/types': 7.16.0
-      '@sentry/utils': 7.16.0
+      '@sentry/core': 7.30.0
+      '@sentry/types': 7.30.0
+      '@sentry/utils': 7.30.0
       cookie: 0.4.2
       https-proxy-agent: 5.0.1
       lru_map: 0.3.3
@@ -1911,29 +1912,28 @@ packages:
       - supports-color
     dev: false
 
-  /@sentry/types/7.16.0:
-    resolution: {integrity: sha512-i6D+OK6d0l/k+VQvRp/Pt21WkDEgVBUIZq+sOkEZJczbcfexVdXKeXXoYTD2vYuFq8Yy28fzlsZaKI+NoH94yQ==}
+  /@sentry/replay/7.30.0_@sentry+browser@7.30.0:
+    resolution: {integrity: sha512-qJgz1tG0uStqMF5V7gN7KqxZuZY0MMQQY7siwPcSQVYj7X3AQswHjmvD4npEKbIa+jP6aQ6fFjoBjl3c0t3Mmg==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      '@sentry/browser': '>=7.24.0'
+    dependencies:
+      '@sentry/browser': 7.30.0
+      '@sentry/core': 7.30.0
+      '@sentry/types': 7.30.0
+      '@sentry/utils': 7.30.0
+    dev: false
+
+  /@sentry/types/7.30.0:
+    resolution: {integrity: sha512-l4A86typvt/SfWh5JffpdxNGkg5EEA8m35BzpIcKmCAQZUDmnb4b478r8jdD2uuOjLmPNmZr1tifdRW4NCLuxQ==}
     engines: {node: '>=8'}
     dev: false
 
-  /@sentry/types/7.29.0:
-    resolution: {integrity: sha512-DmoEpoqHPty3VxqubS/5gxarwebHRlcBd/yuno+PS3xy++/i9YPjOWLZhU2jYs1cW68M9R6CcCOiC9f2ckJjdw==}
-    engines: {node: '>=8'}
-    dev: false
-
-  /@sentry/utils/7.16.0:
-    resolution: {integrity: sha512-3Zh1txg7IRp4kZAdG27YF7K6lD1IZyuAo9KjoPg1Xzqa4DOZyASJuEkbf+rK2a9T4HrtVHHXJUsNbKg8WM3VHg==}
+  /@sentry/utils/7.30.0:
+    resolution: {integrity: sha512-tSlBhr5u/LdE2emxIDTDmjmyRr99GnZGIAh5GwRxUgeDQ3VEfNUFlyFodBCbZ6yeYTYd6PWNih5xoHn1+Rf3Sw==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.16.0
-      tslib: 1.14.1
-    dev: false
-
-  /@sentry/utils/7.29.0:
-    resolution: {integrity: sha512-ICcBwTiBGK8NQA8H2BJo0JcMN6yCeKLqNKNMVampRgS6wSfSk1edvcTdhRkW3bSktIGrIPZrKskBHyMwDGF2XQ==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/types': 7.29.0
+      '@sentry/types': 7.30.0
       tslib: 1.14.1
     dev: false
 
@@ -2581,7 +2581,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.21.0
+      es-abstract: 1.21.1
       es-array-method-boxes-properly: 1.0.0
       is-string: 1.0.7
     dev: true
@@ -2928,7 +2928,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001442
+      caniuse-lite: 1.0.30001443
       electron-to-chromium: 1.4.284
       node-releases: 2.0.8
       update-browserslist-db: 1.0.10_browserslist@4.21.4
@@ -3123,8 +3123,8 @@ packages:
     resolution: {integrity: sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==}
     engines: {node: '>=6'}
 
-  /caniuse-lite/1.0.30001442:
-    resolution: {integrity: sha512-239m03Pqy0hwxYPYR5JwOIxRJfLTWtle9FV8zosfV5pHg+/51uD4nxcUlM8+mWWGfwKtt8lJNHnD3cWw9VZ6ow==}
+  /caniuse-lite/1.0.30001443:
+    resolution: {integrity: sha512-jUo8svymO8+Mkj3qbUbVjR8zv8LUGpGkUM/jKvc9SO2BvjCI980dp9fQbf/dyLs6RascPzgR4nhAKFA4OHeSaA==}
     dev: true
 
   /caseless/0.12.0:
@@ -4275,10 +4275,11 @@ packages:
       is-arrayish: 0.2.1
     dev: false
 
-  /es-abstract/1.21.0:
-    resolution: {integrity: sha512-GUGtW7eXQay0c+PRq0sGIKSdaBorfVqsCMhGHo4elP7YVqZu9nCZS4UkK4gv71gOWNMra/PaSKD3ao1oWExO0g==}
+  /es-abstract/1.21.1:
+    resolution: {integrity: sha512-QudMsPOz86xYz/1dG1OuGBKOELjCh99IIWHLzy5znUB6j8xG2yMA7bfTV86VSqKF+Y/H08vQPR+9jyXpuC6hfg==}
     engines: {node: '>= 0.4'}
     dependencies:
+      available-typed-arrays: 1.0.5
       call-bind: 1.0.2
       es-set-tostringtag: 2.0.1
       es-to-primitive: 1.2.1
@@ -4942,7 +4943,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.21.0
+      es-abstract: 1.21.1
       functions-have-names: 1.2.3
     dev: true
 
@@ -6778,8 +6779,8 @@ packages:
       tslib: 2.4.1
     dev: true
 
-  /node-abi/3.30.0:
-    resolution: {integrity: sha512-qWO5l3SCqbwQavymOmtTVuCWZE23++S+rxyoHjXqUmPyzRcaoI4lA2gO55/drddGnedAyjA7sk76SfQ5lfUMnw==}
+  /node-abi/3.31.0:
+    resolution: {integrity: sha512-eSKV6s+APenqVh8ubJyiu/YhZgxQpGP66ntzUb3lY1xB9ukSRaGnx0AIxI+IM+1+IVYC1oWobgG5L3Lt9ARykQ==}
     engines: {node: '>=10'}
     dependencies:
       semver: 7.3.8
@@ -6993,7 +6994,7 @@ packages:
       array.prototype.reduce: 1.0.5
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.21.0
+      es-abstract: 1.21.1
     dev: true
 
   /object.pick/1.3.0:
@@ -7498,8 +7499,8 @@ packages:
     resolution: {integrity: sha512-RofWgt/7fL5wP1Y7fxE7/EmTLzQVnB0ycyibJ0OOHIlJqTNzglYFxVwETOcIoJqJmpDXJ9xImDv+Fq34F/d4Dw==}
     dev: true
 
-  /punycode/2.1.1:
-    resolution: {integrity: sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==}
+  /punycode/2.2.0:
+    resolution: {integrity: sha512-LN6QV1IJ9ZhxWTNdktaPClrNfp8xdSAYS0Zk2ddX7XsXZAxckMHPCBcHRo0cTcEIgYPRiGEkmji3Idkh2yFtYw==}
     engines: {node: '>=6'}
 
   /python-struct/1.1.3:
@@ -8512,7 +8513,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.21.0
+      es-abstract: 1.21.1
     dev: true
 
   /string.prototype.trimstart/1.0.6:
@@ -8520,7 +8521,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.21.0
+      es-abstract: 1.21.1
     dev: true
 
   /string_decoder/0.10.31:
@@ -8838,7 +8839,7 @@ packages:
     engines: {node: '>=0.8'}
     dependencies:
       psl: 1.9.0
-      punycode: 2.1.1
+      punycode: 2.2.0
     dev: false
 
   /tr46/0.0.3:
@@ -9026,7 +9027,7 @@ packages:
   /uri-js/4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
     dependencies:
-      punycode: 2.1.1
+      punycode: 2.2.0
 
   /urix/0.1.0:
     resolution: {integrity: sha512-Am1ousAhSLBeB9cG/7k7r2R0zj50uDRlZHPGbazid5s9rlF1F/QKYObEKSIunSjIOkJZqwRRLpvewjEkM7pSqg==}
@@ -9652,10 +9653,10 @@ packages:
       got: 11.8.6
     dev: false
 
-  github.com/castlabs/electron-releases/c4bbf72c1ad3fbc6e443d03fa6addaf853a5c237:
-    resolution: {tarball: https://codeload.github.com/castlabs/electron-releases/tar.gz/c4bbf72c1ad3fbc6e443d03fa6addaf853a5c237}
+  github.com/castlabs/electron-releases/a3183743ee1990f40ff462c0cd863962635d6210:
+    resolution: {tarball: https://codeload.github.com/castlabs/electron-releases/tar.gz/a3183743ee1990f40ff462c0cd863962635d6210}
     name: electron
-    version: 23.0.0-alpha.3
+    version: 23.0.0-beta.1
     engines: {node: '>= 12.20.55'}
     hasBin: true
     requiresBuild: true
@@ -9737,7 +9738,7 @@ packages:
       minimist: 1.2.7
       mkdirp-classic: 0.5.3
       napi-build-utils: 1.0.2
-      node-abi: 3.30.0
+      node-abi: 3.31.0
       pump: 3.0.0
       rc: 1.2.8
       simple-get: 4.0.1
