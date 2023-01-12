@@ -20,7 +20,7 @@ body:
         - label: I have searched the [issue tracker](https://www.github.com/ciderapp/Cider/issues) for a bug report that matches the one I want to file, without success.
           required: true
         - label: I have read the [troublshooting FAQs](https://cider.gitbook.io/welcome-to-gitbook/support/faqs#why-is-my-discordrpc-status-not-appearing) and none solved my issue.
-          requried: true
+          required: true
   - type: input
     attributes:
       label: Cider Version
