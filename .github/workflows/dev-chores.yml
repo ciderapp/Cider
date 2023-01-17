@@ -15,25 +15,17 @@ jobs:
         - name: Checkout 🛎
           uses: actions/checkout@v3
 
-        - uses: pnpm/action-setup@v2
-          name: Setup pnpm 🚧
-          id: pnpm-install
-          with:
-            version: 7
-            run_install: false
-
         - name: Setup node env 🏗
           uses: actions/setup-node@v3
           with:
             node-version: ${{ matrix.node }}
             check-latest: true
-            cache: 'pnpm'
 
         - name: Install dependencies 👨🏻‍💻
-          run: pnpm install
+          run: npm run bootstrap
 
         - name: Run linter 👀
-          run: pnpm format:write
+          run: npm run format:write
 
         - name: Comment Suggestions 🗒️
           uses: getsentry/action-git-diff-suggestions@main
