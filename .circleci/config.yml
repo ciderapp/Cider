@@ -46,7 +46,7 @@ jobs:
           at: ~/project
       - run:
           name: Generate Builds (Linux)
-          command: h electron-builder -l -p never
+          command: yarn electron-builder -l -p never
       - persist_to_workspace:
           root: .
           paths:
