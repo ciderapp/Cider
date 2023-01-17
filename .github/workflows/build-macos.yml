@@ -73,7 +73,7 @@ jobs:
           APPLE_ID_PASSWORD: ${{ secrets.APPLEIDPASS }}
           PSC_NAME: ${{ secrets.PSC_NAME }}
           DEVELOPER_DIR: /Applications/Xcode_12.4.app/Contents/Developer
-        run: npm run dist -m -p never
+        run: npm run dist -m --publish=never
 
       - name: Add license to DMG
         run: npx dmg-license resources/license.json dist/*.dmg
