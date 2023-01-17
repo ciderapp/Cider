@@ -109,7 +109,7 @@
                                         :class="$root.isDisabled() && 'disabled'"
                                         @click="$root.mk.repeatMode = 1" :title="$root.getLz('term.enableRepeatOne')"
                                         v-b-tooltip.hover></button>
-                                <button class="playback-button--small repeat repeatOne" @click="mk.repeatMode = 2"
+                                <button class="playback-button--small repeat repeatOne" @click="$root.mk.repeatMode = 2"
                                         :class="$root.isDisabled() && 'disabled'" v-else-if="$root.mk.repeatMode == 1"
                                         :title="$root.getLz('term.disableRepeatOne')" v-b-tooltip.hover></button>
                                 <button class="playback-button--small repeat active" @click="$root.mk.repeatMode = 0"
