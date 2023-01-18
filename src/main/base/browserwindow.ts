@@ -428,8 +428,12 @@ export class BrowserWindow {
         }
         break;
       case "linux":
-        this.options.backgroundColor = "#1E1E1E";
         this.options.autoHideMenuBar = true;
+        if (!(utils.getStoreValue("visual.transparent") ?? false)) {
+          this.options.backgroundColor = "#1E1E1E";
+        } else {
+          this.options.transparent = true;
+        }
         if (utils.getStoreValue("visual.nativeTitleBar")) {
           this.options.titleBarStyle = "visible";
           this.options.frame = true;

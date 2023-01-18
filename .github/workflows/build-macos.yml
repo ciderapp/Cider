@@ -35,24 +35,17 @@ jobs:
           fetch-depth: 0
           submodules: true
 
-      - uses: pnpm/action-setup@v2.2.4
-        with:
-          version: 7
-
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
+          cache: 'npm'
 
       - name: Run Version Script
         env:
           GH_REQUEST_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         run: |
           sudo chmod +x resources/version.sh && ./resources/version.sh || true
-
-      - name: Clear node_airtunes2 cache
-        run: rm -rf ~/Library/pnpm/store/v3/tmp/cf5bc2de2629636ca224995234b8eaa1 || true
 
       - name: Sign in to EVS
         run: |
@@ -64,7 +57,7 @@ jobs:
 
       - name: Install and Configure Node Modules
         run: |
-          pnpm install
+          npm run bootstrap
           cp resources/verror-types node_modules/@types/verror/index.d.ts
           cp resources/macPackager.js node_modules/app-builder-lib/out/macPackager.js
           rm -r node_modules/pouchdb-node/node_modules/leveldown || true
@@ -80,7 +73,7 @@ jobs:
           APPLE_ID_PASSWORD: ${{ secrets.APPLEIDPASS }}
           PSC_NAME: ${{ secrets.PSC_NAME }}
           DEVELOPER_DIR: /Applications/Xcode_12.4.app/Contents/Developer
-        run: pnpm dist:universalNotWorking -p never
+        run: npm run dist -m --publish=never
 
       - name: Add license to DMG
         run: npx dmg-license resources/license.json dist/*.dmg
@@ -135,16 +128,4 @@ jobs:
           repo_token: ${{ secrets.RELEASE_TOKEN }}
           file: dist/Cider-${{ env.APP_VERSION }}-universal.pkg
           tag: v${{ env.RELEASE_VERSION }}
-      - name: Trigger Bot Sync (main)
-        uses: indiesdev/curl@v1.1
-        with:
-          url: http://129.146.42.180/api/v1/github/sync/main
-          log-response: true
-          timeout: 60000
-      - name: Trigger Bot Sync (stable)
-        uses: indiesdev/curl@v1.1
-        with:
-          url: http://129.146.42.180/api/v1/github/sync/stable
-          log-response: true
-          timeout: 60000
 

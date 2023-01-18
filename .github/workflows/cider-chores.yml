@@ -6,46 +6,6 @@ on:
       - main
 
 jobs:
-  update-packages:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18]
-
-    permissions:
-      contents: write
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          # Make sure the actual branch is checked out when running on pull requests
-          ref: ${{ github.head_ref }}
-
-      - uses: pnpm/action-setup@v2
-        name: Setup pnpm 🚧
-        id: pnpm-install
-        with:
-          version: 7
-          run_install: false
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
-
-      - name: Update lockfile
-        run: pnpm update
-
-      - name: Commit Updated Lockfile
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "chore: Updated Lockfile"
-          commit_user_name: "cider-chore[bot]"
-          commit_user_email: "cider-chore[bot]@users.noreply.github.com"
-
   prettier:
     runs-on: ubuntu-latest
 
