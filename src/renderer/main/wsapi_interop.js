@@ -171,6 +171,10 @@ const wsapi = {
         .then(function () {
           ipcRenderer.send("wsapi-rate", kind, id, rating);
         });
+    } else if (rating === undefined) {
+      app.getRating({ type: truekind, id: id }).then((rating) => {
+        ipcRenderer.send("wsapi-rate", kind, id, rating);
+      });
     } else {
       app.mk.api.v3
         .music(
