@@ -14,7 +14,7 @@
   "homepage": "https://cider.sh/",
   "buildResources": "resources",
   "scripts": {
-    "bootstrap": "npm install --legacy-peer-deps",
+    "bootstrap": "npx -y check-engine && npm install --legacy-peer-deps --verbose",
     "build": "tsc && lessc ./src/renderer/style.less ./src/renderer/style.css",
     "start": "npm run build && electron ./build/index.js",
     "dist": "npm run build && electron-builder",
@@ -137,9 +137,7 @@
     ],
     "linux": {
       "target": [
-        "AppImage",
-        "deb",
-        "snap"
+        "AppImage"
       ],
       "synopsis": "A new look into listening and enjoying music in style and performance. ",
       "category": "AudioVideo",
@@ -221,5 +219,9 @@
   },
   "electronWebpack": {
     "devtool": "source-map"
+  },
+  "engines": {
+    "node": "^19 || ^18 || ^16 || ^14.19",
+    "npm": ">= 6.13.4"
   }
 }
