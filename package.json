@@ -83,7 +83,7 @@
     "prettier": "2.7.1",
     "typescript": "^4.9.4",
     "vue-devtools": "^5.1.4",
-    "webpack": "~5.74.0"
+    "webpack": "~5.76.0"
   },
   "fileAssociations": [
     {
