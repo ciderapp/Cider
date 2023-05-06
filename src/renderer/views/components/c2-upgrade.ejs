@@ -1,0 +1,105 @@
+<template
+  type="text/x-template"
+  id="c2-upgrade">
+  <div
+    class="modal-fullscreen addtoplaylist-panel"
+    @click.self="closePromo"
+    @contextmenu.self="closePromo">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title">Cider 2 Free Upgrade - Last Call!</div>
+        <button
+          class="close-btn"
+          @click="closePromo"
+          :aria-label="app.getLz('action.close')"></button>
+      </div>
+      <div
+        class="modal-content"
+        style="text-align: center">
+        <img
+          src="./assets/c1-c2.png"
+          style="margin: 12px 22px 0;pointer-events: none;" />
+        <p
+          class="p-3"
+          style="font-size: 14px">
+          Earlier this year, we released Cider 2, a complete rewrite of Cider. Cider 2 is a paid upgrade,
+          <br />
+          but we're offering it for free to all Cider users who purchased Cider 1 on or after November 30th, 2022.
+
+          <br />
+          <br />
+          If you are eligible for a free upgrade, you can download Cider 2 from the Microsoft Store.
+          <br />
+
+          <br />
+          <b> The cutoff date for this upgrade is: <br />June, 30th 2023. </b>
+          <br />
+          <br />
+          <label>
+            <input
+              type="checkbox"
+              style="accent-color: var(--keyColor)"
+              v-model="showOnStartup" />
+            Show this offer again on next startup
+          </label>
+          <template v-if="hasSeen">
+            <br />
+            <label>
+              <input
+                type="checkbox"
+                style="accent-color: var(--keyColor)"
+                v-model="removeItemFromMainMenu" />
+              Remove upgrade item from Main Menu
+            </label>
+          </template>
+        </p>
+      </div>
+      <div
+        class="modal-search"
+        style="padding: 12px">
+        <button
+          class="btn btn-primary"
+          @click="openStore"
+          style="width: 100%">
+          Open in Microsoft Store
+        </button>
+        <button
+          class="btn btn-secondary"
+          @click="closePromo"
+          style="width: 100%; margin-top: 1em">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  Vue.component("c2-upgrade", {
+    template: "#c2-upgrade",
+    data: function () {
+      return {
+        app: this.$root,
+        showOnStartup: true,
+        hasSeen: localStorage.getItem("seenC2Upgrade"),
+        removeItemFromMainMenu: false,
+      };
+    },
+    methods: {
+      closePromo() {
+        this.app.modals.c2Upgrade = false;
+        if (!this.showOnStartup) {
+          localStorage.setItem("noC2Startup", true);
+        }
+        if (this.removeItemFromMainMenu) {
+          localStorage.setItem("noC2Upgrade", true);
+          app.chrome.noC2Upgrade = true;
+        }
+        localStorage.setItem("seenC2Upgrade", true);
+      },
+      openStore() {
+        window.open("https://www.microsoft.com/store/productId/9PL8WPH0QK9M");
+      },
+    },
+  });
+</script>
