@@ -38,12 +38,6 @@ jobs:
             path: $(YARN_CONFIG_CACHE)
           displayName: Cache yarn
 
-      - script: |
-          corepack enable
-          corepack prepare pnpm@latest --activate
-          pnpm config set store-dir $(PNPM_CONFIG_CACHE)
-        displayName: "Setup pnpm"
-
       # Install dependencies (frozen-lockfile for non-PR builds)
       - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
         - script: yarn --immutable
@@ -93,12 +87,6 @@ jobs:
             key: 'yarn | "$(Agent.OS)" | yarn.lock'
             path: $(YARN_CONFIG_CACHE)
           displayName: Cache yarn
-
-      - script: |
-          corepack enable
-          corepack prepare pnpm@latest --activate
-          pnpm config set store-dir $(PNPM_CONFIG_CACHE)
-        displayName: "Setup pnpm"
 
       # Install dependencies (frozen-lockfile for non-PR builds)
       - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
