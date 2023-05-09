@@ -22,7 +22,7 @@ jobs:
           command: git submodule update --init --recursive
       - run:
           name: Install Node Dependencies
-          command: npm run bootstrap
+          command: npm run bootstrap && yarn install
       - run:
           name: TypeScript Compile
           command: npm run build
