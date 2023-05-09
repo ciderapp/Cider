@@ -1,20 +1,134 @@
-# Node.js
-# Build a general Node.js project with npm.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+# Cider-1 Azure Pipeline Workflow
+# Maintained by Cider Devops.
+# Don't make changes unless you know what you're doing.
 
 trigger:
-- stable
+  branches:
+    include:
+      - main
+  paths:
+    include:
+    - src/**/*
+    - src-electron/**/*
+    - azure-pipelines.yml
 
-pool: default
+variables:
+  COMMIT_URL: "$(Build.Repository.Uri)/commit/$(Build.SourceVersion)"
+  BUILD_URL: "$(System.CollectionUri)/$(System.TeamProject)/_build/results?buildId=$(Build.BuildId)"
+  YARN_CONFIG_CACHE: $(Pipeline.Workspace)/.yarn/cache
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+jobs:
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+  # Linux Production Build Test
+  # This job is used to test the production build of the Linux distribution.
+  # Also tests Pull Requests.
+  - job: compile_linux
+    displayName: "Compile Linux Distribution"
+    pool: Linux
+    steps:
+      - task: NodeTool@0
+        displayName: "Install Node.js"
+        inputs:
+          versionSource: "fromFile"
+          versionFilePath: ".nvmrc"
+
+      - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
+        - task: Cache@2
+          inputs:
+            key: 'yarn | "$(Agent.OS)" | yarn.lock'
+            path: $(YARN_CONFIG_CACHE)
+          displayName: Cache yarn
+
+      - script: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+          pnpm config set store-dir $(PNPM_CONFIG_CACHE)
+        displayName: "Setup pnpm"
+
+      # Install dependencies (frozen-lockfile for non-PR builds)
+      - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
+        - script: yarn --immutable
+          displayName: "Install Dependencies"
+      - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+        - script: yarn
+          displayName: "Install Dependencies"
+
+      - script: yarn dist:linux
+        displayName: "Compile Distribution"
+
+      - task: CopyFiles@2
+        displayName: "Copy to artifacts staging directory"
+        inputs:
+          SourceFolder: "dist"
+          Contents: "*.AppImage"
+          targetFolder: $(Build.ArtifactStagingDirectory)
+
+      - task: PublishBuildArtifacts@1
+        displayName: Upload Artifacts
+        inputs:
+          ArtifactName: "Cider-2"
+          publishLocation: "Container"
+
+      - task: DownloadBuildArtifacts@1
+        inputs:
+          buildType: 'current'
+          downloadType: 'specific'
+          downloadPath: '$(System.ArtifactsDirectory)'
+
+  # Windows Production Build Test
+  # This job is used to test the production build of the Windows distribution.
+  # Also tests Pull Requests.
+  - job: compile_windows
+    displayName: "Compile Windows Distribution"
+    pool: Linux
+    steps:
+      - task: NodeTool@0
+        displayName: "Install Node.js"
+        inputs:
+          versionSource: "fromFile"
+          versionFilePath: ".nvmrc"
+
+      - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
+        - task: Cache@2
+          inputs:
+            key: 'yarn | "$(Agent.OS)" | yarn.lock'
+            path: $(YARN_CONFIG_CACHE)
+          displayName: Cache yarn
+
+      - script: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+          pnpm config set store-dir $(PNPM_CONFIG_CACHE)
+        displayName: "Setup pnpm"
+
+      # Install dependencies (frozen-lockfile for non-PR builds)
+      - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
+        - script: yarn --immutable
+          displayName: "Install Dependencies"
+      - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+        - script: yarn
+          displayName: "Install Dependencies"
+
+      - script: yarn dist:win
+        displayName: "Compile Distribution"
+
+      - task: CopyFiles@2
+        displayName: "Copy to artifacts staging directory"
+        inputs:
+          SourceFolder: "dist"
+          Contents: "*.exe"
+          targetFolder: $(Build.ArtifactStagingDirectory)
+
+      - task: PublishBuildArtifacts@1
+        displayName: Upload Artifacts
+        inputs:
+          ArtifactName: "Cider-2"
+          publishLocation: "Container"
+
+      - task: DownloadBuildArtifacts@1
+        inputs:
+          buildType: 'current'
+          downloadType: 'specific'
+          downloadPath: '$(System.ArtifactsDirectory)'
+
+
