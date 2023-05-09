@@ -40,7 +40,7 @@ jobs:
 
       # Install dependencies (immutable for non-PR builds)
       - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
-        - script: yarn install --immutable
+        - script: yarn install --immutable-cache
           displayName: "Install Dependencies"
       - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
         - script: yarn install
