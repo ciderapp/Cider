@@ -9,7 +9,6 @@ trigger:
   paths:
     include:
     - src/**/*
-    - src-electron/**/*
     - azure-pipelines.yml
 
 variables:
