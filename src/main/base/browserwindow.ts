@@ -937,7 +937,7 @@ export class BrowserWindow {
         }
         console.log(join(utils.getPath("themes"), "gh_" + apiRepo.id));
         zip.getEntries().forEach((entry) => {
-          if(entry.entryName.endsWith("/")) return
+          if (entry.entryName.endsWith("/")) return;
           let subFolder = entry.entryName.split("/").slice(1, -1).join("/");
           zip.extractEntryTo(entry, join(utils.getPath("themes"), "gh_" + apiRepo.id, "/", subFolder), false, true);
         });
