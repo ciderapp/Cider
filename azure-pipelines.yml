@@ -38,12 +38,12 @@ jobs:
             path: $(YARN_CONFIG_CACHE)
           displayName: Cache yarn
 
-      # Install dependencies (frozen-lockfile for non-PR builds)
+      # Install dependencies (immutable for non-PR builds)
       - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
-        - script: yarn --immutable
+        - script: yarn install --immutable
           displayName: "Install Dependencies"
       - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
-        - script: yarn
+        - script: yarn install
           displayName: "Install Dependencies"
 
       - script: yarn dist:linux
@@ -88,12 +88,12 @@ jobs:
             path: $(YARN_CONFIG_CACHE)
           displayName: Cache yarn
 
-      # Install dependencies (frozen-lockfile for non-PR builds)
+      # Install dependencies (immutable for non-PR builds)
       - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
-        - script: yarn --immutable
+        - script: yarn install --immutable
           displayName: "Install Dependencies"
       - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
-        - script: yarn
+        - script: yarn install
           displayName: "Install Dependencies"
 
       - script: yarn dist:win
