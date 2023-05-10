@@ -14,7 +14,7 @@ trigger:
 variables:
   COMMIT_URL: "$(Build.Repository.Uri)/commit/$(Build.SourceVersion)"
   BUILD_URL: "$(System.CollectionUri)/$(System.TeamProject)/_build/results?buildId=$(Build.BuildId)"
-  YARN_CONFIG_CACHE: $(Pipeline.Workspace)/.yarn/cache
+  YARN_CACHE_FOLDER: $(Pipeline.Workspace)/.yarn/cache
 
 jobs:
 
