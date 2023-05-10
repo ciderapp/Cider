@@ -146,6 +146,5 @@ jobs:
           releaseNotesSource: 'inline'
           releaseNotesInline: 'Test build from azure CI'
           isPreRelease: true
-          changeLogCompareToRelease: 'lastNonDraftRelease'
-          changeLogType: 'commitBased'
+          addChangeLog: false
 
