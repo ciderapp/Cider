@@ -128,3 +128,23 @@ jobs:
           downloadType: 'specific'
           downloadPath: '$(System.ArtifactsDirectory)'
 
+  - job: upload_files
+    dependsOn: 
+      - compile_linux
+      - compile_windows
+    pool: Linux
+    steps:
+      - task: GitHubRelease@1
+        inputs:
+          gitHubConnection: 'AzurePipelines'
+          repositoryName: 'ciderapp/cider-releases'
+          action: 'create'
+          target: '$(Build.SourceVersion)'
+          tagSource: 'userSpecifiedTag'
+          tag: 'v1.6.1-citest'
+          title: 'Cider Version 1.6.1 (CI test)'
+          releaseNotesFilePath: 'Test build from azure CI'
+          isPreRelease: true
+          changeLogCompareToRelease: 'lastNonDraftRelease'
+          changeLogType: 'commitBased'
+
