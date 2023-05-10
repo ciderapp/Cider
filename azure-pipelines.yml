@@ -38,9 +38,9 @@ jobs:
       #       path: $(YARN_CONFIG_CACHE)
       #     displayName: Cache yarn
 
-      # - script: |
-      #     yarn set version from sources
-      #   displayName: "Setup yarn"
+      - script: |
+          yarn set version fstable
+        displayName: "Setup yarn v3"
 
       # Install dependencies (immutable for non-PR builds)
       - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
