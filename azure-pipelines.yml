@@ -10,7 +10,6 @@ trigger:
     include:
     - src/**/*
     - azure-pipelines.yml
-    - .yarnrc.yml
 
 variables:
   COMMIT_URL: "$(Build.Repository.Uri)/commit/$(Build.SourceVersion)"
@@ -39,14 +38,14 @@ jobs:
             key: 'yarn | "$(Agent.OS)" | yarn.lock'
             path: $(YARN_CACHE_FOLDER)
           displayName: Cache yarn
-          
+
       - script: |
           yarn set version from sources
         displayName: "Setup yarn"
-        
+
       # Install dependencies (immutable for non-PR builds)
       - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
-        - script: yarn install --immutable-cache
+        - script: yarn install
           displayName: "Install Dependencies"
       - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
         - script: yarn install
@@ -100,7 +99,7 @@ jobs:
 
       # Install dependencies (immutable for non-PR builds)
       - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
-        - script: yarn install --immutable
+        - script: yarn install
           displayName: "Install Dependencies"
       - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
         - script: yarn install
