@@ -39,6 +39,7 @@ jobs:
           displayName: Cache yarn
 
       - script: |
+          yarn config set cache-folder /usr/local/Caches/yarn
           yarn --version
         displayName: "Setup yarn v3"
 
