@@ -39,7 +39,8 @@ jobs:
       #     displayName: Cache yarn
 
       - script: |
-          yarn set version fstable
+          yarn config -v
+          yarn set version stable
         displayName: "Setup yarn v3"
 
       # Install dependencies (immutable for non-PR builds)
