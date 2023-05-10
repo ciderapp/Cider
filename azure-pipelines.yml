@@ -31,18 +31,17 @@ jobs:
           versionSource: "fromFile"
           versionFilePath: ".nvmrc"
 
-      # - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
-      #   - task: Cache@2
-      #     inputs:
-      #       key: 'yarn | "$(Agent.OS)" | yarn.lock'
-      #       path: $(YARN_CONFIG_CACHE)
-      #     displayName: Cache yarn
-
+      - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
+        - task: Cache@2
+          inputs:
+            key: 'yarn | "$(Agent.OS)" | yarn.lock'
+            path: $(YARN_CACHE_FOLDER)
+          displayName: Cache yarn
+          
       - script: |
-          yarn config -v
-          yarn config unset configCache
-        displayName: "Setup yarn v3"
-
+          yarn set version from sources
+        displayName: "Setup yarn"
+        
       # Install dependencies (immutable for non-PR builds)
       - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
         - script: yarn install --immutable-cache
@@ -86,15 +85,14 @@ jobs:
           versionSource: "fromFile"
           versionFilePath: ".nvmrc"
 
-      # - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
-      #   - task: Cache@2
-      #     inputs:
-      #       key: 'yarn | "$(Agent.OS)" | yarn.lock'
-      #       path: $(YARN_CONFIG_CACHE)
-      #     displayName: Cache yarn
+      - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
+        - task: Cache@2
+          inputs:
+            key: 'yarn | "$(Agent.OS)" | yarn.lock'
+            path: $(YARN_CACHE_FOLDER)
+          displayName: Cache yarn
 
       - script: |
-          yarn config unset configCache
           yarn set version from sources
         displayName: "Setup yarn"
 
