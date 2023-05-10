@@ -35,12 +35,12 @@ jobs:
         - task: Cache@2
           inputs:
             key: 'yarn | "$(Agent.OS)" | yarn.lock'
-            path: $(YARN_CACHE_FOLDER)
+            path: $(YARN_CONFIG_CACHE)
           displayName: Cache yarn
 
       - script: |
-          yarn config set cache-folder /usr/local/Caches/yarn
           yarn --version
+          # yarn set version stable
         displayName: "Setup yarn v3"
 
       # Install dependencies (immutable for non-PR builds)
