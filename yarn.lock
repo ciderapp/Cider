@@ -1376,6 +1376,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@electron/notarize@npm:^1.2.3":
+  version: 1.2.3
+  resolution: "@electron/notarize@npm:1.2.3"
+  dependencies:
+    debug: ^4.1.1
+    fs-extra: ^9.0.1
+  checksum: 2e2d930a116948492616eb3c51df48f41ae5a9eac83c4e7de96e93d7f9c725b5e6c8e02c3b2644fe801e4b711b9d3f4f2a6f9ac8ab95b0f6eb1189c490981523
+  languageName: node
+  linkType: hard
+
 "@electron/universal@npm:1.2.1":
   version: 1.2.1
   resolution: "@electron/universal@npm:1.2.1"
@@ -2347,6 +2357,13 @@ __metadata:
   version: 0.7.31
   resolution: "@types/ms@npm:0.7.31"
   checksum: daadd354aedde024cce6f5aa873fefe7b71b22cd0e28632a69e8b677aeb48ae8caa1c60e5919bb781df040d116b01cb4316335167a3fc0ef6a63fa3614c0f6da
+  languageName: node
+  linkType: hard
+
+"@types/musickit@github:ciderapp/musickit-types":
+  version: 1.0.0
+  resolution: "@types/musickit@https://github.com/ciderapp/musickit-types.git#commit=8bcb890ec8bf101aaf4bac707080729eb7067645"
+  checksum: 9f5e04265f1d0bc295e83ef0806c1238a8b2bc26dba1f0994aa9f2ba3b614d8c16f11169d6ee32405473e47cb43a94567891fec17197e0c552a28840cc10ef2a
   languageName: node
   linkType: hard
 
@@ -3985,11 +4002,13 @@ __metadata:
   resolution: "cider@workspace:."
   dependencies:
     "@achingbrain/ssdp": ^4.0.1
+    "@electron/notarize": ^1.2.3
     "@sentry/electron": ^4.2.0
     "@sentry/integrations": ^7.31.1
     "@types/adm-zip": ^0.5.0
     "@types/discord-rpc": 4.0.4
     "@types/express": ^4.17.15
+    "@types/musickit": "github:ciderapp/musickit-types"
     "@types/node": ^20.1.1
     "@types/qrcode-terminal": ^0.12.0
     "@types/ws": ^8.5.4
@@ -4005,7 +4024,6 @@ __metadata:
     electron-builder-notarize-pkg: ^1.2.0
     electron-fetch: ^1.9.1
     electron-log: ^4.4.8
-    electron-notarize: ^1.2.2
     electron-store: ^8.1.0
     electron-updater: ^5.3.0
     electron-webpack: ^2.8.2
@@ -4018,7 +4036,6 @@ __metadata:
     mdns-js: "github:ciderapp/node-mdns-js"
     mpris-service: ^2.1.2
     music-metadata: 7.12.6
-    musickit-typescript: ^1.2.4
     node-gyp: ^9.3.1
     node-ssdp: ^4.0.1
     node-ssdp-js: ^0.9.6
@@ -5149,16 +5166,6 @@ __metadata:
   version: 4.4.8
   resolution: "electron-log@npm:4.4.8"
   checksum: 5a7958f8fd9a5c95987e885ffe1c5b88be15bb41d348b65c92e2d8664519faddf17ce0208cd4e7027b0908f92fecedfbef246a45061f53e4a53b5d2201aafbd9
-  languageName: node
-  linkType: hard
-
-"electron-notarize@npm:^1.2.2":
-  version: 1.2.2
-  resolution: "electron-notarize@npm:1.2.2"
-  dependencies:
-    debug: ^4.1.1
-    fs-extra: ^9.0.1
-  checksum: 98909bc90f0840a4bd3da0edc6895d719eb0d17942812a8c8f5a130d323c7fbaafd819245cfe9a6c5b5abfa8dd3b0eb2bd8ee9c0b2dcf0c3b238b6845730c368
   languageName: node
   linkType: hard
 
@@ -8888,13 +8895,6 @@ __metadata:
     strtok3: ^6.3.0
     token-types: ^4.2.0
   checksum: 66305429f1c1b5b536541ad8eb561d85eab2a33274e17dd6df8b0f4cb92ef46a5e27d4e66158b3b2425b6e6bc1dae1fae8005b2825ff0e31a66ae975dba50f50
-  languageName: node
-  linkType: hard
-
-"musickit-typescript@npm:^1.2.4":
-  version: 1.2.4
-  resolution: "musickit-typescript@npm:1.2.4"
-  checksum: d4d5dc182f2b589ca7ae7318ddc90729a0ac5845c1e098bfc56a31aca5ca05960260c97976bfe0166b9f9a2c798042616aae2a71c385cabd322652b08e54e6f8
   languageName: node
   linkType: hard
 
