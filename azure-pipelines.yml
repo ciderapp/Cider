@@ -31,15 +31,14 @@ jobs:
           versionSource: "fromFile"
           versionFilePath: ".nvmrc"
 
-      # - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
-      #   - task: Cache@2
-      #     inputs:
-      #       key: 'yarn | "$(Agent.OS)" | yarn.lock'
-      #       path: $(YARN_CONFIG_CACHE)
-      #     displayName: Cache yarn
+      - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
+        - task: Cache@2
+          inputs:
+            key: 'yarn | "$(Agent.OS)" | yarn.lock'
+            path: $(YARN_CACHE_FOLDER)
+          displayName: Cache yarn
 
       - script: |
-          yarn config -v
           yarn set version stable
         displayName: "Setup yarn v3"
 
