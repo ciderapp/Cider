@@ -39,6 +39,7 @@ jobs:
       #     displayName: Cache yarn
 
       - script: |
+          rm -rf $(Pipeline.Workspace)/.yarn/cache
           yarn config unset configCache
         displayName: "Setup yarn v3"
 
