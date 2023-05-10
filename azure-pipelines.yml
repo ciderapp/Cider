@@ -31,17 +31,15 @@ jobs:
           versionSource: "fromFile"
           versionFilePath: ".nvmrc"
 
-      - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
-        - task: Cache@2
-          inputs:
-            key: 'yarn | "$(Agent.OS)" | yarn.lock'
-            path: $(YARN_CONFIG_CACHE)
-          displayName: Cache yarn
+      # - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
+      #   - task: Cache@2
+      #     inputs:
+      #       key: 'yarn | "$(Agent.OS)" | yarn.lock'
+      #       path: $(YARN_CONFIG_CACHE)
+      #     displayName: Cache yarn
 
       - script: |
-          yarn --version
           yarn config unset configCache
-          # yarn set version stable
         displayName: "Setup yarn v3"
 
       # Install dependencies (immutable for non-PR builds)
@@ -87,14 +85,15 @@ jobs:
           versionSource: "fromFile"
           versionFilePath: ".nvmrc"
 
-      - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
-        - task: Cache@2
-          inputs:
-            key: 'yarn | "$(Agent.OS)" | yarn.lock'
-            path: $(YARN_CONFIG_CACHE)
-          displayName: Cache yarn
+      # - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
+      #   - task: Cache@2
+      #     inputs:
+      #       key: 'yarn | "$(Agent.OS)" | yarn.lock'
+      #       path: $(YARN_CONFIG_CACHE)
+      #     displayName: Cache yarn
 
       - script: |
+          yarn config unset configCache
           yarn set version from sources
         displayName: "Setup yarn"
 
