@@ -16,7 +16,6 @@ variables:
   BUILD_URL: "$(System.CollectionUri)/$(System.TeamProject)/_build/results?buildId=$(Build.BuildId)"
   YARN_CACHE_FOLDER: $(Pipeline.Workspace)/.yarn/cache
   YARN_ENABLE_IMMUTABLE_INSTALLS: false
-  GH_TOKEN: $(GH_TOKEN)
 jobs:
 
   # Linux Production Build Test
@@ -52,6 +51,7 @@ jobs:
           displayName: "Install Dependencies"
 
       - script: yarn dist:linux
+        env: {GH_TOKEN : $(GH_TOKEN)}
         displayName: "Compile Distribution"
 
       - task: CopyFiles@2
@@ -106,6 +106,7 @@ jobs:
           displayName: "Install Dependencies"
 
       - script: yarn dist:win
+        env: {GH_TOKEN : $(GH_TOKEN)}
         displayName: "Compile Distribution"
 
       - task: CopyFiles@2
