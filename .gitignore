@@ -328,3 +328,5 @@ savedconfig/session.json
 savedconfig/window-state.json
 src/main/base/sample.json
 
+# yeet circleci ci for now
+.circleci/
