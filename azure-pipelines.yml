@@ -136,7 +136,7 @@ jobs:
     steps:
       - task: GitHubRelease@1
         inputs:
-          gitHubConnection: 'AzurePipelines'
+          gitHubConnection: 'ciderapp'
           repositoryName: 'ciderapp/cider-releases'
           action: 'create'
           target: '$(Build.SourceVersion)'
