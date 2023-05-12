@@ -57,9 +57,12 @@ jobs:
       - task: CopyFiles@2
         displayName: "Copy to artifacts staging directory"
         inputs:
-          SourceFolder: "dist"
-          Contents: "*.AppImage"
-          targetFolder: $(Build.ArtifactStagingDirectory)
+          SourceFolder: 'dist'
+          Contents: |
+            *.AppImage
+            *.deb
+            *.snap
+          TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
       - task: PublishBuildArtifacts@1
         displayName: Upload Artifacts
@@ -116,17 +119,17 @@ jobs:
           Contents: "*.exe"
           targetFolder: $(Build.ArtifactStagingDirectory)
 
-      - task: PublishBuildArtifacts@1
-        displayName: Upload Artifacts
-        inputs:
-          ArtifactName: "Cider-2"
-          publishLocation: "Container"
+      # - task: PublishBuildArtifacts@1
+      #   displayName: Upload Artifacts
+      #   inputs:
+      #     ArtifactName: "Cider-2"
+      #     publishLocation: "Container"
 
-      - task: DownloadBuildArtifacts@1
-        inputs:
-          buildType: 'current'
-          downloadType: 'specific'
-          downloadPath: '$(System.ArtifactsDirectory)'
+      # - task: DownloadBuildArtifacts@1
+      #   inputs:
+      #     buildType: 'current'
+      #     downloadType: 'specific'
+      #     downloadPath: '$(System.ArtifactsDirectory)'
 
   - job: upload_files
     dependsOn: 
@@ -141,10 +144,10 @@ jobs:
           action: 'create'
           target: '$(Build.SourceVersion)'
           tagSource: 'userSpecifiedTag'
-          tag: 'v1.6.1-citest'
-          title: 'Cider Version 1.6.1 (CI test)'
+          tag: 'v1.6.1'
+          title: 'Cider Version 1.6.1'
           releaseNotesSource: 'inline'
           releaseNotesInline: 'Test build from azure CI'
-          isPreRelease: true
+          isPreRelease: false
           addChangeLog: false
 
