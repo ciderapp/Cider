@@ -62,19 +62,20 @@ jobs:
             *.AppImage
             *.deb
             *.snap
+            *.rpm
           TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-      - task: PublishBuildArtifacts@1
-        displayName: Upload Artifacts
-        inputs:
-          ArtifactName: "Cider-2"
-          publishLocation: "Container"
+      # - task: PublishBuildArtifacts@1
+      #   displayName: Upload Artifacts
+      #   inputs:
+      #     ArtifactName: "Cider-2"
+      #     publishLocation: "Container"
 
-      - task: DownloadBuildArtifacts@1
-        inputs:
-          buildType: 'current'
-          downloadType: 'specific'
-          downloadPath: '$(System.ArtifactsDirectory)'
+      # - task: DownloadBuildArtifacts@1
+      #   inputs:
+      #     buildType: 'current'
+      #     downloadType: 'specific'
+      #     downloadPath: '$(System.ArtifactsDirectory)'
 
   # Windows Production Build Test
   # This job is used to test the production build of the Windows distribution.
@@ -119,22 +120,38 @@ jobs:
           Contents: "*.exe"
           targetFolder: $(Build.ArtifactStagingDirectory)
 
-      # - task: PublishBuildArtifacts@1
-      #   displayName: Upload Artifacts
-      #   inputs:
-      #     ArtifactName: "Cider-2"
-      #     publishLocation: "Container"
+  - job: compile_winget
+    displayName: "Compile for Winget"
+    pool: Linux
+    steps:
+      - task: NodeTool@0
+        displayName: "Install Node.js"
+        inputs:
+          versionSource: "fromFile"
+          versionFilePath: ".nvmrc"
+          
+      - script: yarn set version from sources
+        displayName: "Setup yarn"
 
-      # - task: DownloadBuildArtifacts@1
-      #   inputs:
-      #     buildType: 'current'
-      #     downloadType: 'specific'
-      #     downloadPath: '$(System.ArtifactsDirectory)'
+      - script: yarn install
+        displayName: "Install Dependencies"
+
+      - script: yarn run winget
+        env: {GH_TOKEN : $(GH_TOKEN)}
+        displayName: "Compile Distribution"
+
+      - task: CopyFiles@2
+        displayName: "Copy to artifacts staging directory"
+        inputs:
+          SourceFolder: "dist"
+          Contents: "*.exe"
+          targetFolder: $(Build.ArtifactStagingDirectory)
 
   - job: upload_files
     dependsOn: 
       - compile_linux
       - compile_windows
+      - compile_winget
     pool: Linux
     steps:
       - task: GitHubRelease@1
