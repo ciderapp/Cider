@@ -1407,7 +1407,6 @@ export class BrowserWindow {
       shell.openExternal(String(utils.getStoreValue("cc_authURL")));
     });
 
-
     ipcMain.on("auth-window", (_event) => {
       AuthWindow(BrowserWindow.win);
     });

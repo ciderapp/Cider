@@ -354,14 +354,13 @@ const app = new Vue({
       document.querySelector("#LOADER").remove();
 
       ipcRenderer.on("recv-cookies", function (_event, cookies) {
-        console.log('[appIPC] recv-cookies');
+        console.log("[appIPC] recv-cookies");
         Object.keys(cookies).forEach((key) => {
-        localStorage.setItem(key, cookies[key]);
+          localStorage.setItem(key, cookies[key]);
         });
         localStorage.setItem("seenOOBE", 1);
         window.location.reload();
       });
-
     },
     getAppStyle() {
       let finalStyle = {};
@@ -410,7 +409,7 @@ const app = new Vue({
       if (val) {
         this.mk.isAuthorized ? (this.chrome.menuOpened = !this.chrome.menuOpened) : false;
         if (!this.mk.isAuthorized) {
-          ipcRenderer.send("auth-window")
+          ipcRenderer.send("auth-window");
         }
       } else {
         setTimeout(() => {
@@ -840,14 +839,12 @@ const app = new Vue({
         this.chrome.nativeControls = true;
       }
 
-
-
       this.setLz(this.cfg.general.language);
       this.setLzManual();
       clearTimeout(this.hangtimer);
       this.mk = MusicKit.getInstance();
       let needsReload = typeof localStorage["music.ampwebplay.media-user-token"] == "undefined";
-      if(needsReload) {
+      if (needsReload) {
         ipcRenderer.send("auth-window");
         this.mkIsReady = true;
       }
@@ -1090,7 +1087,6 @@ const app = new Vue({
           app.openAppleMusicURL(id);
         }
       });
-
 
       this.mk.addEventListener(MusicKit.Events.playbackStateDidChange, (event) => {
         ipcRenderer.send("wsapi-updatePlaybackState", wsapi.getAttributes());
