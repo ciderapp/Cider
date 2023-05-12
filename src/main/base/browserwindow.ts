@@ -75,6 +75,7 @@ export class BrowserWindow {
         "pages/plugin-renderer",
         "pages/oobe",
         "pages/cider-profile",
+        "components/c2-upgrade",
         "components/app-content",
         "components/sidebar",
         "components/mediaitem-artwork",

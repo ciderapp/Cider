@@ -190,6 +190,7 @@ const app = new Vue({
       windowControlPosition: "right",
       contentAreaScrolling: true,
       showCursor: false,
+      noC2Upgrade: localStorage.getItem("noC2Upgrade") == "true" ? true : false,
     },
     collectionList: {
       response: {},
@@ -220,6 +221,7 @@ const app = new Vue({
       moreInfo: false,
       airplayPW: false,
       settings: false,
+      c2Upgrade: false,
     },
     socialBadges: {
       badgeMap: {},
@@ -1283,6 +1285,15 @@ const app = new Vue({
       if (this.cfg.general.themeUpdateNotification && !this.isDev) {
         this.checkForThemeUpdates();
       }
+
+      if (!localStorage.getItem("noC2Startup")) {
+        const c2UpgradeDate = 1688172351000;
+        if (Date.now() <= c2UpgradeDate) {
+          setTimeout(() => {
+            app.modals.c2Upgrade = true;
+          }, 2000);
+        }
+      }
     },
     setWindowScaleFactor() {
       let scale = (((window.devicePixelRatio * window.innerWidth) / 1280) * window.innerHeight) / 720;
@@ -1294,6 +1305,9 @@ const app = new Vue({
         scale = desiredScale;
       }
       document.documentElement.style.setProperty("--windowRelativeScale", scale);
+    },
+    c2offer() {
+      app.modals.c2Upgrade = true;
     },
     showFoo(querySelector, time) {
       clearTimeout(this.idleTimer);
