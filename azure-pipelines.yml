@@ -70,6 +70,22 @@ jobs:
         inputs:
           ArtifactName: "Cider-1"
           publishLocation: "Container"
+      - task: GitHubRelease@1
+        inputs:
+          gitHubConnection: 'ciderapp'
+          repositoryName: 'ciderapp/Cider'
+          action: 'edit'
+          target: '$(Build.SourceVersion)'
+          tag: 'v1.6.1'
+          title: 'Cider Version 1.6.1'
+          releaseNotesSource: 'inline'
+          releaseNotesInline: 'Builds from [Azure](https://dev.azure.com/cidercollective/Cider/_build?definitionId=14) CI/CD'
+          assets: |
+            $(Build.ArtifactStagingDirectory)/*.exe
+            $(Build.ArtifactStagingDirectory)/*.deb
+            $(Build.ArtifactStagingDirectory)/*.AppImage
+            $(Build.ArtifactStagingDirectory)/*.snap
+          addChangeLog: false
 
       # - task: DownloadBuildArtifacts@1
       #   inputs:
@@ -124,6 +140,22 @@ jobs:
         inputs:
           ArtifactName: "Cider-1"
           publishLocation: "Container"
+      - task: GitHubRelease@1
+        inputs:
+          gitHubConnection: 'ciderapp'
+          repositoryName: 'ciderapp/Cider'
+          action: 'edit'
+          target: '$(Build.SourceVersion)'
+          tag: 'v1.6.1'
+          title: 'Cider Version 1.6.1'
+          releaseNotesSource: 'inline'
+          releaseNotesInline: 'Builds from [Azure](https://dev.azure.com/cidercollective/Cider/_build?definitionId=14) CI/CD'
+          assets: |
+            $(Build.ArtifactStagingDirectory)/*.exe
+            $(Build.ArtifactStagingDirectory)/*.deb
+            $(Build.ArtifactStagingDirectory)/*.AppImage
+            $(Build.ArtifactStagingDirectory)/*.snap
+          addChangeLog: false
 
   - job: compile_winget
     displayName: "Compile for Winget"
@@ -156,25 +188,21 @@ jobs:
         inputs:
           ArtifactName: "Cider-1"
           publishLocation: "Container"
-
-  - job: upload_files
-    dependsOn: 
-      - compile_linux
-      - compile_windows
-      - compile_winget
-    pool: Linux
-    steps:
       - task: GitHubRelease@1
         inputs:
           gitHubConnection: 'ciderapp'
           repositoryName: 'ciderapp/Cider'
-          action: 'create'
+          action: 'edit'
           target: '$(Build.SourceVersion)'
-          tagSource: 'userSpecifiedTag'
           tag: 'v1.6.1'
           title: 'Cider Version 1.6.1'
           releaseNotesSource: 'inline'
-          releaseNotesInline: 'Test build from azure CI'
-          assets: '$(System.ArtifactsDirectory)/Cider-1/*'
+          releaseNotesInline: 'Builds from [Azure](https://dev.azure.com/cidercollective/Cider/_build?definitionId=14) CI/CD'
+          assets: |
+            $(Build.ArtifactStagingDirectory)/*.exe
+            $(Build.ArtifactStagingDirectory)/*.deb
+            $(Build.ArtifactStagingDirectory)/*.AppImage
+            $(Build.ArtifactStagingDirectory)/*.snap
           addChangeLog: false
+
 
