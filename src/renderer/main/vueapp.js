@@ -352,6 +352,16 @@ const app = new Vue({
       document.body.removeAttribute("loading");
       ipcRenderer.invoke("renderer-ready", true);
       document.querySelector("#LOADER").remove();
+
+      ipcRenderer.on("recv-cookies", function (_event, cookies) {
+        console.log('[appIPC] recv-cookies');
+        Object.keys(cookies).forEach((key) => {
+        localStorage.setItem(key, cookies[key]);
+        });
+        localStorage.setItem("seenOOBE", 1);
+        window.location.reload();
+      });
+
     },
     getAppStyle() {
       let finalStyle = {};
@@ -400,7 +410,7 @@ const app = new Vue({
       if (val) {
         this.mk.isAuthorized ? (this.chrome.menuOpened = !this.chrome.menuOpened) : false;
         if (!this.mk.isAuthorized) {
-          this.mk.authorize();
+          ipcRenderer.send("auth-window")
         }
       } else {
         setTimeout(() => {
@@ -830,17 +840,23 @@ const app = new Vue({
         this.chrome.nativeControls = true;
       }
 
+
+
       this.setLz(this.cfg.general.language);
       this.setLzManual();
       clearTimeout(this.hangtimer);
       this.mk = MusicKit.getInstance();
       let needsReload = typeof localStorage["music.ampwebplay.media-user-token"] == "undefined";
-      this.mk.authorize().then(() => {
-        self.mkIsReady = true;
-        if (needsReload) {
-          document.location.reload();
-        }
-      });
+      if(needsReload) {
+        ipcRenderer.send("auth-window");
+        this.mkIsReady = true;
+      }
+      // this.mk.authorize().then(() => {
+      //   self.mkIsReady = true;
+      //   if (needsReload) {
+      //     document.location.reload();
+      //   }
+      // });
       this.$forceUpdate();
       if (this.isDev) {
         this.mk.privateEnabled = true;
@@ -1074,6 +1090,7 @@ const app = new Vue({
           app.openAppleMusicURL(id);
         }
       });
+
 
       this.mk.addEventListener(MusicKit.Events.playbackStateDidChange, (event) => {
         ipcRenderer.send("wsapi-updatePlaybackState", wsapi.getAttributes());

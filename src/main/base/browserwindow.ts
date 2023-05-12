@@ -1,5 +1,5 @@
 import { join } from "path";
-import { app, BrowserWindow as bw, ipcMain, ShareMenu, shell, screen, dialog, nativeTheme } from "electron";
+import { app, BrowserWindow as bw, ipcMain, ShareMenu, shell, screen, dialog, nativeTheme, ipcRenderer } from "electron";
 import * as windowStateKeeper from "electron-window-state";
 import * as express from "express";
 import * as getPort from "get-port";
@@ -1406,6 +1406,144 @@ export class BrowserWindow {
     ipcMain.on("cc-auth", (_event) => {
       shell.openExternal(String(utils.getStoreValue("cc_authURL")));
     });
+
+
+    ipcMain.on("auth-window", (_event) => {
+      AuthWindow(BrowserWindow.win);
+    });
+
+    function AuthWindow(win: bw) {
+      // create a BrowserWindow
+      const authWindow = new bw({
+        width: 500,
+        height: 600,
+        show: false,
+        titleBarOverlay: {
+          color: "#1d1d1f",
+          symbolColor: "#ffffff",
+        },
+        titleBarStyle: "hidden",
+        darkTheme: true,
+        resizable: false,
+        webPreferences: {
+          contextIsolation: false,
+          nodeIntegration: true,
+          sandbox: true,
+          allowRunningInsecureContent: true,
+          webSecurity: false,
+          preload: join(utils.getPath("srcPath"), "./preload/cider-preload.js"),
+          nodeIntegrationInWorker: false,
+          experimentalFeatures: true,
+        },
+      });
+      // authWindow.webContents.openDevTools();
+      // remove all local storage data
+      authWindow.webContents.session.clearStorageData();
+
+      // set user agent
+      authWindow.webContents.setUserAgent(`Mozilla/5.0 (Macintosh; Intel Mac OS X 13_3_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.4 Safari/605.1.15`);
+
+      // show the window
+      authWindow.loadURL("https://beta.music.apple.com/");
+      const cookieKeys = ["itspod", "pltvcid", "pldfltcid", "itua", "media-user-token", "acn1", "dslang"];
+
+      ipcMain.on("auth-window-ready", async (_event) => {
+        authWindow.show();
+      });
+
+      ipcMain.on("auth-completed", async (_event) => {
+        const cookies = await getCookies();
+        console.log("cookies", cookies);
+        win.webContents.send("recv-cookies", cookies);
+        authWindow.close();
+      });
+
+      const overlayStyling = `
+    .hehehe {
+      position: fixed;
+      top:0;
+      left:0;
+      width: 100px;
+      height: 100px;
+      background: #1d1d1f;
+      z-index: 99999;
+    }
+    .titlebar {
+      height: 30px;
+      position: fixed;
+      top:0;
+      left:0;
+      right:0;
+      -webkit-app-region: drag;
+      z-index: 99999;
+    }`;
+
+      // on content loaded
+      authWindow.webContents.on("did-finish-load", () => {
+        authWindow.webContents.executeJavaScript(`
+      let tOut = setInterval(async ()=>{
+        try {
+          if(typeof MusicKit === 'undefined') return;
+          MusicKit.getInstance().addEventListener(MusicKit.Events.authorizationStatusDidChange, ()=>{
+            if(MusicKit.getInstance().isAuthorized) {
+              ipcRenderer.send('auth-completed')
+            }
+          })
+          clearInterval(tOut)
+        }catch(e) {}
+      }, 500)
+      let tOut2 = setInterval(()=>{
+        try {
+          const el = document.querySelector('.signin')
+          if(el) {
+            el.click()
+            ipcRenderer.send('auth-window-ready')
+            clearInterval(tOut2)
+          }
+        }catch(e) {}
+      }, 500)
+      let styling = \`${overlayStyling}\`;
+      (()=>{
+        const titleBarEl = document.createElement('div')
+        const overlayEl = document.createElement('div')
+        titleBarEl.classList.add('titlebar')
+        overlayEl.classList.add('hehehe')
+        const styleTag = document.createElement('style')
+        styleTag.innerHTML = styling
+        document.head.appendChild(styleTag)
+        document.body.appendChild(overlayEl)
+        document.body.appendChild(titleBarEl)
+      })()
+    `);
+      });
+
+      async function getCookies(): Promise<{ [key: string]: string }> {
+        return new Promise((res, rej) => {
+          authWindow.webContents.session.cookies
+            .get({})
+            .then((cookies) => {
+              // for each cookie
+              const toRenderer: {
+                [key: string]: string;
+              } = {};
+              for (let i = 0; i < cookieKeys.length; i++) {
+                const key = cookieKeys[i];
+                // find the cookie
+                const cookie = cookies.find((cookie) => cookie.name === key);
+                // if cookie exists
+                if (cookie) {
+                  toRenderer[`music.ampwebplay.${cookie.name}`] = cookie.value;
+                }
+              }
+              res(toRenderer);
+            })
+            .catch((error) => {
+              console.log(error);
+              rej();
+            });
+        });
+      }
+    }
 
     ipcMain.on("cc-logout", (_event) => {
       //Make sure to update the default store

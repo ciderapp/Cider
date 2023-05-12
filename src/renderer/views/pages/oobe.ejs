@@ -183,8 +183,9 @@
           localStorage.setItem("seenOOBE", 1)
           window.location.reload()
         }
-        this.screen = "signin"
-        capiInit()
+        this.screen = "signin";
+        capiInit();
+
       },
       getLz() {
         return this.$root.getLz.apply(this.$root, arguments);
