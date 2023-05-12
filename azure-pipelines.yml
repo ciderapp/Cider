@@ -65,11 +65,11 @@ jobs:
             *.rpm
           TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-      # - task: PublishBuildArtifacts@1
-      #   displayName: Upload Artifacts
-      #   inputs:
-      #     ArtifactName: "Cider-2"
-      #     publishLocation: "Container"
+      - task: PublishBuildArtifacts@1
+        displayName: Upload Artifacts
+        inputs:
+          ArtifactName: "Cider-1"
+          publishLocation: "Container"
 
       # - task: DownloadBuildArtifacts@1
       #   inputs:
@@ -119,6 +119,11 @@ jobs:
           SourceFolder: "dist"
           Contents: "*.exe"
           targetFolder: $(Build.ArtifactStagingDirectory)
+      - task: PublishBuildArtifacts@1
+        displayName: Upload Artifacts
+        inputs:
+          ArtifactName: "Cider-1"
+          publishLocation: "Container"
 
   - job: compile_winget
     displayName: "Compile for Winget"
@@ -146,6 +151,11 @@ jobs:
           SourceFolder: "dist"
           Contents: "*.exe"
           targetFolder: $(Build.ArtifactStagingDirectory)
+      - task: PublishBuildArtifacts@1
+        displayName: Upload Artifacts
+        inputs:
+          ArtifactName: "Cider-1"
+          publishLocation: "Container"
 
   - job: upload_files
     dependsOn: 
@@ -165,6 +175,6 @@ jobs:
           title: 'Cider Version 1.6.1'
           releaseNotesSource: 'inline'
           releaseNotesInline: 'Test build from azure CI'
-          assets: '$(Build.ArtifactStagingDirectory)/*.*'
+          assets: '$(System.ArtifactsDirectory)/Cider-1/*'
           addChangeLog: false
 
