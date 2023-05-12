@@ -85,6 +85,7 @@ jobs:
             $(Build.ArtifactStagingDirectory)/*.deb
             $(Build.ArtifactStagingDirectory)/*.AppImage
             $(Build.ArtifactStagingDirectory)/*.snap
+          assetUploadMode: 'replace'
           addChangeLog: false
 
       # - task: DownloadBuildArtifacts@1
@@ -155,6 +156,7 @@ jobs:
             $(Build.ArtifactStagingDirectory)/*.deb
             $(Build.ArtifactStagingDirectory)/*.AppImage
             $(Build.ArtifactStagingDirectory)/*.snap
+          assetUploadMode: 'replace'
           addChangeLog: false
 
   - job: compile_winget
@@ -203,6 +205,7 @@ jobs:
             $(Build.ArtifactStagingDirectory)/*.deb
             $(Build.ArtifactStagingDirectory)/*.AppImage
             $(Build.ArtifactStagingDirectory)/*.snap
+          assetUploadMode: 'replace'
           addChangeLog: false
 
 
