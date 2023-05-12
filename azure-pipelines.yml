@@ -165,6 +165,6 @@ jobs:
           title: 'Cider Version 1.6.1'
           releaseNotesSource: 'inline'
           releaseNotesInline: 'Test build from azure CI'
-          isPreRelease: false
+          assets: '$(Build.ArtifactStagingDirectory)/*.*'
           addChangeLog: false
 
