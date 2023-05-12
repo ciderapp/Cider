@@ -137,7 +137,7 @@ jobs:
       - task: GitHubRelease@1
         inputs:
           gitHubConnection: 'ciderapp'
-          repositoryName: 'ciderapp/cider-releases'
+          repositoryName: 'ciderapp/Cider'
           action: 'create'
           target: '$(Build.SourceVersion)'
           tagSource: 'userSpecifiedTag'
