@@ -15,7 +15,7 @@
   <a target="_blank" href="https://twitter.com/UseCider"><img src="https://img.shields.io/twitter/follow/UseCider?label=Twitter&color=%231DA1F2&logo=twitter&style=flat" alt="Twitter"/></a>
   <a target="_blank" href="https://reddit.com/r/applemusicelectron"><img src="https://custom-icon-badges.herokuapp.com/reddit/subreddit-subscribers/applemusicelectron?label=Reddit&color=FF5700&logo=redditnew" alt="Reddit"/></a>
   <br><br>
-  <a href="https://circleci.com/gh/ciderapp/Cider/tree/main"><img src="https://circleci.com/gh/ciderapp/Cider/tree/main.svg?style=svg" alt="CircleCI Status"/></a>
+  <a href="https://dev.azure.com/cidercollective/Cider/_build?definitionId=14"><img src="https://dev.azure.com/cidercollective/Cider/_apis/build/status%2FCider%201.x?branchName=main" alt="Azure Pipelines Status"/></a>
 </p>
 
 #### Links
