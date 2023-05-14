@@ -99,7 +99,7 @@ jobs:
   # Also tests Pull Requests.
   - job: compile_windows
     displayName: "Compile Windows Distribution"
-    pool: Linux
+    pool: default
     steps:
       - task: NodeTool@0
         displayName: "Install Node.js"
@@ -161,14 +161,14 @@ jobs:
 
   - job: compile_winget
     displayName: "Compile for Winget"
-    pool: Linux
+    pool: default
     steps:
       - task: NodeTool@0
         displayName: "Install Node.js"
         inputs:
           versionSource: "fromFile"
           versionFilePath: ".nvmrc"
-          
+
       - script: yarn set version from sources
         displayName: "Setup yarn"
 
