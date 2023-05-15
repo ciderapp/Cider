@@ -38,8 +38,11 @@ jobs:
       #       path: $(YARN_CACHE_FOLDER)
       #     displayName: Cache yarn
 
-      - script: |
-          yarn set version from sources
+
+      - script: git submodule update --init --recursive --remote
+        displayName: Init submodules
+
+      - script: yarn set version from sources
         displayName: "Setup yarn"
 
       # Install dependencies (immutable for non-PR builds)
@@ -114,8 +117,10 @@ jobs:
       #       path: $(YARN_CACHE_FOLDER)
       #     displayName: Cache yarn
 
-      - script: |
-          yarn set version from sources
+      - script: git submodule update --init --recursive --remote
+        displayName: Init submodules
+
+      - script: yarn set version from sources
         displayName: "Setup yarn"
 
       # Install dependencies (immutable for non-PR builds)
@@ -136,11 +141,7 @@ jobs:
           SourceFolder: "dist"
           Contents: "*.exe"
           targetFolder: $(Build.ArtifactStagingDirectory)
-      - task: PublishBuildArtifacts@1
-        displayName: Upload Artifacts
-        inputs:
-          ArtifactName: "Cider-1"
-          publishLocation: "Container"
+
       - task: GitHubRelease@1
         inputs:
           gitHubConnection: 'ciderapp'
@@ -159,6 +160,13 @@ jobs:
           assetUploadMode: 'replace'
           addChangeLog: false
 
+      - task: PublishBuildArtifacts@1
+        displayName: Upload Artifacts
+        inputs:
+          ArtifactName: "Cider-1"
+          publishLocation: "Container"
+
+
   - job: compile_winget
     displayName: "Compile for Winget"
     pool: default
@@ -168,6 +176,9 @@ jobs:
         inputs:
           versionSource: "fromFile"
           versionFilePath: ".nvmrc"
+
+      - script: git submodule update --init --recursive --remote
+        displayName: Init submodules
 
       - script: yarn set version from sources
         displayName: "Setup yarn"
@@ -185,11 +196,7 @@ jobs:
           SourceFolder: "dist"
           Contents: "*.exe"
           targetFolder: $(Build.ArtifactStagingDirectory)
-      - task: PublishBuildArtifacts@1
-        displayName: Upload Artifacts
-        inputs:
-          ArtifactName: "Cider-1"
-          publishLocation: "Container"
+
       - task: GitHubRelease@1
         inputs:
           gitHubConnection: 'ciderapp'
@@ -207,5 +214,70 @@ jobs:
             $(Build.ArtifactStagingDirectory)/*.snap
           assetUploadMode: 'replace'
           addChangeLog: false
+
+      - task: PublishBuildArtifacts@1
+        displayName: Upload Artifacts
+        inputs:
+          ArtifactName: "Cider-1"
+          publishLocation: "Container"
+
+  - job: compile_macos
+    displayName: "Compile MacOS Distribution"
+    pool: Macos
+    steps:
+      - task: NodeTool@0
+        displayName: "Install Node.js"
+        inputs:
+          versionSource: "fromFile"
+          versionFilePath: ".nvmrc"
+
+      - script: git submodule update --init --recursive --remote
+        displayName: Init submodules
+
+      - script: yarn set version from sources
+        displayName: "Setup yarn"
+
+      # Install dependencies (immutable for non-PR builds)
+      - ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
+        - script: yarn install
+          displayName: "Install Dependencies"
+      - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+        - script: yarn install
+          displayName: "Install Dependencies"
+
+      - script: yarn dist -m --publish=never
+        env: {GH_TOKEN : $(GH_TOKEN)}
+        displayName: "Compile Distribution"
+
+      - task: CopyFiles@2
+        displayName: "Copy to artifacts staging directory"
+        inputs:
+          SourceFolder: 'dist'
+          Contents: |
+            *.dmg
+            *.pkg
+          TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+      - task: PublishBuildArtifacts@1
+        displayName: Upload Artifacts
+        inputs:
+          ArtifactName: "Cider-1"
+          publishLocation: "Container"
+      - task: GitHubRelease@1
+        inputs:
+          gitHubConnection: 'ciderapp'
+          repositoryName: 'ciderapp/Cider'
+          action: 'edit'
+          target: '$(Build.SourceVersion)'
+          tag: 'v1.6.1'
+          title: 'Cider Version 1.6.1'
+          releaseNotesSource: 'inline'
+          releaseNotesInline: 'Builds from [Azure](https://dev.azure.com/cidercollective/Cider/_build?definitionId=14) CI/CD'
+          assets: |
+            $(Build.ArtifactStagingDirectory)/*.pkg
+            $(Build.ArtifactStagingDirectory)/*.dmg
+          assetUploadMode: 'replace'
+          addChangeLog: false
+
 
 
