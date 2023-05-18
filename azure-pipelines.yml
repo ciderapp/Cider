@@ -246,7 +246,12 @@ jobs:
           displayName: "Install Dependencies"
 
       - script: yarn dist -m --publish=never
-        env: {GH_TOKEN : $(GH_TOKEN)}
+        env:
+          CSC_LINK: $(CSC_LINK)
+          CSC_KEY_PASSWORD: $(CSC_KEY_PASS)
+          APPLEID: $(APPLEID)
+          APPLEIDPASS: $(APPLEIDPASS)
+          GH_TOKEN: $(GH_TOKEN)
         displayName: "Compile Distribution"
 
       - task: CopyFiles@2
