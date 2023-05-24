@@ -55,7 +55,6 @@ jobs:
           displayName: "Install Dependencies"
 
       - script: yarn dist:linux
-        env: {GH_TOKEN : $(GH_TOKEN)}
         displayName: "Compile Distribution"
 
       - task: CopyFiles@2
