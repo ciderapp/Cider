@@ -6,6 +6,8 @@ Thanks for your continued support.
 
 [Get Cider 2 today.](https://www.microsoft.com/store/productId/9PL8WPH0QK9M)
 
+<a href="https://www.microsoft.com/store/productId/9PL8WPH0QK9M"><img src="./src/renderer/assets/c1-c2.png" width="20%" alt="Banner"></a>
+
 ---
 
 <p align="center">
