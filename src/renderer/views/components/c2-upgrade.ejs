@@ -7,7 +7,7 @@
     @contextmenu.self="closePromo">
     <div class="modal-window">
       <div class="modal-header">
-        <div class="modal-title">Cider 2 Upgrade 50% Off - Last Call!</div>
+        <div class="modal-title">Cider 2 Free Upgrade — Last Call!</div>
         <button
           class="close-btn"
           @click="closePromo"
@@ -23,15 +23,17 @@
           class="p-3"
           style="font-size: 14px">
           Earlier this year, we released Cider 2, a complete rewrite of Cider.
-          <br />Cider 2 is a paid upgrade, but we're offering it for 50% Discount to all Cider users who purchased Cider 1 <b>on or before November 30th, 2022.</b>
+          <br />Cider 2 is a paid upgrade, but we're offering it <b>for free</b> to Cider users who have purchased Cider 1.
+          <br />
+          <br />
+          Download Cider 2 from the Microsoft Store today!
+          <br />
 
           <br />
+          <b>This limited offer is valid until June 4th, 2023.</b>
           <br />
-          If you are eligible for a 50% Discount on the upgrade, you can download Cider 2 from the Microsoft Store.
           <br />
-
-          <br />
-          <b> The cutoff date for this upgrade is: <br />June, 30th 2023. </b>
+          <i>Upon opening the website, please click "Get in Store app" to continue.</i>
           <br />
           <br />
           <label>
@@ -39,7 +41,7 @@
               type="checkbox"
               style="accent-color: var(--keyColor)"
               v-model="showOnStartup" />
-            Show this offer again on next startup
+            Show this reminder again on next startup
           </label>
           <template v-if="hasSeen">
             <br />
@@ -48,7 +50,7 @@
                 type="checkbox"
                 style="accent-color: var(--keyColor)"
                 v-model="removeItemFromMainMenu" />
-              Remove upgrade item from Main Menu
+              Remove upgrade button from Quick Navigation/Main Menu
             </label>
           </template>
         </p>
