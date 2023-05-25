@@ -1,3 +1,13 @@
+## ⚠ Cider Classic has approached its End-of-Life status.
+This application is now no longer being actively maintained.  
+No support will be given on Windows.
+
+Thanks for your continued support.
+
+[Get Cider 2 today.](https://www.microsoft.com/store/productId/9PL8WPH0QK9M)
+
+---
+
 <p align="center">
   <a href="https://cider.sh"><img src="./resources/banner.png" width="80%" height="60%" alt="Banner"></a>
   <br>
