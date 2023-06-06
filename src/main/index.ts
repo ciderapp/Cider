@@ -8,6 +8,7 @@ import { Plugins } from "./base/plugins";
 import { BrowserWindow } from "./base/browserwindow";
 import { init as Sentry } from "@sentry/electron";
 import { RewriteFrames } from "@sentry/integrations";
+import { utils } from "./base/utils";
 
 if (!app.isPackaged) {
   app.setPath("userData", join(app.getPath("appData"), "Cider"));
@@ -30,8 +31,8 @@ const CiderPlug = new Plugins();
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * App Event Handlers
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-app.on("ready", () => {
+app.on("ready", async () => {
+  await utils.initializeTranslations()
   Cider.ready(CiderPlug);
 
   console.log("[Cider] Application is Ready. Creating Window.");
@@ -39,9 +40,10 @@ app.on("ready", () => {
     console.info("[Cider] Running in development mode.");
     require("vue-devtools").install();
   }
-
+  console.log("aa")
   components.whenReady().then(async () => {
     const bw = new BrowserWindow();
+    console.log("[Cider] Creating Window.")
     const win = await bw.createWindow();
 
     app.getGPUInfo("complete").then((gpuInfo) => {
@@ -110,3 +112,4 @@ app.on("widevine-error", (error) => {
   console.log("[Cider][Widevine] Widevine installation encountered an error: " + error);
   app.exit();
 });
+

@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@achingbrain/ssdp": "^4.0.4",
+    "@crowdin/ota-client": "^1.0.0",
     "@sentry/electron": "^4.6.0",
     "@sentry/integrations": "^7.54.0",
     "adm-zip": "^0.5.10",

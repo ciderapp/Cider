@@ -1048,22 +1048,19 @@ export class BrowserWindow {
     });
 
     ipcMain.on("get-i18n-listing", (event) => {
-      console.debug("[i18n] Getting i18n listing from " + utils.getPath("i18nPath"));
-      const i18nFiles = readdirSync(utils.getPath("i18nPath")).filter((file) => file.endsWith(".json")),
-        i18nListing = [];
+      const translations = utils.i18n
+      const i18nListing: any = [];
 
-      for (let i = 0; i < i18nFiles.length; i++) {
-        if (i18nFiles[i] == "index.json") continue;
-        console.debug("[i18n] Processing file: " + join(utils.getPath("i18nPath"), i18nFiles[i]));
-        const i18n: { [index: string]: Object } = JSON.parse(readFileSync(join(utils.getPath("i18nPath"), i18nFiles[i]), "utf8"));
+      for (const lang in translations) {
         i18nListing.push({
-          code: i18nFiles[i].replace(".json", ""),
-          nameNative: i18n["i18n.languageName"] ?? i18nFiles[i].replace(".json", ""),
-          nameEnglish: i18n["i18n.languageNameEnglish"] ?? i18nFiles[i].replace(".json", ""),
-          category: i18n["i18n.category"] ?? "",
-          authors: i18n["i18n.authors"] ?? "",
+          code: lang,
+          nameNative: translations[lang][0].content["i18n.languageName"] ?? lang,
+          nameEnglish: translations[lang][0].content["i18n.languageNameEnglish"] ?? lang,
+          category: translations[lang][0].content["i18n.category"] ?? "",
+          authors: translations[lang][0].content["i18n.authors"] ?? "",
         });
       }
+
       event.returnValue = i18nListing;
     });
 

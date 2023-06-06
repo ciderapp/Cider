@@ -3,10 +3,14 @@ import * as path from "path";
 import { Store } from "./store";
 import { BrowserWindow as bw } from "./browserwindow";
 import { app, BrowserWindow, ipcMain } from "electron";
+import OtaClient from "@crowdin/ota-client";
 import fetch from "electron-fetch";
 import ElectronStore from "electron-store";
 
 export class utils {
+  static crowdinClient: OtaClient = new OtaClient('fda9a6528649ea90dee35390wog')
+  static i18n: any = {};
+
   /**
    * Playback Functions
    */
@@ -38,8 +42,6 @@ export class utils {
     rendererPath: path.join(__dirname, "../../src/renderer"),
     mainPath: path.join(__dirname, "../../src/main"),
     resourcePath: path.join(__dirname, "../../resources"),
-    i18nPath: path.join(__dirname, "../../src/cider-i18n"),
-    i18nPathSrc: path.join(__dirname, "../../src/il8n/source"),
     ciderCache: path.resolve(app.getPath("userData"), "CiderCache"),
     themes: path.resolve(app.getPath("userData"), "Themes"),
     plugins: path.resolve(app.getPath("userData"), "Plugins"),
@@ -102,6 +104,11 @@ export class utils {
       return await fetch(url, opts);
     }
   }
+
+  static async initializeTranslations() {
+    this.i18n = await this.crowdinClient.getTranslations()
+  }
+
   /**
    * Fetches the i18n locale for the given language.
    * @param language {string} The language to fetch the locale for.
@@ -109,23 +116,12 @@ export class utils {
    * @returns {string | Object} The locale value.
    */
   static getLocale(language: string, key?: string): string | object {
-    let i18n: { [index: string]: Object } = JSON.parse(fs.readFileSync(path.join(this.paths.i18nPath, "en_US.json"), "utf8"));
-
-    if (language !== "en_US" && fs.existsSync(path.join(this.paths.i18nPath, `${language}.json`))) {
-      i18n = Object.assign(i18n, JSON.parse(fs.readFileSync(path.join(this.paths.i18nPath, `${language}.json`), "utf8")));
+    let i18n: any = {}
+    if (!this.i18n[language]) {
+      i18n = this.i18n["en"][0].content;
+    } else {
+      i18n = this.i18n[language ?? "en"][0].content;
     }
-    /* else if (!fs.existsSync(path.join(this.paths.i18nPath, `${language}.json`))) {
-            fetch(`https://raw.githubusercontent.com/ciderapp/Cider/main/src/i18n/${language}.json`)
-                .then(res => res.json())
-                .then(res => {
-                    if (res) {
-                        i18n = Object.assign(i18n, res);
-                        fs.writeFileSync(path.join(this.paths.i18nPath, `${language}.json`), JSON.stringify(res));
-                    } else {
-                        i18n = Object.assign(i18n, JSON.parse(fs.readFileSync(path.join(this.paths.i18nPath, `en_US.json`), "utf8")));
-                    }
-                })
-        } */
 
     if (key) {
       return i18n[key];

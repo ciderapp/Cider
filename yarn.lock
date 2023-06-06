@@ -1347,6 +1347,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@crowdin/ota-client@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@crowdin/ota-client@npm:1.0.0"
+  dependencies:
+    axios: ^1
+  checksum: b416632208cccf87235bd2ce7817c6b61c5069d626130f11e1034681ba9ff2ed6771f8b39e8a6afbde94f0274521cf1b2f5c02cc4dada31efe8881e5c9379952
+  languageName: node
+  linkType: hard
+
 "@develar/schema-utils@npm:~2.6.5":
   version: 2.6.5
   resolution: "@develar/schema-utils@npm:2.6.5"
@@ -3286,6 +3295,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axios@npm:^1":
+  version: 1.4.0
+  resolution: "axios@npm:1.4.0"
+  dependencies:
+    follow-redirects: ^1.15.0
+    form-data: ^4.0.0
+    proxy-from-env: ^1.1.0
+  checksum: 7fb6a4313bae7f45e89d62c70a800913c303df653f19eafec88e56cea2e3821066b8409bc68be1930ecca80e861c52aa787659df0ffec6ad4d451c7816b9386b
+  languageName: node
+  linkType: hard
+
 "axlsign@git+https://github.com/ciderapp/curve25519-js.git":
   version: 1.0.0
   resolution: "axlsign@https://github.com/ciderapp/curve25519-js.git#commit=cae68782564b83ffa1c7c757e40a3944cb140290"
@@ -3999,6 +4019,7 @@ __metadata:
   resolution: "cider@workspace:."
   dependencies:
     "@achingbrain/ssdp": ^4.0.4
+    "@crowdin/ota-client": ^1.0.0
     "@sentry/electron": ^4.6.0
     "@sentry/integrations": ^7.54.0
     "@types/adm-zip": ^0.5.0
@@ -6062,7 +6083,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.0.0":
+"follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.15.0":
   version: 1.15.2
   resolution: "follow-redirects@npm:1.15.2"
   peerDependenciesMeta:
@@ -10077,6 +10098,13 @@ __metadata:
     forwarded: 0.2.0
     ipaddr.js: 1.9.1
   checksum: 29c6990ce9364648255454842f06f8c46fcd124d3e6d7c5066df44662de63cdc0bad032e9bf5a3d653ff72141cc7b6019873d685708ac8210c30458ad99f2b74
+  languageName: node
+  linkType: hard
+
+"proxy-from-env@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "proxy-from-env@npm:1.1.0"
+  checksum: ed7fcc2ba0a33404958e34d95d18638249a68c430e30fcb6c478497d72739ba64ce9810a24f53a7d921d0c065e5b78e3822759800698167256b04659366ca4d4
   languageName: node
   linkType: hard
 
