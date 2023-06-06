@@ -39,10 +39,6 @@ jobs:
       #       path: $(YARN_CACHE_FOLDER)
       #     displayName: Cache yarn
 
-
-      - script: git submodule update --init --recursive --remote
-        displayName: Init submodules
-
       - script: yarn set version from sources
         displayName: "Setup yarn"
 
@@ -117,9 +113,6 @@ jobs:
       #       path: $(YARN_CACHE_FOLDER)
       #     displayName: Cache yarn
 
-      - script: git submodule update --init --recursive --remote
-        displayName: Init submodules
-
       - script: yarn set version from sources
         displayName: "Setup yarn"
 
@@ -177,9 +170,6 @@ jobs:
           versionSource: "fromFile"
           versionFilePath: ".nvmrc"
 
-      - script: git submodule update --init --recursive --remote
-        displayName: Init submodules
-
       - script: yarn set version from sources
         displayName: "Setup yarn"
 
@@ -230,9 +220,6 @@ jobs:
         inputs:
           versionSource: "fromFile"
           versionFilePath: ".nvmrc"
-
-      - script: git submodule update --init --recursive --remote
-        displayName: Init submodules
 
       - script: yarn set version from sources
         displayName: "Setup yarn"
