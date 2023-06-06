@@ -19,7 +19,7 @@ const app = new Vue({
     pluginInstalled: false,
     pluginMenuEntries: [],
     pluginMenuTopEntries: [],
-    lz: ipcRenderer.sendSync("get-i18n", "en_US"),
+    lz: ipcRenderer.sendSync("get-i18n", "en"),
     lzListing: ipcRenderer.sendSync("get-i18n-listing"),
     radiohls: null,
     search: {
