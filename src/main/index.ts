@@ -32,7 +32,7 @@ const CiderPlug = new Plugins();
  * App Event Handlers
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 app.on("ready", async () => {
-  await utils.initializeTranslations()
+  await utils.initializeTranslations();
   Cider.ready(CiderPlug);
 
   console.log("[Cider] Application is Ready. Creating Window.");
@@ -40,10 +40,10 @@ app.on("ready", async () => {
     console.info("[Cider] Running in development mode.");
     require("vue-devtools").install();
   }
-  console.log("aa")
+  console.log("aa");
   components.whenReady().then(async () => {
     const bw = new BrowserWindow();
-    console.log("[Cider] Creating Window.")
+    console.log("[Cider] Creating Window.");
     const win = await bw.createWindow();
 
     app.getGPUInfo("complete").then((gpuInfo) => {
@@ -112,4 +112,3 @@ app.on("widevine-error", (error) => {
   console.log("[Cider][Widevine] Widevine installation encountered an error: " + error);
   app.exit();
 });
-

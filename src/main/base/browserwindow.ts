@@ -1048,7 +1048,7 @@ export class BrowserWindow {
     });
 
     ipcMain.on("get-i18n-listing", (event) => {
-      const translations = utils.i18n
+      const translations = utils.i18n;
       const i18nListing: any = [];
 
       for (const lang in translations) {

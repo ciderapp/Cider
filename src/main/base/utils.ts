@@ -8,7 +8,7 @@ import fetch from "electron-fetch";
 import ElectronStore from "electron-store";
 
 export class utils {
-  static crowdinClient: OtaClient = new OtaClient('fda9a6528649ea90dee35390wog')
+  static crowdinClient: OtaClient = new OtaClient("fda9a6528649ea90dee35390wog");
   static i18n: any = {};
 
   /**
@@ -106,7 +106,7 @@ export class utils {
   }
 
   static async initializeTranslations() {
-    this.i18n = await this.crowdinClient.getTranslations()
+    this.i18n = await this.crowdinClient.getTranslations();
   }
 
   /**
@@ -116,7 +116,7 @@ export class utils {
    * @returns {string | Object} The locale value.
    */
   static getLocale(language: string, key?: string): string | object {
-    let i18n: any = {}
+    let i18n: any = {};
     if (!this.i18n[language]) {
       i18n = this.i18n["en"][0].content;
     } else {

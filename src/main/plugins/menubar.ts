@@ -18,7 +18,7 @@ export default class Thumbar {
 
   private isNotMac: boolean = process.platform !== "darwin";
   private isMac: boolean = process.platform === "darwin";
-  private _menuTemplate: any = []
+  private _menuTemplate: any = [];
 
   /*******************************************************************************************
    * Public Methods
@@ -57,13 +57,13 @@ export default class Thumbar {
           ...(this.isMac ? [{ type: "separator" }, { role: "services" }, { type: "separator" }, { role: "hide" }, { role: "hideOthers" }, { role: "unhide" }, { type: "separator" }, { role: "quit" }] : []),
           ...(this.isNotMac
             ? [
-              { type: "separator" },
-              {
-                label: utils.getLocale(utils.getStoreValue("general.language"), "term.quit"),
-                accelerator: "Control+Q",
-                click: () => app.quit(),
-              },
-            ]
+                { type: "separator" },
+                {
+                  label: utils.getLocale(utils.getStoreValue("general.language"), "term.quit"),
+                  accelerator: "Control+Q",
+                  click: () => app.quit(),
+                },
+              ]
             : []),
         ],
       },
@@ -120,67 +120,67 @@ export default class Thumbar {
           { type: "separator" },
           ...(this.isMac
             ? [
-              {
-                label: "Show",
-                click: () => utils.getWindow().show(),
-              },
-              { role: "zoom" },
-              { type: "separator" },
-              { role: "front" },
-              { role: "close" },
-              {
-                label: "Edit",
-                submenu: [{ role: "undo" }, { role: "redo" }, { type: "separator" }, { role: "cut" }, { role: "copy" }, { role: "paste" }],
-              },
-              { type: "separator" },
-            ]
+                {
+                  label: "Show",
+                  click: () => utils.getWindow().show(),
+                },
+                { role: "zoom" },
+                { type: "separator" },
+                { role: "front" },
+                { role: "close" },
+                {
+                  label: "Edit",
+                  submenu: [{ role: "undo" }, { role: "redo" }, { type: "separator" }, { role: "cut" }, { role: "copy" }, { role: "paste" }],
+                },
+                { type: "separator" },
+              ]
             : []),
           ...(this.isNotMac
             ? [
-              {
-                label: utils.getLocale(utils.getStoreValue("general.language"), "menubar.options.zoom"),
-                submenu: [
-                  {
-                    label: utils.getLocale(utils.getStoreValue("general.language"), "term.zoomin"),
-                    role: "zoomIn",
-                    accelerator: utils.getStoreValue("general.keybindings.zoomn").join("+"),
-                  },
-                  {
-                    label: utils.getLocale(utils.getStoreValue("general.language"), "term.zoomout"),
-                    role: "zoomOut",
-                    accelerator: utils.getStoreValue("general.keybindings.zoomt").join("+"),
-                  },
-                  {
-                    label: utils.getLocale(utils.getStoreValue("general.language"), "term.zoomreset"),
-                    role: "resetZoom",
-                    accelerator: utils.getStoreValue("general.keybindings.zoomrst").join("+"),
-                  },
-                ],
-              },
-              { type: "separator" },
-              {
-                label: utils.getLocale(utils.getStoreValue("general.language"), "term.fullscreen"),
-                accelerator: "Control+Enter",
-                role: "togglefullscreen",
-              },
-              { type: "separator" },
-              {
-                label: utils.getLocale(utils.getStoreValue("general.language"), "action.close"),
-                accelerator: "Control+W",
-                role: "close",
-              },
-              { type: "separator" },
-              {
-                label: utils.getLocale(utils.getStoreValue("general.language"), "menubar.options.reload"),
-                accelerator: "Control+R",
-                role: "reload",
-              },
-              {
-                label: utils.getLocale(utils.getStoreValue("general.language"), "menubar.options.forcereload"),
-                accelerator: "Control+Shift+R",
-                role: "forceReload",
-              },
-            ]
+                {
+                  label: utils.getLocale(utils.getStoreValue("general.language"), "menubar.options.zoom"),
+                  submenu: [
+                    {
+                      label: utils.getLocale(utils.getStoreValue("general.language"), "term.zoomin"),
+                      role: "zoomIn",
+                      accelerator: utils.getStoreValue("general.keybindings.zoomn").join("+"),
+                    },
+                    {
+                      label: utils.getLocale(utils.getStoreValue("general.language"), "term.zoomout"),
+                      role: "zoomOut",
+                      accelerator: utils.getStoreValue("general.keybindings.zoomt").join("+"),
+                    },
+                    {
+                      label: utils.getLocale(utils.getStoreValue("general.language"), "term.zoomreset"),
+                      role: "resetZoom",
+                      accelerator: utils.getStoreValue("general.keybindings.zoomrst").join("+"),
+                    },
+                  ],
+                },
+                { type: "separator" },
+                {
+                  label: utils.getLocale(utils.getStoreValue("general.language"), "term.fullscreen"),
+                  accelerator: "Control+Enter",
+                  role: "togglefullscreen",
+                },
+                { type: "separator" },
+                {
+                  label: utils.getLocale(utils.getStoreValue("general.language"), "action.close"),
+                  accelerator: "Control+W",
+                  role: "close",
+                },
+                { type: "separator" },
+                {
+                  label: utils.getLocale(utils.getStoreValue("general.language"), "menubar.options.reload"),
+                  accelerator: "Control+R",
+                  role: "reload",
+                },
+                {
+                  label: utils.getLocale(utils.getStoreValue("general.language"), "menubar.options.forcereload"),
+                  accelerator: "Control+Shift+R",
+                  role: "forceReload",
+                },
+              ]
             : []),
         ],
       },
@@ -317,11 +317,11 @@ export default class Thumbar {
    * Runs on playback State Change
    * @param attributes Music Attributes (attributes.status = current state)
    */
-  onPlaybackStateDidChange(attributes: object): void { }
+  onPlaybackStateDidChange(attributes: object): void {}
 
   /**
    * Runs on song change
    * @param attributes Music Attributes
    */
-  onNowPlayingItemDidChange(attributes: object): void { }
+  onNowPlayingItemDidChange(attributes: object): void {}
 }
