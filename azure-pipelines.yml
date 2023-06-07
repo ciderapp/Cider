@@ -75,8 +75,8 @@ jobs:
           repositoryName: 'ciderapp/Cider'
           action: 'edit'
           target: '$(Build.SourceVersion)'
-          tag: 'v1.6.1'
-          title: 'Cider Version 1.6.1'
+          tag: 'v1.6.2'
+          title: 'Cider Version 1.6.2'
           releaseNotesSource: 'inline'
           releaseNotesInline: 'Builds from [Azure](https://dev.azure.com/cidercollective/Cider/_build?definitionId=14) CI/CD'
           assets: |
@@ -141,8 +141,8 @@ jobs:
           repositoryName: 'ciderapp/Cider'
           action: 'edit'
           target: '$(Build.SourceVersion)'
-          tag: 'v1.6.1'
-          title: 'Cider Version 1.6.1'
+          tag: 'v1.6.2'
+          title: 'Cider Version 1.6.2'
           releaseNotesSource: 'inline'
           releaseNotesInline: 'Builds from [Azure](https://dev.azure.com/cidercollective/Cider/_build?definitionId=14) CI/CD'
           assets: |
@@ -193,8 +193,8 @@ jobs:
           repositoryName: 'ciderapp/Cider'
           action: 'edit'
           target: '$(Build.SourceVersion)'
-          tag: 'v1.6.1'
-          title: 'Cider Version 1.6.1'
+          tag: 'v1.6.2'
+          title: 'Cider Version 1.6.2'
           releaseNotesSource: 'inline'
           releaseNotesInline: 'Builds from [Azure](https://dev.azure.com/cidercollective/Cider/_build?definitionId=14) CI/CD'
           assets: |
@@ -261,8 +261,8 @@ jobs:
           repositoryName: 'ciderapp/Cider'
           action: 'edit'
           target: '$(Build.SourceVersion)'
-          tag: 'v1.6.1'
-          title: 'Cider Version 1.6.1'
+          tag: 'v1.6.2'
+          title: 'Cider Version 1.6.2'
           releaseNotesSource: 'inline'
           releaseNotesInline: 'Builds from [Azure](https://dev.azure.com/cidercollective/Cider/_build?definitionId=14) CI/CD'
           assets: |
