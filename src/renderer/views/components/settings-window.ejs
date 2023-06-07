@@ -1700,10 +1700,17 @@
           if (langs[i].category === undefined || langs[i].category === "") {
             categories.unsorted.push(langs[i])
           } else {
-            categories[langs[i].category].push(langs[i])
+            try {
+              categories[langs[i].category].push(langs[i])
+            }
+            catch {
+              categories["unsorted"].push(langs[i])
+            }
+
           }
         }
         // return
+        console.log(categories)
         return categories
       },
       addExperiment(flag) {

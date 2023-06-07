@@ -28,9 +28,9 @@
                                 v-model="app.cfg.audio.maikiwiAudio.ciderPPE_value"
                                 v-on:change="CiderAudio.hierarchical_loading()">
                             <option v-for="(item, index) in ciderPPE"
-                            :value="item.displayName"
+                            :value="item.name"
                             :key="index.name">
-                              {{item}}
+                              {{item.displayName}}
                             </option>
                         </select>
                     </div>
@@ -140,14 +140,19 @@
                 app: this.$root,
                 arprofiles: CiderAudio.atmosphereRealizerProfiles,
                 spprofiles: CiderAudio.spatialProfiles,
-                ciderPPE: [{name: "MAIKIWI", displayName: "Maikiwi " + $root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.adaptive')},
-                {name: "MAIKIWI_LEGACY", displayName: "Maikiwi " + $root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy')},
-                {name: "NATURAL", displayName: $root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard')},
-                {name: "LEGACY", displayName: $root.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy')}]
+                ciderPPE: [{name: "MAIKIWI", displayName: "Maikiwi " + app.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.adaptive')},
+                {name: "MAIKIWI_LEGACY", displayName: "Maikiwi " + app.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy')},
+                {name: "NATURAL", displayName: app.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard')},
+                {name: "LEGACY", displayName: app.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy')}]
             }
         },
         mounted: function () {
-
+          return {
+            ciderPPE: [{name: "MAIKIWI", displayName: "Maikiwi " + app.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.adaptive')},
+                {name: "MAIKIWI_LEGACY", displayName: "Maikiwi " + app.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy')},
+                {name: "NATURAL", displayName: app.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.standard')},
+                {name: "LEGACY", displayName: app.getLz('settings.option.audio.enableAdvancedFunctionality.ciderPPEStrength.legacy')}]
+          }
         },
         methods: {
         }
