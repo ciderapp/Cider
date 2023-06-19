@@ -173,7 +173,7 @@ export class AppEvents {
         console.log("token: ", authURI.split("lastfm?token=")[1]);
         utils
           .getWindow()
-          .webContents.executeJavaScript(`ipcRenderer.send('lastfm:auth', "${authURI.split("lastfm?token=")[1]}")`)
+          .webContents.executeJavaScript(`ipcRenderer.send('lastfm:auth', ${JSON.stringify(authURI.split("lastfm?token=")[1])})`)
           .catch(console.error);
       }
     } else if (arg.includes("playpause")) {
@@ -220,7 +220,7 @@ export class AppEvents {
     } else if (arg.includes("/beep")) {
       shell.beep();
     } else {
-      utils.getWindow().webContents.executeJavaScript(`app.appRoute('${arg.split("//")[1]}')`);
+      utils.getWindow().webContents.executeJavaScript(`app.appRoute(${JSON.stringify(arg.split("//")[1])})`);
     }
   }
 
