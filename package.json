@@ -53,7 +53,7 @@
     "mdns-js": "github:ciderapp/node-mdns-js",
     "mpris-service": "^2.1.2",
     "music-metadata": "7.12.6",
-    "node-gyp": "^9.3.1",
+    "node-gyp": "^9.4.0",
     "node-ssdp": "^4.0.1",
     "node-ssdp-js": "^0.9.6",
     "qrcode": "^1.5.3",
