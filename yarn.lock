@@ -4053,7 +4053,7 @@ __metadata:
     less: ^4.1.3
     mdns-js: "github:ciderapp/node-mdns-js"
     mpris-service: ^2.1.2
-    music-metadata: 7.12.6
+    music-metadata: 7.13.4
     node-gyp: ^9.3.1
     node-ssdp: ^4.0.1
     node-ssdp-js: ^0.9.6
@@ -4388,7 +4388,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"content-type@npm:^1.0.4, content-type@npm:~1.0.4":
+"content-type@npm:^1.0.5, content-type@npm:~1.0.4":
   version: 1.0.5
   resolution: "content-type@npm:1.0.5"
   checksum: 566271e0a251642254cde0f845f9dd4f9856e52d988f4eb0d0dcffbb7a1f8ec98de7a5215fc628f3bce30fe2fb6fd2bc064b562d721658c59b544e2d34ea2766
@@ -6277,7 +6277,7 @@ __metadata:
 
 "fsevents@patch:fsevents@^1.2.7#~builtin<compat/fsevents>":
   version: 1.2.13
-  resolution: "fsevents@patch:fsevents@npm%3A1.2.13#~builtin<compat/fsevents>::version=1.2.13&hash=d11327"
+  resolution: "fsevents@patch:fsevents@npm%3A1.2.13#~builtin<compat/fsevents>::version=1.2.13&hash=18f3a7"
   dependencies:
     bindings: ^1.5.0
     nan: ^2.12.1
@@ -6287,7 +6287,7 @@ __metadata:
 
 "fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
   dependencies:
     node-gyp: latest
   conditions: os=darwin
@@ -8911,18 +8911,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"music-metadata@npm:7.12.6":
-  version: 7.12.6
-  resolution: "music-metadata@npm:7.12.6"
+"music-metadata@npm:7.13.4":
+  version: 7.13.4
+  resolution: "music-metadata@npm:7.13.4"
   dependencies:
     "@tokenizer/token": ^0.3.0
-    content-type: ^1.0.4
+    content-type: ^1.0.5
     debug: ^4.3.4
     file-type: ^16.5.4
     media-typer: ^1.1.0
     strtok3: ^6.3.0
-    token-types: ^4.2.0
-  checksum: 66305429f1c1b5b536541ad8eb561d85eab2a33274e17dd6df8b0f4cb92ef46a5e27d4e66158b3b2425b6e6bc1dae1fae8005b2825ff0e31a66ae975dba50f50
+    token-types: ^4.2.1
+  checksum: ffa4c56b68c516024b289d0e19b242344ab6e7c36b2c8f853e135b7eb091dcdb8e373f8a1bb3e6d4bafcc9a2c04d5a56ea5d75b047a578fdbf527c043d79b355
   languageName: node
   linkType: hard
 
@@ -10633,7 +10633,7 @@ __metadata:
 
 "resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.0#~builtin<compat/resolve>":
   version: 1.22.3
-  resolution: "resolve@patch:resolve@npm%3A1.22.3#~builtin<compat/resolve>::version=1.22.3&hash=c3c19d"
+  resolution: "resolve@patch:resolve@npm%3A1.22.3#~builtin<compat/resolve>::version=1.22.3&hash=07638b"
   dependencies:
     is-core-module: ^2.12.0
     path-parse: ^1.0.7
@@ -11968,7 +11968,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"token-types@npm:^4.1.1, token-types@npm:^4.2.0":
+"token-types@npm:^4.1.1, token-types@npm:^4.2.1":
   version: 4.2.1
   resolution: "token-types@npm:4.2.1"
   dependencies:
@@ -12107,7 +12107,7 @@ __metadata:
 
 "typescript@patch:typescript@^5.1.3#~builtin<compat/typescript>":
   version: 5.1.3
-  resolution: "typescript@patch:typescript@npm%3A5.1.3#~builtin<compat/typescript>::version=5.1.3&hash=77c9e2"
+  resolution: "typescript@patch:typescript@npm%3A5.1.3#~builtin<compat/typescript>::version=5.1.3&hash=701156"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
