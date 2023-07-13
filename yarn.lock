@@ -4034,7 +4034,7 @@ __metadata:
     castv2-client: ^1.2.0
     chokidar: ^3.5.3
     discord-auto-rpc: ^1.0.17
-    dns-js: "github:ciderapp/node-dns-js"
+    dns-js: 0.3.1
     ejs: ^3.1.9
     electron: "github:castlabs/electron-releases"
     electron-builder: ^23.6.0
@@ -4959,13 +4959,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dns-js@git+https://github.com/ciderapp/node-dns-js.git, dns-js@github:ciderapp/node-dns-js":
+"dns-js@git+https://github.com/ciderapp/node-dns-js.git":
   version: 0.2.1
   resolution: "dns-js@https://github.com/ciderapp/node-dns-js.git#commit=212b6c903db40bcd501af741e51cd20d676acbc9"
   dependencies:
     debug: ^2.1.0
     qap: ^3.1.2
   checksum: 6c2fdd39da78a672409cebeb116cdc28c5ac1fc002d6e50c548b6a5bde8390fedeca164591e3d0f1518a0323fb65299c64086e858031c0f12ed69e2574c45c17
+  languageName: node
+  linkType: hard
+
+"dns-js@npm:0.3.1":
+  version: 0.3.1
+  resolution: "dns-js@npm:0.3.1"
+  dependencies:
+    debug: ^2.1.0
+    qap: ^3.1.2
+  checksum: 06f50536a95469d6d6455705287878c0de00e6ea89139f87bacbba0e989197020a94b8ed83f8f06b448318704d0671388fcbadb447d1b7500bd7ade308db970b
   languageName: node
   linkType: hard
 
@@ -6277,7 +6287,7 @@ __metadata:
 
 "fsevents@patch:fsevents@^1.2.7#~builtin<compat/fsevents>":
   version: 1.2.13
-  resolution: "fsevents@patch:fsevents@npm%3A1.2.13#~builtin<compat/fsevents>::version=1.2.13&hash=d11327"
+  resolution: "fsevents@patch:fsevents@npm%3A1.2.13#~builtin<compat/fsevents>::version=1.2.13&hash=18f3a7"
   dependencies:
     bindings: ^1.5.0
     nan: ^2.12.1
@@ -6287,7 +6297,7 @@ __metadata:
 
 "fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
   dependencies:
     node-gyp: latest
   conditions: os=darwin
@@ -10633,7 +10643,7 @@ __metadata:
 
 "resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.0#~builtin<compat/resolve>":
   version: 1.22.3
-  resolution: "resolve@patch:resolve@npm%3A1.22.3#~builtin<compat/resolve>::version=1.22.3&hash=c3c19d"
+  resolution: "resolve@patch:resolve@npm%3A1.22.3#~builtin<compat/resolve>::version=1.22.3&hash=07638b"
   dependencies:
     is-core-module: ^2.12.0
     path-parse: ^1.0.7
@@ -12107,7 +12117,7 @@ __metadata:
 
 "typescript@patch:typescript@^5.1.3#~builtin<compat/typescript>":
   version: 5.1.3
-  resolution: "typescript@patch:typescript@npm%3A5.1.3#~builtin<compat/typescript>::version=5.1.3&hash=77c9e2"
+  resolution: "typescript@patch:typescript@npm%3A5.1.3#~builtin<compat/typescript>::version=5.1.3&hash=701156"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
