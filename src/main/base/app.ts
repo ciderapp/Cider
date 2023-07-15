@@ -144,7 +144,7 @@ export class AppEvents {
           title: "Web Remote",
           description: "Connect to your Web Remote",
         },
-        "https://webremote.cider.sh"
+        "https://webremote.cider.sh",
       );
     }
 

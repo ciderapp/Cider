@@ -59,7 +59,7 @@ define(["./workbox-962786f2"], function (e) {
       ],
       {
         ignoreURLParametersMatching: [/^utm_/, /^fbclid$/, /^X-Amz-Algorithm/, /^X-Amz-Date/, /^X-Amz-SignedHeaders/, /^X-Amz-Expires/, /^X-Amz-Credential/, /^X-Amz-Signature/],
-      }
+      },
     ),
     e.registerRoute(/\.(?:png|jpg|jpeg|svg|webp)$/, new e.CacheFirst({ cacheName: "imageinternet", plugins: [] }), "GET"),
     e.registerRoute(/https:\/\/is[0-9]-ssl\.mzstatic\.com\/image+/, new e.CacheFirst(), "GET"),

@@ -1408,7 +1408,7 @@
                         fe();
                       }
                     })(t, e)
-                  : t || {})
+                  : t || {}),
             ) || (t = {});
             var n = Object.keys(t),
               r = e.$options.props,
@@ -1897,7 +1897,7 @@
       math: "http://www.w3.org/1998/Math/MathML",
     },
     qn = p(
-      "html,body,base,head,link,meta,style,title,address,article,aside,footer,header,h1,h2,h3,h4,h5,h6,hgroup,nav,section,div,dd,dl,dt,figcaption,figure,picture,hr,img,li,main,ol,p,pre,ul,a,b,abbr,bdi,bdo,br,cite,code,data,dfn,em,i,kbd,mark,q,rp,rt,rtc,ruby,s,samp,small,span,strong,sub,sup,time,u,var,wbr,area,audio,map,track,video,embed,object,param,source,canvas,script,noscript,del,ins,caption,col,colgroup,table,thead,tbody,td,th,tr,button,datalist,fieldset,form,input,label,legend,meter,optgroup,option,output,progress,select,textarea,details,dialog,menu,menuitem,summary,content,element,shadow,template,blockquote,iframe,tfoot"
+      "html,body,base,head,link,meta,style,title,address,article,aside,footer,header,h1,h2,h3,h4,h5,h6,hgroup,nav,section,div,dd,dl,dt,figcaption,figure,picture,hr,img,li,main,ol,p,pre,ul,a,b,abbr,bdi,bdo,br,cite,code,data,dfn,em,i,kbd,mark,q,rp,rt,rtc,ruby,s,samp,small,span,strong,sub,sup,time,u,var,wbr,area,audio,map,track,video,embed,object,param,source,canvas,script,noscript,del,ins,caption,col,colgroup,table,thead,tbody,td,th,tr,button,datalist,fieldset,form,input,label,legend,meter,optgroup,option,output,progress,select,textarea,details,dialog,menu,menuitem,summary,content,element,shadow,template,blockquote,iframe,tfoot",
     ),
     Wn = p("svg,animate,circle,clippath,cursor,defs,desc,ellipse,filter,font-face,foreignobject,g,glyph,image,line,marker,mask,missing-glyph,path,pattern,polygon,polyline,rect,switch,symbol,text,textpath,tspan,use,view", !0),
     Zn = function (e) {
@@ -2201,8 +2201,8 @@
           isDynamicArg: o,
           modifiers: a,
         },
-        s
-      )
+        s,
+      ),
     ),
       (e.plain = !1);
   }
@@ -2564,7 +2564,7 @@
       null,
       t.map(function (t, n) {
         return Pi(t) + Pi(e[n]);
-      })
+      }),
     );
   }
   function Pi(e) {
@@ -3176,7 +3176,7 @@
                   Oi,
                   (n._moveCb = function e(r) {
                     (r && r.target !== n) || (r && !/transform$/.test(r.propertyName)) || (n.removeEventListener(Oi, e), (n._moveCb = null), Di(n, t));
-                  })
+                  }),
                 );
             }
           }));
@@ -3232,7 +3232,7 @@
                 e._isMounted && !e._isDestroyed && Qt(e, "beforeUpdate");
               },
             },
-            !0
+            !0,
           ),
           (n = !1),
           null == e.$vnode && ((e._isMounted = !0), Qt(e, "mounted")),
@@ -3635,7 +3635,7 @@
               n,
               (function (e, t) {
                 return e.rawAttrsMap[":" + t] || e.rawAttrsMap["v-bind:" + t] || e.rawAttrsMap[t];
-              })(e, "slot")
+              })(e, "slot"),
             ));
         if ("template" === e.tag) {
           var r = Rr(e, oa);
@@ -3969,7 +3969,7 @@
               .map(function (e) {
                 return "$event." + e + "Key";
               })
-              .join("||")
+              .join("||"),
           );
         } else a.push(s);
       return (
@@ -4040,7 +4040,7 @@
                         value: e.value,
                         dynamic: e.dynamic,
                       };
-                    })
+                    }),
                   )
                 : null,
             a = e.attrsMap["v-bind"];
@@ -4361,7 +4361,7 @@
                 delimiters: n.delimiters,
                 comments: n.comments,
               },
-              this
+              this,
             ),
             o = i.render,
             a = i.staticRenderFns;

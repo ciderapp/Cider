@@ -37,7 +37,9 @@
   border-top: 1px solid rgba(100, 100, 100, 0.5);
   color: #eee;
   white-space: nowrap;
-  transition: transform 0.2s var(--appleEase), box-shadow 0.2s var(--appleEase);
+  transition:
+    transform 0.2s var(--appleEase),
+    box-shadow 0.2s var(--appleEase);
 
   &.md-btn-block {
     display: block;
@@ -70,7 +72,9 @@
   &:active {
     filter: brightness(75%);
     transform: scale(0.98);
-    transition: transform 0s var(--appleEase), box-shadow 0.2s var(--appleEase);
+    transition:
+      transform 0s var(--appleEase),
+      box-shadow 0.2s var(--appleEase);
   }
 
   &.md-btn-icon {
@@ -1187,12 +1191,16 @@
   &.mediaitem-video {
     height: 200px;
     width: 240px;
-    transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
+    transition:
+      width var(--transitionDuration) linear,
+      height var(--transitionDuration) linear;
 
     .artwork {
       height: 120px;
       width: 212px;
-      transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
+      transition:
+        width var(--transitionDuration) linear,
+        height var(--transitionDuration) linear;
     }
 
     &:not(.noscale) {
@@ -1225,12 +1233,16 @@
   &.mediaitem-brick {
     height: 200px;
     width: 240px;
-    transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
+    transition:
+      width var(--transitionDuration) linear,
+      height var(--transitionDuration) linear;
 
     .artwork {
       height: 123px;
       width: 220px;
-      transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
+      transition:
+        width var(--transitionDuration) linear,
+        height var(--transitionDuration) linear;
     }
 
     &:not(.noscale) {
@@ -1263,12 +1275,16 @@
   &.mediaitem-small {
     width: calc(140px, var(--windowRelativeScale));
     height: calc(180px, var(--windowRelativeScale));
-    transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
+    transition:
+      width var(--transitionDuration) linear,
+      height var(--transitionDuration) linear;
 
     .artwork {
       height: calc(128px, var(--windowRelativeScale));
       width: calc(128px, var(--windowRelativeScale));
-      transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
+      transition:
+        width var(--transitionDuration) linear,
+        height var(--transitionDuration) linear;
     }
   }
 
@@ -1281,7 +1297,9 @@
     position: relative;
     border-radius: calc(var(--mediaItemRadius) * 2);
     box-shadow: var(--mediaItemShadow-ShadowSubtle);
-    transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear;
+    transition:
+      width var(--transitionDuration) linear,
+      height var(--transitionDuration) linear;
 
     .artwork {
       width: 230px;
@@ -1289,7 +1307,10 @@
       overflow: hidden;
       border-radius: 0px;
       margin: 0;
-      transition: width var(--transitionDuration) linear, height var(--transitionDuration) linear, filter 0.2s ease-in-out;
+      transition:
+        width var(--transitionDuration) linear,
+        height var(--transitionDuration) linear,
+        filter 0.2s ease-in-out;
       .mediaitem-artwork {
         border-radius: 0px;
 
@@ -1703,7 +1724,9 @@ input[type="checkbox"][switch]:checked:active::before {
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 8px;
-  box-shadow: inset 0px 0px 0px 1px rgb(200 200 200 / 16%), 0 8px 40px rgb(0 0 0 / 0.55);
+  box-shadow:
+    inset 0px 0px 0px 1px rgb(200 200 200 / 16%),
+    0 8px 40px rgb(0 0 0 / 0.55);
   transition: transform 0.1s var(--appleEase);
 }
 
@@ -1765,7 +1788,9 @@ input[type="checkbox"][switch]:checked:active::before {
     z-index: -1;
     transform: scale(0.5);
     pointer-events: none;
-    transition: opacity 0.1s var(--appleEase), transform 0.1s var(--appleEase);
+    transition:
+      opacity 0.1s var(--appleEase),
+      transform 0.1s var(--appleEase);
   }
 
   &:hover {
@@ -1805,7 +1830,9 @@ input[type="checkbox"][switch]:checked:active::before {
     z-index: -1;
     transform: scale(0.5);
     pointer-events: none;
-    transition: opacity 0.1s var(--appleEase), transform 0.1s var(--appleEase);
+    transition:
+      opacity 0.1s var(--appleEase),
+      transform 0.1s var(--appleEase);
   }
 
   &:hover {
@@ -2056,7 +2083,9 @@ input[type="checkbox"][switch]:checked:active::before {
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 8px;
-  box-shadow: inset 0px 0px 0px 1px rgb(200 200 200 / 16%), 0 8px 40px rgb(0 0 0 / 0.55);
+  box-shadow:
+    inset 0px 0px 0px 1px rgb(200 200 200 / 16%),
+    0 8px 40px rgb(0 0 0 / 0.55);
 }
 
 .list-entry-image.artist {
@@ -2254,7 +2283,10 @@ input[type="checkbox"][switch]:checked:active::before {
         border-radius: 50px;
         z-index: -1;
         opacity: 0;
-        transition: background-color 0.5s var(--appleEase), opacity 0.25s var(--appleEase), border-radius 0.32s var(--appleEase);
+        transition:
+          background-color 0.5s var(--appleEase),
+          opacity 0.25s var(--appleEase),
+          border-radius 0.32s var(--appleEase);
       }
 
       &:hover {
@@ -2267,7 +2299,11 @@ input[type="checkbox"][switch]:checked:active::before {
         &:after {
           opacity: 1;
           background-color: #eee;
-          transition: background-color 0.25s var(--appleEase), border-radius 0.25s var(--appleEase), color 0s var(--appleEase), opacity 0s var(--appleEase);
+          transition:
+            background-color 0.25s var(--appleEase),
+            border-radius 0.25s var(--appleEase),
+            color 0s var(--appleEase),
+            opacity 0s var(--appleEase);
         }
       }
 

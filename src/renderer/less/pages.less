@@ -748,7 +748,9 @@
   }
 
   .mediaContainer {
-    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+    transition:
+      width 0.5s ease-in-out,
+      height 0.5s ease-in-out;
     width: 260px;
     height: 260px;
   }
@@ -948,7 +950,9 @@
         }
 
         .playlist-desc {
-          transition: height 0.2s ease-in-out, opacity 0.2s ease-in-out;
+          transition:
+            height 0.2s ease-in-out,
+            opacity 0.2s ease-in-out;
           box-sizing: border-box;
           font-size: 14px;
           flex-shrink: unset;
@@ -1088,7 +1092,9 @@
     font-size: 0.9em;
     margin: 6px;
     opacity: 0.7;
-    transition: height 0.2s ease-in-out, opacity 0.2s ease-in-out;
+    transition:
+      height 0.2s ease-in-out,
+      opacity 0.2s ease-in-out;
     height: 0.9em;
   }
 
@@ -1152,19 +1158,25 @@
       }
 
       .mediaContainer {
-        transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+        transition:
+          width 0.5s ease-in-out,
+          height 0.5s ease-in-out;
         width: 128px !important;
         height: 128px !important;
       }
 
       .playlist-time {
-        transition: height 0.2s ease-in-out, opacity 0.2s ease-in-out;
+        transition:
+          height 0.2s ease-in-out,
+          opacity 0.2s ease-in-out;
         height: 0px;
         opacity: 0;
       }
 
       .playlist-desc {
-        transition: height 0.2s ease-in-out, opacity 0.2s ease-in-out;
+        transition:
+          height 0.2s ease-in-out,
+          opacity 0.2s ease-in-out;
         height: 0px !important;
         opacity: 0;
       }
@@ -1413,7 +1425,9 @@
     &:active {
       filter: brightness(75%);
       transform: scale(0.98);
-      transition: transform 0s var(--appleEase), box-shadow 0.2s var(--appleEase);
+      transition:
+        transform 0s var(--appleEase),
+        box-shadow 0.2s var(--appleEase);
     }
   }
 
@@ -1555,7 +1569,9 @@
         background: rgb(0 0 0 / 20%);
         z-index: 1;
         border: 0px;
-        transition: background 0.2s var(--appleEase), transform 0.2s var(--appleEase);
+        transition:
+          background 0.2s var(--appleEase),
+          transform 0.2s var(--appleEase);
 
         &:hover {
           background: var(--selected);
@@ -1625,7 +1641,9 @@
       .spfade-enter-active,
       .spfade-leave-active {
         --transitionTime: 0.2s;
-        transition: opacity var(--transitionTime) var(--appleEase), transform var(--transitionTime) var(--appleEase);
+        transition:
+          opacity var(--transitionTime) var(--appleEase),
+          transform var(--transitionTime) var(--appleEase);
         will-change: opacity, transform;
       }
 
@@ -2120,7 +2138,11 @@
     position: relative;
     flex: 1;
     backdrop-filter: var(--glassFilterHeavy);
-    transition: width 0.25s ease-in-out, height 0.25s ease-in-out, max-width 0.25s ease-in-out, max-height 0.25s ease-in-out;
+    transition:
+      width 0.25s ease-in-out,
+      height 0.25s ease-in-out,
+      max-width 0.25s ease-in-out,
+      max-height 0.25s ease-in-out;
 
     .header-text {
       position: absolute;

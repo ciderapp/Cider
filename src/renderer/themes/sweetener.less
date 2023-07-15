@@ -98,7 +98,9 @@
 .wpfade_transform-enter-active,
 .wpfade_transform-leave-active {
   --transitionTime: 0.2s;
-  transition: opacity var(--transitionTime) var(--appleEase), transform var(--transitionTime) var(--appleEase);
+  transition:
+    opacity var(--transitionTime) var(--appleEase),
+    transform var(--transitionTime) var(--appleEase);
   will-change: opacity, transform;
 }
 
@@ -116,7 +118,9 @@
 .wpfade_transform_backwards-enter-active,
 .wpfade_transform_backwards-leave-active {
   --transitionTime: 0.2s;
-  transition: opacity var(--transitionTime) var(--appleEase), transform var(--transitionTime) var(--appleEase);
+  transition:
+    opacity var(--transitionTime) var(--appleEase),
+    transform var(--transitionTime) var(--appleEase);
 }
 
 .wpfade_transform_backwards-enter {

@@ -288,7 +288,7 @@ const app = new Vue({
         let currentPath = window.location.hash.slice(1);
         console.debug("hashchange", currentPath);
       },
-      false
+      false,
     );
   },
   methods: {
@@ -759,7 +759,7 @@ const app = new Vue({
                 data: pitems,
               }),
             },
-          }
+          },
         )
         .then(() => {
           if (app.page === "playlist_" + pid) {
@@ -1030,7 +1030,7 @@ const app = new Vue({
             app.stringTemplateParser(app.getLz("settings.option.connectivity.discordRPC.reconnectedToUser"), {
               user: `${user.username}#${user.discriminator}`,
               userid: user.id,
-            })
+            }),
           );
         }
       });
@@ -1590,7 +1590,7 @@ const app = new Vue({
             fetchOptions: {
               method: "POST",
             },
-          }
+          },
         );
       } else {
         if (app.cfg.home.followedArtists.includes(id)) {
@@ -1608,7 +1608,7 @@ const app = new Vue({
             fetchOptions: {
               method: "DELETE",
             },
-          }
+          },
         );
       }
     },
@@ -1746,7 +1746,7 @@ const app = new Vue({
                 attributes: { name: name },
               }),
             },
-          }
+          },
         )
         .then((res) => {
           self.refreshPlaylists(false, false);
@@ -1765,7 +1765,7 @@ const app = new Vue({
                 attributes: { name: name },
               }),
             },
-          }
+          },
         )
         .then((res) => {
           self.refreshPlaylists(false, false);
@@ -1784,7 +1784,7 @@ const app = new Vue({
                 attributes: { description: name },
               }),
             },
-          }
+          },
         )
         .then((res) => {
           self.refreshPlaylists(false, false);
@@ -1820,7 +1820,7 @@ const app = new Vue({
                 },
               }),
             },
-          }
+          },
         )
         .then((res) => {
           res = res.data.data[0];
@@ -1853,7 +1853,7 @@ const app = new Vue({
                 fetchOptions: {
                   method: "DELETE",
                 },
-              }
+              },
             )
             .then((res) => {
               // remove this playlist from playlists.listing if it exists
@@ -2011,7 +2011,7 @@ const app = new Vue({
           "art[url]": "f",
           l: this.mklang,
         },
-        { includeResponseMeta: !0 }
+        { includeResponseMeta: !0 },
       );
       console.debug(artistData.data.data[0]);
       this.artistPage.data = artistData.data.data[0];
@@ -3213,7 +3213,7 @@ const app = new Vue({
             {
               includeResponseMeta: !0,
               reload: !0,
-            }
+            },
           )
         ).data;
         this.listennow.timestamp = Date.now();
@@ -3308,7 +3308,7 @@ const app = new Vue({
                 attributes: { name: name },
               }),
             },
-          }
+          },
         )
         .then((res) => {
           let playlist = res.data.data[0];
@@ -3384,7 +3384,7 @@ const app = new Vue({
             fetchOptions: {
               method: "DELETE",
             },
-          }
+          },
         )
         .then((data) => {
           self.getLibrarySongsFull(true);
@@ -4281,7 +4281,7 @@ const app = new Vue({
             "art[url]": "f",
             "art[social-profiles:url]": "c",
           },
-          { includeResponseMeta: !0 }
+          { includeResponseMeta: !0 },
         )
         .then(function (results) {
           results.data.results["meta"] = results.data.meta;
@@ -4536,7 +4536,7 @@ const app = new Vue({
               },
             }),
           },
-        }
+        },
       );
     },
     dislike(item) {
@@ -4561,7 +4561,7 @@ const app = new Vue({
               },
             }),
           },
-        }
+        },
       );
     },
     unlove(item) {
@@ -4580,7 +4580,7 @@ const app = new Vue({
           fetchOptions: {
             method: "DELETE",
           },
-        }
+        },
       );
     },
     checkScrollDirectionIsUp(event) {

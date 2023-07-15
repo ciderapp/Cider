@@ -292,5 +292,5 @@ document.addEventListener(
       app.showMenuPanel(menuPanel, e);
     }
   },
-  false
+  false,
 );

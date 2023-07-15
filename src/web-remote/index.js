@@ -85,7 +85,7 @@ var app = new Vue({
           id: id,
           params: params,
           library: library,
-        })
+        }),
       );
     },
     resetPlayerUI() {
@@ -157,7 +157,7 @@ var app = new Vue({
         JSON.stringify({
           action: "set-autoplay",
           autoplay: value,
-        })
+        }),
       );
       this.getCurrentMediaItem();
       if (value) {
@@ -176,7 +176,7 @@ var app = new Vue({
         JSON.stringify({
           action: "seek",
           time: time,
-        })
+        }),
       );
     },
     setVolume(volume) {
@@ -184,49 +184,49 @@ var app = new Vue({
         JSON.stringify({
           action: "volume",
           volume: volume,
-        })
+        }),
       );
     },
     getVolumeMax() {
       socket.send(
         JSON.stringify({
           action: "volumeMax",
-        })
+        }),
       );
     },
     getQueue() {
       socket.send(
         JSON.stringify({
           action: "get-queue",
-        })
+        }),
       );
     },
     play() {
       socket.send(
         JSON.stringify({
           action: "play",
-        })
+        }),
       );
     },
     pause() {
       socket.send(
         JSON.stringify({
           action: "pause",
-        })
+        }),
       );
     },
     next() {
       socket.send(
         JSON.stringify({
           action: "next",
-        })
+        }),
       );
     },
     previous() {
       socket.send(
         JSON.stringify({
           action: "previous",
-        })
+        }),
       );
     },
     searchArtist() {
@@ -251,7 +251,7 @@ var app = new Vue({
           action: "play-mediaitem",
           id: id,
           kind: kind,
-        })
+        }),
       );
       this.screen = "player";
     },
@@ -261,7 +261,7 @@ var app = new Vue({
           action: "play-next",
           type: type,
           id: id,
-        })
+        }),
       );
     },
     playLater(type, id) {
@@ -270,7 +270,7 @@ var app = new Vue({
           action: "play-later",
           type: type,
           id: id,
-        })
+        }),
       );
     },
     getLibraryStatus(type, id) {
@@ -280,7 +280,7 @@ var app = new Vue({
             action: "library-status",
             type: type,
             id: id,
-          })
+          }),
         );
       } else {
         this.player.status = {};
@@ -301,7 +301,7 @@ var app = new Vue({
           action: actionType,
           term: this.search.query,
           limit: 20,
-        })
+        }),
       );
     },
     quickSearch() {
@@ -314,7 +314,7 @@ var app = new Vue({
         JSON.stringify({
           action: "quick-play",
           term: search,
-        })
+        }),
       );
     },
     parseTime(value) {
@@ -464,7 +464,7 @@ var app = new Vue({
           action: "queue-move",
           from: evt.moved.oldIndex,
           to: evt.moved.newIndex,
-        })
+        }),
       );
       this.getQueue();
       return true;
@@ -473,7 +473,7 @@ var app = new Vue({
       socket.send(
         JSON.stringify({
           action: "repeat",
-        })
+        }),
       );
       this.getCurrentMediaItem();
     },
@@ -481,7 +481,7 @@ var app = new Vue({
       socket.send(
         JSON.stringify({
           action: "shuffle",
-        })
+        }),
       );
       this.getCurrentMediaItem();
     },
@@ -490,7 +490,7 @@ var app = new Vue({
         JSON.stringify({
           action: "set-shuffle",
           shuffle: val,
-        })
+        }),
       );
       this.getCurrentMediaItem();
     },
@@ -535,7 +535,7 @@ var app = new Vue({
       socket.send(
         JSON.stringify({
           action: "get-lyrics",
-        })
+        }),
       );
     },
     showLyrics() {
@@ -567,7 +567,7 @@ var app = new Vue({
       socket.send(
         JSON.stringify({
           action: "get-currentmediaitem",
-        })
+        }),
       );
     },
     setStreamerOverlay() {
@@ -717,7 +717,7 @@ var app = new Vue({
             type: params.kind,
             id: params.id,
             rating: rating,
-          })
+          }),
         );
       }
     },
@@ -731,7 +731,7 @@ var app = new Vue({
             type: params.kind,
             id: params.id,
             add: shouldAdd,
-          })
+          }),
         );
       }
     },
@@ -739,7 +739,7 @@ var app = new Vue({
       socket.send(
         JSON.stringify({
           action: "quit",
-        })
+        }),
       );
     },
   },

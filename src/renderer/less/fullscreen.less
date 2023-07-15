@@ -89,7 +89,9 @@
           opacity: 0;
           border-radius: 10px;
           transform: scale(0.5);
-          transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+          transition:
+            transform 0.2s ease-in-out,
+            opacity 0.2s ease-in-out;
         }
 
         &:after {
@@ -100,7 +102,9 @@
           background-color: transparent;
 
           &:before {
-            transition: transform 0.1s ease-in-out, opacity 0.1s ease-in-out;
+            transition:
+              transform 0.1s ease-in-out,
+              opacity 0.1s ease-in-out;
             opacity: 0.1;
             transform: scale(1);
           }
@@ -453,7 +457,9 @@
           border-radius: 100%;
           background: var(--songProgressColor);
           cursor: default;
-          transition: opacity 0.1s var(--appleEase), transform 0.1s var(--appleEase);
+          transition:
+            opacity 0.1s var(--appleEase),
+            transform 0.1s var(--appleEase);
         }
 
         &::-moz-range-thumb {

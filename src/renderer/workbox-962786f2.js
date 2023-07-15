@@ -32,7 +32,7 @@ define(["exports"], function (t) {
           if (s && (e.origin === location.origin || 0 === s.index)) return s.slice(1);
         },
         e,
-        s
+        s,
       );
     }
   }
@@ -59,7 +59,7 @@ define(["exports"], function (t) {
                 "string" == typeof e && (e = [e]);
                 const s = new Request(...e);
                 return this.handleRequest({ request: s, event: t });
-              })
+              }),
             );
           t.waitUntil(s), t.ports && t.ports[0] && s.then(() => t.ports[0].postMessage(!0));
         }
@@ -306,7 +306,7 @@ define(["exports"], function (t) {
               request: n,
               event: this.event,
               params: this.params,
-            })
+            }),
           );
         this.h[s] = n;
       }
@@ -601,7 +601,7 @@ define(["exports"], function (t) {
               params: { cacheKey: s },
               request: i,
               event: t,
-            })
+            }),
           );
         }
         const { updatedURLs: s, notUpdatedURLs: n } = e;

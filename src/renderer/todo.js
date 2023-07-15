@@ -44,7 +44,7 @@ await app.mk.api.personalRecommendations(
   {
     includeResponseMeta: !0,
     reload: !0,
-  }
+  },
 );
 
 // Browse page
@@ -86,7 +86,7 @@ await app.mk.api.library.recentlyAdded(
   {
     reload: !0,
     includePagination: !0,
-  }
+  },
 );
 
 // Songs
@@ -136,7 +136,7 @@ app
       "limit[artists:top-songs]": 20,
       "art[url]": "f",
     },
-    { includeResponseMeta: !0 }
+    { includeResponseMeta: !0 },
   )
   .then((data) => {
     console.log(data);

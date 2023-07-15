@@ -135,7 +135,7 @@ export default class lastfm {
             attributes.lfmAlbum = data;
             callback(attributes);
           }
-        }
+        },
       );
     } else {
       this._lfm.track.getCorrection(attributes.primaryArtist, attributes.name, (err: any, data: any) => {

@@ -166,7 +166,7 @@ const wsapi = {
             fetchOptions: {
               method: "DELETE",
             },
-          }
+          },
         )
         .then(function () {
           ipcRenderer.send("wsapi-rate", kind, id, rating);
@@ -190,7 +190,7 @@ const wsapi = {
                 },
               }),
             },
-          }
+          },
         )
         .then(function () {
           ipcRenderer.send("wsapi-rate", kind, id, rating);

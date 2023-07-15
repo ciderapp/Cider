@@ -133,7 +133,7 @@ export class LocalFiles {
       dirents.map((dirent: any) => {
         const res = path.resolve(dir, dirent.name);
         return dirent.isDirectory() ? this.getFiles(res) : res;
-      })
+      }),
     );
     return Array.prototype.concat(...files);
   }

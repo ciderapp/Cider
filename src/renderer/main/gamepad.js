@@ -211,7 +211,7 @@ function simulateGamepad() {
       notyf.success("Pairing successful!");
       appLoop();
     },
-    { once: true }
+    { once: true },
   );
 
   document.addEventListener("keydown", (e) => {

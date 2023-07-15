@@ -167,7 +167,7 @@ export default class ChromecastPlugin {
         },
         (err: any, status: any) => {
           console.log("media loaded playerState=%s", status);
-        }
+        },
       );
 
       client.getStatus((x: any, status: any) => {

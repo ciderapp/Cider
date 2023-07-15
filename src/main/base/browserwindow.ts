@@ -708,7 +708,7 @@ export class BrowserWindow {
             cancel: false,
           });
         }
-      }
+      },
     );
 
     BrowserWindow.win.webContents.session.webRequest.onBeforeSendHeaders(async (details: { url: string; requestHeaders: { [x: string]: string } }, callback: (arg0: { requestHeaders: any }) => void) => {
@@ -785,7 +785,7 @@ export class BrowserWindow {
             "media-user-token": options.mediaToken,
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cider/1.4.2 Chrome/100.0.4896.75 Electron/18.0.3 Safari/537.36",
           },
-        }
+        },
       );
       let json = await res.json();
       return json;
@@ -1350,7 +1350,7 @@ export class BrowserWindow {
         {
           ip: `${BrowserWindow.getIP()}`,
         },
-        `http://${BrowserWindow.getIP()}:${this.remotePort}`
+        `http://${BrowserWindow.getIP()}:${this.remotePort}`,
       );
     }
     // Get previews for normalization

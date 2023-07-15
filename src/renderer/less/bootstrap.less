@@ -990,7 +990,9 @@
 }
 
 .modal.fade .modal-dialog {
-  transition: transform 0.1s var(--appleEase), opacity 0.1s var(--appleEase);
+  transition:
+    transform 0.1s var(--appleEase),
+    opacity 0.1s var(--appleEase);
   transform: scale(0.9);
   opacity: 0;
 }
@@ -1327,7 +1329,11 @@
   font-size: 1rem;
   border-radius: 0.25rem;
   font-family: inherit;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition:
+    color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
   border: 1px solid rgba(100, 100, 100, 0.35);
   border-top: 1px solid rgba(100, 100, 100, 0.5);
   border-radius: 6px;
@@ -7853,7 +7859,9 @@ fieldset:disabled .btn {
   backface-visibility: hidden;
   transition: -webkit-transform 0.6s ease-in-out;
   transition: transform 0.6s ease-in-out;
-  transition: transform 0.6s ease-in-out, -webkit-transform 0.6s ease-in-out;
+  transition:
+    transform 0.6s ease-in-out,
+    -webkit-transform 0.6s ease-in-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
