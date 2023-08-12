@@ -4,10 +4,10 @@ No support will be given on Windows.
 
 Thanks for your continued support.
 
-[Get Cider 2 today.](https://www.microsoft.com/store/productId/9PL8WPH0QK9M)
+[Get Cider 2 today.](https://cider.sh/download)
 
-<a href="https://www.microsoft.com/store/productId/9PL8WPH0QK9M"><img src="./src/renderer/assets/c1-c2.png" width="20%" alt="Banner"></a>
-
+<a href="https://cider.sh/download"><img src="./src/renderer/assets/c1-c2.png" height="64px" alt="Banner"></a>
+<a href="https://cidercollective.itch.io/cider"><img src="https://cider.sh/assets/itch-badge.svg" height="64px" alt="Banner"></a>
 ---
 
 <p align="center">
