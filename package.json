@@ -64,7 +64,7 @@
     "v8-compile-cache": "^2.3.0",
     "wallpaper": "5.0.1",
     "ws": "^8.13.0",
-    "xml2js": "^0.6.0",
+    "xml2js": "^0.6.1",
     "youtube-search-without-api-key": "^1.1.0"
   },
   "devDependencies": {
