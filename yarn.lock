@@ -2080,55 +2080,56 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry-internal/tracing@npm:7.58.0":
-  version: 7.58.0
-  resolution: "@sentry-internal/tracing@npm:7.58.0"
+"@sentry-internal/tracing@npm:7.63.0":
+  version: 7.63.0
+  resolution: "@sentry-internal/tracing@npm:7.63.0"
   dependencies:
-    "@sentry/core": 7.58.0
-    "@sentry/types": 7.58.0
-    "@sentry/utils": 7.58.0
+    "@sentry/core": 7.63.0
+    "@sentry/types": 7.63.0
+    "@sentry/utils": 7.63.0
     tslib: ^2.4.1 || ^1.9.3
-  checksum: 78cf6c23260e3ca29cbf7a0d385fb1435b427052e365d113364265fd507681a437e5f902f63c32a2d789a0e01d7a7a1fa18299d42fd278edcf270f707c07d14c
+  checksum: 522c8c8b09df1ce7401588c4013f449cc49599c920372c9cf5b10b80f17039b49fc6eaed50255de0f356584005e46754706393ea09627bf0b826b169f03e2d0e
   languageName: node
   linkType: hard
 
-"@sentry/browser@npm:7.58.0":
-  version: 7.58.0
-  resolution: "@sentry/browser@npm:7.58.0"
+"@sentry/browser@npm:7.63.0":
+  version: 7.63.0
+  resolution: "@sentry/browser@npm:7.63.0"
   dependencies:
-    "@sentry-internal/tracing": 7.58.0
-    "@sentry/core": 7.58.0
-    "@sentry/replay": 7.58.0
-    "@sentry/types": 7.58.0
-    "@sentry/utils": 7.58.0
+    "@sentry-internal/tracing": 7.63.0
+    "@sentry/core": 7.63.0
+    "@sentry/replay": 7.63.0
+    "@sentry/types": 7.63.0
+    "@sentry/utils": 7.63.0
     tslib: ^2.4.1 || ^1.9.3
-  checksum: 8b2d00a9f616e04e2948d85ec122cd7e115b94007775031e82e60aff05a3211c4a0be46901cd1bb0e0c986611d49fc07f23014d1a68ee7913d0fc8af2f84a0b9
+  checksum: d900a3df7df1d85b365dbc670c98ce4edfed8213302924d22482ad5c3078f271c1bffe1e1da65d149d95451e741900638988ec58fe2e9f311dec5552a253ff32
   languageName: node
   linkType: hard
 
-"@sentry/core@npm:7.58.0":
-  version: 7.58.0
-  resolution: "@sentry/core@npm:7.58.0"
+"@sentry/core@npm:7.63.0":
+  version: 7.63.0
+  resolution: "@sentry/core@npm:7.63.0"
   dependencies:
-    "@sentry/types": 7.58.0
-    "@sentry/utils": 7.58.0
+    "@sentry/types": 7.63.0
+    "@sentry/utils": 7.63.0
     tslib: ^2.4.1 || ^1.9.3
-  checksum: 22978404d313841a444052ad6bf281b341b60ff7f55a39f5d59d9586e473b2985cc94867035eb1dde870235b7b4194c8bbc6b9bacc84c8716d3126c8360493f3
+  checksum: 9c24cb0b72992b2e3b12ae4d129040f6cf01cd46b9de79601fc10144f9a0744c09becd842bec9ea58a3e09ef6e3d3c818a24b33d351f641fc439aeb69ad8158f
   languageName: node
   linkType: hard
 
-"@sentry/electron@npm:^4.6.0":
-  version: 4.8.0
-  resolution: "@sentry/electron@npm:4.8.0"
+"@sentry/electron@npm:^4.9.0":
+  version: 4.10.0
+  resolution: "@sentry/electron@npm:4.10.0"
   dependencies:
-    "@sentry/browser": 7.58.0
-    "@sentry/core": 7.58.0
-    "@sentry/node": 7.58.0
-    "@sentry/types": 7.58.0
-    "@sentry/utils": 7.58.0
+    "@sentry/browser": 7.63.0
+    "@sentry/core": 7.63.0
+    "@sentry/node": 7.63.0
+    "@sentry/types": 7.63.0
+    "@sentry/utils": 7.63.0
     deepmerge: 4.3.0
+    lru_map: ^0.3.3
     tslib: ^2.5.0
-  checksum: 12dea33034367de4db7114357bb28240c5cd63ae4f7e1e7d571c096fbe5f19b54ff8596d225d7b8ad2c3c9e6cfedcf2a532e4bfe6498efa7c71fd931704ff57a
+  checksum: f227071cef6ace56b321804f22ba30b426ba9cf1fe6b3d9705d8ce1de4314f92d7a7b5fe16db3da62bc0a89ac348d43d28466ae81c5556303fc8cdc9d438b390
   languageName: node
   linkType: hard
 
@@ -2144,37 +2145,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/node@npm:7.58.0":
-  version: 7.58.0
-  resolution: "@sentry/node@npm:7.58.0"
+"@sentry/node@npm:7.63.0":
+  version: 7.63.0
+  resolution: "@sentry/node@npm:7.63.0"
   dependencies:
-    "@sentry-internal/tracing": 7.58.0
-    "@sentry/core": 7.58.0
-    "@sentry/types": 7.58.0
-    "@sentry/utils": 7.58.0
+    "@sentry-internal/tracing": 7.63.0
+    "@sentry/core": 7.63.0
+    "@sentry/types": 7.63.0
+    "@sentry/utils": 7.63.0
     cookie: ^0.4.1
     https-proxy-agent: ^5.0.0
     lru_map: ^0.3.3
     tslib: ^2.4.1 || ^1.9.3
-  checksum: b1e33e818db09b23c43bcae51280c5ccc5670ffcffcf62460e18feabe7efd49dbfd9ac947584aaccd960261624b606132017cf375d645be3b52d32161aefa69d
+  checksum: 87b9ec9e4f9d9edf2fcd07f3ddfedff973181e5302098ef49aed520eaab9ef87e640bbc62a9fe12dedc6440436411c2abeef90801760b3604e034f8a3c69e254
   languageName: node
   linkType: hard
 
-"@sentry/replay@npm:7.58.0":
-  version: 7.58.0
-  resolution: "@sentry/replay@npm:7.58.0"
+"@sentry/replay@npm:7.63.0":
+  version: 7.63.0
+  resolution: "@sentry/replay@npm:7.63.0"
   dependencies:
-    "@sentry/core": 7.58.0
-    "@sentry/types": 7.58.0
-    "@sentry/utils": 7.58.0
-  checksum: 69e6308242ba5e4e8f401616a474b8ced5ebfb41b1e5317204b05cb8cecc2f116ca25c1ec7a2e174b7e5cbe3f8be1b9abfe3425ca09b5346cfb2047eeb9da355
-  languageName: node
-  linkType: hard
-
-"@sentry/types@npm:7.58.0":
-  version: 7.58.0
-  resolution: "@sentry/types@npm:7.58.0"
-  checksum: ec682f45b1e2444188db948e4cec93d09ab9aa531b3991f0e5b595cec237228acd8adf97fe832ff8cc348b50302d804db2cb07c70e289b9cc1dc0ddaf0095c7e
+    "@sentry/core": 7.63.0
+    "@sentry/types": 7.63.0
+    "@sentry/utils": 7.63.0
+  checksum: 8b66b2b4e5e97c3faef36682fe1f5011f534c6056476386480c4281cf1e6d6cff2627fa011bed50c8a5aa308bd3184453df85f8a02e0747d8761b1475f40287b
   languageName: node
   linkType: hard
 
@@ -2185,13 +2179,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/utils@npm:7.58.0":
-  version: 7.58.0
-  resolution: "@sentry/utils@npm:7.58.0"
-  dependencies:
-    "@sentry/types": 7.58.0
-    tslib: ^2.4.1 || ^1.9.3
-  checksum: 6e4a21ac45df687e928de38a9ddd11a297282ae42d9177f21ca92a2ef186ef1f04a5bed9f712e9d09ef3269c363c79168883c2eb58533ec6e4b182931339dbed
+"@sentry/types@npm:7.63.0":
+  version: 7.63.0
+  resolution: "@sentry/types@npm:7.63.0"
+  checksum: 19204388ffd3e06a807c16c9679aee4c7ce5e7d33b5a991af1a2ad8a42fec1df672670b3d178b41b1fd5342b6c8077ac0917c12ce31b5e3e8b3369b0531352a1
   languageName: node
   linkType: hard
 
@@ -2202,6 +2193,16 @@ __metadata:
     "@sentry/types": 7.58.1
     tslib: ^2.4.1 || ^1.9.3
   checksum: e2435a3ca2c240691ce23661754b2afa37a76b5cfd6287a6e36089fadfca859aefaa5d88afbd27b1c85b3d6ba1e73e988dd0a4bb2665dd25416b79e4c7112333
+  languageName: node
+  linkType: hard
+
+"@sentry/utils@npm:7.63.0":
+  version: 7.63.0
+  resolution: "@sentry/utils@npm:7.63.0"
+  dependencies:
+    "@sentry/types": 7.63.0
+    tslib: ^2.4.1 || ^1.9.3
+  checksum: 3e8b89104d3eb8157a3e1b80c17bd8190f5864103dcadb6a4c495f09cafdbd5a01eec3d41d6099b5c779e378ccc4eea7c148be55430969b221c9c9a9b06d67e7
   languageName: node
   linkType: hard
 
@@ -4126,7 +4127,7 @@ __metadata:
   dependencies:
     "@achingbrain/ssdp": ^4.0.4
     "@crowdin/ota-client": ^1.0.0
-    "@sentry/electron": ^4.6.0
+    "@sentry/electron": ^4.9.0
     "@sentry/integrations": ^7.54.0
     "@types/adm-zip": ^0.5.0
     "@types/discord-rpc": 4.0.4
@@ -6422,7 +6423,7 @@ __metadata:
 
 "fsevents@patch:fsevents@^1.2.7#~builtin<compat/fsevents>":
   version: 1.2.13
-  resolution: "fsevents@patch:fsevents@npm%3A1.2.13#~builtin<compat/fsevents>::version=1.2.13&hash=d11327"
+  resolution: "fsevents@patch:fsevents@npm%3A1.2.13#~builtin<compat/fsevents>::version=1.2.13&hash=18f3a7"
   dependencies:
     bindings: ^1.5.0
     nan: ^2.12.1
@@ -6432,7 +6433,7 @@ __metadata:
 
 "fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
   dependencies:
     node-gyp: latest
   conditions: os=darwin
@@ -10830,7 +10831,7 @@ __metadata:
 
 "resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.0#~builtin<compat/resolve>":
   version: 1.22.3
-  resolution: "resolve@patch:resolve@npm%3A1.22.3#~builtin<compat/resolve>::version=1.22.3&hash=c3c19d"
+  resolution: "resolve@patch:resolve@npm%3A1.22.3#~builtin<compat/resolve>::version=1.22.3&hash=07638b"
   dependencies:
     is-core-module: ^2.12.0
     path-parse: ^1.0.7
@@ -12327,11 +12328,11 @@ __metadata:
 
 "typescript@patch:typescript@^5.1.3#~builtin<compat/typescript>":
   version: 5.1.6
-  resolution: "typescript@patch:typescript@npm%3A5.1.6#~builtin<compat/typescript>::version=5.1.6&hash=5da071"
+  resolution: "typescript@patch:typescript@npm%3A5.1.6#~builtin<compat/typescript>::version=5.1.6&hash=701156"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: f53bfe97f7c8b2b6d23cf572750d4e7d1e0c5fff1c36d859d0ec84556a827b8785077bc27676bf7e71fae538e517c3ecc0f37e7f593be913d884805d931bc8be
+  checksum: 21e88b0a0c0226f9cb9fd25b9626fb05b4c0f3fddac521844a13e1f30beb8f14e90bd409a9ac43c812c5946d714d6e0dee12d5d02dfc1c562c5aacfa1f49b606
   languageName: node
   linkType: hard
 
