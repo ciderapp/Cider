@@ -32,7 +32,7 @@
     "@achingbrain/ssdp": "^4.0.4",
     "@crowdin/ota-client": "^1.0.0",
     "@sentry/electron": "^4.6.0",
-    "@sentry/integrations": "^7.54.0",
+    "@sentry/integrations": "^7.68.0",
     "adm-zip": "^0.5.10",
     "airtunes2": "github:ciderapp/node_airtunes2",
     "castv2-client": "^1.2.0",
