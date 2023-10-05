@@ -2117,6 +2117,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sentry/core@npm:7.73.0":
+  version: 7.73.0
+  resolution: "@sentry/core@npm:7.73.0"
+  dependencies:
+    "@sentry/types": 7.73.0
+    "@sentry/utils": 7.73.0
+    tslib: ^2.4.1 || ^1.9.3
+  checksum: 9f0cd49bb26e7bf59bb5fe8be3f33bf057a0e14ac9adbaa2b4e3a39547f943d1b28a893de2b35eb2166d6d8d4d26ef2d7588893040b217052eabf53773be0434
+  languageName: node
+  linkType: hard
+
 "@sentry/electron@npm:^4.6.0":
   version: 4.8.0
   resolution: "@sentry/electron@npm:4.8.0"
@@ -2132,15 +2143,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/integrations@npm:^7.54.0":
-  version: 7.58.1
-  resolution: "@sentry/integrations@npm:7.58.1"
+"@sentry/integrations@npm:^7.69.0":
+  version: 7.73.0
+  resolution: "@sentry/integrations@npm:7.73.0"
   dependencies:
-    "@sentry/types": 7.58.1
-    "@sentry/utils": 7.58.1
+    "@sentry/core": 7.73.0
+    "@sentry/types": 7.73.0
+    "@sentry/utils": 7.73.0
     localforage: ^1.8.1
     tslib: ^2.4.1 || ^1.9.3
-  checksum: f6247be3c87387ab61eaf7aa1b1df07c784b692dab975f85354eeb24df85fc0be32a80bdc9e563638928f945197f085318a34cf48a62ef7c7d6a9730a0ed6f89
+  checksum: 6e43747a21f49d3ec09bbde8248b1316cd65294e3c14fab85dbba65744b6f15364d16ab7a12c5dd5df0188634bf2624cd87a5eda0b3e9e82efd3285cf669e939
   languageName: node
   linkType: hard
 
@@ -2178,10 +2190,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/types@npm:7.58.1":
-  version: 7.58.1
-  resolution: "@sentry/types@npm:7.58.1"
-  checksum: 29874507bb0e348c35eedbb0169f7b6bfb84fbc131b8d1c4eeb368f1b67da39dc8cabd319a7068c0b7fdfa2447b6f243d9316ab08a361ae5c321daefff8fddeb
+"@sentry/types@npm:7.73.0":
+  version: 7.73.0
+  resolution: "@sentry/types@npm:7.73.0"
+  checksum: 64f1a52b1fb1e2206a3104021d52704b808a9c021fc7ae6edef18c7024c315595f2bf82f779c665d207ad8af871dbd3cfb1393d451446f907118eb85773ffc67
   languageName: node
   linkType: hard
 
@@ -2195,13 +2207,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/utils@npm:7.58.1":
-  version: 7.58.1
-  resolution: "@sentry/utils@npm:7.58.1"
+"@sentry/utils@npm:7.73.0":
+  version: 7.73.0
+  resolution: "@sentry/utils@npm:7.73.0"
   dependencies:
-    "@sentry/types": 7.58.1
+    "@sentry/types": 7.73.0
     tslib: ^2.4.1 || ^1.9.3
-  checksum: e2435a3ca2c240691ce23661754b2afa37a76b5cfd6287a6e36089fadfca859aefaa5d88afbd27b1c85b3d6ba1e73e988dd0a4bb2665dd25416b79e4c7112333
+  checksum: 02357ff670d58d2152b4f5e81fc26806e7cf75e1693b7df464a3f7dfdf8194fd0bea05ff7babcdca6b81a24faa91265162eb6dfe2bc50d74fe8822516d9ce009
   languageName: node
   linkType: hard
 
@@ -4127,7 +4139,7 @@ __metadata:
     "@achingbrain/ssdp": ^4.0.4
     "@crowdin/ota-client": ^1.0.0
     "@sentry/electron": ^4.6.0
-    "@sentry/integrations": ^7.54.0
+    "@sentry/integrations": ^7.69.0
     "@types/adm-zip": ^0.5.0
     "@types/discord-rpc": 4.0.4
     "@types/express": ^4.17.17
@@ -6422,7 +6434,7 @@ __metadata:
 
 "fsevents@patch:fsevents@^1.2.7#~builtin<compat/fsevents>":
   version: 1.2.13
-  resolution: "fsevents@patch:fsevents@npm%3A1.2.13#~builtin<compat/fsevents>::version=1.2.13&hash=d11327"
+  resolution: "fsevents@patch:fsevents@npm%3A1.2.13#~builtin<compat/fsevents>::version=1.2.13&hash=18f3a7"
   dependencies:
     bindings: ^1.5.0
     nan: ^2.12.1
@@ -6432,7 +6444,7 @@ __metadata:
 
 "fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
   dependencies:
     node-gyp: latest
   conditions: os=darwin
@@ -10830,7 +10842,7 @@ __metadata:
 
 "resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.0#~builtin<compat/resolve>":
   version: 1.22.3
-  resolution: "resolve@patch:resolve@npm%3A1.22.3#~builtin<compat/resolve>::version=1.22.3&hash=c3c19d"
+  resolution: "resolve@patch:resolve@npm%3A1.22.3#~builtin<compat/resolve>::version=1.22.3&hash=07638b"
   dependencies:
     is-core-module: ^2.12.0
     path-parse: ^1.0.7
@@ -12327,11 +12339,11 @@ __metadata:
 
 "typescript@patch:typescript@^5.1.3#~builtin<compat/typescript>":
   version: 5.1.6
-  resolution: "typescript@patch:typescript@npm%3A5.1.6#~builtin<compat/typescript>::version=5.1.6&hash=5da071"
+  resolution: "typescript@patch:typescript@npm%3A5.1.6#~builtin<compat/typescript>::version=5.1.6&hash=701156"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: f53bfe97f7c8b2b6d23cf572750d4e7d1e0c5fff1c36d859d0ec84556a827b8785077bc27676bf7e71fae538e517c3ecc0f37e7f593be913d884805d931bc8be
+  checksum: 21e88b0a0c0226f9cb9fd25b9626fb05b4c0f3fddac521844a13e1f30beb8f14e90bd409a9ac43c812c5946d714d6e0dee12d5d02dfc1c562c5aacfa1f49b606
   languageName: node
   linkType: hard
 
