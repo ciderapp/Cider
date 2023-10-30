@@ -25,7 +25,7 @@ Thanks for your continued support.
   <br>
   <a target="_blank" href="https://jq.qq.com/?_wv=1027&k=2VP4cdyo"><img src="https://img.shields.io/badge/QQ-531185058-red" alt="QQ群"/></a>
   <a target="_blank" href="https://discord.gg/applemusic"><img src="https://img.shields.io/discord/843954443845238864?label=Discord&color=5865F2&logo=discord&logoColor=white&style=flat" alt="Discord"/></a>
-  <a target="_blank" href="https://twitter.com/UseCider"><img src="https://img.shields.io/twitter/follow/UseCider?label=Twitter&color=%231DA1F2&logo=twitter&style=flat" alt="Twitter"/></a>
+  <a target="_blank" href="https://twitter.com/UseCider"><img src="https://img.shields.io/twitter/follow/UseCider?label=Twitter&color=%231DA1F2&logo=x&style=flat" alt="Twitter"/></a>
   <a target="_blank" href="https://reddit.com/r/applemusicelectron"><img src="https://custom-icon-badges.herokuapp.com/reddit/subreddit-subscribers/applemusicelectron?label=Reddit&color=FF5700&logo=redditnew" alt="Reddit"/></a>
   <br><br>
   <a href="https://dev.azure.com/cidercollective/Cider/_build?definitionId=14"><img src="https://dev.azure.com/cidercollective/Cider/_apis/build/status%2FCider%201.x?branchName=main" alt="Azure Pipelines Status"/></a>
