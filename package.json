@@ -29,7 +29,7 @@
     "format:write": "npx prettier --write \"src/**/*.{js,json,ts,less}\""
   },
   "dependencies": {
-    "@achingbrain/ssdp": "^4.0.4",
+    "@achingbrain/ssdp": "^4.0.6",
     "@crowdin/ota-client": "^1.1.0",
     "@sentry/electron": "^4.6.0",
     "@sentry/integrations": "^7.69.0",

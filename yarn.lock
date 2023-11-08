@@ -21,15 +21,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@achingbrain/ssdp@npm:^4.0.4":
-  version: 4.0.4
-  resolution: "@achingbrain/ssdp@npm:4.0.4"
+"@achingbrain/ssdp@npm:^4.0.6":
+  version: 4.0.6
+  resolution: "@achingbrain/ssdp@npm:4.0.6"
   dependencies:
     event-iterator: ^2.0.0
     freeport-promise: ^2.0.0
     merge-options: ^3.0.4
-    xml2js: ^0.5.0
-  checksum: ebd5b25f64a2cd8fd14e760f92824cc308784d833eba887bfabc68a678de692eab83ac6c6859e56a187b7ea78e4fbdc9403899ed2be9cb245e0591a925431565
+    xml2js: ^0.6.2
+  checksum: 18af3ebf0ddd331531730b3c998729cb3db8f915b7f8296e503babf813a42af284e62b271148ac3ac85aa2420bb1c813c2d3b661c90e75f2e6d8700f9302f50b
   languageName: node
   linkType: hard
 
@@ -4136,7 +4136,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "cider@workspace:."
   dependencies:
-    "@achingbrain/ssdp": ^4.0.4
+    "@achingbrain/ssdp": ^4.0.6
     "@crowdin/ota-client": ^1.1.0
     "@sentry/electron": ^4.6.0
     "@sentry/integrations": ^7.69.0
@@ -13141,16 +13141,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"xml2js@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "xml2js@npm:0.5.0"
-  dependencies:
-    sax: ">=0.6.0"
-    xmlbuilder: ~11.0.0
-  checksum: 1aa71d62e5bc2d89138e3929b9ea46459157727759cbc62ef99484b778641c0cd21fb637696c052d901a22f82d092a3e740a16b4ce218e81ac59b933535124ea
-  languageName: node
-  linkType: hard
-
 "xml2js@npm:^0.6.0":
   version: 0.6.0
   resolution: "xml2js@npm:0.6.0"
@@ -13158,6 +13148,16 @@ __metadata:
     sax: ">=0.6.0"
     xmlbuilder: ~11.0.0
   checksum: 437f353fd66d367bf158e9555a0625df9965d944e499728a5c6bc92a54a2763179b144f14b7e1c725040f56bbd22b0fa6cfcb09ec4faf39c45ce01efe631f40b
+  languageName: node
+  linkType: hard
+
+"xml2js@npm:^0.6.2":
+  version: 0.6.2
+  resolution: "xml2js@npm:0.6.2"
+  dependencies:
+    sax: ">=0.6.0"
+    xmlbuilder: ~11.0.0
+  checksum: 458a83806193008edff44562c0bdb982801d61ee7867ae58fd35fab781e69e17f40dfeb8fc05391a4648c9c54012066d3955fe5d993ffbe4dc63399023f32ac2
   languageName: node
   linkType: hard
 
