@@ -1402,12 +1402,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@crowdin/ota-client@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@crowdin/ota-client@npm:1.1.0"
+"@crowdin/ota-client@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@crowdin/ota-client@npm:1.1.1"
   dependencies:
     axios: ^1
-  checksum: 129aaacfac8773af734b5180c6ff082ebbb4c14b4051c1d3ecf3164a2f5dd9906d2db75146c2f11b4ddf9c667c080f1e2ecdd4179943d9c6b2aa1dfbfaa48fd8
+  checksum: cce6d54a5305c16258254ddedd31da6def13be836270dfea7b0d1f2ad39167adb28db24b0d8f8e7ba469dd01cfea8c1a1ef0b78ce890d5063f8b45740fc8af7d
   languageName: node
   linkType: hard
 
@@ -4137,7 +4137,7 @@ __metadata:
   resolution: "cider@workspace:."
   dependencies:
     "@achingbrain/ssdp": ^4.0.4
-    "@crowdin/ota-client": ^1.1.0
+    "@crowdin/ota-client": ^1.1.1
     "@sentry/electron": ^4.6.0
     "@sentry/integrations": ^7.69.0
     "@types/adm-zip": ^0.5.0
