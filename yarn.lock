@@ -4170,7 +4170,7 @@ __metadata:
     less: ^4.1.3
     mdns-js: "github:ciderapp/node-mdns-js"
     mpris-service: ^2.1.2
-    music-metadata: 7.12.6
+    music-metadata: 7.14.0
     node-gyp: ^9.4.0
     node-ssdp: ^4.0.1
     node-ssdp-js: ^0.9.6
@@ -4504,7 +4504,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"content-type@npm:^1.0.4, content-type@npm:~1.0.4":
+"content-type@npm:^1.0.5, content-type@npm:~1.0.4":
   version: 1.0.5
   resolution: "content-type@npm:1.0.5"
   checksum: 566271e0a251642254cde0f845f9dd4f9856e52d988f4eb0d0dcffbb7a1f8ec98de7a5215fc628f3bce30fe2fb6fd2bc064b562d721658c59b544e2d34ea2766
@@ -9106,18 +9106,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"music-metadata@npm:7.12.6":
-  version: 7.12.6
-  resolution: "music-metadata@npm:7.12.6"
+"music-metadata@npm:7.14.0":
+  version: 7.14.0
+  resolution: "music-metadata@npm:7.14.0"
   dependencies:
     "@tokenizer/token": ^0.3.0
-    content-type: ^1.0.4
+    content-type: ^1.0.5
     debug: ^4.3.4
     file-type: ^16.5.4
     media-typer: ^1.1.0
     strtok3: ^6.3.0
-    token-types: ^4.2.0
-  checksum: 66305429f1c1b5b536541ad8eb561d85eab2a33274e17dd6df8b0f4cb92ef46a5e27d4e66158b3b2425b6e6bc1dae1fae8005b2825ff0e31a66ae975dba50f50
+    token-types: ^4.2.1
+  checksum: e1583c3d6519ea3ce1f451e2dfb37ad7a614cd9a8cdb7acfc7d2a2243f7490d209772fb4735b8d8f118f5e1fff27a81096a75839af72e8269516756a658edc3e
   languageName: node
   linkType: hard
 
@@ -12194,7 +12194,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"token-types@npm:^4.1.1, token-types@npm:^4.2.0":
+"token-types@npm:^4.1.1, token-types@npm:^4.2.1":
   version: 4.2.1
   resolution: "token-types@npm:4.2.1"
   dependencies:
