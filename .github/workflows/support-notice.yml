@@ -14,5 +14,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           respondableId: ${{ github.event.issue.node_id }}
-          response: "Support for Cider 1.0 is in a reduced state. Do not expect replies or acknowledgement for issues that do not break full functionality of the app (Media playback, plugin functionality etc.).\n\nIf you are interested in joining the Cider 2 open alpha, you can join our Discord [here](https://discord.gg/AppleMusic)."
+          response: "Cider 1.x is no longer actively maintained. We highly suggest moving to the newer version versions of the app available at https://cider.sh through official storefronts ex. Itch.io, or the Microsoft Store."
           author: ${{ github.event.issue.user.login }}
