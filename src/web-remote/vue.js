@@ -393,12 +393,12 @@
           return r ? Se(r, i) : i;
         }
       : t
-      ? e
-        ? function () {
-            return Se("function" == typeof t ? t.call(this, this) : t, "function" == typeof e ? e.call(this, this) : e);
-          }
-        : t
-      : e;
+        ? e
+          ? function () {
+              return Se("function" == typeof t ? t.call(this, this) : t, "function" == typeof e ? e.call(this, this) : e);
+            }
+          : t
+        : e;
   }
   function Ne(e, t) {
     var n = t ? (e ? e.concat(t) : Array.isArray(t) ? t : [t]) : e;
@@ -697,13 +697,13 @@
     return i(e)
       ? [he(e)]
       : Array.isArray(e)
-      ? (function e(o, a) {
-          var s = [];
-          var c, u, l, f;
-          for (c = 0; c < o.length; c++) t((u = o[c])) || "boolean" == typeof u || ((l = s.length - 1), (f = s[l]), Array.isArray(u) ? u.length > 0 && (ct((u = e(u, (a || "") + "_" + c))[0]) && ct(f) && ((s[l] = he(f.text + u[0].text)), u.shift()), s.push.apply(s, u)) : i(u) ? (ct(f) ? (s[l] = he(f.text + u)) : "" !== u && s.push(he(u))) : ct(u) && ct(f) ? (s[l] = he(f.text + u.text)) : (r(o._isVList) && n(u.tag) && t(u.key) && n(a) && (u.key = "__vlist" + a + "_" + c + "__"), s.push(u)));
-          return s;
-        })(e)
-      : void 0;
+        ? (function e(o, a) {
+            var s = [];
+            var c, u, l, f;
+            for (c = 0; c < o.length; c++) t((u = o[c])) || "boolean" == typeof u || ((l = s.length - 1), (f = s[l]), Array.isArray(u) ? u.length > 0 && (ct((u = e(u, (a || "") + "_" + c))[0]) && ct(f) && ((s[l] = he(f.text + u[0].text)), u.shift()), s.push.apply(s, u)) : i(u) ? (ct(f) ? (s[l] = he(f.text + u)) : "" !== u && s.push(he(u))) : ct(u) && ct(f) ? (s[l] = he(f.text + u.text)) : (r(o._isVList) && n(u.tag) && t(u.key) && n(a) && (u.key = "__vlist" + a + "_" + c + "__"), s.push(u)));
+            return s;
+          })(e)
+        : void 0;
   }
   function ct(e) {
     return n(e) && n(e.text) && !1 === e.isComment;
@@ -1135,23 +1135,23 @@
         return Array.isArray(u)
           ? u
           : n(u)
-          ? (n(l) &&
-              (function e(i, o, a) {
-                i.ns = o;
-                "foreignObject" === i.tag && ((o = void 0), (a = !0));
-                if (n(i.children))
-                  for (var s = 0, c = i.children.length; s < c; s++) {
-                    var u = i.children[s];
-                    n(u.tag) && (t(u.ns) || (r(a) && "svg" !== u.tag)) && e(u, o, a);
-                  }
-              })(u, l),
-            n(a) &&
-              (function (e) {
-                o(e.style) && tt(e.style);
-                o(e.class) && tt(e.class);
-              })(a),
-            u)
-          : ve();
+            ? (n(l) &&
+                (function e(i, o, a) {
+                  i.ns = o;
+                  "foreignObject" === i.tag && ((o = void 0), (a = !0));
+                  if (n(i.children))
+                    for (var s = 0, c = i.children.length; s < c; s++) {
+                      var u = i.children[s];
+                      n(u.tag) && (t(u.ns) || (r(a) && "svg" !== u.tag)) && e(u, o, a);
+                    }
+                })(u, l),
+              n(a) &&
+                (function (e) {
+                  o(e.style) && tt(e.style);
+                  o(e.class) && tt(e.class);
+                })(a),
+              u)
+            : ve();
       })(e, a, s, c, u)
     );
   }
@@ -1323,17 +1323,17 @@
       this.lazy
         ? (this.dirty = !0)
         : this.sync
-        ? this.run()
-        : (function (e) {
-            var t = e.id;
-            if (null == nn[t]) {
-              if (((nn[t] = !0), on)) {
-                for (var n = en.length - 1; n > an && en[n].id > e.id; ) n--;
-                en.splice(n + 1, 0, e);
-              } else en.push(e);
-              rn || ((rn = !0), Qe(ln));
-            }
-          })(this);
+          ? this.run()
+          : (function (e) {
+              var t = e.id;
+              if (null == nn[t]) {
+                if (((nn[t] = !0), on)) {
+                  for (var n = en.length - 1; n > an && en[n].id > e.id; ) n--;
+                  en.splice(n + 1, 0, e);
+                } else en.push(e);
+                rn || ((rn = !0), Qe(ln));
+              }
+            })(this);
     }),
     (pn.prototype.run = function () {
       if (this.active) {
@@ -1883,14 +1883,14 @@
           return r;
         })(e)
       : o(e)
-      ? (function (e) {
-          var t = "";
-          for (var n in e) e[n] && (t && (t += " "), (t += n));
-          return t;
-        })(e)
-      : "string" == typeof e
-      ? e
-      : "";
+        ? (function (e) {
+            var t = "";
+            for (var n in e) e[n] && (t && (t += " "), (t += n));
+            return t;
+          })(e)
+        : "string" == typeof e
+          ? e
+          : "";
   }
   var Jn = {
       svg: "http://www.w3.org/2000/svg",
@@ -2795,23 +2795,23 @@
                     t(h)
                       ? (h = r[++p])
                       : t(m)
-                      ? (m = r[--v])
-                      : or(h, g)
-                      ? (x(h, g, o, i, d), (h = r[++p]), (g = i[++d]))
-                      : or(m, b)
-                      ? (x(m, b, o, i, y), (m = r[--v]), (b = i[--y]))
-                      : or(h, b)
-                      ? (x(h, b, o, i, y), w && u.insertBefore(e, h.elm, u.nextSibling(m.elm)), (h = r[++p]), (b = i[--y]))
-                      : or(m, g)
-                      ? (x(m, g, o, i, d), w && u.insertBefore(e, m.elm, h.elm), (m = r[--v]), (g = i[++d]))
-                      : (t(s) && (s = ar(r, p, v)), t((c = n(g.key) ? s[g.key] : C(g, r, p, v))) ? f(g, o, e, h.elm, !1, i, d) : or((l = r[c]), g) ? (x(l, g, o, i, d), (r[c] = void 0), w && u.insertBefore(e, l.elm, h.elm)) : f(g, o, e, h.elm, !1, i, d), (g = i[++d]));
+                        ? (m = r[--v])
+                        : or(h, g)
+                          ? (x(h, g, o, i, d), (h = r[++p]), (g = i[++d]))
+                          : or(m, b)
+                            ? (x(m, b, o, i, y), (m = r[--v]), (b = i[--y]))
+                            : or(h, b)
+                              ? (x(h, b, o, i, y), w && u.insertBefore(e, h.elm, u.nextSibling(m.elm)), (h = r[++p]), (b = i[--y]))
+                              : or(m, g)
+                                ? (x(m, g, o, i, d), w && u.insertBefore(e, m.elm, h.elm), (m = r[--v]), (g = i[++d]))
+                                : (t(s) && (s = ar(r, p, v)), t((c = n(g.key) ? s[g.key] : C(g, r, p, v))) ? f(g, o, e, h.elm, !1, i, d) : or((l = r[c]), g) ? (x(l, g, o, i, d), (r[c] = void 0), w && u.insertBefore(e, l.elm, h.elm)) : f(g, o, e, h.elm, !1, i, d), (g = i[++d]));
                   p > v ? _(e, t(i[y + 1]) ? null : i[y + 1].elm, i, d, y, o) : d > y && $(r, p, v);
                 })(p, h, y, o, l)
               : n(y)
-              ? (n(e.text) && u.setTextContent(p, ""), _(p, null, y, 0, y.length - 1, o))
-              : n(h)
-              ? $(h, 0, h.length - 1)
-              : n(e.text) && u.setTextContent(p, "")
+                ? (n(e.text) && u.setTextContent(p, ""), _(p, null, y, 0, y.length - 1, o))
+                : n(h)
+                  ? $(h, 0, h.length - 1)
+                  : n(e.text) && u.setTextContent(p, "")
             : e.text !== i.text && u.setTextContent(p, i.text),
             n(v) && n((d = v.hook)) && n((d = d.postpatch)) && d(e, i);
         }
