@@ -1469,395 +1469,394 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jimp/bmp@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/bmp@npm:0.22.8"
+"@jimp/bmp@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/bmp@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
     bmp-js: ^0.1.0
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
-  checksum: a659c08308df9c2809ba9a925f399b8e203bc59c60bfa5a11463f25c7f4a28e63a86a3ef63481d526ba23cbd527f4f48774df23abd643636f8a3ee6354b1842e
+  checksum: e6d6a047e50c84ee525a7c74302d5bda651826b42b0088ab761ef04c9caa404079a8b0f80990212c3b91169d7df0eeca23ae218362bfed32313d92d4bcd812f1
   languageName: node
   linkType: hard
 
-"@jimp/core@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/core@npm:0.22.8"
+"@jimp/core@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/core@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
     any-base: ^1.1.0
     buffer: ^5.2.0
     exif-parser: ^0.1.12
     file-type: ^16.5.4
     isomorphic-fetch: ^3.0.0
-    mkdirp: ^2.1.3
     pixelmatch: ^4.0.2
     tinycolor2: ^1.6.0
-  checksum: 086d80ca5a5c6100abfcc850685d34b5e14024997a1c5f2491beafa8464310289e88b8b4296a24e70934b4162599eb3a9100db7dd9ff992a13319b4c92924186
+  checksum: 2a9e0e5f6ad20ced13e6f64eb3026902b7728901d2bc5f626fdc8cdff5662f216ddd7406ca3072f6fb866e096ab3036ee1b53258c7e84e9f1827b1caaac44463
   languageName: node
   linkType: hard
 
-"@jimp/custom@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/custom@npm:0.22.8"
+"@jimp/custom@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/custom@npm:0.22.12"
   dependencies:
-    "@jimp/core": ^0.22.8
-  checksum: d6f1529304813dfe8bf8262751ba0deed90689b1013198dc0ce5d89b729132dd227a02dc54015415dd554ae17ba8e72e5d1583f1c0b551640c836a4e71482788
+    "@jimp/core": ^0.22.12
+  checksum: b787717eacf4e051dd296c54b233f560180324bb947eaf0b48afd4adbe55d2b27f486a239de8ebb31a5c68481283770a5775fa6bfe44bc4f7fc910f6e0e23413
   languageName: node
   linkType: hard
 
-"@jimp/gif@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/gif@npm:0.22.8"
+"@jimp/gif@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/gif@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
-    gifwrap: ^0.9.2
+    "@jimp/utils": ^0.22.12
+    gifwrap: ^0.10.1
     omggif: ^1.0.9
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
-  checksum: 449e62ec0be4f0a4984e8ad313d60e9eb42b6c4dfd598fbd3d71e571a99d5b013c2117d356967989d39d1d2788ba4c50cc7cd7e52de13af988c568c86f226a86
+  checksum: e994241f613cf774e9881b7b4130357c000402e7b9351604689edd9e5deb47ffd3042773262af508cb6c7b93620703086e8929ee29d039517a6817794ad223a7
   languageName: node
   linkType: hard
 
-"@jimp/jpeg@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/jpeg@npm:0.22.8"
+"@jimp/jpeg@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/jpeg@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
     jpeg-js: ^0.4.4
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
-  checksum: e8982da362c3a5f44ffc21953a7418b8b5934079f1b7499531ad275c5430d826d6b2d63bfa4a24cf7de1c9be07e2ba6ded00548cfb948ac01cd066bdf2e432f2
+  checksum: 148eb7d808bebd923f53eb665c3a7b6fc4fac5fbb1879e7ebb892ee7ea4b3356cbb58dd687c095555412f7eb68fd92050d78a05c79acd2faf8c848f67a805b14
   languageName: node
   linkType: hard
 
-"@jimp/plugin-blit@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugin-blit@npm:0.22.8"
+"@jimp/plugin-blit@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugin-blit@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
-  checksum: b4fb17f84bb9853875e444fd4c93602a936894647adf100b795ddb66b549fe6656bfaa309d659020f1bcde6c0078999a3a4adcb1e316e857fa1de6813cb960d8
+  checksum: 15e475ec48b063b425d2b0fd5f5ccde4f0f2f7cdaea5c593e612daf9bcde0d2d7eb90ae3cc4383e84ec6c109499ae02d8844a48a8c7c9926a937ce361ce09ad0
   languageName: node
   linkType: hard
 
-"@jimp/plugin-blur@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugin-blur@npm:0.22.8"
+"@jimp/plugin-blur@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugin-blur@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
-  checksum: c699eee62a076770d7b5aac7c93fe051822c498f8f39788c7129408dcdaddaa6d59bdb7e58a5dbafd957aa04e12a74e3ab51ae463b7f162d118c60c10971e86b
+  checksum: 3143d761a30809d442d540cc63ac4c16fb90805a75cb73bbf78a5db06c27198bbb795fa09276e4956b2c459f8c556d2df3ea9fef7eabe7f7dcabd105a3cb2f54
   languageName: node
   linkType: hard
 
-"@jimp/plugin-circle@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugin-circle@npm:0.22.8"
+"@jimp/plugin-circle@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugin-circle@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
-  checksum: fcea7bd7d0d7210b7841d09b9f85160c272462173ed1c83e518d56acbf19f6bb93807b6445d75b2f8386dd8b39baee994b3736315bab0c5fcdc2da4ee9dc8981
+  checksum: 74903711f82eb494814a019ba9c06fffbe3f8364b721750e0be0764c986f60a475520a5f31a0a6fbd1fd0395524f9406cccb596f6509519fb7aa223efcd8a2ff
   languageName: node
   linkType: hard
 
-"@jimp/plugin-color@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugin-color@npm:0.22.8"
+"@jimp/plugin-color@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugin-color@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
     tinycolor2: ^1.6.0
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
-  checksum: 9ff6b1ddf650dc3e88aedb35a4c8de9a6635671cf2e49f7ed177737e477758c0e401b1fb8a60e6b580c728d9c033d81b8662b983f5ad1ff6418a241c623f4815
+  checksum: e1c3869d67205e2a7aeb4917405845680916779037655c25acc6ca70e2eb6c8436603ea7fad44d0117f19aea9edcec474487d170cf3b7b276f2732ee2a438420
   languageName: node
   linkType: hard
 
-"@jimp/plugin-contain@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugin-contain@npm:0.22.8"
+"@jimp/plugin-contain@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugin-contain@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
     "@jimp/plugin-blit": ">=0.3.5"
     "@jimp/plugin-resize": ">=0.3.5"
     "@jimp/plugin-scale": ">=0.3.5"
-  checksum: ddd6cd9be69896ba47197e51414ce20ec51739ac0b69d431fdd462e0c6e925b853e9309c32ed13768b5feb7ddf6abda9fe7049d2db6a0a5104e5d647b18f26c1
+  checksum: bc0667cba77d8404a7df2746842f4966b3bb65ac377c605c9c90c3b4413be7177ede15ce7f886e0ad633149955fe2ccc904f216a235195109fe0518da96e6fc7
   languageName: node
   linkType: hard
 
-"@jimp/plugin-cover@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugin-cover@npm:0.22.8"
+"@jimp/plugin-cover@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugin-cover@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
     "@jimp/plugin-crop": ">=0.3.5"
     "@jimp/plugin-resize": ">=0.3.5"
     "@jimp/plugin-scale": ">=0.3.5"
-  checksum: e765709131f8ddba304316a6addfd9ee17577c676756d39607180cec12b0793b06692b3b92c53141694071643d9f9439bcb24f4aaca15083d69b1a0513b9f16c
+  checksum: 5cfa056992cc49a69fb2d24ad83abc6b68c8b195da3170099a86f9e9587a7d927bfb083ca756f6e36f534f688b67b268cb1a8b18f6dbea7d3058bb3f8f1bac94
   languageName: node
   linkType: hard
 
-"@jimp/plugin-crop@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugin-crop@npm:0.22.8"
+"@jimp/plugin-crop@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugin-crop@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
-  checksum: 1508a9254d5429c355aecadb469cdcc2c74776d0576cebf28861895f85f8c7a708562467ede0660118a01713f91d9c78781b31d2a287e90ee61e6bf6ce4bba33
+  checksum: 0f3d57b52648877ad017f0213ef489c5796d14fc0d91f959d946308d748a6c97de683a68a04567906658d912548fb4b37516663af712be177daad133b30ea070
   languageName: node
   linkType: hard
 
-"@jimp/plugin-displace@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugin-displace@npm:0.22.8"
+"@jimp/plugin-displace@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugin-displace@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
-  checksum: 152ab9da8a8d9e7052bf7f27e7a47952a5d97120d470038fd31334050975eb7a8b2edd50db8e610def4a8c88daf2fe1d5d632f74f91fa1fba7b803d0f44b556d
+  checksum: 8ff07284c85896a3cce5fe182c853db382b194480f81deca52d431884f89f9388378aeac3aa1f0c2e8f426e2c7251581c922bdb4373449b61e9f86a3bf597acf
   languageName: node
   linkType: hard
 
-"@jimp/plugin-dither@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugin-dither@npm:0.22.8"
+"@jimp/plugin-dither@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugin-dither@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
-  checksum: 988b126d2255c390f9df3b384aa5209e127a0f3004ecd06328ac2a7118b79ffc706ffdc541cd3c5814d68806a4fd77f568385ef623b1b92ec7ea7b4c398383f8
+  checksum: 0926fb266f946810f837f558272e9c391a0dc1a647ffae0dc0153937f6ddc4e77bb7f3f5324b6954ee9ec50bc4050eddb00b3a27c969bb7f7616f5798068adb5
   languageName: node
   linkType: hard
 
-"@jimp/plugin-fisheye@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugin-fisheye@npm:0.22.8"
+"@jimp/plugin-fisheye@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugin-fisheye@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
-  checksum: 2f20c2db61674525bf189f6d7c8818603114cdac2f02e9d5c5e78af1cb03ba72660c04be527ff871bc9e2808ac357cf0b6615cfa8ac9fc93f9a96b4fb9548092
+  checksum: 6b2137d3a28a1b3c7e7149c5cfe59f3b1d552427582e5c3c373796d120219d9e00a1fc8283872464dda72678d301ef7e09c82f93f5e7d8afcb08ce3107964aa5
   languageName: node
   linkType: hard
 
-"@jimp/plugin-flip@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugin-flip@npm:0.22.8"
+"@jimp/plugin-flip@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugin-flip@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
     "@jimp/plugin-rotate": ">=0.3.5"
-  checksum: 9e2a8757e3c36b39b06773da68390b7234054eac2b6705430bfdf626b791517b851d7671c34889f1310727948458dd9daab6c3a9d8b0d7136dfe824ad50acd0e
+  checksum: f0f74eb3f1365a3a91cc797fae44954084fe97a6daeb5671d09545f028080bc584bf975346124598bb8114fd888f6f2670052b7a2a46d6baea70a33034844cd7
   languageName: node
   linkType: hard
 
-"@jimp/plugin-gaussian@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugin-gaussian@npm:0.22.8"
+"@jimp/plugin-gaussian@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugin-gaussian@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
-  checksum: d121a888ab2f322ab5b37b75e355a064a975cdf68b107cde99dde7466663b76ba10e4ad0187b51404b94e2f2d852e9de04b2dfade16d055abcd6ddcf2dd530a4
+  checksum: 1c41b62d6b1c80d880c303dd619f8b5d0333cf3a43b76177097ae5c1dcf7ad162bac2747dd02f893f9d92d8f032e5b52b610333905589617b0811a508d3acdbf
   languageName: node
   linkType: hard
 
-"@jimp/plugin-invert@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugin-invert@npm:0.22.8"
+"@jimp/plugin-invert@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugin-invert@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
-  checksum: a37cc4ce9a3cc428877cca3e965d31b2515903c9c253eac3995b30a9eb59fe93ceaa29b6c5512fd0e655c9ca49e95b70c5130c4fd4715f2879c16b76915aadd8
+  checksum: bdea2fc9169d7cc593913e989e941a4bb3b59e7d21a0be20d80cb709e426ef1b9274e01d30449281cfa5e857fa3a281669281a3cf401ad152a3f4dd11d0f9130
   languageName: node
   linkType: hard
 
-"@jimp/plugin-mask@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugin-mask@npm:0.22.8"
+"@jimp/plugin-mask@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugin-mask@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
-  checksum: 1f10572694d142f5958fe34cf4442d9baa538b6c254e225367eb8f49c8941ccde9df068a7ebc4920fc1e51dca30dd718143a3774096c37b636be74a405145c32
+  checksum: 06175fa86bd318345ece2ae8ff2b608481124357f606a21d6f180abca09d7ab778d739b361d33e8a613977e6dfbabfcb48e3b7bb21484674e4dfac6732535974
   languageName: node
   linkType: hard
 
-"@jimp/plugin-normalize@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugin-normalize@npm:0.22.8"
+"@jimp/plugin-normalize@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugin-normalize@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
-  checksum: 8cc679134d4dbbbee75f96cfb26515aa54223996fb30cbe6600d91085e232b5df9b051b48ec2cde01944e7febb9d7d11911293714803f4e43c9b1fb47d852cb3
+  checksum: c2a561f6b9297369166ade312c74b144d9455f1ac31c2050481f3edfcba69a3d75d84adfcb21231f80cdbb5d086ae8ff715312d56ebdc3f34842438dee179aad
   languageName: node
   linkType: hard
 
-"@jimp/plugin-print@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugin-print@npm:0.22.8"
+"@jimp/plugin-print@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugin-print@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
     load-bmfont: ^1.4.1
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
     "@jimp/plugin-blit": ">=0.3.5"
-  checksum: 1809bb0a92b5887bca50d67ecacd7b3c659abb2bf01c2f8de41b0482aec89ba589e0bcf812e50157a79a990ca68efb420de4bea46df6fd9128f07dbb588f3607
+  checksum: 9d4fea98e383b4d5ee60fc685e32db9c72bc547267e3253a858127e3c589556d791a100c93c518223f30efafd0fccb6a00a503d74111010001a84d03ea4995e4
   languageName: node
   linkType: hard
 
-"@jimp/plugin-resize@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugin-resize@npm:0.22.8"
+"@jimp/plugin-resize@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugin-resize@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
-  checksum: 6f3df258875698d6f2b05e297a4fe73060e38d59d68333ae09748bb07ed379abc3815d6bd41ab53cecfe85788c8522fbce19428c470b602d9362b0b9710ba0d2
+  checksum: 9ea033d6c1c227c5b917db98d640cadaf8b8dafa2c525348fc5cc2ff91933ba245134b03db6a895467f11767ea278821f9a782c1b26a4fbcaaef8f9fe1e510ac
   languageName: node
   linkType: hard
 
-"@jimp/plugin-rotate@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugin-rotate@npm:0.22.8"
+"@jimp/plugin-rotate@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugin-rotate@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
     "@jimp/plugin-blit": ">=0.3.5"
     "@jimp/plugin-crop": ">=0.3.5"
     "@jimp/plugin-resize": ">=0.3.5"
-  checksum: ca8bb1c559cae9606d2e0da3b012dd7d57d8e5e86eba68966d0eaf77ded42fd2074160a739a8ce7d82d835f8ba670e5090e624160f451acc1405de7148660552
+  checksum: 04416c93d616fa1c22e473666741c587589ed8896be14b176b807d2cccf8efe5ba58902811768eaeb22b6d47c446d5f488026abfb5c9b82fdb1b63523453ea48
   languageName: node
   linkType: hard
 
-"@jimp/plugin-scale@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugin-scale@npm:0.22.8"
+"@jimp/plugin-scale@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugin-scale@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
     "@jimp/plugin-resize": ">=0.3.5"
-  checksum: 46ec536cc4159783ea914ef0a8f66e7694e708bb5e088350c1f6765e3129aff4b1d47390c080e2fbe6422d980f4c1ff351aaee06f460ad6568607841216d9fae
+  checksum: 7c136e6916ee030489808388fcae1aede8af19e41182235e70d91fa9cff7037fed9fa5233279f5db5ca0e21bd66957c13a1d95a021ac310e664cfaa564e01e97
   languageName: node
   linkType: hard
 
-"@jimp/plugin-shadow@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugin-shadow@npm:0.22.8"
+"@jimp/plugin-shadow@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugin-shadow@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
     "@jimp/plugin-blur": ">=0.3.5"
     "@jimp/plugin-resize": ">=0.3.5"
-  checksum: 637f845103703d6aa461564ab588260145c0c294f4426dc57888bad0ca935e2c03e299f36fd119c9f6d48ee0d855a6c6c8bfbd541c807acd24ef95e56f1d6da9
+  checksum: ba41b42983deb60d6938ea6e30a0fa172bf9b282d6de7d6dc60adfbd0c75be48c1a7249e971b5a295654d254047b991eb2998d284a3f64a222b3ddff7251417f
   languageName: node
   linkType: hard
 
-"@jimp/plugin-threshold@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugin-threshold@npm:0.22.8"
+"@jimp/plugin-threshold@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugin-threshold@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
     "@jimp/plugin-color": ">=0.8.0"
     "@jimp/plugin-resize": ">=0.8.0"
-  checksum: 69af5007fa498e39301e2d137626250dad743e8093a1ab98bbeb11c878418530344320334bc6d102f1bcd2822d63b59bec788a414823b4688cd0593a6502c374
+  checksum: 4205b6a1cea9cfb554689d2209473e34bfa705e84fa15b12a460218b9ebe9fb05c8a7f9e1e62574e505944c56fe9087d0bea2e98f80f5af233256adc73f47929
   languageName: node
   linkType: hard
 
-"@jimp/plugins@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/plugins@npm:0.22.8"
+"@jimp/plugins@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/plugins@npm:0.22.12"
   dependencies:
-    "@jimp/plugin-blit": ^0.22.8
-    "@jimp/plugin-blur": ^0.22.8
-    "@jimp/plugin-circle": ^0.22.8
-    "@jimp/plugin-color": ^0.22.8
-    "@jimp/plugin-contain": ^0.22.8
-    "@jimp/plugin-cover": ^0.22.8
-    "@jimp/plugin-crop": ^0.22.8
-    "@jimp/plugin-displace": ^0.22.8
-    "@jimp/plugin-dither": ^0.22.8
-    "@jimp/plugin-fisheye": ^0.22.8
-    "@jimp/plugin-flip": ^0.22.8
-    "@jimp/plugin-gaussian": ^0.22.8
-    "@jimp/plugin-invert": ^0.22.8
-    "@jimp/plugin-mask": ^0.22.8
-    "@jimp/plugin-normalize": ^0.22.8
-    "@jimp/plugin-print": ^0.22.8
-    "@jimp/plugin-resize": ^0.22.8
-    "@jimp/plugin-rotate": ^0.22.8
-    "@jimp/plugin-scale": ^0.22.8
-    "@jimp/plugin-shadow": ^0.22.8
-    "@jimp/plugin-threshold": ^0.22.8
+    "@jimp/plugin-blit": ^0.22.12
+    "@jimp/plugin-blur": ^0.22.12
+    "@jimp/plugin-circle": ^0.22.12
+    "@jimp/plugin-color": ^0.22.12
+    "@jimp/plugin-contain": ^0.22.12
+    "@jimp/plugin-cover": ^0.22.12
+    "@jimp/plugin-crop": ^0.22.12
+    "@jimp/plugin-displace": ^0.22.12
+    "@jimp/plugin-dither": ^0.22.12
+    "@jimp/plugin-fisheye": ^0.22.12
+    "@jimp/plugin-flip": ^0.22.12
+    "@jimp/plugin-gaussian": ^0.22.12
+    "@jimp/plugin-invert": ^0.22.12
+    "@jimp/plugin-mask": ^0.22.12
+    "@jimp/plugin-normalize": ^0.22.12
+    "@jimp/plugin-print": ^0.22.12
+    "@jimp/plugin-resize": ^0.22.12
+    "@jimp/plugin-rotate": ^0.22.12
+    "@jimp/plugin-scale": ^0.22.12
+    "@jimp/plugin-shadow": ^0.22.12
+    "@jimp/plugin-threshold": ^0.22.12
     timm: ^1.6.1
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
-  checksum: db5364021a30a5c722799cc049508cf2948cf0af0164e231135b117c667b5f098d0009c12f62e2e2dd87d9eb6b7c5bf664a614e458f32b893c881fe7eac4ec11
+  checksum: 502c04be1afcda7ee2d08e748bfee21eba91daf8cc9197a2ec4b9733d78a753279863606f280b298a745d15281d76ade7f0a93a3af280bebfc58eb24d4951aac
   languageName: node
   linkType: hard
 
-"@jimp/png@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/png@npm:0.22.8"
+"@jimp/png@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/png@npm:0.22.12"
   dependencies:
-    "@jimp/utils": ^0.22.8
+    "@jimp/utils": ^0.22.12
     pngjs: ^6.0.0
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
-  checksum: 760203a9cd653ed68682584847d25126ab75211a4019573f0b9c94142eb4efaa8c69befe7f348fd491b20957c222f253518d3860e623cc11851cc600d228d0db
+  checksum: 7b98b11323ed75eefd7733c855cc71af319fe7bd9ad6dd754a18e461779242d8417adaef3d3ebc30ca2fc8d43b5de8d81ddcdef543e06eff7ced99e3ad0d0dec
   languageName: node
   linkType: hard
 
-"@jimp/tiff@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/tiff@npm:0.22.8"
+"@jimp/tiff@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/tiff@npm:0.22.12"
   dependencies:
     utif2: ^4.0.1
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
-  checksum: 460a72343d74c3866b801ded024acd91a07a33a4bbdc3b26cb217bd5879dc39439bbb90d592900bef9a159d34f679521ea714230e4100d7d8480d4c530fc8b2f
+  checksum: 1b9995364a91bab7a96ec3c5d5f0ac3de3ecc8950ca9abe2c1d66495bc776446348938117e288cdea1b43210aca5f38dd37cb8ea7e9d70e0a8178b7f81ac73ff
   languageName: node
   linkType: hard
 
-"@jimp/types@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/types@npm:0.22.8"
+"@jimp/types@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/types@npm:0.22.12"
   dependencies:
-    "@jimp/bmp": ^0.22.8
-    "@jimp/gif": ^0.22.8
-    "@jimp/jpeg": ^0.22.8
-    "@jimp/png": ^0.22.8
-    "@jimp/tiff": ^0.22.8
+    "@jimp/bmp": ^0.22.12
+    "@jimp/gif": ^0.22.12
+    "@jimp/jpeg": ^0.22.12
+    "@jimp/png": ^0.22.12
+    "@jimp/tiff": ^0.22.12
     timm: ^1.6.1
   peerDependencies:
     "@jimp/custom": ">=0.3.5"
-  checksum: 3c3fe15695bbf7147de5f537edce76f337cae12e05fe1e108e039c04607edd71ed40b84e8aed47293359a5d863be6bf740856bbf39e09c5be60d042d6467c2c8
+  checksum: c29542a6823395f29cdb66a88313f040250f5e9f94ebd0d2a16184abccffe6c9c033c696e147d2019f6db90fdf4231af8c82e91823e4e539d01b750a95eb2f22
   languageName: node
   linkType: hard
 
-"@jimp/utils@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "@jimp/utils@npm:0.22.8"
+"@jimp/utils@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "@jimp/utils@npm:0.22.12"
   dependencies:
     regenerator-runtime: ^0.13.3
-  checksum: 0fcec0210bcc02020334106cb34a11b7016cb523cac6de338ab12a1d09ba0f7acc16a03d24051c61501caa6180c80c297ad89fa3b4c5b4c281698dc11a8b0c19
+  checksum: f6548f9060466e95daae94878383d545d2a941939446740359c4826c2b665aff17f7dda5c271a62fe936a141c7334c4c32d1a5b8157988cb532c4ac0b5d3d8a5
   languageName: node
   linkType: hard
 
@@ -4165,7 +4164,7 @@ __metadata:
     electron-window-state: ^5.0.3
     express: ^4.18.2
     get-port: 5.1.1
-    jimp: ^0.22.8
+    jimp: ^0.22.12
     lastfmapi: ^0.1.1
     less: ^4.1.3
     mdns-js: "github:ciderapp/node-mdns-js"
@@ -6584,13 +6583,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gifwrap@npm:^0.9.2":
-  version: 0.9.4
-  resolution: "gifwrap@npm:0.9.4"
+"gifwrap@npm:^0.10.1":
+  version: 0.10.1
+  resolution: "gifwrap@npm:0.10.1"
   dependencies:
     image-q: ^4.0.0
     omggif: ^1.0.10
-  checksum: f06d74d72d5fd5cfef78935471da06334c23305328fcaa5b1740c6c93b7ce7f775c28e75e166ecb4d7bc9848f767d4d191c8e18a74187543076a44123002f918
+  checksum: eac8cb4b9657b284ebce935ab541c5a2acbb0bdd062ca6ae900169ff2d48d0dec0f903940eafa639a849c9d4f43c0317422b57a1b50dc3a86aab4e634c6b4258
   languageName: node
   linkType: hard
 
@@ -8018,15 +8017,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jimp@npm:^0.22.8":
-  version: 0.22.8
-  resolution: "jimp@npm:0.22.8"
+"jimp@npm:^0.22.12":
+  version: 0.22.12
+  resolution: "jimp@npm:0.22.12"
   dependencies:
-    "@jimp/custom": ^0.22.8
-    "@jimp/plugins": ^0.22.8
-    "@jimp/types": ^0.22.8
+    "@jimp/custom": ^0.22.12
+    "@jimp/plugins": ^0.22.12
+    "@jimp/types": ^0.22.12
     regenerator-runtime: ^0.13.3
-  checksum: aa220516216efece65d0258df0ef08da8fa52cb8d18477699513f2e41b94cd3e063ca908189c2cf8dcec9e7c66a27d8854fdb820835c6553afcadb381789f301
+  checksum: af988d19678c02f863b76fa772993b58ae7d7cddb865261d4a3e474c29b01b4a57bb9443c6188204f4d0aeb9ee6bbf4d463ea3e23f410c5317f754d7be0fc657
   languageName: node
   linkType: hard
 
@@ -9019,15 +9018,6 @@ __metadata:
   bin:
     mkdirp: bin/cmd.js
   checksum: a96865108c6c3b1b8e1d5e9f11843de1e077e57737602de1b82030815f311be11f96f09cce59bd5b903d0b29834733e5313f9301e3ed6d6f6fba2eae0df4298f
-  languageName: node
-  linkType: hard
-
-"mkdirp@npm:^2.1.3":
-  version: 2.1.6
-  resolution: "mkdirp@npm:2.1.6"
-  bin:
-    mkdirp: dist/cjs/src/bin.js
-  checksum: 8a1d09ffac585e55f41c54f445051f5bc33a7de99b952bb04c576cafdf1a67bb4bae8cb93736f7da6838771fbf75bc630430a3a59e1252047d2278690bd150ee
   languageName: node
   linkType: hard
 
