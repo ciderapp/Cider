@@ -31,7 +31,7 @@
   "dependencies": {
     "@achingbrain/ssdp": "^4.0.4",
     "@crowdin/ota-client": "^1.1.0",
-    "@sentry/electron": "^4.6.0",
+    "@sentry/electron": "^4.21.0",
     "@sentry/integrations": "^7.69.0",
     "adm-zip": "^0.5.10",
     "airtunes2": "github:ciderapp/node_airtunes2",
