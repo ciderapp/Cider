@@ -4159,7 +4159,7 @@ __metadata:
     electron-fetch: ^1.9.1
     electron-log: ^4.4.8
     electron-notarize: ^1.2.2
-    electron-store: ^8.1.0
+    electron-store: ^8.2.0
     electron-updater: ^5.3.0
     electron-webpack: ^2.8.2
     electron-window-state: ^5.0.3
@@ -5352,13 +5352,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"electron-store@npm:^8.1.0":
-  version: 8.1.0
-  resolution: "electron-store@npm:8.1.0"
+"electron-store@npm:^8.2.0":
+  version: 8.2.0
+  resolution: "electron-store@npm:8.2.0"
   dependencies:
     conf: ^10.2.0
     type-fest: ^2.17.0
-  checksum: 7036f6d91cdcf6e08b10e24df9b144b9a04fe6cb1d7a7cc009277c1f6ad206d96cfbc3ada8ead47206fc5dadec0d34ff1beb8345bb3696e200f071f66b0abd8e
+  checksum: ee2484ff9b7f7e34609dfb17d9049386451730e8607422f9efb7e7c96c966f6a2b6d59a7982d555fc23bebd9e9dac245690b74be9411ad1e6d5c5192f78b2eab
   languageName: node
   linkType: hard
 
