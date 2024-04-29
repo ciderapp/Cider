@@ -4152,7 +4152,7 @@ __metadata:
     castv2-client: ^1.2.0
     chokidar: ^3.5.3
     discord-auto-rpc: ^1.0.17
-    ejs: ^3.1.9
+    ejs: ^3.1.10
     electron: "github:castlabs/electron-releases"
     electron-builder: ^23.6.0
     electron-builder-notarize-pkg: ^1.2.0
@@ -5238,7 +5238,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ejs@npm:^3.1.7, ejs@npm:^3.1.9":
+"ejs@npm:^3.1.10":
+  version: 3.1.10
+  resolution: "ejs@npm:3.1.10"
+  dependencies:
+    jake: ^10.8.5
+  bin:
+    ejs: bin/cli.js
+  checksum: ce90637e9c7538663ae023b8a7a380b2ef7cc4096de70be85abf5a3b9641912dde65353211d05e24d56b1f242d71185c6d00e02cb8860701d571786d92c71f05
+  languageName: node
+  linkType: hard
+
+"ejs@npm:^3.1.7":
   version: 3.1.9
   resolution: "ejs@npm:3.1.9"
   dependencies:
