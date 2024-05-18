@@ -1,4 +1,5 @@
 src/renderer/*hls*.js
+build/*
 dist/*
 src/renderer/lib/*
 *.min.*

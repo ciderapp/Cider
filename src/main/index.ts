@@ -11,8 +11,12 @@ import { init as Sentry } from "@sentry/electron";
 import { RewriteFrames } from "@sentry/integrations";
 import { utils } from "./base/utils.js";
 
+const appName = 'sh.cider.classic';
+
 if (!app.isPackaged) {
-  app.setPath("userData", join(app.getPath("appData"), "Cider"));
+  app.setPath('userData', join(app.getPath('appData'), `${appName}.dev`));
+} else {
+  app.setPath('userData', join(app.getPath('appData'), appName));
 }
 
 // Analytics for debugging fun yeah.

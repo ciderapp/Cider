@@ -5,7 +5,8 @@
   "version": "1.6.2",
   "description": "A new cross-platform Apple Music experience based on Electron and Vue.js written from scratch with performance in mind.",
   "license": "AGPL-3.0",
-  "exports": "./dist/index.js",
+  "exports": "./build/index.js",
+  "main": "./build/index.js",
   "author": "Cider Collective <cryptofyre@cider.sh> (https://cider.sh)",
   "repository": "github:ciderapp/Cider",
   "type": "module",
@@ -17,7 +18,7 @@
   "scripts": {
     "bootstrap": "npx -y check-engine && yarn",
     "build": "tsc && lessc ./src/renderer/style.less ./src/renderer/style.css",
-    "start": "npm run build && electron ./dist/index.js",
+    "start": "npm run build && electron ./build/index.js",
     "dist": "npm run build && electron-builder --publish=never",
     "dist:win": "npm run build && electron-builder --win --publish=never",
     "dist:linux": "npm run build && electron-builder --linux --publish=never",
@@ -120,8 +121,8 @@
       "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
     },
     "appId": "cider",
-    "afterPack": "./resources/afterPack.js",
-    "afterSign": "./resources/notarize.js",
+    "afterPack": "./resources/afterPack.cjs",
+    "afterSign": "./resources/notarize.cjs",
     "protocols": [
       {
         "name": "Cider",
@@ -137,7 +138,7 @@
     ],
     "extends": null,
     "files": [
-      "./dist/**/*",
+      "./build/**/*",
       "./src/**/*",
       "./resources/icons/**/*"
     ],

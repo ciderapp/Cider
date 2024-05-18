@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
+    "outDir": "build",
     "inlineSources": true,
     "allowJs": true,
     "esModuleInterop": true,
