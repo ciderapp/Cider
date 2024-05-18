@@ -1,22 +1,30 @@
 {
   "compilerOptions": {
-    "experimentalDecorators": true,
-    "target": "es6",
-    "module": "commonjs",
-    "allowJs": true,
-    "noImplicitAny": true,
-    "strict": true,
+    "outDir": "build",
     "inlineSources": true,
-    "sourceMap": true,
-    "outDir": "./build",
-    "baseUrl": ".",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    // Needed to address https://github.com/quasarframework/app-extension-typescript/issues/36
+    "noEmit": false,
     "resolveJsonModule": true,
-    "paths": {
-      "*": ["node_modules/*"]
-    },
-    "skipLibCheck": true,
+    // Avoid cross-os errors due to inconsistent file casing
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "esnext",
+    "isolatedModules": true,
+    "useDefineForClassFields": true,
+    // Fix Volar issue https://github.com/johnsoncodehk/volar/issues/1153
+    "jsx": "preserve",
+    "lib": ["esnext", "dom"],
+    "experimentalDecorators": true,
+    "baseUrl": "./",
     "allowSyntheticDefaultImports": true,
-    "typeRoots": ["node_modules/musickit-typescript", "node_modules/@types"]
+    "noImplicitThis": true,
+    "skipLibCheck": true /* Skip type checking of declaration files. */,
+    "typeRoots": ["node_modules/musickit-typescript", "node_modules/@types"],
   },
-  "include": ["src/main/**/*"]
+  "include": ["src/**/*.ts"],
 }

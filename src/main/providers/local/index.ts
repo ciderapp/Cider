@@ -1,11 +1,10 @@
 // import { ProviderDB } from "./db";
-import * as path from "path";
-const { readdir } = require("fs").promises;
-import { utils } from "../../base/utils";
-import * as mm from "music-metadata";
-import { Md5 } from "ts-md5";
-import e from "express";
 import { EventEmitter } from "events";
+import mm from "music-metadata";
+import { resolve } from "node:path";
+import { Md5 } from "ts-md5";
+import { utils } from "../../base/utils.js";
+import { readdirSync } from "node:fs";
 
 export class LocalFiles {
   static localSongs: any = [];
@@ -127,11 +126,12 @@ export class LocalFiles {
     this.localSongsArts = metadatalistart;
     return metadatalist;
   }
-  static async getFiles(dir: any) {
-    const dirents = await readdir(dir, { withFileTypes: true });
+
+  static async getFiles(dir: string): Promise<string[]> {
+    const dirents = readdirSync(dir, { withFileTypes: true });
     const files = await Promise.all(
       dirents.map((dirent: any) => {
-        const res = path.resolve(dir, dirent.name);
+        const res = resolve(dir, dirent.name);
         return dirent.isDirectory() ? this.getFiles(res) : res;
       }),
     );

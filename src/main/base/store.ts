@@ -1,11 +1,11 @@
-import * as ElectronStore from "electron-store";
+import ElectronStore from "electron-store";
 import { app, ipcMain } from "electron";
-import fetch from "electron-fetch";
+import fetch from "node-fetch";
 
 export class Store {
-  static cfg: ElectronStore;
+  static cfg: ElectronStore<any>;
 
-  private defaults: any = {
+  private defaults = {
     main: {
       PLATFORM: process.platform,
       UPDATABLE: app.isPackaged && (!process.mas || !process.windowsStore || !process.env.FLATPAK_ID),
@@ -236,18 +236,13 @@ export class Store {
       },
     },
   };
-  private migrations: any = {};
-  private schema: ElectronStore.Schema<any> = {
-    "connectivity.discord_rpc": {
-      type: "object",
-    },
-  };
+  private migrations = {};
+
 
   constructor() {
     Store.cfg = new ElectronStore({
       name: "cider-config",
       defaults: this.defaults,
-      schema: this.schema,
       migrations: this.migrations,
       clearInvalidConfig: false, //disabled for now
     });

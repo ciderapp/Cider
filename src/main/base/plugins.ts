@@ -1,7 +1,8 @@
-import * as fs from "fs";
-import * as path from "path";
-import * as electron from "electron";
-import { utils } from "./utils";
+import {app} from "electron";
+import { existsSync, lstatSync, readdirSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { utils } from "./utils.js";
 
 //
 // Hello, this is our loader for the various plugins that the Cider Development Team built for our
@@ -17,8 +18,8 @@ import { utils } from "./utils";
  */
 export class Plugins {
   private static PluginMap: any = {};
-  private basePluginsPath = path.join(__dirname, "../plugins");
-  private userPluginsPath = path.join(electron.app.getPath("userData"), "Plugins");
+  private basePluginsPath = join(dirname(fileURLToPath(import.meta.url)), "../plugins");
+  private userPluginsPath = join(app.getPath("userData"), "Plugins");
   private readonly pluginsList: any = {};
 
   constructor() {
@@ -36,10 +37,10 @@ export class Plugins {
   public getPlugins(): any {
     let plugins: any = {};
 
-    if (fs.existsSync(this.basePluginsPath)) {
-      fs.readdirSync(this.basePluginsPath).forEach((file) => {
+    if (existsSync(this.basePluginsPath)) {
+      readdirSync(this.basePluginsPath).forEach(async (file) => {
         if (file.endsWith(".ts") || file.endsWith(".js")) {
-          const plugin = require(path.join(this.basePluginsPath, file)).default;
+          const plugin = (await import(join(this.basePluginsPath, file))).default;
           if (plugins[file] || plugin.name in plugins) {
             console.log(`[${plugin.name}] Plugin already loaded / Duplicate Class Name`);
           } else {
@@ -49,12 +50,12 @@ export class Plugins {
       });
     }
 
-    if (fs.existsSync(this.userPluginsPath)) {
-      fs.readdirSync(this.userPluginsPath).forEach((file) => {
+    if (existsSync(this.userPluginsPath)) {
+      readdirSync(this.userPluginsPath).forEach(async (file) => {
         // Plugins V1
         if (file.endsWith(".ts") || file.endsWith(".js")) {
-          if (!electron.app.isPackaged) {
-            const plugin = require(path.join(this.userPluginsPath, file)).default;
+          if (!app.isPackaged) {
+            const plugin = (await import(join(this.userPluginsPath, file))).default;
             file = file.replace(".ts", "").replace(".js", "");
             if (plugins[file] || plugin in plugins) {
               console.log(`[${plugin.name}] Plugin already loaded / Duplicate Class Name`);
@@ -62,7 +63,7 @@ export class Plugins {
               plugins[file] = new plugin(utils);
             }
           } else {
-            const plugin = require(path.join(this.userPluginsPath, file));
+            const plugin = await import(join(this.userPluginsPath, file));
             file = file.replace(".ts", "").replace(".js", "");
             if (plugins[file] || plugin in plugins) {
               console.log(`[${plugin.name}] Plugin already loaded / Duplicate Class Name`);
@@ -72,17 +73,17 @@ export class Plugins {
           }
         }
         // Plugins V2
-        else if (fs.lstatSync(path.join(this.userPluginsPath, file)).isDirectory()) {
-          const pluginPath = path.join(this.userPluginsPath, file);
-          if (fs.existsSync(path.join(pluginPath, "package.json"))) {
-            const pluginPackage = require(path.join(pluginPath, "package.json"));
-            const plugin = require(path.join(pluginPath, pluginPackage.main));
+        else if (lstatSync(join(this.userPluginsPath, file)).isDirectory()) {
+          const pluginPath = join(this.userPluginsPath, file);
+          if (existsSync(join(pluginPath, "package.json"))) {
+            const pluginPackage = await import(join(pluginPath, "package.json"));
+            const plugin = await import(join(pluginPath, pluginPackage.main));
             if (plugins[plugin.name] || plugin.name in plugins) {
               console.log(`[${plugin.name}] Plugin already loaded / Duplicate Class Name`);
             } else {
               Plugins.PluginMap[pluginPackage.name] = file;
               const pluginEnv = {
-                app: electron.app,
+                app: app,
                 store: utils.getStore(),
                 utils: utils,
                 win: utils.getWindow(),

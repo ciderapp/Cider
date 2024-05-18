@@ -1,4 +1,4 @@
-import * as WebSocket from "ws";
+import WebSocket from "ws";
 
 /**
  * 0-pad a number.

@@ -1,8 +1,10 @@
-import * as electron from "electron";
-import * as os from "os";
-import { resolve } from "path";
-import * as CiderReceiver from "../base/castreceiver";
-const MediaRendererClient = require("upnp-mediarenderer-client");
+import electron from "electron";
+import os from "os";
+import {CiderReceiver} from "../base/castreceiver.js";
+import MediaRendererClient from "upnp-mediarenderer-client";
+import request from "request";
+import castv2 from "castv2-client";
+import mdnsjs from "mdns-js";
 
 export default class ChromecastPlugin {
   /**
@@ -13,8 +15,8 @@ export default class ChromecastPlugin {
   private _lastfm: any;
   private _store: any;
   private _timer: any;
-  private audioClient = require("castv2-client").Client;
-  private mdns = require("mdns-js");
+  private audioClient = castv2.Client;
+  private mdns = mdnsjs;
 
   private devices: any = [];
   private castDevices: any = [];
@@ -35,7 +37,7 @@ export default class ChromecastPlugin {
   // private bufcount2 = 0;
   // private headerSent = false;
 
-  private searchForGCDevices() {
+  private async searchForGCDevices() {
     try {
       let browser = this.mdns.createBrowser(this.mdns.tcp("googlecast"));
       browser.on("ready", browser.discover);
@@ -47,7 +49,7 @@ export default class ChromecastPlugin {
           this.ondeviceup(service.addresses[0], name + " (" + (service.type[0]?.description ?? "") + ")", "", "googlecast");
         }
       });
-      const Client = require("node-ssdp").Client;
+      const Client = (await import("node-ssdp")).Client;
       // also do a SSDP/UPnP search
       let ssdpBrowser = new Client();
       ssdpBrowser.on("response", (headers: any, statusCode: any, rinfo: any) => {
@@ -84,7 +86,6 @@ export default class ChromecastPlugin {
   }
 
   private getServiceDescription(url: any, address: any) {
-    const request = require("request");
     request.get(url, (error: any, response: any, body: any) => {
       if (!error && response.statusCode === 200) {
         this.parseServiceDescription(body, address, url);
@@ -113,8 +114,8 @@ export default class ChromecastPlugin {
     }
   }
 
-  private parseServiceDescription(body: any, address: any, url: any) {
-    const parseString = require("xml2js").parseString;
+  private async parseServiceDescription(body: any, address: any, url: any) {
+    const parseString = (await import("xml2js")).parseString;
     parseString(body, (err: any, result: any) => {
       if (!err && result && result.root && result.root.device) {
         const device = result.root.device[0];

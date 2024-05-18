@@ -1,4 +1,4 @@
-import fetch from "electron-fetch";
+import fetch from "node-fetch";
 import { app, nativeImage, Notification } from "electron";
 import NativeImage = Electron.NativeImage;
 import { createWriteStream } from "fs";
@@ -17,7 +17,7 @@ export default class playbackNotifications {
   private _utils: any;
   private _notification: Notification | undefined;
   private _artworkImage: { [key: string]: NativeImage } = {};
-  private _artworkNums: Array<string> = [];
+  private _artworkNums: string[] = [];
 
   /**
    * Creates playback notification

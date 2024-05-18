@@ -5,8 +5,8 @@
     "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
   },
   "appId": "cider",
-  "afterPack": "./resources/afterPack.js",
-  "afterSign": "./resources/notarize.js",
+  "afterPack": "./resources/afterPack.cjs",
+  "afterSign": "./resources/notarize.cjs",
   "protocols": [
     {
       "name": "Cider",
