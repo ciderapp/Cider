@@ -73,6 +73,10 @@ export default class mpris {
     player.on("volume", (volume: string) => {
       renderer.executeJavaScript(`app.mk.volume = ${parseFloat(volume)}`);
     });
+    player.on("raise", () => {
+      mpris.utils.getWindow().show();
+      mpris.utils.getWindow().focus();
+    });
 
     mpris.utils.getIPCMain().on("mpris:playbackTimeDidChange", (event: any, time: number) => {
       player.getPosition = () => time;
