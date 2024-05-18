@@ -1,3 +1,6 @@
+// @ts-ignore
+import LastfmAPI from "lastfmapi";
+
 export default class lastfm {
   /**
    * Base Plugin Information
@@ -73,7 +76,6 @@ export default class lastfm {
    */
   private initializeLastFM(token: string, api: { key: string; secret: string }): void {
     console.debug(`[${lastfm.name}:initialize] Initializing LastFM`);
-    const LastfmAPI = require("lastfmapi");
     this._lfm = new LastfmAPI({
       api_key: api.key,
       secret: api.secret,

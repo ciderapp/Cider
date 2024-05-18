@@ -1,5 +1,5 @@
 import { nativeImage, nativeTheme } from "electron";
-import { utils } from "../base/utils";
+import { utils } from "../base/utils.js";
 import { join } from "path";
 
 export default class Thumbar {

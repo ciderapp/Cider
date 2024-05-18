@@ -1,5 +1,5 @@
 import { app, Menu, shell } from "electron";
-import { utils } from "../base/utils";
+import { utils } from "../base/utils.js";
 
 export default class Thumbar {
   /**

@@ -1,9 +1,10 @@
-import { app, Menu, nativeImage, Tray, ipcMain, clipboard, shell } from "electron";
-import { readFileSync } from "fs";
-import * as path from "path";
-import * as log from "electron-log";
-import * as os from "os";
-import { utils } from "./utils";
+import { Menu, Tray, app, clipboard, ipcMain, nativeImage, shell } from "electron";
+import log from "electron-log";
+import { readFileSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import os from "os";
+import { utils } from "../base/utils.js";
 
 /**
  * @file Creates App instance
@@ -45,7 +46,7 @@ export class AppEvents {
 
     // Log File Location
     if (app.commandLine.hasSwitch("log") || app.commandLine.hasSwitch("l")) {
-      console.log(path.join(app.getPath("userData"), "logs"));
+      console.log(join(app.getPath("userData"), "logs"));
       app.exit();
     }
 
@@ -107,7 +108,7 @@ export class AppEvents {
     if (process.defaultApp) {
       if (process.argv.length >= 2) {
         this.protocols.forEach((protocol: string) => {
-          app.setAsDefaultProtocolClient(protocol, process.execPath, [path.resolve(process.argv[1])]);
+          app.setAsDefaultProtocolClient(protocol, process.execPath, [resolve(process.argv[1])]);
         });
       }
     } else {
@@ -263,15 +264,15 @@ export class AppEvents {
    */
   private InitTray() {
     const icons = {
-      win32: nativeImage.createFromPath(path.join(__dirname, `../../resources/icons/icon.ico`)).resize({
+      win32: nativeImage.createFromPath(join(dirname(fileURLToPath(import.meta.url)), `../../resources/icons/icon.ico`)).resize({
         width: 32,
         height: 32,
       }),
-      linux: nativeImage.createFromPath(path.join(__dirname, `../../resources/icons/icon.png`)).resize({
+      linux: nativeImage.createFromPath(join(dirname(fileURLToPath(import.meta.url)), `../../resources/icons/icon.png`)).resize({
         width: 32,
         height: 32,
       }),
-      darwin: nativeImage.createFromPath(path.join(__dirname, `../../resources/icons/icon.png`)).resize({
+      darwin: nativeImage.createFromPath(join(dirname(fileURLToPath(import.meta.url)), `../../resources/icons/icon.png`)).resize({
         width: 20,
         height: 20,
       }),
@@ -314,7 +315,7 @@ export class AppEvents {
   private setTray(visible: boolean = utils.getWindow().isVisible()) {
     this.i18n = utils.getLocale(utils.getStoreValue("general.language"));
 
-    const ciderIcon = nativeImage.createFromPath(path.join(__dirname, `../../resources/icons/icon.png`)).resize({
+    const ciderIcon = nativeImage.createFromPath(join(dirname(fileURLToPath(import.meta.url)), `../../resources/icons/icon.png`)).resize({
       width: 24,
       height: 24,
     });

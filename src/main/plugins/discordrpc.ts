@@ -1,6 +1,6 @@
 import { AutoClient } from "discord-auto-rpc";
 import { ipcMain } from "electron";
-import fetch from "electron-fetch";
+import fetch from "node-fetch";
 
 export default class DiscordRPC {
   /**
@@ -67,8 +67,8 @@ export default class DiscordRPC {
           url: artworkUrl,
         },
       })
-        .then((res) => res.json())
-        .then(function (json) {
+        .then(async (res) => {
+          const json = await res.json() as { imageUrl: string };
           self._activityCache.largeImageKey = "https://images.weserv.nl/?url=" + json.imageUrl + "&w=1024&h=1024&output=jpg";
           self._client.setActivity(self._activityCache);
         });

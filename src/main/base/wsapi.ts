@@ -1,7 +1,5 @@
-import * as ws from "ws";
-import * as electron from "electron";
-
-const WebSocketServer = ws.Server;
+import WebSocket, { WebSocketServer } from 'ws';
+import electron from "electron";
 
 interface standardResponse {
   status?: Number;

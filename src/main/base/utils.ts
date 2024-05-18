@@ -1,14 +1,14 @@
-import * as fs from "fs";
-import * as path from "path";
-import { Store } from "./store";
-import { BrowserWindow as bw } from "./browserwindow";
-import { app, BrowserWindow, ipcMain } from "electron";
-import OtaClient from "@crowdin/ota-client";
-import fetch from "electron-fetch";
+import { BrowserWindow, app, ipcMain } from "electron";
 import ElectronStore from "electron-store";
+import fetch from "node-fetch";
+import { readFileSync } from "node:fs";
+import { join, resolve,dirname } from "node:path";
+import { BrowserWindow as bw } from "./browserwindow.js";
+import { Store } from "./store.js";
+import { fileURLToPath } from "node:url";
 
 export class utils {
-  static crowdinClient: OtaClient = new OtaClient("fda9a6528649ea90dee35390wog");
+  static hash = "fda9a6528649ea90dee35390wog"
   static i18n: any = {};
 
   /**
@@ -38,14 +38,14 @@ export class utils {
    * Paths for the application to use
    */
   static paths: any = {
-    srcPath: path.join(__dirname, "../../src"),
-    rendererPath: path.join(__dirname, "../../src/renderer"),
-    mainPath: path.join(__dirname, "../../src/main"),
-    resourcePath: path.join(__dirname, "../../resources"),
-    ciderCache: path.resolve(app.getPath("userData"), "CiderCache"),
-    themes: path.resolve(app.getPath("userData"), "Themes"),
-    plugins: path.resolve(app.getPath("userData"), "Plugins"),
-    externals: path.resolve(app.getPath("userData"), "externals"),
+    srcPath: join(dirname(fileURLToPath(import.meta.url)), "../../src"),
+    rendererPath: join(dirname(fileURLToPath(import.meta.url)), "../../src/renderer"),
+    mainPath: join(dirname(fileURLToPath(import.meta.url)), "../../src/main"),
+    resourcePath: join(dirname(fileURLToPath(import.meta.url)), "../../resources"),
+    ciderCache: resolve(app.getPath("userData"), "CiderCache"),
+    themes: resolve(app.getPath("userData"), "Themes"),
+    plugins: resolve(app.getPath("userData"), "Plugins"),
+    externals: resolve(app.getPath("userData"), "externals"),
   };
 
   /**
@@ -83,10 +83,8 @@ export class utils {
   /**
    * MitM the electron fetch for a function that proxies github.
    * Written in TS so Maikiwi doesn't fuck up
-   * @param url {string} URL param
-   * @param opts {object} Other options
    */
-  static async fetch(url: string, opts = {}) {
+  static async fetch(url: string, opts: object = {}) {
     Object.assign(opts, {
       headers: {
         "User-Agent": utils.getWindow().webContents.getUserAgent(),
@@ -106,7 +104,10 @@ export class utils {
   }
 
   static async initializeTranslations() {
-    this.i18n = await this.crowdinClient.getTranslations();
+    const otaClient = (await import('@crowdin/ota-client')).default.default;
+    const crowdin = new otaClient(this.hash)
+
+    this.i18n = await crowdin.getTranslations();
   }
 
   /**
@@ -186,6 +187,6 @@ export class utils {
   static loadPluginFrontend(path: string): void {}
 
   static loadJSFrontend(path: string): void {
-    bw.win.webContents.executeJavaScript(fs.readFileSync(path, "utf8"));
+    bw.win.webContents.executeJavaScript(readFileSync(path, "utf8"));
   }
 }

@@ -1,14 +1,15 @@
-require("v8-compile-cache");
+// @ts-ignore
+await import("v8-compile-cache");
 
 import { app, components, ipcMain } from "electron";
 import { join } from "path";
-import { Store } from "./base/store";
-import { AppEvents } from "./base/app";
-import { Plugins } from "./base/plugins";
-import { BrowserWindow } from "./base/browserwindow";
+import { Store } from "./base/store.js";
+import { AppEvents } from "./base/app.js";
+import { Plugins } from "./base/plugins.js";
+import { BrowserWindow } from "./base/browserwindow.js";
 import { init as Sentry } from "@sentry/electron";
 import { RewriteFrames } from "@sentry/integrations";
-import { utils } from "./base/utils";
+import { utils } from "./base/utils.js";
 
 if (!app.isPackaged) {
   app.setPath("userData", join(app.getPath("appData"), "Cider"));
@@ -38,7 +39,8 @@ app.on("ready", async () => {
   console.log("[Cider] Application is Ready. Creating Window.");
   if (!app.isPackaged) {
     console.info("[Cider] Running in development mode.");
-    require("vue-devtools").install();
+    // @ts-ignore
+    (await import("vue-devtools")).default.install();
   }
   console.log("aa");
   components.whenReady().then(async () => {
@@ -87,28 +89,4 @@ ipcMain.on("playbackTimeDidChange", (_event, attributes) => {
 app.on("before-quit", () => {
   CiderPlug.callPlugins("onBeforeQuit");
   console.warn(`${app.getName()} exited.`);
-});
-
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Widevine Event Handlers
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-// @ts-ignore
-app.on("widevine-ready", (version, lastVersion) => {
-  if (null !== lastVersion) {
-    console.log("[Cider][Widevine] Widevine " + version + ", upgraded from " + lastVersion + ", is ready to be used!");
-  } else {
-    console.log("[Cider][Widevine] Widevine " + version + " is ready to be used!");
-  }
-});
-
-// @ts-ignore
-app.on("widevine-update-pending", (currentVersion, pendingVersion) => {
-  console.log("[Cider][Widevine] Widevine " + currentVersion + " is ready to be upgraded to " + pendingVersion + "!");
-});
-
-// @ts-ignore
-app.on("widevine-error", (error) => {
-  console.log("[Cider][Widevine] Widevine installation encountered an error: " + error);
-  app.exit();
 });

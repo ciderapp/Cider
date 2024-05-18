@@ -14,7 +14,7 @@
     }
   ],
   "extends": null,
-  "files": ["./build/**/*", "./src/**/*", "./resources/icons/**/*"],
+  "files": ["./dist/**/*", "./src/**/*", "./resources/icons/**/*"],
   "nsis": {
     "oneClick": true,
     "perMachine": false,

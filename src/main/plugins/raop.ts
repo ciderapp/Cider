@@ -1,13 +1,8 @@
-import * as electron from "electron";
-import * as os from "os";
-import * as fs from "fs";
-import { join, resolve } from "path";
-import * as CiderReceiver from "../base/castreceiver";
-import fetch from "electron-fetch";
+import electron from "electron";
+import fetch from "node-fetch";
 import { Stream } from "stream";
-import { spawn } from "child_process";
 import { Worker } from "worker_threads";
-import { Blob } from "buffer";
+import mdnsjs from "mdns-js";
 
 export default class RAOP {
   /**
@@ -24,7 +19,7 @@ export default class RAOP {
 
   private airtunes: any;
   // private device: any;
-  private mdns = require("mdns-js");
+  private mdns = mdnsjs;
   private ok: any = 1;
   private devices: any = [];
   private castDevices: any = [];
@@ -163,8 +158,8 @@ export default class RAOP {
   /**
    * Runs on app ready
    */
-  onReady(win: any): void {
-    this.u = require("airtunes2");
+  async onReady(win: any): Promise<void> {
+    this.u = (await import("airtunes2")).default;
     this._win = win;
 
     electron.ipcMain.on("getKnownAirplayDevices", (event) => {

@@ -1,5 +1,4 @@
-// @ts-ignore
-import * as Player from "mpris-service";
+import Player from 'mpris-service';
 
 export default class mpris {
   /**
@@ -9,7 +8,7 @@ export default class mpris {
   /**
    * MPRIS Service
    */
-  private static player: Player.Player;
+  private static player: Player;
   /**
    * Base Plugin Details (Eventually implemented into a GUI in settings)
    */
@@ -47,7 +46,7 @@ export default class mpris {
    * Connects to MPRIS Service
    */
   private static connect() {
-    const player = Player({
+    const player = new Player({
       name: "cider",
       identity: "Cider",
       supportedInterfaces: ["player"],

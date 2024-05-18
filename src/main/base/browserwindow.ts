@@ -1,22 +1,21 @@
-import { join } from "path";
-import { app, BrowserWindow as bw, ipcMain, ShareMenu, shell, screen, dialog, nativeTheme, ipcRenderer } from "electron";
-import * as windowStateKeeper from "electron-window-state";
-import * as express from "express";
-import * as getPort from "get-port";
-import { search } from "youtube-search-without-api-key";
-import { existsSync, rmSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync, unlinkSync, rmdirSync, lstatSync } from "fs";
-import { Stream } from "stream";
-import { networkInterfaces } from "os";
-import * as mm from "music-metadata";
-import fetch from "electron-fetch";
-import { wsapi } from "./wsapi";
-import { utils } from "./utils";
-import { Plugins } from "./plugins";
+import AdmZip from "adm-zip";
 import { watch } from "chokidar";
-import * as os from "os";
-import wallpaper from "wallpaper";
-import * as AdmZip from "adm-zip";
-import { LocalFiles } from "../providers/local/";
+import { ShareMenu, app, BrowserWindow as bw, dialog, ipcMain, nativeTheme, screen, shell } from "electron";
+import windowStateKeeper from "electron-window-state";
+import express from "express";
+import { existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, rmSync, rmdirSync, statSync, unlinkSync, writeFileSync } from "fs";
+import getPort from "get-port";
+import { LocalFiles } from "../providers/local/index.js";
+import mm from "music-metadata";
+import fetch from "node-fetch";
+import os, { networkInterfaces } from "os";
+import { join } from "path";
+import { Stream } from "stream";
+import { getWallpaper } from "wallpaper";
+import { search } from "youtube-search-without-api-key";
+import { Plugins } from "./plugins.js";
+import { utils } from "./utils.js";
+import { wsapi } from "./wsapi.js";
 
 /**
  * @file Creates the BrowserWindow
@@ -792,8 +791,8 @@ export class BrowserWindow {
     });
 
     ipcMain.on("get-wallpaper", async (event, args) => {
-      const wpPath: string = await wallpaper.get();
-      const Jimp = require("jimp");
+      const wpPath: string = await getWallpaper();
+      const Jimp = (await import("jimp")).default;
       const img = await Jimp.read(wpPath);
       const blurAmount = args.blurAmount ?? 256;
       if (blurAmount) {
@@ -885,7 +884,7 @@ export class BrowserWindow {
         if (url.endsWith("/")) url = url.slice(0, -1);
         let response = await utils.fetch(`${url}/archive/refs/heads/main.zip`);
         let repo = url.split("/").slice(-2).join("/");
-        let apiRepo = await utils.fetch(`https://api.github.com/repos/${repo}`).then((res) => res.json());
+        let apiRepo = await utils.fetch(`https://api.github.com/repos/${repo}`).then((res) => res.json()) as { id: number};
         console.debug(`REPO ID: ${apiRepo.id}`);
         // extract the files from the first folder in the zip response
         let zip = new AdmZip(await response.buffer());
@@ -895,7 +894,7 @@ export class BrowserWindow {
         }
         console.log(join(utils.getPath("plugins"), "gh_" + apiRepo.id));
         zip.extractEntryTo(entry, join(utils.getPath("plugins"), "gh_" + apiRepo.id), false, true);
-        let commit = await utils.fetch(`https://api.github.com/repos/${repo}/commits`).then((res) => res.json());
+        let commit = await utils.fetch(`https://api.github.com/repos/${repo}/commits`).then((res) => res.json()) as { sha: string }[];
         console.debug(`COMMIT SHA: ${commit[0].sha}`);
         let theme = JSON.parse(readFileSync(join(utils.getPath("plugins"), "gh_" + apiRepo.id, "package.json"), "utf8"));
         theme.id = apiRepo.id;
@@ -928,7 +927,7 @@ export class BrowserWindow {
               "User-Agent": utils.getWindow().webContents.getUserAgent(),
             },
           })
-          .then((res) => res.json());
+          .then((res) => res.json()) as { id: number}
         console.error(apiRepo);
         console.debug(`REPO ID: ${apiRepo.id}`);
         // extract the files from the first folder in the zip response
@@ -942,7 +941,7 @@ export class BrowserWindow {
           let subFolder = entry.entryName.split("/").slice(1, -1).join("/");
           zip.extractEntryTo(entry, join(utils.getPath("themes"), "gh_" + apiRepo.id, "/", subFolder), false, true);
         });
-        let commit = await utils.fetch(`https://api.github.com/repos/${repo}/commits`).then((res) => res.json());
+        let commit = await utils.fetch(`https://api.github.com/repos/${repo}/commits`).then((res) => res.json()) as { sha: string }[];
         console.debug(`COMMIT SHA: ${commit[0].sha}`);
         let theme = JSON.parse(readFileSync(join(utils.getPath("themes"), "gh_" + apiRepo.id, "theme.json"), "utf8"));
         theme.id = apiRepo.id;
@@ -1355,6 +1354,7 @@ export class BrowserWindow {
     }
     // Get previews for normalization
     ipcMain.on("getPreviewURL", (_event, url) => {
+
       fetch(url)
         .then((res) => res.buffer())
         .then(async (buffer) => {
@@ -1664,7 +1664,7 @@ export class BrowserWindow {
    */
   private async broadcastRemote() {
     const myString = `http://${BrowserWindow.getIP()}:${this.remotePort}`;
-    const mdns = require("mdns-js");
+    const mdns = (await import("mdns-js")).default;
     const encoded = Buffer.from(myString).toString("base64");
     const x = mdns.tcp("cider-remote");
     const txt_record = {
