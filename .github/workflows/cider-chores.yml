@@ -7,11 +7,11 @@ on:
 
 jobs:
   compile-and-post:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+    container:
+      image: electronuserland/builder:wine
+
 
     steps:
       - name: Checkout 🛎
@@ -22,16 +22,22 @@ jobs:
         with:
           node-version-file: '.nvmrc'
 
-      - name: Build/release Electron app
-        uses: samuelmeuli/action-electron-builder@v1.6.0
-        with:
-          # GitHub token, automatically provided to the action
-          # (No need to define this secret in the repo settings)
-          github_token: ${{ secrets.github_token }}
+      - name: Install Dependencies 📦
+        run: yarn install
 
-          # If the commit is tagged with a version (e.g. "v1.0.0"),
-          # release the app after building
-          release: ${{ startsWith(github.ref, 'refs/tags/v') }}
+      - name: Build 🏗
+        run: yarn dist:all
+
+      - name: Upload Release 🚀
+        uses: softprops/action-gh-release@v2.0.5
+        with:
+          files: |
+            ./dist/*.exe
+            ./dist/*.deb
+            ./dist/*.AppImage
+            ./dist/*.rpm
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   prettier:
     runs-on: ubuntu-latest

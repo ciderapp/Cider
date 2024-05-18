@@ -22,6 +22,7 @@
     "dist": "npm run build && electron-builder --publish=never",
     "dist:win": "npm run build && electron-builder --win --publish=never",
     "dist:linux": "npm run build && electron-builder --linux --publish=never",
+    "dist:all": "npm run build && electron-builder -wl --publish=never",
     "dist:universalNotWorking": "npm run build && electron-builder --mac --universal --publish:never",
     "winget": "npm run build && electron-builder --win -c winget.json",
     "msft": "npm run build && electron-builder -c msft-package.json",
