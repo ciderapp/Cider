@@ -38,30 +38,3 @@ jobs:
             ./dist/*.rpm
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  prettier:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18]
-
-    permissions:
-      contents: write
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          # Make sure the actual branch is checked out when running on pull requests
-          ref: ${{ github.head_ref }}
-
-      - name: Prettify code
-        run: npm run format:write
-
-      - name: Commit Prettier Code
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "chore: Prettified Code\n [ci skip]"
-          commit_user_name: "cider-chore[bot]"
-          commit_user_email: "cider-chore[bot]@users.noreply.github.com"
