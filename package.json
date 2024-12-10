@@ -226,9 +226,5 @@
   "electronWebpack": {
     "devtool": "source-map"
   },
-  "engines": {
-    "node": ">= 18",
-    "npm": ">= 6.13.4",
-    "pnpm": "9.15.0"
-  }
+  "packageManager": "pnpm@9.15.0"
 }
