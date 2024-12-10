@@ -14,5 +14,4 @@ This repository contains the source code for **Cider v1.x**, a cross-platform Ap
 
 Cider v1 was developed using [Electron.js](https://electronjs.org), [Vue.js 2](https://vuejs.org), and [Webpack](https://webpack.js.org).  
 
-**Note:** While distributions may still be available through various third-party sources, first-party builds are no longer provided due to the high volume of support requests for v1.  
-
+**Note:** While distributions may still be available through various third-party sources, first-party builds are no longer provided due to the high volume of support requests for v1. You can compile it following the [insructions outlined in our legacy documentation](https://cider.sh/docs) from our website. Support will not be provided for compiling.
