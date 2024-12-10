@@ -884,7 +884,7 @@ export class BrowserWindow {
         if (url.endsWith("/")) url = url.slice(0, -1);
         let response = await utils.fetch(`${url}/archive/refs/heads/main.zip`);
         let repo = url.split("/").slice(-2).join("/");
-        let apiRepo = await utils.fetch(`https://api.github.com/repos/${repo}`).then((res) => res.json()) as { id: number};
+        let apiRepo = await utils.fetch(`https://api.github.com/repos/${repo}`).then((res) => res.json()) as { id: number };
         console.debug(`REPO ID: ${apiRepo.id}`);
         // extract the files from the first folder in the zip response
         let zip = new AdmZip(await response.buffer());
@@ -927,7 +927,7 @@ export class BrowserWindow {
               "User-Agent": utils.getWindow().webContents.getUserAgent(),
             },
           })
-          .then((res) => res.json()) as { id: number}
+          .then((res) => res.json()) as { id: number }
         console.error(apiRepo);
         console.debug(`REPO ID: ${apiRepo.id}`);
         // extract the files from the first folder in the zip response
@@ -1206,7 +1206,7 @@ export class BrowserWindow {
 
         var inputIndex = 0;
 
-        for (var index = 0; index < length; ) {
+        for (var index = 0; index < length;) {
           result[index++] = leftChannel[inputIndex];
           result[index++] = rightChannel[inputIndex];
           inputIndex++;
@@ -1300,7 +1300,10 @@ export class BrowserWindow {
       //let newaudio = [leftpcm, rightpcm];
       // console.log(newaudio.length);
 
-      let pcmData = Buffer.from(new Int8Array(interleave16(bitratechange(Int16Array.from(newaudio[0], (x) => convert(x))), bitratechange(Int16Array.from(newaudio[1], (x) => convert(x)))).buffer));
+      const pcmData = Buffer.from(new Uint8Array(interleave16(
+        bitratechange(Int16Array.from(newaudio[0], (x) => convert(x))),
+        bitratechange(Int16Array.from(newaudio[1], (x) => convert(x)))
+      ).buffer));
 
       if (!this.headerSent) {
         console.log("new header");

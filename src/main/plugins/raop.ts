@@ -326,7 +326,7 @@ export default class RAOP {
               //     if (err) throw err;
               //     console.log('It\'s saved!');
               // });
-              this.airtunes.circularBuffer.write(Buffer.from(Int8Array.from(result.outbuffer)));
+              this.airtunes.circularBuffer.write(Buffer.from(new Uint8Array(result.outbuffer)));
             });
 
             this.worker.on("error", (error: any) => {

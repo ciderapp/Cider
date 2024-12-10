@@ -1,8 +1,9 @@
 import electron from "electron";
 import os from "os";
-import {CiderReceiver} from "../base/castreceiver.js";
+import { CiderReceiver } from "../base/castreceiver.js";
 import MediaRendererClient from "upnp-mediarenderer-client";
 import request from "request";
+// @ts-expect-error
 import castv2 from "castv2-client";
 import mdnsjs from "mdns-js";
 
@@ -274,7 +275,7 @@ export default class ChromecastPlugin {
           this.connectedHosts[device.host] = client;
           this.activeConnections.push(client);
         }
-      } catch (e) {}
+      } catch (e) { }
     }
   }
 
@@ -328,7 +329,7 @@ export default class ChromecastPlugin {
       this.activeConnections.forEach((client: any) => {
         try {
           client.stop();
-        } catch (e) {}
+        } catch (e) { }
       });
       this.activeConnections = [];
       this.connectedHosts = {};
@@ -338,13 +339,13 @@ export default class ChromecastPlugin {
   /**
    * Runs on app stop
    */
-  onBeforeQuit(): void {}
+  onBeforeQuit(): void { }
 
   /**
    * Runs on song change
    * @param attributes Music Attributes
    */
-  onNowPlayingItemDidChange(attributes: any): void {}
+  onNowPlayingItemDidChange(attributes: any): void { }
 
   onRendererReady(): void {
     this._win.webContents.executeJavaScript(`ipcRenderer.sendSync('get-port')`).then((result: any) => {

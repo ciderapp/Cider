@@ -118,10 +118,11 @@ export class utils {
    */
   static getLocale(language: string, key?: string): string | object {
     let i18n: any = {};
+
     if (!this.i18n[language]) {
-      i18n = this.i18n["en"][0].content;
+      i18n = this.i18n["en-US"][0].content;
     } else {
-      i18n = this.i18n[language ?? "en"][0].content;
+      i18n = this.i18n[language ?? "en-US"][0].content;
     }
 
     if (key) {
