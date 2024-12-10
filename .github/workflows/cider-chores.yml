@@ -23,10 +23,10 @@ jobs:
           node-version-file: '.nvmrc'
 
       - name: Install Dependencies 📦
-        run: yarn install
+        run: pnpm install
 
       - name: Build 🏗
-        run: yarn dist:all
+        run: pnpm dist:all
 
       - name: Upload Release 🚀
         uses: softprops/action-gh-release@v2.0.5

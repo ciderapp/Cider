@@ -16,7 +16,7 @@
   "homepage": "https://cider.sh/",
   "buildResources": "resources",
   "scripts": {
-    "bootstrap": "npx -y check-engine && yarn",
+    "bootstrap": "npx -y check-engine && pnpm i",
     "build": "tsc && lessc ./src/renderer/style.less ./src/renderer/style.css",
     "start": "npm run build && electron ./build/index.js",
     "dist": "npm run build && electron-builder --publish=never",
