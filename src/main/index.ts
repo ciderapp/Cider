@@ -7,8 +7,6 @@ import { Store } from "./base/store.js";
 import { AppEvents } from "./base/app.js";
 import { Plugins } from "./base/plugins.js";
 import { BrowserWindow } from "./base/browserwindow.js";
-import { init as Sentry } from "@sentry/electron";
-import { RewriteFrames } from "@sentry/integrations";
 import { utils } from "./base/utils.js";
 
 const appName = 'sh.cider.classic';
@@ -18,16 +16,6 @@ if (!app.isPackaged) {
 } else {
   app.setPath('userData', join(app.getPath('appData'), appName));
 }
-
-// Analytics for debugging fun yeah.
-Sentry({
-  dsn: "https://68c422bfaaf44dea880b86aad5a820d2@o954055.ingest.sentry.io/6112214",
-  integrations: [
-    new RewriteFrames({
-      root: process.cwd(),
-    }),
-  ],
-});
 
 new Store();
 const Cider = new AppEvents();
@@ -46,7 +34,6 @@ app.on("ready", async () => {
     // @ts-ignore
     (await import("vue-devtools")).default.install();
   }
-  console.log("aa");
   components.whenReady().then(async () => {
     const bw = new BrowserWindow();
     console.log("[Cider] Creating Window.");
